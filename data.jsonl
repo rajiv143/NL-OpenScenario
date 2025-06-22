@@ -1,0 +1,439 @@
+[
+  {
+    "prompt": "An oncoming car runs a red light and crosses the intersection directly in front of the ego vehicle.",
+    "completion": {
+      "RoadNetwork": { "town": "Town03" },
+      "Entities": [
+        {
+          "name": "EgoVehicle",
+          "vehicle_type": "vehicle.tesla.model3",
+          "isEgo": true,
+          "controller": "carla_manual_control",
+          "position": {"x": 140.0, "y": 55.0, "z": 0.0, "yaw": 180.0},
+          "initialSpeed": 13.9
+        },
+        {
+          "name": "RedLightRunner",
+          "vehicle_type": "vehicle.audi.tt",
+          "isEgo": false,
+          "controller": "carla_auto_pilot",
+          "position": {"x": 92.5, "y": 91.0, "z": 0.2, "yaw": -90.0},
+          "initialSpeed": 0.0
+        }
+      ],
+      "Storyboard": {
+        "Init": {
+          "actions": [
+            {"entity": "EgoVehicle", "action": "Teleport", "position": {"x":140.0,"y":55.0,"z":0.0,"yaw":180.0}},
+            {"entity": "EgoVehicle", "action": "Speed",    "speed": 13.9},
+            {"entity": "RedLightRunner", "action": "Teleport", "position": {"x":92.5,"y":91.0,"z":0.2,"yaw":-90.0}}
+          ]
+        },
+        "Story": [
+          {
+            "name": "RedLightViolationStory",
+            "Acts": [
+              {
+                "name": "MainAct",
+                "startTrigger": {"type": "simulation_time", "condition": {"value": 0.1}},
+                "ManeuverGroups": [
+                  {
+                    "actors": ["RedLightRunner"],
+                    "maneuvers": [
+                      {
+                        "name": "RunRedLight",
+                        "events": [
+                          {
+                            "name": "StartEntry",
+                            "trigger": {"type": "simulation_time","condition":{"value":1.0}},
+                            "actions": [
+                              {"type":"SpeedAction","speed":10.0,"transition":"step"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger": {"type":"duration","condition":{"seconds":15.0}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger": {"type":"collision","condition":{"entity":"EgoVehicle"}}
+      }
+    }
+  },
+  {
+    "prompt": "A slow lead vehicle suddenly brakes, forcing the ego vehicle behind to react.",
+    "completion": {
+      "RoadNetwork": { "town": "Town05" },
+      "Entities": [
+        {
+          "name": "EgoVehicle",
+          "vehicle_type": "vehicle.lincoln.mkz2017",
+          "isEgo": true,
+          "controller": "carla_manual_control",
+          "position": {"x": 120.0, "y": 40.0, "z": 0.0, "yaw": 90.0},
+          "initialSpeed": 15.0
+        },
+        {
+          "name": "LeadVehicle",
+          "vehicle_type": "vehicle.tesla.model3",
+          "isEgo": false,
+          "controller": "carla_auto_pilot",
+          "position": {"x": 140.0, "y": 40.0, "z": 0.0, "yaw": 90.0},
+          "initialSpeed": 15.0
+        }
+      ],
+      "Storyboard": {
+        "Init": {
+          "actions": [
+            {"entity":"EgoVehicle","action":"Teleport","position":{"x":120.0,"y":40.0,"z":0.0,"yaw":90.0}},
+            {"entity":"EgoVehicle","action":"Speed","speed":15.0},
+            {"entity":"LeadVehicle","action":"Teleport","position":{"x":140.0,"y":40.0,"z":0.0,"yaw":90.0}},
+            {"entity":"LeadVehicle","action":"Speed","speed":15.0}
+          ]
+        },
+        "Story":[
+          {
+            "name":"BrakeCheckStory",
+            "Acts":[
+              {
+                "name":"BrakeAct",
+                "startTrigger":{"type":"entity_distance","condition":{"entity":"LeadVehicle","distance":20.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["LeadVehicle"],
+                    "maneuvers":[
+                      {
+                        "name":"SuddenBrake",
+                        "events":[
+                          {
+                            "name":"BrakeEvent",
+                            "trigger":{"type":"simulation_time","condition":{"value":0.0}},
+                            "actions":[
+                              {"type":"SpeedAction","speed":0.0,"transition":"step"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"duration","condition":{"seconds":10.0}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"EgoVehicle"}}
+      }
+    }
+  },
+  {
+    "prompt": "A pedestrian steps into the road 10 meters ahead of the ego vehicle.",
+    "completion": {
+      "RoadNetwork": { "town": "Town07" },
+      "Entities": [
+        {
+          "name":"EgoVehicle","vehicle_type":"vehicle.bh.crossbike","isEgo":true,
+          "controller":"carla_manual_control",
+          "position":{"x":100,"y":60,"z":0,"yaw":0},
+          "initialSpeed":10.0
+        },
+        {
+          "name":"Pedestrian","vehicle_type":"walker.pedestrian.0001","isEgo":false,
+          "controller":"carla_auto_pilot",
+          "position":{"x":110,"y":62,"z":0,"yaw":180},
+          "initialSpeed":0.0
+        }
+      ],
+      "Storyboard":{
+        "Init":{
+          "actions":[
+            {"entity":"EgoVehicle","action":"Teleport","position":{"x":100,"y":60,"z":0,"yaw":0}},
+            {"entity":"EgoVehicle","action":"Speed","speed":10.0},
+            {"entity":"Pedestrian","action":"Teleport","position":{"x":110,"y":62,"z":0,"yaw":180}}
+          ]
+        },
+        "Story":[
+          {
+            "name":"PedestrianCrossingStory",
+            "Acts":[
+              {
+                "name":"CrossAct",
+                "startTrigger":{"type":"entity_distance","condition":{"entity":"Pedestrian","distance":10.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["Pedestrian"],
+                    "maneuvers":[
+                      {
+                        "name":"StartWalking",
+                        "events":[
+                          {
+                            "name":"WalkEvent",
+                            "trigger":{"type":"simulation_time","condition":{"value":0.0}},
+                            "actions":[
+                              {"type":"SpeedAction","speed":1.5,"transition":"step"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"duration","condition":{"seconds":8.0}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"EgoVehicle"}}
+      }
+    }
+  },
+  {
+    "prompt": "A vehicle cuts in from the right lane into the ego’s lane without warning.",
+    "completion": {
+      "RoadNetwork": { "town": "Town02" },
+      "Entities": [
+        {
+          "name":"Ego","vehicle_type":"vehicle.lincoln.mkz2017","isEgo":true,
+          "controller":"carla_manual_control",
+          "position":{"x":50,"y":30,"z":0,"yaw":0},
+          "initialSpeed":12.0
+        },
+        {
+          "name":"CutInVehicle","vehicle_type":"vehicle.audi.tt","isEgo":false,
+          "controller":"carla_auto_pilot",
+          "position":{"x":35,"y":32,"z":0,"yaw":0},
+          "initialSpeed":12.0
+        }
+      ],
+      "Storyboard":{
+        "Init":{
+          "actions":[
+            {"entity":"Ego","action":"Teleport","position":{"x":50,"y":30,"z":0,"yaw":0}},
+            {"entity":"Ego","action":"Speed","speed":12.0},
+            {"entity":"CutInVehicle","action":"Teleport","position":{"x":35,"y":32,"z":0,"yaw":0}},
+            {"entity":"CutInVehicle","action":"Speed","speed":12.0}
+          ]
+        },
+        "Story":[
+          {
+            "name":"CutInStory",
+            "Acts":[
+              {
+                "name":"CutInAct",
+                "startTrigger":{"type":"entity_distance","condition":{"entity":"Ego","distance":15.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["CutInVehicle"],
+                    "maneuvers":[
+                      {
+                        "name":"CutInManeuver",
+                        "events":[
+                          {
+                            "name":"PerformCutIn",
+                            "trigger":{"type":"simulation_time","condition":{"value":0.0}},
+                            "actions":[
+                              {"type":"LaneChangeAction","direction":"left"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"collision","condition":{"entity":"Ego"}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"Ego"}}
+      }
+    }
+  },
+  {
+    "prompt": "An illegally parked car blocks half of the lane and forces ego to change lanes.",
+    "completion": {
+      "RoadNetwork": { "town": "Town04" },
+      "Entities":[
+        {
+          "name":"EgoVehicle","vehicle_type":"vehicle.bh.crossbike","isEgo":true,
+          "controller":"carla_manual_control",
+          "position":{"x":20,"y":10,"z":0,"yaw":0},
+          "initialSpeed":8.0
+        },
+        {
+          "name":"ParkedCar","vehicle_type":"vehicle.tesla.model3","isEgo":false,
+          "controller":"carla_auto_pilot",
+          "position":{"x":40,"y":10,"z":0,"yaw":0},
+          "initialSpeed":0.0
+        }
+      ],
+      "Storyboard":{
+        "Init":{
+          "actions":[
+            {"entity":"EgoVehicle","action":"Teleport","position":{"x":20,"y":10,"z":0,"yaw":0}},
+            {"entity":"EgoVehicle","action":"Speed","speed":8.0},
+            {"entity":"ParkedCar","action":"Teleport","position":{"x":40,"y":10,"z":0,"yaw":0}}
+          ]
+        },
+        "Story":[
+          {
+            "name":"ParkedObstacleStory",
+            "Acts":[
+              {
+                "name":"AvoidObstacleAct",
+                "startTrigger":{"type":"entity_distance","condition":{"entity":"ParkedCar","distance":15.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["EgoVehicle"],
+                    "maneuvers":[
+                      {
+                        "name":"LaneChangeAround",
+                        "events":[
+                          {
+                            "name":"DoLaneChange",
+                            "trigger":{"type":"simulation_time","condition":{"value":0.0}},
+                            "actions":[
+                              {"type":"LaneChangeAction","direction":"right"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"duration","condition":{"seconds":5.0}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"EgoVehicle"}}
+      }
+    }
+  },
+  {
+    "prompt": "An SUV reverses unexpectedly into the ego’s path from a driveway.",
+    "completion": {
+      "RoadNetwork": { "town": "Town06" },
+      "Entities":[
+        {
+          "name":"Ego","vehicle_type":"vehicle.lincoln.mkz2017","isEgo":true,
+          "controller":"carla_manual_control",
+          "position":{"x":80,"y":20,"z":0,"yaw":90},
+          "initialSpeed":10.0
+        },
+        {
+          "name":"ReversingSUV","vehicle_type":"vehicle.chevrolet.impala","isEgo":false,
+          "controller":"carla_auto_pilot",
+          "position":{"x":100,"y":20,"z":0,"yaw":270},
+          "initialSpeed":0.0
+        }
+      ],
+      "Storyboard":{
+        "Init":{
+          "actions":[
+            {"entity":"Ego","action":"Teleport","position":{"x":80,"y":20,"z":0,"yaw":90}},
+            {"entity":"Ego","action":"Speed","speed":10.0},
+            {"entity":"ReversingSUV","action":"Teleport","position":{"x":100,"y":20,"z":0,"yaw":270}}
+          ]
+        },
+        "Story":[
+          {
+            "name":"SUVReverseStory",
+            "Acts":[
+              {
+                "name":"ReverseAct",
+                "startTrigger":{"type":"simulation_time","condition":{"value":1.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["ReversingSUV"],
+                    "maneuvers":[
+                      {
+                        "name":"ReverseIntoPath",
+                        "events":[
+                          {
+                            "name":"BeginReverse",
+                            "trigger":{"type":"simulation_time","condition":{"value":1.0}},
+                            "actions":[
+                              {"type":"SpeedAction","speed":-2.0,"transition":"step"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"collision","condition":{"entity":"Ego"}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"Ego"}}
+      }
+    }
+  },
+  {
+    "prompt": "A bicyclist veers into the ego’s lane from the sidewalk and travels across path.",
+    "completion": {
+      "RoadNetwork": { "town": "Town08" },
+      "Entities":[
+        {
+          "name":"EgoVehicle","vehicle_type":"vehicle.tesla.model3","isEgo":true,
+          "controller":"carla_manual_control",
+          "position":{"x":60,"y":80,"z":0,"yaw":0},
+          "initialSpeed":12.0
+        },
+        {
+          "name":"Cyclist","vehicle_type":"vehicle.bh.crossbike","isEgo":false,
+          "controller":"carla_auto_pilot",
+          "position":{"x":70,"y":85,"z":0,"yaw":180},
+          "initialSpeed":0.0
+        }
+      ],
+      "Storyboard":{
+        "Init":{
+          "actions":[
+            {"entity":"EgoVehicle","action":"Teleport","position":{"x":60,"y":80,"z":0,"yaw":0}},
+            {"entity":"EgoVehicle","action":"Speed","speed":12.0},
+            {"entity":"Cyclist","action":"Teleport","position":{"x":70,"y":85,"z":0,"yaw":180}}
+          ]
+        },
+        "Story":[
+          {
+            "name":"CyclistCrossingStory",
+            "Acts":[
+              {
+                "name":"CyclistEntryAct",
+                "startTrigger":{"type":"entity_distance","condition":{"entity":"Cyclist","distance":15.0}},
+                "ManeuverGroups":[
+                  {
+                    "actors":["Cyclist"],
+                    "maneuvers":[
+                      {
+                        "name":"EnterRoad",
+                        "events":[
+                          {
+                            "name":"StartCyclist",
+                            "trigger":{"type":"simulation_time","condition":{"value":0.0}},
+                            "actions":[
+                              {"type":"SpeedAction","speed":5.0,"transition":"step"}
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "endTrigger":{"type":"duration","condition":{"seconds":8.0}}
+              }
+            ]
+          }
+        ],
+        "StopTrigger":{"type":"collision","condition":{"entity":"EgoVehicle"}}
+      }
+    }
+  }
+]
