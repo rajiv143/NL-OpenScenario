@@ -1,3 +1,4 @@
+import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 model_name = "meta-llama/Llama-2-7b-hf"  # or your chosen model path
