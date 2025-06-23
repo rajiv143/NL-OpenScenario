@@ -361,46 +361,55 @@ class JsonToXoscConverter:
                 'name': f'{actor_id}Maneuver'
             })
 
+            # iterate and chain events
             for i, action in enumerate(actions):
-                # Event + Action
-                if action['action_type'] not in ('speed','lane_change'):
-                    continue
+                ev_name = f"{actor_id}Event{i}"
+                ac_name = f"{actor_id}Action{i}"
+
                 ev = ET.SubElement(man, 'Event', {
-                    'name':     f'{actor_id}Event{i}',
+                    'name':     ev_name,
                     'priority': 'overwrite'
                 })
-                ac = ET.SubElement(ev, 'Action', {
-                    'name': f'{actor_id}Action{i}'
-                })
+                ac = ET.SubElement(ev, 'Action', {'name': ac_name})
                 pa = ET.SubElement(ac, 'PrivateAction')
 
                 # --- build the PrivateAction body ---
-                if action['action_type']=='speed':
+                atype = action['action_type']
+                if atype == 'wait':
                     la = ET.SubElement(pa, 'LongitudinalAction')
                     sa = ET.SubElement(la, 'SpeedAction')
-                    dyn = ET.SubElement(sa, 'SpeedActionDynamics', {
-                        'dynamicsDimension':'distance',
-                        'dynamicsShape':'step',
-                        'value':'0'
+                    ET.SubElement(sa, 'SpeedActionDynamics', {
+                        'dynamicsDimension': action.get('dynamics_dimension','time'),
+                        'dynamicsShape':     action.get('dynamics_shape','step'),
+                        'value':             str(action.get('wait_duration',0))
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
-                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {
-                        'value': str(action.get('speed_value',0))
-                    })
+                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value':'0'})
 
-                elif action['action_type']=='lane_change':
+                elif atype in ('speed','stop'):
+                    la = ET.SubElement(pa, 'LongitudinalAction')
+                    sa = ET.SubElement(la, 'SpeedAction')
+                    speed_val = 0 if atype=='stop' else action.get('speed_value',0)
+                    ET.SubElement(sa, 'SpeedActionDynamics', {
+                        'dynamicsDimension': action.get('dynamics_dimension','time'),
+                        'dynamicsShape':     action.get('dynamics_shape','step'),
+                        'value':             str(action.get('dynamics_value',0))
+                    })
+                    tgt = ET.SubElement(sa, 'SpeedActionTarget')
+                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value': str(speed_val)})
+
+                elif atype == 'lane_change':
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')
-                    dyn = ET.SubElement(lc, 'LaneChangeActionDynamics', {
+                    ET.SubElement(lc, 'LaneChangeActionDynamics', {
                         'dynamicsDimension':'distance',
-                        'dynamicsShape':'linear',
-                        'value':'1'
+                        'dynamicsShape':    'linear',
+                        'value':            str(action.get('dynamics_value',1))
                     })
                     tgt = ET.SubElement(lc, 'LaneChangeTarget')
-                    # always specify entityRef + integer value
                     ET.SubElement(tgt, 'RelativeTargetLane', {
                         'entityRef': 'hero' if actor_id=='ego' else actor_id,
-                        'value':    '-1' if action.get('lane_direction')=='left' else '1'
+                        'value':     '-1' if action.get('lane_direction')=='left' else '1'
                     })
 
                 # --- StartTrigger under this Event ---
@@ -412,31 +421,42 @@ class JsonToXoscConverter:
                     'conditionEdge':'rising'
                 })
 
-                # only time or distance triggers supported
-                if action['trigger_type']=='time':
+                ttype = action['trigger_type']
+                if ttype=='time':
                     bv = ET.SubElement(cond, 'ByValueCondition')
-                    stc = ET.SubElement(bv, 'SimulationTimeCondition', {
+                    ET.SubElement(bv, 'SimulationTimeCondition', {
                         'value': str(action.get('trigger_value',0)),
                         'rule':  'greaterThan'
                     })
-                else:  # distance_to_ego
+
+                elif ttype=='distance_to_ego':
                     be = ET.SubElement(cond, 'ByEntityCondition')
                     te = ET.SubElement(be, 'TriggeringEntities', {
                         'triggeringEntitiesRule':'any'
                     })
-                    ET.SubElement(te, 'EntityRef', {
-                        'entityRef':'hero'
-                    })
+                    ET.SubElement(te, 'EntityRef', {'entityRef':'hero'})
                     ec = ET.SubElement(be, 'EntityCondition')
-                    rd = ET.SubElement(ec, 'RelativeDistanceCondition', {
-                        'entityRef':             actor_id,
-                        'relativeDistanceType':  'longitudinal',
-                        'value':                 str(action.get('trigger_value',10)),
-                        'freespace':             'false',
-                        'rule':                  'lessThan'
+                    ET.SubElement(ec, 'RelativeDistanceCondition', {
+                        'entityRef':            actor_id,
+                        'relativeDistanceType': 'longitudinal',
+                        'value':                str(action.get('trigger_value',10)),
+                        'freespace':            'false',
+                        'rule':                 {'<':'lessThan','>':'greaterThan'}.get(
+                                                action.get('trigger_comparison','<'),
+                                                'lessThan')
                     })
 
-        # --- Act-level StartTrigger + StopTrigger ---
+                elif ttype=='after_previous':
+                    # chain on previous action completion
+                    prev_ref = f"{actor_id}Action{i-1}"
+                    bv = ET.SubElement(cond, 'ByValueCondition')
+                    ET.SubElement(bv, 'StoryboardElementStateCondition', {
+                        'storyboardElementType': 'action',
+                        'storyboardElementRef':  prev_ref,
+                        'state':                 'completeState'
+                    })
+
+        # --- Act-level StartTrigger ---
         ast = ET.SubElement(act, 'StartTrigger')
         acg = ET.SubElement(ast, 'ConditionGroup')
         aco = ET.SubElement(acg, 'Condition', {
@@ -447,38 +467,47 @@ class JsonToXoscConverter:
             'value':'0','rule':'greaterThan'
         })
 
+        # --- Act-level StopTrigger: only driven distance ---
         astp = ET.SubElement(act, 'StopTrigger')
-        scg = ET.SubElement(astp, 'ConditionGroup')
-        sco = ET.SubElement(scg, 'Condition', {
+        scg  = ET.SubElement(astp, 'ConditionGroup')
+        sco  = ET.SubElement(scg, 'Condition', {
             'name':'EndCondition','delay':'0','conditionEdge':'rising'
         })
-        be = ET.SubElement(sco, 'ByEntityCondition')
-        te = ET.SubElement(be, 'TriggeringEntities', {
-            'triggeringEntitiesRule':'any'
-        })
+        be   = ET.SubElement(sco, 'ByEntityCondition')
+        te   = ET.SubElement(be, 'TriggeringEntities', {'triggeringEntitiesRule':'any'})
         ET.SubElement(te, 'EntityRef', {'entityRef':'hero'})
-        ec = ET.SubElement(be, 'EntityCondition')
+        ec   = ET.SubElement(be, 'EntityCondition')
         ET.SubElement(ec, 'TraveledDistanceCondition', {
-            'value': str(data.get('success_distance',100))
+            'value': str(data.get('success_distance', 100))
         })
 
-        # --- Storyboard-level StopTrigger for collision criterion ---
+        # --- Storyboard-level StopTrigger: timeout + collision ---
         sbt = ET.SubElement(sb, 'StopTrigger')
-        scg = ET.SubElement(sbt, 'ConditionGroup')
-        cond = ET.SubElement(scg, 'Condition', {
-            'name':'criteria_CollisionTest','delay':'0','conditionEdge':'rising'
-        })
-        bec = ET.SubElement(cond, 'ByEntityCondition')
-        te2 = ET.SubElement(bec, 'TriggeringEntities', {
-            'triggeringEntitiesRule':'any'
-        })
-        ET.SubElement(te2, 'EntityRef', {'entityRef':'hero'})
-        ec2 = ET.SubElement(bec, 'EntityCondition')
-        cc = ET.SubElement(ec2, 'CollisionCondition')
-        ET.SubElement(cc, 'EntityRef', {'entityRef':'hero'})
+        scg2 = ET.SubElement(sbt, 'ConditionGroup')
+        # timeout
+        timeout = data.get('timeout')
+        if timeout is not None:
+            cond = ET.SubElement(scg2, 'Condition', {
+                'name':'Timeout','delay':'0','conditionEdge':'rising'
+            })
+            bv2 = ET.SubElement(cond, 'ByValueCondition')
+            ET.SubElement(bv2, 'SimulationTimeCondition', {
+                'value': str(timeout),
+                'rule':  'greaterThan'
+            })
+        # collision
+        if not data.get('collision_allowed', True):
+            cond = ET.SubElement(scg2, 'Condition', {
+                'name':'criteria_CollisionTest','delay':'0','conditionEdge':'rising'
+            })
+            bec = ET.SubElement(cond, 'ByEntityCondition')
+            te2 = ET.SubElement(bec, 'TriggeringEntities', {'triggeringEntitiesRule':'any'})
+            ET.SubElement(te2, 'EntityRef', {'entityRef':'hero'})
+            ec2 = ET.SubElement(bec, 'EntityCondition')
+            cc  = ET.SubElement(ec2, 'CollisionCondition')
+            ET.SubElement(cc, 'EntityRef', {'entityRef':'hero'})
 
         return sb
-
 
 
 
