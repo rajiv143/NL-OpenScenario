@@ -1,254 +1,578 @@
+#!/usr/bin/env python3
+"""
+JSON to OpenSCENARIO (XOSC) Converter for CARLA
+Converts flat, LLM-friendly JSON to valid OpenSCENARIO XML files
+"""
+
 import json
+import sys
+from datetime import datetime
+from typing import Dict, List, Any, Tuple, Optional
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
+import jsonschema
+import os
+import math
+import argparse
+import copy
 
-def generate_xosc_from_json(json_input, output_path):
-    # Load JSON data (json_input can be a dict or JSON string)
-    if isinstance(json_input, str):
-        scenario_data = json.loads(json_input)
-    else:
-        scenario_data = json_input
+# CARLA-specific model catalogs for validation
+CARLA_VEHICLES = {
+    # Generation 2 vehicles
+    'vehicle.dodge.charger_2020', 'vehicle.lincoln.mkz_2020', 'vehicle.mercedes.coupe_2020',
+    'vehicle.mini.cooper_s_2021', 'vehicle.nissan.patrol_2021', 'vehicle.carlamotors.european_hgv',
+    'vehicle.tesla.cybertruck', 'vehicle.dodge.charger_police_2020', 'vehicle.carlamotors.firetruck',
+    'vehicle.ford.ambulance', 'vehicle.mercedes.sprinter', 'vehicle.volkswagen.t2_2021',
+    'vehicle.mitsubishi.fusorosa',
+    # Generation 1 vehicles
+    'vehicle.audi.a2', 'vehicle.audi.etron', 'vehicle.audi.tt', 'vehicle.bmw.grandtourer',
+    'vehicle.chevrolet.impala', 'vehicle.citroen.c3', 'vehicle.dodge.charger_police',
+    'vehicle.ford.crown', 'vehicle.ford.mustang', 'vehicle.jeep.wrangler_rubicon',
+    'vehicle.lincoln.mkz_2017', 'vehicle.mercedes.coupe', 'vehicle.micro.microlino',
+    'vehicle.nissan.micra', 'vehicle.nissan.patrol', 'vehicle.seat.leon',
+    'vehicle.tesla.model3', 'vehicle.toyota.prius', 'vehicle.volkswagen.t2',
+    # Motorcycles and bicycles
+    'vehicle.harley-davidson.low_rider', 'vehicle.kawasaki.ninja', 'vehicle.vespa.zx125',
+    'vehicle.yamaha.yzf', 'vehicle.bh.crossbike', 'vehicle.diamondback.century',
+    'vehicle.gazelle.omafiets'
+}
 
-    # Helper function to create a sub-element with text or attributes
-    def create_element(parent, tag, text=None, attrib=None):
-        if attrib is None: attrib = {}
-        elem = ET.SubElement(parent, tag, attrib)
-        if text:
-            elem.text = str(text)
-        return elem
+CARLA_PEDESTRIANS = {f'walker.pedestrian.{i:04d}' for i in range(1, 52)}
 
-        # 1) Root
-    root = ET.Element('OpenScenario')
+CARLA_MAPS = {
+    'Town01', 'Town02', 'Town03', 'Town04', 'Town05', 
+    'Town06', 'Town07', 'Town10', 'Town11', 'Town12', 'Town13', 'Town15'
+}
 
-    # 2) FileHeader
-    create_element(root, 'FileHeader', attrib={
-        'author': 'ScenarioGenerator',
-        'date': '2025-01-01T00:00:00',
-        'description': 'Generated scenario'
-    })
+# Weather presets mapping
+WEATHER_PRESETS = {
+    'clear': {'cloudiness': 0, 'precipitation': 0, 'sun_intensity': 0.85},
+    'cloudy': {'cloudiness': 80, 'precipitation': 0, 'sun_intensity': 0.35},
+    'wet': {'cloudiness': 20, 'precipitation': 20, 'sun_intensity': 0.65},
+    'wet_cloudy': {'cloudiness': 80, 'precipitation': 20, 'sun_intensity': 0.35},
+    'soft_rain': {'cloudiness': 70, 'precipitation': 30, 'sun_intensity': 0.35},
+    'mid_rain': {'cloudiness': 80, 'precipitation': 60, 'sun_intensity': 0.25},
+    'hard_rain': {'cloudiness': 90, 'precipitation': 90, 'sun_intensity': 0.15},
+    'clear_noon': {'cloudiness': 0, 'precipitation': 0, 'sun_intensity': 1.0},
+    'clear_sunset': {'cloudiness': 0, 'precipitation': 0, 'sun_intensity': 0.35}
+}
 
-    # 3) Empty ParameterDeclarations (required by schema)
-    create_element(root, 'ParameterDeclarations')
 
-    # 4) CatalogLocations (not <Catalogs>)
-    catalog_locs = create_element(root, 'CatalogLocations')
-    create_element(catalog_locs, 'VehicleCatalog', attrib={
-        'catalogName': 'VehicleCatalog',
-        'filepath': 'catalogs/VehicleCatalog.xosc'
-    })
-    create_element(catalog_locs, 'ControllerCatalog', attrib={
-        'catalogName': 'ControllerCatalog',
-        'filepath': 'catalogs/ControllerCatalog.xosc'
-    })
+class ValidationError(Exception):
+    """Raised when JSON validation fails"""
+    pass
 
-    # 5) RoadNetwork
-    rn = create_element(root, 'RoadNetwork')
-    town_map = scenario_data['RoadNetwork']['town']
-    create_element(rn, 'LogicFile', attrib={
-        'filepath': f'maps/{town_map}.xodr',
-        'databaseType': 'OpenDRIVE'
-    })
 
-    # 6) Entities
-    entities_elem = create_element(root, 'Entities')
-    for ent in scenario_data['Entities']:
-        obj = create_element(entities_elem, 'ScenarioObject', attrib={'name': ent['name']})
-        # vehicle catalog reference
-        create_element(obj, 'CatalogReference', attrib={
-            'catalogName': 'VehicleCatalog',
-            'entryName': ent['vehicle_type']
-        })
-        # controller, if provided
-        if ent.get('controller'):
-            ctrl = create_element(obj, 'Controller')
-            create_element(ctrl, 'CatalogReference', attrib={
-                'catalogName': 'ControllerCatalog',
-                'entryName': ent['controller']
-            })
-
-    # 7) Storyboard (rest of your script continues here)…
-    storyboard = create_element(root, 'Storyboard')
-
-    # Init phase: initial actions (teleports and initial speeds)
-    init_elem = create_element(storyboard, 'Init')
-    init_actions = create_element(init_elem, 'Actions')
-    # Create a teleport action and (optionally) speed action for each entity
-    for ent in scenario_data['Entities']:
-        # Private actions are used for entity-specific init actions
-        private = create_element(init_actions, 'Private', attrib={'entityRef': ent['name']})
-        # TeleportAction to initial position
-        teleport_action = create_element(private, 'PrivateAction')
-        teleport = create_element(teleport_action, 'TeleportAction')
-        world_pos = create_element(teleport, 'Position')
-        create_element(world_pos, 'WorldPosition', attrib={
-            'x': str(ent['position']['x']),
-            'y': str(ent['position']['y']),
-            'z': str(ent['position']['z']),
-            'h': str(ent['position']['yaw'])  # 'h' is heading (yaw) in OpenScenario
-        })
-        # If an initial speed is specified, set a SpeedAction
-        if ent.get('initialSpeed', 0) > 0:
-            speed_action = create_element(private, 'PrivateAction')
-            longitudinal = create_element(speed_action, 'LongitudinalAction')
-            speed = create_element(longitudinal, 'SpeedAction')
-            # Setting speed with absolute target value
-            create_element(speed, 'SpeedActionDynamics', attrib={
-                'speedDynamicsType': 'step',      # instantaneous change
-                'dynamicsShape': 'step',
-                'value': '0'                     # no transition time
-            })
-            create_element(speed, 'SpeedActionTarget').append(
-                ET.Element('AbsoluteTargetSpeed', {"value": str(ent['initialSpeed'])})
-            )
-
-    # Story definition(s)
-    stories = scenario_data.get('Storyboard', {}).get('Story', [])
-    # Ensure we have at least one story in JSON; if not, create a default story wrapper
-    if not stories:
-        stories = [ {"name": "MainStory", "Acts": scenario_data.get('Storyboard', {}).get('Acts', [])} ]
-    for story_def in stories:
-        story_elem = create_element(storyboard, 'Story', attrib={'name': story_def['name']})
-        # Each Story contains Acts
-        for act_def in story_def['Acts']:
-            act_elem = create_element(story_elem, 'Act', attrib={'name': act_def['name']})
-            # StartTrigger for the Act
-            start_trigger = create_element(act_elem, 'StartTrigger')
-            cond_group = create_element(start_trigger, 'ConditionGroup')
-            # Parse the startTrigger condition from JSON
-            trig = act_def.get('startTrigger', {})
-            if trig:
-                cond = create_element(cond_group, 'Condition', attrib={'conditionEdge': 'rising'})
-                trig_type = trig.get('type', 'simulation_time')
-                if trig_type == 'simulation_time':
-                    # e.g., condition: {"value": 2.0} meaning start after 2 seconds
-                    sim_time = trig.get('condition', {}).get('value', 0)
-                    sim_cond = create_element(cond, 'ByValueCondition')
-                    create_element(sim_cond, 'SimulationTimeCondition', attrib={
-                        'value': str(sim_time), 'rule': 'greaterThan'
-                    })
-                # (Additional trigger types like distance or state can be handled similarly)
+class JsonToXoscConverter:
+    def __init__(self, schema_path: Optional[str] = None):
+        """Initialize converter with optional schema path"""
+        self.schema = None
+        if schema_path and os.path.exists(schema_path):
+            with open(schema_path, 'r') as f:
+                self.schema = json.load(f)
+    
+    def validate_json(self, data: Dict[str, Any]) -> None:
+        """Validate JSON data against schema and CARLA-specific requirements"""
+        # Schema validation if available
+        if self.schema:
+            try:
+                jsonschema.validate(data, self.schema)
+            except jsonschema.ValidationError as e:
+                raise ValidationError(f"Schema validation failed: {e.message}")
+        
+        # CARLA-specific validation
+        if data.get('map_name') not in CARLA_MAPS:
+            raise ValidationError(f"Invalid map: {data.get('map_name')}")
+        
+        # Validate ego vehicle model
+        ego_model = data.get('ego_vehicle_model', 'vehicle.tesla.model3')
+        if ego_model not in CARLA_VEHICLES:
+            raise ValidationError(f"Invalid ego vehicle model: {ego_model}")
+        
+        # Validate actors
+        for actor in data.get('actors', []):
+            if actor['type'] == 'vehicle':
+                if actor['model'] not in CARLA_VEHICLES:
+                    raise ValidationError(f"Invalid vehicle model: {actor['model']}")
+            elif actor['type'] in ['pedestrian', 'cyclist']:
+                if actor['model'] not in CARLA_PEDESTRIANS:
+                    raise ValidationError(f"Invalid pedestrian model: {actor['model']}")
+            
+            # Validate color format if present
+            if 'color' in actor:
+                try:
+                    r, g, b = map(int, actor['color'].split(','))
+                    if not all(0 <= c <= 255 for c in [r, g, b]):
+                        raise ValueError
+                except:
+                    raise ValidationError(f"Invalid color format: {actor['color']}")
+    
+    def parse_position(self, pos_str: str) -> Tuple[float, float, float, float]:
+        """Parse position string 'x,y,z,yaw' with defaults"""
+        parts = pos_str.split(',')
+        x = float(parts[0])
+        y = float(parts[1])
+        z = float(parts[2]) if len(parts) > 2 else 0.5
+        yaw = float(parts[3]) if len(parts) > 3 else 0.0
+        # Convert yaw from degrees to radians
+        yaw_rad = math.radians(yaw)
+        return x, y, z, yaw_rad
+    
+    def create_file_header(self) -> ET.Element:
+        """Create FileHeader element"""
+        header = ET.Element('FileHeader')
+        header.set('revMajor', '1')
+        header.set('revMinor', '0')
+        header.set('date', datetime.now().strftime('%Y-%m-%dT%H:%M:%S'))
+        header.set('description', 'CARLA:GeneratedFromJSON')
+        header.set('author', 'JSON2XOSC Converter')
+        return header
+    
+    def create_environment(self, weather: str) -> ET.Element:
+        """Create Environment element with weather settings"""
+        env = ET.Element('Environment')
+        env.set('name', 'Environment1')
+        
+        # TimeOfDay
+        tod = ET.SubElement(env, 'TimeOfDay')
+        tod.set('animation', 'false')
+        tod.set('dateTime', '2020-01-01T12:00:00')
+        
+        # Weather
+        weather_elem = ET.SubElement(env, 'Weather')
+        weather_elem.set('cloudState', 'free')
+        
+        preset = WEATHER_PRESETS.get(weather, WEATHER_PRESETS['clear'])
+        
+        sun = ET.SubElement(weather_elem, 'Sun')
+        sun.set('intensity', str(preset['sun_intensity']))
+        sun.set('azimuth', '0')
+        sun.set('elevation', '1.31')
+        
+        fog = ET.SubElement(weather_elem, 'Fog')
+        fog.set('visualRange', '100000.0')
+        
+        precip = ET.SubElement(weather_elem, 'Precipitation')
+        precip.set('precipitationType', 'rain' if preset['precipitation'] > 0 else 'dry')
+        precip.set('intensity', str(preset['precipitation'] / 100.0))
+        
+        # RoadCondition
+        road = ET.SubElement(env, 'RoadCondition')
+        road.set('frictionScaleFactor', '1.0')
+        
+        return env
+    
+    def create_entities(self, data: Dict[str, Any]) -> ET.Element:
+        """Create Entities section"""
+        entities = ET.Element('Entities')
+        
+        # Ego vehicle
+        ego = ET.SubElement(entities, 'ScenarioObject')
+        ego.set('name', 'hero')
+        
+        ego_vehicle = ET.SubElement(ego, 'Vehicle')
+        ego_vehicle.set('name', data.get('ego_vehicle_model', 'vehicle.tesla.model3'))
+        ego_vehicle.set('vehicleCategory', 'car')
+        
+        # Standard vehicle elements
+        ET.SubElement(ego_vehicle, 'ParameterDeclarations')
+        
+        perf = ET.SubElement(ego_vehicle, 'Performance')
+        perf.set('maxSpeed', '69.444')
+        perf.set('maxAcceleration', '200')
+        perf.set('maxDeceleration', '10.0')
+        
+        bbox = ET.SubElement(ego_vehicle, 'BoundingBox')
+        center = ET.SubElement(bbox, 'Center')
+        center.set('x', '1.5')
+        center.set('y', '0.0')
+        center.set('z', '0.9')
+        dim = ET.SubElement(bbox, 'Dimensions')
+        dim.set('width', '2.1')
+        dim.set('length', '4.5')
+        dim.set('height', '1.8')
+        
+        axles = ET.SubElement(ego_vehicle, 'Axles')
+        front = ET.SubElement(axles, 'FrontAxle')
+        front.set('maxSteering', '0.5')
+        front.set('wheelDiameter', '0.6')
+        front.set('trackWidth', '1.8')
+        front.set('positionX', '3.1')
+        front.set('positionZ', '0.3')
+        rear = ET.SubElement(axles, 'RearAxle')
+        rear.set('maxSteering', '0.0')
+        rear.set('wheelDiameter', '0.6')
+        rear.set('trackWidth', '1.8')
+        rear.set('positionX', '0.0')
+        rear.set('positionZ', '0.3')
+        
+        props = ET.SubElement(ego_vehicle, 'Properties')
+        prop = ET.SubElement(props, 'Property')
+        prop.set('name', 'type')
+        prop.set('value', 'ego_vehicle')
+        
+        # Other actors
+        for actor in data.get('actors', []):
+            obj = ET.SubElement(entities, 'ScenarioObject')
+            obj.set('name', actor['id'])
+            
+            if actor['type'] in ['vehicle', 'cyclist']:
+                vehicle = ET.SubElement(obj, 'Vehicle')
+                vehicle.set('name', actor['model'])
+                vehicle.set('vehicleCategory', 'bicycle' if actor['type'] == 'cyclist' else 'car')
+                
+                # Copy standard vehicle elements
+                ET.SubElement(vehicle, 'ParameterDeclarations')
+                vehicle.append(copy.deepcopy(perf))
+                vehicle.append(copy.deepcopy(bbox))
+                vehicle.append(copy.deepcopy(axles))
+                
+                props = ET.SubElement(vehicle, 'Properties')
+                prop = ET.SubElement(props, 'Property')
+                prop.set('name', 'type')
+                prop.set('value', 'simulation')
+                
+                if 'color' in actor:
+                    color_prop = ET.SubElement(props, 'Property')
+                    color_prop.set('name', 'color')
+                    color_prop.set('value', actor['color'])
+                    
+            elif actor['type'] == 'pedestrian':
+                ped = ET.SubElement(obj, 'Pedestrian')
+                ped.set('model', actor['model'])
+                ped.set('mass', '90.0')
+                ped.set('name', actor['model'])
+                ped.set('pedestrianCategory', 'pedestrian')
+                
+                ET.SubElement(ped, 'ParameterDeclarations')
+                ped.append(copy.deepcopy(bbox))
+                
+                props = ET.SubElement(ped, 'Properties')
+                prop = ET.SubElement(props, 'Property')
+                prop.set('name', 'type')
+                prop.set('value', 'simulation')
+                
+            elif actor['type'] == 'static_object':
+                misc = ET.SubElement(obj, 'MiscObject')
+                misc.set('mass', '500.0')
+                misc.set('name', actor['model'])
+                misc.set('miscObjectCategory', 'obstacle')
+                
+                ET.SubElement(misc, 'ParameterDeclarations')
+                misc.append(copy.deepcopy(bbox))
+                
+                props = ET.SubElement(misc, 'Properties')
+                prop = ET.SubElement(props, 'Property')
+                prop.set('name', 'type')
+                prop.set('value', 'simulation')
+        
+        return entities
+    
+    def create_init(self, data: Dict[str, Any]) -> ET.Element:
+        """Create Init section with positions and environment"""
+        init = ET.Element('Init')
+        actions = ET.SubElement(init, 'Actions')
+        
+        # Global actions (environment)
+        global_action = ET.SubElement(actions, 'GlobalAction')
+        env_action = ET.SubElement(global_action, 'EnvironmentAction')
+        env_action.append(self.create_environment(data.get('weather', 'clear')))
+        
+        # Ego vehicle position
+        ego_private = ET.SubElement(actions, 'Private')
+        ego_private.set('entityRef', 'hero')
+        
+        ego_action = ET.SubElement(ego_private, 'PrivateAction')
+        teleport = ET.SubElement(ego_action, 'TeleportAction')
+        position = ET.SubElement(teleport, 'Position')
+        world_pos = ET.SubElement(position, 'WorldPosition')
+        
+        x, y, z, yaw = self.parse_position(data['ego_start_position'])
+        world_pos.set('x', str(x))
+        world_pos.set('y', str(y))
+        world_pos.set('z', str(z))
+        world_pos.set('h', str(yaw))
+        
+        # Controller assignment
+        ctrl_action = ET.SubElement(ego_private, 'PrivateAction')
+        ctrl = ET.SubElement(ctrl_action, 'ControllerAction')
+        assign = ET.SubElement(ctrl, 'AssignControllerAction')
+        controller = ET.SubElement(assign, 'Controller')
+        controller.set('name', 'HeroAgent')
+        ctrl_props = ET.SubElement(controller, 'Properties')
+        ctrl_prop = ET.SubElement(ctrl_props, 'Property')
+        ctrl_prop.set('name', 'module')
+        ctrl_prop.set('value', 'external_control')
+        
+        override = ET.SubElement(ctrl, 'OverrideControllerValueAction')
+        for control in ['Throttle', 'Brake', 'Clutch', 'ParkingBrake', 'SteeringWheel', 'Gear']:
+            elem = ET.SubElement(override, control)
+            if control == 'Gear':
+                elem.set('number', '0')
             else:
-                # If no trigger specified, default to start at time 0
-                cond = create_element(cond_group, 'Condition', attrib={'conditionEdge': 'rising'})
-                sim_cond = create_element(cond, 'ByValueCondition')
-                create_element(sim_cond, 'SimulationTimeCondition', attrib={
-                    'value': '0', 'rule': 'greaterThan'
+                elem.set('value', '0')
+            elem.set('active', 'false')
+        
+        # Other actors positions
+        for actor in data.get('actors', []):
+            private = ET.SubElement(actions, 'Private')
+            private.set('entityRef', actor['id'])
+            
+            action = ET.SubElement(private, 'PrivateAction')
+            teleport = ET.SubElement(action, 'TeleportAction')
+            position = ET.SubElement(teleport, 'Position')
+            world_pos = ET.SubElement(position, 'WorldPosition')
+            
+            x, y, z, yaw = self.parse_position(actor['start_position'])
+            world_pos.set('x', str(x))
+            world_pos.set('y', str(y))
+            world_pos.set('z', str(z))
+            world_pos.set('h', str(yaw))
+        
+        return init
+    
+    def create_storyboard(self, data: Dict[str, Any]) -> ET.Element:
+        """Create Storyboard with Init + one Story/Act + ManeuverGroups + valid StopTrigger"""
+        sb = ET.Element('Storyboard')
+        sb.append(self.create_init(data))
+
+        # --- one Story with one Act ---
+        story = ET.SubElement(sb, 'Story', {'name': 'MyStory'})
+        act   = ET.SubElement(story, 'Act',   {'name': 'Behavior'})
+
+        # group actions by actor
+        actor_groups: Dict[str, List[Dict[str,Any]]] = {}
+        for action in data.get('actions', []):
+            actor_groups.setdefault(action['actor_id'], []).append(action)
+
+        for actor_id, actions in actor_groups.items():
+            mg = ET.SubElement(act, 'ManeuverGroup', {
+                'maximumExecutionCount': '1',
+                'name':                  f'{actor_id}ManeuverGroup'
+            })
+            actors = ET.SubElement(mg, 'Actors', {
+                'selectTriggeringEntities': 'false'
+            })
+            ET.SubElement(actors, 'EntityRef', {
+                'entityRef': 'hero' if actor_id=='ego' else actor_id
+            })
+
+            man = ET.SubElement(mg, 'Maneuver', {
+                'name': f'{actor_id}Maneuver'
+            })
+
+            for i, action in enumerate(actions):
+                # Event + Action
+                if action['action_type'] not in ('speed','lane_change'):
+                    continue
+                ev = ET.SubElement(man, 'Event', {
+                    'name':     f'{actor_id}Event{i}',
+                    'priority': 'overwrite'
+                })
+                ac = ET.SubElement(ev, 'Action', {
+                    'name': f'{actor_id}Action{i}'
+                })
+                pa = ET.SubElement(ac, 'PrivateAction')
+
+                # --- build the PrivateAction body ---
+                if action['action_type']=='speed':
+                    la = ET.SubElement(pa, 'LongitudinalAction')
+                    sa = ET.SubElement(la, 'SpeedAction')
+                    dyn = ET.SubElement(sa, 'SpeedActionDynamics', {
+                        'dynamicsDimension':'distance',
+                        'dynamicsShape':'step',
+                        'value':'0'
+                    })
+                    tgt = ET.SubElement(sa, 'SpeedActionTarget')
+                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {
+                        'value': str(action.get('speed_value',0))
+                    })
+
+                elif action['action_type']=='lane_change':
+                    la = ET.SubElement(pa, 'LateralAction')
+                    lc = ET.SubElement(la, 'LaneChangeAction')
+                    dyn = ET.SubElement(lc, 'LaneChangeActionDynamics', {
+                        'dynamicsDimension':'distance',
+                        'dynamicsShape':'linear',
+                        'value':'1'
+                    })
+                    tgt = ET.SubElement(lc, 'LaneChangeTarget')
+                    # always specify entityRef + integer value
+                    ET.SubElement(tgt, 'RelativeTargetLane', {
+                        'entityRef': 'hero' if actor_id=='ego' else actor_id,
+                        'value':    '-1' if action.get('lane_direction')=='left' else '1'
+                    })
+
+                # --- StartTrigger under this Event ---
+                st = ET.SubElement(ev, 'StartTrigger')
+                cg = ET.SubElement(st, 'ConditionGroup')
+                cond = ET.SubElement(cg, 'Condition', {
+                    'name':         f'StartCondition{i}',
+                    'delay':        '0',
+                    'conditionEdge':'rising'
                 })
 
-            # ManeuverGroups
-            for mg_def in act_def.get('ManeuverGroups', []):
-                actors = " ".join(mg_def.get('actors', []))
-                mg_elem = create_element(act_elem, 'ManeuverGroup', attrib={'actors': actors})
-                for man_def in mg_def.get('maneuvers', []):
-                    maneuver_elem = create_element(mg_elem, 'Maneuver', attrib={'name': man_def['name']})
-                    for evt_def in man_def.get('events', []):
-                        event_elem = create_element(maneuver_elem, 'Event', attrib={
-                            'name': evt_def['name'], 'priority': 'overwrite'
-                        })
-                        # Event trigger
-                        event_trigger = create_element(event_elem, 'StartTrigger')
-                        cg = create_element(event_trigger, 'ConditionGroup')
-                        cond = create_element(cg, 'Condition', attrib={'conditionEdge': 'rising'})
-                        evt_trig = evt_def.get('trigger', {})
-                        # Handle a couple of trigger types for example
-                        if evt_trig.get('type') == 'simulation_time':
-                            sim_time = evt_trig.get('condition', {}).get('value', 0)
-                            sim_cond = create_element(cond, 'ByValueCondition')
-                            create_element(sim_cond, 'SimulationTimeCondition', attrib={
-                                'value': str(sim_time), 'rule': 'greaterThan'
-                            })
-                        elif evt_trig.get('type') == 'entity_distance':
-                            dist = evt_trig.get('condition', {}).get('distance', 0)
-                            target = evt_trig.get('condition', {}).get('entity', '')
-                            ent_cond = create_element(cond, 'ByEntityCondition')
-                            rel_dist_cond = create_element(ent_cond, 'RelativeDistanceCondition', attrib={
-                                'entityRef': target,
-                                'value': str(dist),
-                                'freespace': 'true',
-                                'relativeDistanceType': 'longitudinal',
-                                'rule': 'lessThan'
-                            })
-                        # ... other condition types (position reach, etc.) could be added ...
-
-                        # Event actions
-                        actions_elem = create_element(event_elem, 'Action')
-                        for act in evt_def.get('actions', []):
-                            action_type = act.get('type')
-                            if action_type == 'SpeedAction':
-                                # Longitudinal Speed Action
-                                long_act = create_element(actions_elem, 'PrivateAction')
-                                speed_act = create_element(create_element(long_act, 'LongitudinalAction'), 'SpeedAction')
-                                # Set dynamics
-                                dynamics_shape = act.get('transition', 'step')
-                                create_element(speed_act, 'SpeedActionDynamics', attrib={
-                                    'dynamicsShape': dynamics_shape,
-                                    'speedDynamicsType': dynamics_shape,
-                                    'value': '0'  # 0s for instantaneous if step, or a time value if gradual
-                                })
-                                create_element(speed_act, 'SpeedActionTarget').append(
-                                    ET.Element('AbsoluteTargetSpeed', {"value": str(act.get('speed', 0))})
-                                )
-                            elif action_type == 'LaneChangeAction':
-                                # Lateral Lane Change Action
-                                lat_act = create_element(actions_elem, 'PrivateAction')
-                                lane_act = create_element(create_element(lat_act, 'LateralAction'), 'LaneChangeAction')
-                                direction = act.get('direction', 'none')
-                                # Define lane change action: 'left' or 'right' translates to lane change target
-                                target_lane_offset = "-1" if direction == "left" else "1"
-                                create_element(lane_act, 'LaneChangeActionDynamics', attrib={
-                                    'dynamicsShape': 'linear', 'laneChangeDynamics': 'laneChange', 'value': '1'
-                                })
-                                create_element(lane_act, 'LaneChangeTarget').append(
-                                    ET.Element('RelativeTargetLane', {"value": target_lane_offset})
-                                )
-                            # (Other action types can be added as needed)
-            # EndTrigger for Act (if specified)
-            if 'endTrigger' in act_def:
-                end_trig = act_def['endTrigger']
-                end_trigger_elem = create_element(act_elem, 'StopTrigger')
-                cg = create_element(end_trigger_elem, 'ConditionGroup')
-                cond = create_element(cg, 'Condition', attrib={'conditionEdge': 'rising'})
-                end_type = end_trig.get('type')
-                if end_type == 'collision':
-                    coll_cond = create_element(cond, 'ByEntityCondition')
-                    create_element(coll_cond, 'CollisionCondition', attrib={
-                        'entityRef': end_trig.get('condition', {}).get('entity', 'EgoVehicle'),
-                        'collisionType': 'any'
+                # only time or distance triggers supported
+                if action['trigger_type']=='time':
+                    bv = ET.SubElement(cond, 'ByValueCondition')
+                    stc = ET.SubElement(bv, 'SimulationTimeCondition', {
+                        'value': str(action.get('trigger_value',0)),
+                        'rule':  'greaterThan'
                     })
-                elif end_type == 'duration':
-                    dur = end_trig.get('condition', {}).get('seconds', 0)
-                    sim_cond = create_element(cond, 'ByValueCondition')
-                    create_element(sim_cond, 'SimulationTimeCondition', attrib={
-                        'value': str(dur), 'rule': 'greaterThan'
+                else:  # distance_to_ego
+                    be = ET.SubElement(cond, 'ByEntityCondition')
+                    te = ET.SubElement(be, 'TriggeringEntities', {
+                        'triggeringEntitiesRule':'any'
                     })
-                # ... more end condition types if needed ...
+                    ET.SubElement(te, 'EntityRef', {
+                        'entityRef':'hero'
+                    })
+                    ec = ET.SubElement(be, 'EntityCondition')
+                    rd = ET.SubElement(ec, 'RelativeDistanceCondition', {
+                        'entityRef':             actor_id,
+                        'relativeDistanceType':  'longitudinal',
+                        'value':                 str(action.get('trigger_value',10)),
+                        'freespace':             'false',
+                        'rule':                  'lessThan'
+                    })
 
-    # StopTrigger for entire Storyboard (global stop condition, if provided)
-    if 'StopTrigger' in scenario_data['Storyboard']:
-        stop = scenario_data['Storyboard']['StopTrigger']
-        stop_trigger_elem = create_element(storyboard, 'StopTrigger')
-        cg = create_element(stop_trigger_elem, 'ConditionGroup')
-        cond = create_element(cg, 'Condition', attrib={'conditionEdge': 'rising'})
-        stype = stop.get('type')
-        if stype == 'collision':
-            coll_cond = create_element(cond, 'ByEntityCondition')
-            create_element(coll_cond, 'CollisionCondition', attrib={
-                'entityRef': stop.get('condition', {}).get('entity', 'EgoVehicle'),
-                'collisionType': 'any'
-            })
-        elif stype == 'time':
-            tval = stop.get('condition', {}).get('seconds', 0)
-            sim_cond = create_element(cond, 'ByValueCondition')
-            create_element(sim_cond, 'SimulationTimeCondition', attrib={
-                'value': str(tval), 'rule': 'greaterThan'
-            })
-        # ... other global stop conditions as needed ...
+        # --- Act-level StartTrigger + StopTrigger ---
+        ast = ET.SubElement(act, 'StartTrigger')
+        acg = ET.SubElement(ast, 'ConditionGroup')
+        aco = ET.SubElement(acg, 'Condition', {
+            'name':'OverallStartCondition','delay':'0','conditionEdge':'rising'
+        })
+        bv = ET.SubElement(aco, 'ByValueCondition')
+        ET.SubElement(bv, 'SimulationTimeCondition', {
+            'value':'0','rule':'greaterThan'
+        })
 
-    # Write out the XML tree to .xosc file
-    tree = ET.ElementTree(root)
-    tree.write(output_path, encoding='UTF-8', xml_declaration=True)
+        astp = ET.SubElement(act, 'StopTrigger')
+        scg = ET.SubElement(astp, 'ConditionGroup')
+        sco = ET.SubElement(scg, 'Condition', {
+            'name':'EndCondition','delay':'0','conditionEdge':'rising'
+        })
+        be = ET.SubElement(sco, 'ByEntityCondition')
+        te = ET.SubElement(be, 'TriggeringEntities', {
+            'triggeringEntitiesRule':'any'
+        })
+        ET.SubElement(te, 'EntityRef', {'entityRef':'hero'})
+        ec = ET.SubElement(be, 'EntityCondition')
+        ET.SubElement(ec, 'TraveledDistanceCondition', {
+            'value': str(data.get('success_distance',100))
+        })
 
-if __name__ == "__main__":
-    json_filename = "test.json"
-    with open(json_filename, 'r') as f:
-        scenario_data = json.load(f)
-        generate_xosc_from_json(scenario_data, "output.xosc")
+        # --- Storyboard-level StopTrigger for collision criterion ---
+        sbt = ET.SubElement(sb, 'StopTrigger')
+        scg = ET.SubElement(sbt, 'ConditionGroup')
+        cond = ET.SubElement(scg, 'Condition', {
+            'name':'criteria_CollisionTest','delay':'0','conditionEdge':'rising'
+        })
+        bec = ET.SubElement(cond, 'ByEntityCondition')
+        te2 = ET.SubElement(bec, 'TriggeringEntities', {
+            'triggeringEntitiesRule':'any'
+        })
+        ET.SubElement(te2, 'EntityRef', {'entityRef':'hero'})
+        ec2 = ET.SubElement(bec, 'EntityCondition')
+        cc = ET.SubElement(ec2, 'CollisionCondition')
+        ET.SubElement(cc, 'EntityRef', {'entityRef':'hero'})
+
+        return sb
+
+
+
+
+    
+    def convert(self, json_data: Dict[str, Any]) -> str:
+        """Convert JSON to OpenSCENARIO XML string"""
+        # Validate first
+        self.validate_json(json_data)
+        
+        # Create root element
+        root = ET.Element('OpenSCENARIO')
+        
+        # Add main sections
+        root.append(self.create_file_header())
+        ET.SubElement(root, 'ParameterDeclarations')
+        ET.SubElement(root, 'CatalogLocations')
+        
+        # RoadNetwork
+        road_network = ET.SubElement(root, 'RoadNetwork')
+        logic_file = ET.SubElement(road_network, 'LogicFile')
+        logic_file.set('filepath', json_data['map_name'])
+        ET.SubElement(road_network, 'SceneGraphFile').set('filepath', '')
+        
+        # Entities
+        root.append(self.create_entities(json_data))
+        
+        # Storyboard
+        root.append(self.create_storyboard(json_data))
+        
+        # Pretty print
+        return self.prettify_xml(root)
+    
+    def prettify_xml(self, elem: ET.Element) -> str:
+        """Return a pretty-printed XML string"""
+        rough_string = ET.tostring(elem, 'unicode')
+        reparsed = minidom.parseString(rough_string)
+        return reparsed.toprettyxml(indent="  ")
+
+
+def main():
+    """Main entry point"""
+    parser = argparse.ArgumentParser(description='Convert JSON to OpenSCENARIO')
+    parser.add_argument('input', help='Input JSON file')
+    parser.add_argument('-o', '--output', help='Output XOSC file (default: input.xosc)')
+    parser.add_argument('-s', '--schema', help='JSON schema file for validation')
+    parser.add_argument('-v', '--validate-only', action='store_true', 
+                       help='Only validate, do not convert')
+    
+    args = parser.parse_args()
+    
+    # Load JSON
+    try:
+        with open(args.input, 'r') as f:
+            json_data = json.load(f)
+    except Exception as e:
+        print(f"Error loading JSON: {e}")
+        sys.exit(1)
+    
+    # Create converter
+    converter = JsonToXoscConverter(args.schema)
+    
+    # Validate only mode
+    if args.validate_only:
+        try:
+            converter.validate_json(json_data)
+            print("Validation successful!")
+            sys.exit(0)
+        except ValidationError as e:
+            print(f"Validation failed: {e}")
+            sys.exit(1)
+    
+    # Convert
+    try:
+        xosc_content = converter.convert(json_data)
+        
+        # Determine output file
+        output_file = args.output
+        if not output_file:
+            base_name = os.path.splitext(args.input)[0]
+            output_file = f"{base_name}.xosc"
+        
+        # Write output
+        with open(output_file, 'w') as f:
+            f.write(xosc_content)
+        
+        print(f"Successfully converted to {output_file}")
+        
+    except ValidationError as e:
+        print(f"Validation error: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Conversion error: {e}")
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
