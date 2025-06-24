@@ -484,28 +484,26 @@ class JsonToXoscConverter:
         # --- Storyboard-level StopTrigger: timeout + collision ---
         sbt = ET.SubElement(sb, 'StopTrigger')
         scg2 = ET.SubElement(sbt, 'ConditionGroup')
-        # timeout
-        timeout = data.get('timeout')
-        if timeout is not None:
-            cond = ET.SubElement(scg2, 'Condition', {
-                'name':'Timeout','delay':'0','conditionEdge':'rising'
-            })
-            bv2 = ET.SubElement(cond, 'ByValueCondition')
-            ET.SubElement(bv2, 'SimulationTimeCondition', {
-                'value': str(timeout),
-                'rule':  'greaterThan'
-            })
-        # collision
-        if not data.get('collision_allowed', True):
-            cond = ET.SubElement(scg2, 'Condition', {
-                'name':'criteria_CollisionTest','delay':'0','conditionEdge':'rising'
-            })
-            bec = ET.SubElement(cond, 'ByEntityCondition')
-            te2 = ET.SubElement(bec, 'TriggeringEntities', {'triggeringEntitiesRule':'any'})
-            ET.SubElement(te2, 'EntityRef', {'entityRef':'hero'})
-            ec2 = ET.SubElement(bec, 'EntityCondition')
-            cc  = ET.SubElement(ec2, 'CollisionCondition')
-            ET.SubElement(cc, 'EntityRef', {'entityRef':'hero'})
+        # Add criteria conditions
+
+        criteria = ['RunningStopTest', 'RunningRedLightTest', 'WrongLaneTest', 
+                   'OnSidewalkTest', 'KeepLaneTest', 'CollisionTest', 'DrivenDistanceTest']
+        
+        for criterion in criteria:
+            crit_cond = ET.SubElement(scg2, 'Condition')
+            crit_cond.set('name', f'criteria_{criterion}')
+            crit_cond.set('delay', '0')
+            crit_cond.set('conditionEdge', 'rising')
+            crit_by_value = ET.SubElement(crit_cond, 'ByValueCondition')
+            param_cond = ET.SubElement(crit_by_value, 'ParameterCondition')
+            
+            if criterion == 'DrivenDistanceTest':
+                param_cond.set('parameterRef', 'distance_success')
+                param_cond.set('value', str(data.get('success_distance', 100)))
+            else:
+                param_cond.set('parameterRef', '')
+                param_cond.set('value', '')
+            param_cond.set('rule', 'lessThan')
 
         return sb
 

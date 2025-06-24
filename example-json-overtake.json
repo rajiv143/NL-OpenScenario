@@ -3,7 +3,7 @@
   "description": "A vehicle overtakes the ego from behind in the adjacent lane, cuts in front, and brake-checks",
   "map_name": "Town03",
   "weather": "clear",
-  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_vehicle_model": "vehicle.audi.a2",
   "ego_start_position": "120,193,3,180",
   "ego_start_speed": 0,
   "actors": [
@@ -67,7 +67,7 @@
     }
   ],
 
-  "success_distance": 200,
+  "success_distance": 0,
   "timeout": 60,
   "collision_allowed": false
 }
