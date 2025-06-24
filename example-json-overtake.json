@@ -11,52 +11,62 @@
       "id": "overtaker",
       "type": "vehicle",
       "model": "vehicle.audi.tt",
-      "start_position": "140,196.5,0.5,180",
+      "start_position": "130,193,3,180",
       "color": "255,0,0"
     }
   ],
   "actions": [
     {
-      "actor_id": "overtaker",
-      "action_type": "speed",
-      "trigger_type": "distance_to_ego",
-      "trigger_value": 20,
+      "actor_id":       "overtaker",
+      "action_type":    "speed",
+      "trigger_type":   "distance_to_ego",
+      "trigger_value":  15,
+      "trigger_comparison": ">",
+      "speed_value":    15.0
+    },
+    {
+      "actor_id":       "overtaker",
+      "action_type":    "lane_change",
+      "trigger_type":   "distance_to_ego",
+      "trigger_value":  12,
       "trigger_comparison": "<",
-      "speed_value": 15.0
+      "lane_direction": "right",
+      "dynamics_dimension":"time",
+      "dynamics_value":  2.0
     },
     {
-      "actor_id": "overtaker",
-      "action_type": "position",
-      "trigger_type": "time",
-      "trigger_value": 5,
-      "position_target": "100,196.5,0.5,180"
+      "actor_id":         "overtaker",
+      "action_type":      "speed",
+      "trigger_type":     "after_previous",
+      "dynamics_dimension":"time",
+      "dynamics_shape":   "linear",
+      "dynamics_value":   3.0,
+      "speed_value":      10.0
     },
     {
-      "actor_id": "overtaker",
-      "action_type": "lane_change",
-      "trigger_type": "after_previous",
-      "lane_direction": "right"
+      "actor_id":       "overtaker",
+      "action_type":    "lane_change",
+      "trigger_type":   "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension":"time",
+      "dynamics_value":  2.0
     },
     {
-      "actor_id": "overtaker",
-      "action_type": "speed",
-      "trigger_type": "time",
-      "trigger_value": 8,
-      "speed_value": 10.0
+      "actor_id":         "overtaker",
+      "action_type":      "stop",
+      "trigger_type":     "after_previous",
+      "dynamics_dimension":"time",
+      "dynamics_shape":   "linear",
+      "dynamics_value":   2.0
     },
     {
-      "actor_id": "overtaker",
-      "action_type": "stop",
-      "trigger_type": "time",
-      "trigger_value": 10
-    },
-    {
-      "actor_id": "overtaker",
-      "action_type": "wait",
-      "trigger_type": "after_previous",
+      "actor_id":      "overtaker",
+      "action_type":   "wait",
+      "trigger_type":  "after_previous",
       "wait_duration": 2.0
     }
   ],
+
   "success_distance": 200,
   "timeout": 60,
   "collision_allowed": false
