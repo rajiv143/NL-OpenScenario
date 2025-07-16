@@ -1,0 +1,88 @@
+{
+  "scenario_name": "DynamicOvertakeBrakeCheck",
+  "description": "A vehicle overtakes the ego from behind in the adjacent lane, cuts in front, and brake-checks",
+  "map_name": "Town01",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "map"     : "Town01",
+    "criteria": {
+      "lane_type"       : "Driving",
+      "is_intersection" : false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "overtaker",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "map"     : "Town01",
+        "criteria": {
+          "road_id"        : "same_as_ego",
+          "lane_type"      : "Driving",
+          "heading_tol"    : 20,
+          "distance_to_ego": { "min": 20, "max": 40 },
+          "relative_position": "behind"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id":       "overtaker",
+      "action_type":    "speed",
+      "trigger_type":   "distance_to_ego",
+      "trigger_value":  25,
+      "trigger_comparison": ">",
+      "speed_value":    15.0
+    },
+    {
+      "actor_id":       "overtaker",
+      "action_type":    "lane_change",
+      "trigger_type":   "distance_to_ego",
+      "trigger_value":  12,
+      "trigger_comparison": "<",
+      "lane_direction": "right",
+      "dynamics_dimension":"time",
+      "dynamics_value":  2.0
+    },
+    {
+      "actor_id":         "overtaker",
+      "action_type":      "speed",
+      "trigger_type":     "after_previous",
+      "dynamics_dimension":"time",
+      "dynamics_shape":   "linear",
+      "dynamics_value":   3.0,
+      "speed_value":      10.0
+    },
+    {
+      "actor_id":       "overtaker",
+      "action_type":    "lane_change",
+      "trigger_type":   "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension":"time",
+      "dynamics_value":  2.0
+    },
+    {
+      "actor_id":         "overtaker",
+      "action_type":      "stop",
+      "trigger_type":     "after_previous",
+      "dynamics_dimension":"time",
+      "dynamics_shape":   "linear",
+      "dynamics_value":   2.0
+    },
+    {
+      "actor_id":      "overtaker",
+      "action_type":   "wait",
+      "trigger_type":  "after_previous",
+      "wait_duration": 2.0
+    }
+  ],
+
+  "success_distance": 40,
+  "timeout": 90,
+  "collision_allowed": false
+}

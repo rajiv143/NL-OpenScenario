@@ -15,6 +15,9 @@ import os
 import math
 import argparse
 import copy
+import carla
+import glob
+import random
 
 # CARLA-specific model catalogs for validation
 CARLA_VEHICLES = {
@@ -70,7 +73,21 @@ class JsonToXoscConverter:
         if schema_path and os.path.exists(schema_path):
             with open(schema_path, 'r') as f:
                 self.schema = json.load(f)
-    
+        # load per‑town spawn data
+        self.spawn_meta: Dict[str, List[Dict]] = {}
+        spawns_dir = os.path.join(os.path.dirname(__file__), "spawns")
+        for path in glob.glob(os.path.join(spawns_dir, "Town*.json")):
+            town = os.path.splitext(os.path.basename(path))[0]  # e.g. "Town01"
+            try:
+                with open(path) as f:
+                    data = json.load(f)
+                    # assume each file is a list of spawn‑point dicts
+                    self.spawn_meta[town] = data
+            except Exception as e:
+                print(f"Warning: could not load {path}: {e}")
+
+        self._ego_pos: Optional[Tuple[float, float, float, float]] = None
+        self._ego_lane: Optional[Tuple[int, int]] = None # road_id, lane_id)
     def validate_json(self, data: Dict[str, Any]) -> None:
         """Validate JSON data against schema and CARLA-specific requirements"""
         # Schema validation if available
@@ -287,7 +304,20 @@ class JsonToXoscConverter:
         position = ET.SubElement(teleport, 'Position')
         world_pos = ET.SubElement(position, 'WorldPosition')
         
-        x, y, z, yaw = self.parse_position(data['ego_start_position'])
+        x,y,z,yaw = None, None, None, None
+        if 'ego_spawn' in data:
+            town = data['map_name']
+            crit = data['ego_spawn'].get('criteria', {})
+            x,y,z,yaw = self._choose_spawn(town, crit)
+
+            meta = self._last_pick
+            self._ego_lane = (meta['road_id'], meta['lane_id'])
+            self._ego_pos = (x, y, z, yaw)
+        else:
+            x,y,z,yaw = self.parse_position(data['ego_start_position'])
+            self._ego_pos  = (x, y, z, yaw)
+            self._ego_lane = None   
+
         world_pos.set('x', str(x))
         world_pos.set('y', str(y))
         world_pos.set('z', str(z))
@@ -322,12 +352,21 @@ class JsonToXoscConverter:
             teleport = ET.SubElement(action, 'TeleportAction')
             position = ET.SubElement(teleport, 'Position')
             world_pos = ET.SubElement(position, 'WorldPosition')
-            
-            x, y, z, yaw = self.parse_position(actor['start_position'])
-            world_pos.set('x', str(x))
-            world_pos.set('y', str(y))
-            world_pos.set('z', str(z))
-            world_pos.set('h', str(yaw))
+
+            if 'spawn' in actor:
+                town = actor.get('spawn', {}).get('map', data['map_name'])
+                crit = actor['spawn'].get('criteria', {})
+                ax, ay, az, ayaw = self._choose_spawn(
+                    town, crit,
+                    ego_pos=self._ego_pos,
+                    ego_lane=self._ego_lane
+                )
+            else:
+                ax,ay,az,ayaw = self.parse_position(actor['start_position'])
+            world_pos.set('x', str(ax))
+            world_pos.set('y', str(ay))
+            world_pos.set('z', str(az))
+            world_pos.set('h', str(ayaw))
         
         return init
     
@@ -508,6 +547,75 @@ class JsonToXoscConverter:
         return sb
 
 
+    def _choose_spawn(self, map_name:str, crit:Dict[str,Any],
+                    ego_pos:Tuple[float,float]=None,
+                    ego_lane:Tuple[int,int]=None):
+        """Return a spawn (x,y,z,yaw) that meets the criteria"""
+        pts = self.spawn_meta.get(map_name, [])
+        if isinstance(pts, dict):               # unwrap {"Carla/Maps/Town03":[...]}
+            pts = next(iter(pts.values()), [])
+
+        def ok(pt):
+            # --- exact filters ---------------------------------------------------
+            if 'road_id' in crit:
+                rid = crit['road_id']
+                if rid == 'same_as_ego' and ego_lane: rid = ego_lane[0]
+                if isinstance(rid, list):
+                    if pt['road_id'] not in rid: return False
+                elif pt['road_id'] != rid: return False
+
+            if 'lane_id' in crit:
+                lid = crit['lane_id']
+                if lid == 'same_as_ego' and ego_lane: lid = ego_lane[1]
+                if isinstance(lid, list):
+                    if pt['lane_id'] not in lid: return False
+                elif isinstance(lid, dict):      # {"min":‑2,"max":2}
+                    if not (lid['min'] <= pt['lane_id'] <= lid['max']): return False
+                elif pt['lane_id'] != lid: return False
+
+            if 'lane_type' in crit:
+                if pt['lane_type'] not in (crit['lane_type']
+                                        if isinstance(crit['lane_type'],list)
+                                        else [crit['lane_type']]):
+                    return False
+
+            if 'is_intersection' in crit:
+                if pt['is_intersection'] is not crit['is_intersection']:
+                    return False
+
+            # --- heading ---------------------------------------------------------
+            if 'heading_tol' in crit and ego_pos:
+                dyaw = abs((pt['yaw'] - ego_pos[3] + 180) % 360 - 180)
+                if dyaw > crit['heading_tol']: return False
+
+            # --- distance checks --------------------------------------------------
+            if 'distance_to_ego' in crit and ego_pos:
+                d = math.hypot(pt['x'] - ego_pos[0], pt['y'] - ego_pos[1])
+                low = crit['distance_to_ego'].get('min',0)
+                hi  = crit['distance_to_ego'].get('max',1e9)
+                if not (low <= d <= hi): return False
+
+            if 'relative_position' in crit and ego_pos:
+                # +ve projection => ahead, ‑ve => behind (wrt ego heading)
+                dx, dy = pt["x"] - ego_pos[0], pt["y"] - ego_pos[1]
+                proj   =  math.cos(ego_pos[3])*dx + math.sin(ego_pos[3])*dy
+                if   crit["relative_position"] == "ahead"  and proj < 0: return False
+                elif crit["relative_position"] == "behind" and proj > 0: return False
+
+            if 'distance_to' in crit:
+                tgt = crit['distance_to']
+                d = math.hypot(pt['x'] - tgt['x'], pt['y'] - tgt['y'])
+                if d > tgt['max']: return False
+
+            return True
+
+        choices = [pt for pt in pts if ok(pt)]
+        if not choices:
+            raise ValidationError(f"No spawn in {map_name} matches {crit}")
+        pick = random.choice(choices)
+        self._last_pick = pick
+        return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+
 
     
     def convert(self, json_data: Dict[str, Any]) -> str:
@@ -596,9 +704,9 @@ def main():
     except ValidationError as e:
         print(f"Validation error: {e}")
         sys.exit(1)
-    except Exception as e:
+    """except Exception as e:
         print(f"Conversion error: {e}")
-        sys.exit(1)
+        sys.exit(1)"""
 
 
 if __name__ == '__main__':
