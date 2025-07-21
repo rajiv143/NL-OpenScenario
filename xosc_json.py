@@ -306,10 +306,8 @@ class JsonToXoscConverter:
         
         x,y,z,yaw = None, None, None, None
         if 'ego_spawn' in data:
-            town = data['map_name']
             crit = data['ego_spawn'].get('criteria', {})
-            x,y,z,yaw = self._choose_spawn(town, crit)
-
+            x,y,z,yaw = self._choose_spawn(data['map_name'], crit)
             meta = self._last_pick
             self._ego_lane = (meta['road_id'], meta['lane_id'])
             self._ego_pos = (x, y, z, yaw)
@@ -317,7 +315,7 @@ class JsonToXoscConverter:
             x,y,z,yaw = self.parse_position(data['ego_start_position'])
             self._ego_pos  = (x, y, z, yaw)
             self._ego_lane = None   
-
+        
         world_pos.set('x', str(x))
         world_pos.set('y', str(y))
         world_pos.set('z', str(z))
@@ -352,17 +350,16 @@ class JsonToXoscConverter:
             teleport = ET.SubElement(action, 'TeleportAction')
             position = ET.SubElement(teleport, 'Position')
             world_pos = ET.SubElement(position, 'WorldPosition')
-
+    
             if 'spawn' in actor:
-                town = actor.get('spawn', {}).get('map', data['map_name'])
                 crit = actor['spawn'].get('criteria', {})
                 ax, ay, az, ayaw = self._choose_spawn(
-                    town, crit,
+                    data['map_name'], crit,
                     ego_pos=self._ego_pos,
                     ego_lane=self._ego_lane
                 )
             else:
-                ax,ay,az,ayaw = self.parse_position(actor['start_position'])
+                ax, ay, az, ayaw = self.parse_position(actor['start_position'])
             world_pos.set('x', str(ax))
             world_pos.set('y', str(ay))
             world_pos.set('z', str(az))
