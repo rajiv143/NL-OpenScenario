@@ -514,7 +514,7 @@ class JsonToXoscConverter:
         ET.SubElement(te, 'EntityRef', {'entityRef':'hero'})
         ec   = ET.SubElement(be, 'EntityCondition')
         ET.SubElement(ec, 'TraveledDistanceCondition', {
-            'value': str(data.get('success_distance', 100))
+            'value': str(data.get('success_distance', 100)),
         })
 
         # --- Storyboard-level StopTrigger: timeout + collision ---
