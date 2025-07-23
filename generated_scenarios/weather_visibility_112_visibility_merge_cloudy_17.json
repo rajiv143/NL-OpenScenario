@@ -1,0 +1,58 @@
+{
+  "scenario_name": "visibility_merge_cloudy_17",
+  "description": "Lane merge with overcast conditions with reduced lighting",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "merger",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 90
+          },
+          "relative_position": "adjacent"
+        }
+      },
+      "color": "0,255,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "merger",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 45,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "merger",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 120,
+  "collision_allowed": false
+}

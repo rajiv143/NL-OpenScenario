@@ -18,6 +18,7 @@ import copy
 import carla
 import glob
 import random
+import logging
 
 # CARLA-specific model catalogs for validation
 CARLA_VEHICLES = {
@@ -43,8 +44,7 @@ CARLA_VEHICLES = {
 CARLA_PEDESTRIANS = {f'walker.pedestrian.{i:04d}' for i in range(1, 52)}
 
 CARLA_MAPS = {
-    'Town01', 'Town02', 'Town03', 'Town04', 'Town05', 
-    'Town06', 'Town07', 'Town10', 'Town11', 'Town12', 'Town13', 'Town15'
+    'Town01', 'Town02', 'Town03', 'Town04', 'Town05'
 }
 
 # Weather presets mapping
@@ -73,21 +73,165 @@ class JsonToXoscConverter:
         if schema_path and os.path.exists(schema_path):
             with open(schema_path, 'r') as f:
                 self.schema = json.load(f)
-        # load per‑town spawn data
+        
+        # Setup logging
+        self.logger = logging.getLogger(self.__class__.__name__)
+        
+        # Load spawn and waypoint data for all maps
         self.spawn_meta: Dict[str, List[Dict]] = {}
-        spawns_dir = os.path.join(os.path.dirname(__file__), "spawns")
-        for path in glob.glob(os.path.join(spawns_dir, "Town*.json")):
-            town = os.path.splitext(os.path.basename(path))[0]  # e.g. "Town01"
+        self.waypoint_meta: Dict[str, Dict[str, List[Dict]]] = {}
+        self._load_map_data()
+        
+        self._ego_pos: Optional[Tuple[float, float, float, float]] = None
+        self._ego_lane: Optional[Tuple[int, int]] = None # road_id, lane_id)
+        self._selected_map: Optional[str] = None
+        self._last_pick: Optional[Dict] = None
+    def _load_map_data(self):
+        """Load spawn and waypoint data for all available maps"""
+        base_dir = os.path.dirname(__file__)
+        
+        # Load spawn data - ONLY use enhanced_TownX.json files
+        spawns_dir = os.path.join(base_dir, "spawns")
+        for path in glob.glob(os.path.join(spawns_dir, "enhanced_Town*.json")):
+            # Extract town name from enhanced_TownX.json -> TownX
+            filename = os.path.basename(path)
+            town = filename.replace("enhanced_", "").replace(".json", "")
+            
             try:
                 with open(path) as f:
                     data = json.load(f)
-                    # assume each file is a list of spawn‑point dicts
-                    self.spawn_meta[town] = data
+                    # Handle both list format and dict format
+                    if isinstance(data, dict) and any(key.startswith('Carla/Maps/') for key in data.keys()):
+                        # Enhanced format with categories
+                        spawn_points = []
+                        for map_key, categories in data.items():
+                            if isinstance(categories, dict):
+                                for category, points in categories.items():
+                                    spawn_points.extend(points)
+                            else:
+                                spawn_points.extend(categories)
+                        self.spawn_meta[town] = spawn_points
+                    else:
+                        # Simple list format
+                        self.spawn_meta[town] = data
+                self.logger.info(f"Loaded {len(self.spawn_meta[town])} spawn points for {town} from enhanced file")
             except Exception as e:
-                print(f"Warning: could not load {path}: {e}")
-
-        self._ego_pos: Optional[Tuple[float, float, float, float]] = None
-        self._ego_lane: Optional[Tuple[int, int]] = None # road_id, lane_id)
+                self.logger.warning(f"Could not load enhanced spawn data from {path}: {e}")
+        
+        # Load waypoint data (rich format)
+        waypoints_dir = os.path.join(base_dir, "waypoints")
+        for path in glob.glob(os.path.join(waypoints_dir, "Town*.json")):
+            town = os.path.splitext(os.path.basename(path))[0]
+            try:
+                with open(path) as f:
+                    data = json.load(f)
+                    # Store the full structure
+                    self.waypoint_meta[town] = data
+                self.logger.info(f"Loaded waypoint data for {town}")
+            except Exception as e:
+                self.logger.warning(f"Could not load waypoint data from {path}: {e}")
+    
+    def _detect_best_map(self, data: Dict[str, Any]) -> str:
+        """Auto-detect the best map based on spawn constraints"""
+        # If map is explicitly specified, validate and use it
+        if 'map_name' in data:
+            map_name = data['map_name']
+            if map_name in self.spawn_meta or map_name in self.waypoint_meta:
+                self.logger.info(f"Using explicitly specified map: {map_name}")
+                return map_name
+            else:
+                self.logger.warning(f"Specified map {map_name} not found, attempting auto-detection")
+        
+        # Collect all spawn criteria
+        spawn_criteria = []
+        if 'ego_spawn' in data:
+            spawn_criteria.append(data['ego_spawn'].get('criteria', {}))
+        
+        for actor in data.get('actors', []):
+            if 'spawn' in actor:
+                spawn_criteria.append(actor['spawn'].get('criteria', {}))
+        
+        if not spawn_criteria:
+            # No criteria specified, use default map
+            default_map = 'Town01'
+            self.logger.info(f"No spawn criteria found, using default map: {default_map}")
+            return default_map
+        
+        # Test each available map
+        available_maps = set(self.spawn_meta.keys()) | set(self.waypoint_meta.keys())
+        compatible_maps = []
+        
+        for map_name in available_maps:
+            try:
+                # Try to satisfy all spawn criteria for this map
+                all_satisfied = True
+                for criteria in spawn_criteria:
+                    spawn_points = self._get_spawn_points_for_map(map_name)
+                    if not any(self._matches_criteria(pt, criteria) for pt in spawn_points):
+                        all_satisfied = False
+                        break
+                
+                if all_satisfied:
+                    compatible_maps.append(map_name)
+                    self.logger.debug(f"Map {map_name} satisfies all spawn criteria")
+            except Exception as e:
+                self.logger.debug(f"Map {map_name} failed compatibility check: {e}")
+        
+        if compatible_maps:
+            # Prefer maps with more spawn points (more flexibility)
+            best_map = max(compatible_maps, key=lambda m: len(self._get_spawn_points_for_map(m)))
+            self.logger.info(f"Auto-detected best map: {best_map} (from {len(compatible_maps)} compatible maps)")
+            return best_map
+        else:
+            # Fall back to default with warning
+            default_map = 'Town01'
+            self.logger.warning(f"No maps satisfy all spawn criteria, falling back to: {default_map}")
+            return default_map
+    
+    def _get_spawn_points_for_map(self, map_name: str) -> List[Dict]:
+        """Get spawn points for a given map from enhanced spawn files only"""
+        points = []
+        
+        # Only use enhanced spawn data
+        if map_name in self.spawn_meta:
+            points.extend(self.spawn_meta[map_name])
+        
+        return points
+    
+    def _matches_criteria(self, point: Dict, criteria: Dict) -> bool:
+        """Check if a spawn point matches the given criteria"""
+        for key, value in criteria.items():
+            if key == 'road_id':
+                if value == 'same_as_ego':
+                    continue  # Skip ego-relative checks in initial compatibility
+                if isinstance(value, list) and point.get('road_id') not in value:
+                    return False
+                elif not isinstance(value, list) and point.get('road_id') != value:
+                    return False
+            
+            elif key == 'lane_id':
+                if value == 'same_as_ego':
+                    continue  # Skip ego-relative checks
+                point_lane = point.get('lane_id')
+                if isinstance(value, list) and point_lane not in value:
+                    return False
+                elif isinstance(value, dict):
+                    if not (value.get('min', float('-inf')) <= point_lane <= value.get('max', float('inf'))):
+                        return False
+                elif not isinstance(value, (list, dict)) and point_lane != value:
+                    return False
+            
+            elif key == 'lane_type':
+                valid_types = value if isinstance(value, list) else [value]
+                if point.get('lane_type') not in valid_types:
+                    return False
+            
+            elif key == 'is_intersection':
+                if point.get('is_intersection') != value:
+                    return False
+        
+        return True
+    
     def validate_json(self, data: Dict[str, Any]) -> None:
         """Validate JSON data against schema and CARLA-specific requirements"""
         # Schema validation if available
@@ -97,9 +241,17 @@ class JsonToXoscConverter:
             except jsonschema.ValidationError as e:
                 raise ValidationError(f"Schema validation failed: {e.message}")
         
-        # CARLA-specific validation
-        if data.get('map_name') not in CARLA_MAPS:
-            raise ValidationError(f"Invalid map: {data.get('map_name')}")
+        # Auto-detect and validate map
+        detected_map = self._detect_best_map(data)
+        self._selected_map = detected_map
+        
+        # Update data with selected map if not explicitly set
+        if 'map_name' not in data:
+            data['map_name'] = detected_map
+        
+        # Validate selected map exists
+        if detected_map not in CARLA_MAPS:
+            self.logger.warning(f"Selected map {detected_map} not in CARLA_MAPS list, proceeding anyway")
         
         # Validate ego vehicle model
         ego_model = data.get('ego_vehicle_model', 'vehicle.tesla.model3')
@@ -305,11 +457,14 @@ class JsonToXoscConverter:
         world_pos = ET.SubElement(position, 'WorldPosition')
         
         x,y,z,yaw = None, None, None, None
+        map_name = self._selected_map or data.get('map_name', 'Town01')
+        
         if 'ego_spawn' in data:
             crit = data['ego_spawn'].get('criteria', {})
-            x,y,z,yaw = self._choose_spawn(data['map_name'], crit)
+            x,y,z,yaw = self._choose_spawn(map_name, crit)
             meta = self._last_pick
-            self._ego_lane = (meta['road_id'], meta['lane_id'])
+            if meta:
+                self._ego_lane = (meta.get('road_id'), meta.get('lane_id'))
             self._ego_pos = (x, y, z, yaw)
         else:
             x,y,z,yaw = self.parse_position(data['ego_start_position'])
@@ -354,7 +509,7 @@ class JsonToXoscConverter:
             if 'spawn' in actor:
                 crit = actor['spawn'].get('criteria', {})
                 ax, ay, az, ayaw = self._choose_spawn(
-                    data['map_name'], crit,
+                    map_name, crit,
                     ego_pos=self._ego_pos,
                     ego_lane=self._ego_lane
                 )
@@ -544,74 +699,439 @@ class JsonToXoscConverter:
         return sb
 
 
-    def _choose_spawn(self, map_name:str, crit:Dict[str,Any],
-                    ego_pos:Tuple[float,float]=None,
-                    ego_lane:Tuple[int,int]=None):
-        """Return a spawn (x,y,z,yaw) that meets the criteria"""
-        pts = self.spawn_meta.get(map_name, [])
-        if isinstance(pts, dict):               # unwrap {"Carla/Maps/Town03":[...]}
-            pts = next(iter(pts.values()), [])
-
-        def ok(pt):
-            # --- exact filters ---------------------------------------------------
-            if 'road_id' in crit:
-                rid = crit['road_id']
-                if rid == 'same_as_ego' and ego_lane: rid = ego_lane[0]
-                if isinstance(rid, list):
-                    if pt['road_id'] not in rid: return False
-                elif pt['road_id'] != rid: return False
-
-            if 'lane_id' in crit:
-                lid = crit['lane_id']
-                if lid == 'same_as_ego' and ego_lane: lid = ego_lane[1]
-                if isinstance(lid, list):
-                    if pt['lane_id'] not in lid: return False
-                elif isinstance(lid, dict):      # {"min":‑2,"max":2}
-                    if not (lid['min'] <= pt['lane_id'] <= lid['max']): return False
-                elif pt['lane_id'] != lid: return False
-
-            if 'lane_type' in crit:
-                if pt['lane_type'] not in (crit['lane_type']
-                                        if isinstance(crit['lane_type'],list)
-                                        else [crit['lane_type']]):
-                    return False
-
-            if 'is_intersection' in crit:
-                if pt['is_intersection'] is not crit['is_intersection']:
-                    return False
-
-            # --- heading ---------------------------------------------------------
-            if 'heading_tol' in crit and ego_pos:
-                dyaw = abs((pt['yaw'] - ego_pos[3] + 180) % 360 - 180)
-                if dyaw > crit['heading_tol']: return False
-
-            # --- distance checks --------------------------------------------------
-            if 'distance_to_ego' in crit and ego_pos:
-                d = math.hypot(pt['x'] - ego_pos[0], pt['y'] - ego_pos[1])
-                low = crit['distance_to_ego'].get('min',0)
-                hi  = crit['distance_to_ego'].get('max',1e9)
-                if not (low <= d <= hi): return False
-
-            if 'relative_position' in crit and ego_pos:
-                # +ve projection => ahead, ‑ve => behind (wrt ego heading)
-                dx, dy = pt["x"] - ego_pos[0], pt["y"] - ego_pos[1]
-                proj   =  math.cos(ego_pos[3])*dx + math.sin(ego_pos[3])*dy
-                if   crit["relative_position"] == "ahead"  and proj < 0: return False
-                elif crit["relative_position"] == "behind" and proj > 0: return False
-
-            if 'distance_to' in crit:
-                tgt = crit['distance_to']
-                d = math.hypot(pt['x'] - tgt['x'], pt['y'] - tgt['y'])
-                if d > tgt['max']: return False
-
-            return True
-
-        choices = [pt for pt in pts if ok(pt)]
-        if not choices:
-            raise ValidationError(f"No spawn in {map_name} matches {crit}")
-        pick = random.choice(choices)
+    def _choose_spawn(self, map_name: str, crit: Dict[str, Any],
+                    ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                    ego_lane: Optional[Tuple[int, int]] = None) -> Tuple[float, float, float, float]:
+        """Return a spawn (x,y,z,yaw) that meets the criteria using enhanced selection logic with explicit road/lane relationships"""
+        pts = self._get_spawn_points_for_map(map_name)
+        if not pts:
+            self.logger.error(f"No enhanced spawn data available for map {map_name}")
+            raise ValidationError(f"No enhanced spawn points available for map {map_name}. Please ensure enhanced_{map_name}.json exists in spawns/ directory.")
+        
+        # NEW PRIORITY ORDER:
+        # 1. Road relationship (HIGHEST PRIORITY)
+        # 2. Lane relationship  
+        # 3. Lane type
+        # 4. Distance constraints
+        # 5. Relative position
+        # 6. Other criteria
+        
+        candidates = pts
+        
+        # Step 1: Filter by road relationship FIRST (HIGHEST PRIORITY)
+        if 'road_relationship' in crit:
+            candidates = self._filter_by_road_relationship(candidates, crit, ego_lane)
+            self.logger.debug(f"Road relationship filter: {len(pts)} -> {len(candidates)} candidates")
+        
+        # Step 2: Filter by lane relationship
+        if 'lane_relationship' in crit:
+            candidates = self._filter_by_lane_relationship(candidates, crit, ego_lane)
+            self.logger.debug(f"Lane relationship filter: -> {len(candidates)} candidates")
+        
+        # Step 3: Filter by lane type
+        if 'lane_type' in crit:
+            type_filtered = []
+            valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+            for pt in candidates:
+                if pt.get('lane_type') in valid_types:
+                    type_filtered.append(pt)
+            candidates = type_filtered
+            self.logger.debug(f"Lane type filter: -> {len(candidates)} candidates")
+        
+        # Step 4: Filter by distance (after road/lane logic)
+        if 'distance_to_ego' in crit and ego_pos:
+            distance_filtered = []
+            for pt in candidates:
+                d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                low = crit['distance_to_ego'].get('min', 0)
+                hi = crit['distance_to_ego'].get('max', 1000)
+                if low <= d <= hi:
+                    distance_filtered.append(pt)
+            candidates = distance_filtered
+            self.logger.debug(f"Distance filter: -> {len(candidates)} candidates")
+        
+        # Step 5: Apply remaining filters (relative position, intersection, etc.)
+        filtered_candidates = []
+        for pt in candidates:
+            if self._matches_spawn_criteria(pt, crit, ego_pos, ego_lane):
+                filtered_candidates.append(pt)
+        
+        self.logger.debug(f"Remaining criteria filter: {len(candidates)} -> {len(filtered_candidates)} candidates")
+        
+        # Step 6: Use fallback strategy if no matches
+        final_candidates = self._apply_fallback_strategy(filtered_candidates, candidates, pts, crit, ego_pos, ego_lane)
+        
+        # Step 7: Score and select best spawn point
+        if not final_candidates:
+            raise ValidationError(f"No spawn in {map_name} matches criteria {crit} even with fallbacks")
+        
+        if len(final_candidates) == 1:
+            pick = final_candidates[0]
+        else:
+            # Score candidates and pick the best
+            scored_candidates = [(self._score_spawn_point(pt, crit, ego_pos, ego_lane), pt) for pt in final_candidates]
+            scored_candidates.sort(reverse=True, key=lambda x: x[0])
+            pick = scored_candidates[0][1]
+        
         self._last_pick = pick
+        
+        # Enhanced debug output
+        self._log_spawn_decision(pick, ego_pos, ego_lane, crit)
+        
         return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+    
+    def _matches_spawn_criteria(self, pt: Dict, crit: Dict[str, Any], 
+                               ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                               ego_lane: Optional[Tuple[int, int]] = None) -> bool:
+        """Check if a spawn point matches the given criteria"""
+        # Road ID matching with same_as_ego support
+        if 'road_id' in crit:
+            rid = crit['road_id']
+            if rid == 'same_as_ego':
+                if not ego_lane:
+                    return True  # Skip check if ego not positioned yet
+                rid = ego_lane[0]
+            if isinstance(rid, list):
+                if pt.get('road_id') not in rid:
+                    return False
+            elif rid != 'same_as_ego' and pt.get('road_id') != rid:
+                return False
+        
+        # Lane ID matching with enhanced same_as_ego and adjacent support
+        if 'lane_id' in crit:
+            lid = crit['lane_id']
+            if lid == 'same_as_ego':
+                if not ego_lane:
+                    return True
+                lid = ego_lane[1]
+            elif lid == 'adjacent' and ego_lane:
+                # Adjacent means same road, lane_id differs by ±1
+                if not self._are_lanes_adjacent(ego_lane, (pt.get('road_id'), pt.get('lane_id'))):
+                    return False
+            elif isinstance(lid, list):
+                if pt.get('lane_id') not in lid:
+                    return False
+            elif isinstance(lid, dict):
+                if not (lid.get('min', float('-inf')) <= pt.get('lane_id', 0) <= lid.get('max', float('inf'))):
+                    return False
+            elif lid not in ['same_as_ego', 'adjacent'] and pt.get('lane_id') != lid:
+                return False
+        
+        # Lane type filtering
+        if 'lane_type' in crit:
+            valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+            if pt.get('lane_type') not in valid_types:
+                return False
+        
+        # Intersection filtering
+        if 'is_intersection' in crit:
+            if pt.get('is_intersection') is not crit['is_intersection']:
+                return False
+        
+        # Heading tolerance
+        if 'heading_tol' in crit and ego_pos:
+            pt_yaw = pt.get('yaw', 0)
+            dyaw = abs((pt_yaw - math.degrees(ego_pos[3]) + 180) % 360 - 180)
+            if dyaw > crit['heading_tol']:
+                return False
+        
+        # Relative position (ahead/behind with improved accuracy)
+        if 'relative_position' in crit and ego_pos:
+            rel_pos = self._get_relative_position(ego_pos, pt)
+            expected_pos = crit['relative_position']
+            if expected_pos == 'adjacent':
+                # For adjacent, check lateral displacement
+                if not self._is_laterally_adjacent(ego_pos, pt):
+                    return False
+            elif expected_pos in ['ahead', 'behind']:
+                if rel_pos != expected_pos:
+                    return False
+        
+        # Distance to arbitrary target
+        if 'distance_to' in crit:
+            tgt = crit['distance_to']
+            d = math.hypot(pt.get('x', 0) - tgt.get('x', 0), pt.get('y', 0) - tgt.get('y', 0))
+            if d > tgt.get('max', float('inf')):
+                return False
+        
+        return True
+    
+    def _are_lanes_adjacent(self, ego_lane: Tuple[int, int], candidate_lane: Tuple[int, int]) -> bool:
+        """Check if two lanes are adjacent (same road, lane_id differs by ±1)"""
+        if not ego_lane or not candidate_lane:
+            return False
+        road_id_ego, lane_id_ego = ego_lane
+        road_id_candidate, lane_id_candidate = candidate_lane
+        
+        return (road_id_ego == road_id_candidate and 
+                abs(lane_id_ego - lane_id_candidate) == 1)
+    
+    def _get_relative_position(self, ego_pos: Tuple[float, float, float, float], pt: Dict) -> str:
+        """Get relative position (ahead/behind) with improved accuracy considering lane direction"""
+        dx = pt.get('x', 0) - ego_pos[0]
+        dy = pt.get('y', 0) - ego_pos[1]
+        # Project along ego's heading direction
+        proj = math.cos(ego_pos[3]) * dx + math.sin(ego_pos[3]) * dy
+        return 'ahead' if proj > 0 else 'behind'
+    
+    def _is_laterally_adjacent(self, ego_pos: Tuple[float, float, float, float], pt: Dict) -> bool:
+        """Check if point is laterally adjacent (perpendicular to ego heading)"""
+        dx = pt.get('x', 0) - ego_pos[0]
+        dy = pt.get('y', 0) - ego_pos[1]
+        # Project perpendicular to ego's heading
+        lateral_proj = abs(-math.sin(ego_pos[3]) * dx + math.cos(ego_pos[3]) * dy)
+        longitudinal_proj = abs(math.cos(ego_pos[3]) * dx + math.sin(ego_pos[3]) * dy)
+        # Adjacent if lateral displacement is significant but longitudinal is small
+        return lateral_proj > 3.0 and longitudinal_proj < 10.0
+    
+    def _score_spawn_point(self, pt: Dict, crit: Dict[str, Any], 
+                          ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                          ego_lane: Optional[Tuple[int, int]] = None) -> float:
+        """Score a spawn point based on how well it matches criteria (higher = better)"""
+        score = 0.0
+        
+        # Distance accuracy scoring
+        if 'distance_to_ego' in crit and ego_pos:
+            actual_distance = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+            target_min = crit['distance_to_ego'].get('min', 0)
+            target_max = crit['distance_to_ego'].get('max', 1e9)
+            target_center = (target_min + target_max) / 2
+            
+            # Perfect score if at target center, decreases with distance from center
+            distance_error = abs(actual_distance - target_center)
+            max_error = (target_max - target_min) / 2
+            if max_error > 0:
+                distance_score = max(0, 100 - (distance_error / max_error) * 100)
+                score += distance_score
+        
+        # Lane relationship scoring
+        if ego_lane and pt.get('road_id') is not None:
+            if pt.get('road_id') == ego_lane[0]:
+                score += 50  # Same road bonus
+                if pt.get('lane_id') == ego_lane[1]:
+                    score += 25  # Same lane bonus
+                elif abs(pt.get('lane_id', 0) - ego_lane[1]) == 1:
+                    score += 15  # Adjacent lane bonus
+        
+        # Relative position accuracy scoring
+        if 'relative_position' in crit and ego_pos:
+            actual_rel_pos = self._get_relative_position(ego_pos, pt)
+            expected_rel_pos = crit['relative_position']
+            if actual_rel_pos == expected_rel_pos or expected_rel_pos == 'adjacent':
+                score += 30
+        
+        # Intersection preference scoring
+        if 'is_intersection' in crit:
+            if pt.get('is_intersection') == crit['is_intersection']:
+                score += 20
+        
+        # Lane type preference scoring
+        if 'lane_type' in crit:
+            valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+            if pt.get('lane_type') in valid_types:
+                score += 10
+        
+        return score
+    
+    def _apply_fallback_strategy(self, filtered_candidates: List[Dict], 
+                               candidates: List[Dict], 
+                               all_points: List[Dict],
+                               crit: Dict[str, Any],
+                               ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                               ego_lane: Optional[Tuple[int, int]] = None) -> List[Dict]:
+        """Apply progressive fallback strategy with explicit road/lane relationship relaxation"""
+        if filtered_candidates:
+            return filtered_candidates
+        
+        self.logger.warning(f"No perfect matches found, applying fallbacks for criteria: {crit}")
+        
+        # Fallback 1: Relax lane_relationship (highest priority after road)
+        if 'lane_relationship' in crit and crit['lane_relationship'] == 'same_lane':
+            relaxed_crit = crit.copy()
+            relaxed_crit['lane_relationship'] = 'adjacent_lane'
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 1 (same_lane -> adjacent_lane): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 2: Relax lane_relationship further
+        if 'lane_relationship' in crit and crit['lane_relationship'] in ['same_lane', 'adjacent_lane']:
+            relaxed_crit = crit.copy()
+            relaxed_crit['lane_relationship'] = 'any_lane'
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 2 (lane_relationship -> any_lane): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 3: Relax road_relationship (last resort for relationships)
+        if 'road_relationship' in crit and crit['road_relationship'] in ['same_road', 'different_road']:
+            relaxed_crit = crit.copy()
+            relaxed_crit['road_relationship'] = 'any_road'
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 3 (road_relationship -> any_road): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 4: Expand distance range by 50%
+        if 'distance_to_ego' in crit and ego_pos:
+            relaxed_crit = crit.copy()
+            distance_constraint = relaxed_crit['distance_to_ego'].copy()
+            
+            current_min = distance_constraint.get('min', 0)
+            current_max = distance_constraint.get('max', 1000)
+            range_expansion = (current_max - current_min) * 0.5
+            
+            distance_constraint['min'] = max(0, current_min - range_expansion)
+            distance_constraint['max'] = current_max + range_expansion
+            relaxed_crit['distance_to_ego'] = distance_constraint
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 4 (expanded distance {current_min}-{current_max} -> {distance_constraint['min']:.1f}-{distance_constraint['max']:.1f}): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 5: Ignore intersection requirements
+        if 'is_intersection' in crit:
+            relaxed_crit = crit.copy()
+            del relaxed_crit['is_intersection']
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 5 (relaxed intersection): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Final fallback: Any valid spawn point with basic safety constraints
+        if all_points:
+            self.logger.warning("Using final fallback: any valid spawn point")
+            return all_points[:10]  # Limit to 10 for performance
+        
+        return []
+    
+    def _apply_relaxed_criteria(self, all_points: List[Dict], relaxed_crit: Dict[str, Any],
+                               ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                               ego_lane: Optional[Tuple[int, int]] = None) -> List[Dict]:
+        """Apply relaxed criteria with the new priority system"""
+        candidates = all_points
+        
+        # Apply filters in priority order
+        if 'road_relationship' in relaxed_crit:
+            candidates = self._filter_by_road_relationship(candidates, relaxed_crit, ego_lane)
+        
+        if 'lane_relationship' in relaxed_crit:
+            candidates = self._filter_by_lane_relationship(candidates, relaxed_crit, ego_lane)
+        
+        if 'lane_type' in relaxed_crit:
+            type_filtered = []
+            valid_types = relaxed_crit['lane_type'] if isinstance(relaxed_crit['lane_type'], list) else [relaxed_crit['lane_type']]
+            for pt in candidates:
+                if pt.get('lane_type') in valid_types:
+                    type_filtered.append(pt)
+            candidates = type_filtered
+        
+        if 'distance_to_ego' in relaxed_crit and ego_pos:
+            distance_filtered = []
+            for pt in candidates:
+                d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                low = relaxed_crit['distance_to_ego'].get('min', 0)
+                hi = relaxed_crit['distance_to_ego'].get('max', 1000)
+                if low <= d <= hi:
+                    distance_filtered.append(pt)
+            candidates = distance_filtered
+        
+        # Apply remaining criteria
+        final_candidates = []
+        for pt in candidates:
+            if self._matches_spawn_criteria(pt, relaxed_crit, ego_pos, ego_lane):
+                final_candidates.append(pt)
+        
+        return final_candidates
+    
+    def _filter_by_road_relationship(self, candidates: List[Dict], crit: Dict[str, Any], ego_lane: Optional[Tuple[int, int]]) -> List[Dict]:
+        """Filter spawn points based on road relationship to ego vehicle"""
+        relationship = crit['road_relationship']
+        ego_road_id = ego_lane[0] if ego_lane else None
+        
+        if relationship == 'same_road' and ego_road_id is not None:
+            result = [pt for pt in candidates if pt.get('road_id') == ego_road_id]
+            self.logger.debug(f"Road relationship 'same_road': filtering to road_id={ego_road_id}")
+            return result
+        elif relationship == 'different_road' and ego_road_id is not None:
+            result = [pt for pt in candidates if pt.get('road_id') != ego_road_id]
+            self.logger.debug(f"Road relationship 'different_road': excluding road_id={ego_road_id}")
+            return result
+        else:  # 'any_road' or ego not positioned yet
+            self.logger.debug(f"Road relationship '{relationship}': no filtering")
+            return candidates
+    
+    def _filter_by_lane_relationship(self, candidates: List[Dict], crit: Dict[str, Any], ego_lane: Optional[Tuple[int, int]]) -> List[Dict]:
+        """Filter spawn points based on lane relationship to ego vehicle"""
+        relationship = crit['lane_relationship'] 
+        ego_road_id, ego_lane_id = ego_lane if ego_lane else (None, None)
+        
+        if relationship == 'same_lane' and ego_lane:
+            result = [pt for pt in candidates 
+                    if pt.get('road_id') == ego_road_id and pt.get('lane_id') == ego_lane_id]
+            self.logger.debug(f"Lane relationship 'same_lane': filtering to road_id={ego_road_id}, lane_id={ego_lane_id}")
+            return result
+        elif relationship == 'adjacent_lane' and ego_lane:
+            result = [pt for pt in candidates 
+                    if pt.get('road_id') == ego_road_id and 
+                    abs(pt.get('lane_id', 0) - ego_lane_id) == 1]
+            self.logger.debug(f"Lane relationship 'adjacent_lane': filtering to road_id={ego_road_id}, lane_id±1 from {ego_lane_id}")
+            return result
+        else:  # 'any_lane' or ego not positioned yet
+            self.logger.debug(f"Lane relationship '{relationship}': no filtering")
+            return candidates
+    
+    def _log_spawn_decision(self, selected_spawn: Dict, ego_pos: Optional[Tuple[float, float, float, float]], ego_lane: Optional[Tuple[int, int]], criteria: Dict[str, Any]):
+        """Log comprehensive spawn decision information"""
+        actor_id = "ego" if ego_pos is None else "actor"
+        self.logger.info(f"=== Spawning {actor_id} ===")
+        
+        if ego_lane:
+            self.logger.info(f"Ego: road_id={ego_lane[0]}, lane_id={ego_lane[1]}")
+        else:
+            self.logger.info("Ego: not positioned yet")
+            
+        self.logger.info(f"Actor: road_id={selected_spawn.get('road_id')}, lane_id={selected_spawn.get('lane_id')}")
+        
+        if ego_pos:
+            distance = math.hypot(selected_spawn.get('x', 0) - ego_pos[0], selected_spawn.get('y', 0) - ego_pos[1])
+            self.logger.info(f"Distance: {distance:.1f}m")
+        
+        # Log constraint validation
+        constraints_satisfied = []
+        if 'road_relationship' in criteria:
+            rel = criteria['road_relationship']
+            if rel == 'same_road' and ego_lane:
+                satisfied = selected_spawn.get('road_id') == ego_lane[0]
+                constraints_satisfied.append(f"road_relationship({rel}): {'✓' if satisfied else '✗'}")
+            elif rel == 'different_road' and ego_lane:
+                satisfied = selected_spawn.get('road_id') != ego_lane[0]
+                constraints_satisfied.append(f"road_relationship({rel}): {'✓' if satisfied else '✗'}")
+            else:
+                constraints_satisfied.append(f"road_relationship({rel}): ✓")
+                
+        if 'lane_relationship' in criteria:
+            rel = criteria['lane_relationship']
+            if rel == 'same_lane' and ego_lane:
+                satisfied = (selected_spawn.get('road_id') == ego_lane[0] and 
+                           selected_spawn.get('lane_id') == ego_lane[1])
+                constraints_satisfied.append(f"lane_relationship({rel}): {'✓' if satisfied else '✗'}")
+            elif rel == 'adjacent_lane' and ego_lane:
+                satisfied = (selected_spawn.get('road_id') == ego_lane[0] and 
+                           abs(selected_spawn.get('lane_id', 0) - ego_lane[1]) == 1)
+                constraints_satisfied.append(f"lane_relationship({rel}): {'✓' if satisfied else '✗'}")
+            else:
+                constraints_satisfied.append(f"lane_relationship({rel}): ✓")
+                
+        if constraints_satisfied:
+            self.logger.info(f"Constraints: {', '.join(constraints_satisfied)}")
+        
+        self.logger.info("="*40)
 
 
     
@@ -631,7 +1151,8 @@ class JsonToXoscConverter:
         # RoadNetwork
         road_network = ET.SubElement(root, 'RoadNetwork')
         logic_file = ET.SubElement(road_network, 'LogicFile')
-        logic_file.set('filepath', json_data['map_name'])
+        selected_map = self._selected_map or json_data.get('map_name', 'Town01')
+        logic_file.set('filepath', selected_map)
         ET.SubElement(road_network, 'SceneGraphFile').set('filepath', '')
         
         # Entities
@@ -658,8 +1179,17 @@ def main():
     parser.add_argument('-s', '--schema', help='JSON schema file for validation')
     parser.add_argument('-v', '--validate-only', action='store_true', 
                        help='Only validate, do not convert')
+    parser.add_argument('--log-level', default='INFO', 
+                       choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
+                       help='Set logging level')
     
     args = parser.parse_args()
+    
+    # Setup logging
+    logging.basicConfig(
+        level=getattr(logging, args.log_level),
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
     
     # Load JSON
     try:

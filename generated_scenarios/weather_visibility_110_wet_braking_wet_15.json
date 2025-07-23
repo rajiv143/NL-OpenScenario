@@ -1,0 +1,59 @@
+{
+  "scenario_name": "wet_braking_wet_15",
+  "description": "Emergency braking on wet roads after rain",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 1,
+  "actors": [
+    {
+      "id": "brake_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 44,
+            "max": 54
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,128,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "brake_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "brake_vehicle",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 67,
+  "timeout": 98,
+  "collision_allowed": false
+}

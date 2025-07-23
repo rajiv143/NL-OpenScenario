@@ -1,0 +1,78 @@
+{
+  "scenario_name": "school_zone_21",
+  "description": "Children crossing near school zone",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "child1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 35
+          }
+        }
+      }
+    },
+    {
+      "id": "child2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "child1",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "child1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "child2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 45,
+      "trigger_comparison": "<",
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 62,
+  "timeout": 64,
+  "collision_allowed": false
+}
