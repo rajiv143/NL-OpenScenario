@@ -1,0 +1,39 @@
+{
+  "scenario_name": "construction_barrier_11",
+  "description": "Construction barrier blocking lane",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "obstacle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 56,
+            "max": 66
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "0,255,255"
+    }
+  ],
+  "actions": [],
+  "success_distance": 70,
+  "timeout": 49,
+  "collision_allowed": false
+}

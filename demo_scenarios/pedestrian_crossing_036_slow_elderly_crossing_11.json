@@ -1,0 +1,54 @@
+{
+  "scenario_name": "slow_elderly_crossing_11",
+  "description": "Elderly pedestrian crosses slowly",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0030",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 37,
+            "max": 52
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "wait_duration": 3.0
+    },
+    {
+      "actor_id": "pedestrian",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 92,
+  "timeout": 77,
+  "collision_allowed": false
+}

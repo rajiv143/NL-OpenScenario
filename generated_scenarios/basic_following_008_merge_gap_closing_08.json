@@ -1,0 +1,60 @@
+{
+  "scenario_name": "merge_gap_closing_08",
+  "description": "Vehicle ahead reduces gap during merge",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 47,
+            "max": 57
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35,
+      "trigger_comparison": "<",
+      "speed_value": 14.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 63,
+  "timeout": 84,
+  "collision_allowed": false
+}

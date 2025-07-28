@@ -1,0 +1,56 @@
+{
+  "scenario_name": "slow_vehicle_overtake_13",
+  "description": "Slow vehicle forces lane change",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lane_changer",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 65
+          },
+          "relative_position": "behind"
+        }
+      },
+      "color": "255,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_changer",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "lane_changer",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "wait_duration": 3.0
+    }
+  ],
+  "success_distance": 103,
+  "timeout": 81,
+  "collision_allowed": false
+}

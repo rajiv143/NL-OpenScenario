@@ -1,0 +1,117 @@
+{
+  "scenario_name": "bus_stop_activity_08",
+  "description": "Bus with boarding passengers and traffic",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 46,
+            "max": 61
+          },
+          "relative_position": "ahead"
+        }
+      }
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 48,
+            "max": 63
+          },
+          "relative_position": "behind"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "actor_3",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 75,
+            "max": 90
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "actor_3",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 60,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_3",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 73,
+  "timeout": 98,
+  "collision_allowed": false
+}

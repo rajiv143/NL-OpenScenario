@@ -1,0 +1,39 @@
+{
+  "scenario_name": "delivery_truck_stopped_09",
+  "description": "Delivery truck stopped in lane",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "obstacle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 78,
+            "max": 88
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,0,255"
+    }
+  ],
+  "actions": [],
+  "success_distance": 88,
+  "timeout": 54,
+  "collision_allowed": false
+}

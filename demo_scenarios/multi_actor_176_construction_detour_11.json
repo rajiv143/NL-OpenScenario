@@ -1,0 +1,87 @@
+{
+  "scenario_name": "construction_detour_11",
+  "description": "Multiple vehicles navigating construction",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
+          "relative_position": "behind"
+        }
+      }
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0001",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 36,
+            "max": 46
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 83,
+  "timeout": 136,
+  "collision_allowed": false
+}

@@ -1,0 +1,58 @@
+{
+  "scenario_name": "merge_from_ramp_03",
+  "description": "Vehicle merges from on-ramp",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lane_changer",
+      "type": "vehicle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 36,
+            "max": 56
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,128,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_changer",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "lane_changer",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 105,
+  "timeout": 78,
+  "collision_allowed": false
+}

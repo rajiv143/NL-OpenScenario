@@ -1,0 +1,111 @@
+{
+  "scenario_name": "delivery_zone_03",
+  "description": "Delivery truck with pedestrian activity",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "delivery",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "128,0,255"
+    },
+    {
+      "id": "delivery_worker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0048",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          }
+        }
+      }
+    },
+    {
+      "id": "customer",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "delivery",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "delivery",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "delivery_worker",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "customer",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 55,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "customer",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 88,
+  "timeout": 139,
+  "collision_allowed": false
+}
