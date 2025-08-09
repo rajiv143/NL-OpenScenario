@@ -82,6 +82,10 @@ class JsonToXoscConverter:
         self.waypoint_meta: Dict[str, Dict[str, List[Dict]]] = {}
         self._load_map_data()
         
+        # Load road intelligence data for all maps
+        self.road_intelligence: Dict[str, Dict] = {}
+        self._load_road_intelligence()
+        
         self._ego_pos: Optional[Tuple[float, float, float, float]] = None
         self._ego_lane: Optional[Tuple[int, int]] = None # road_id, lane_id)
         self._selected_map: Optional[str] = None
@@ -131,6 +135,24 @@ class JsonToXoscConverter:
             except Exception as e:
                 self.logger.warning(f"Could not load waypoint data from {path}: {e}")
     
+    def _load_road_intelligence(self):
+        """Load road intelligence data for all available maps"""
+        base_dir = os.path.dirname(__file__)
+        
+        # Load road intelligence files (*_road_intelligence.json)
+        for path in glob.glob(os.path.join(base_dir, "*_road_intelligence.json")):
+            # Extract town name from TownX_road_intelligence.json -> TownX
+            filename = os.path.basename(path)
+            town = filename.replace("_road_intelligence.json", "")
+            
+            try:
+                with open(path) as f:
+                    data = json.load(f)
+                    self.road_intelligence[town] = data
+                self.logger.info(f"Loaded road intelligence for {town} ({data.get('header', {}).get('total_roads', 0)} roads)")
+            except Exception as e:
+                self.logger.warning(f"Could not load road intelligence from {path}: {e}")
+    
     def _detect_best_map(self, data: Dict[str, Any]) -> str:
         """Auto-detect the best map based on spawn constraints"""
         # If map is explicitly specified, validate and use it
@@ -167,7 +189,7 @@ class JsonToXoscConverter:
                 all_satisfied = True
                 for criteria in spawn_criteria:
                     spawn_points = self._get_spawn_points_for_map(map_name)
-                    if not any(self._matches_criteria(pt, criteria) for pt in spawn_points):
+                    if not any(self._matches_criteria(pt, criteria, map_name) for pt in spawn_points):
                         all_satisfied = False
                         break
                 
@@ -198,7 +220,7 @@ class JsonToXoscConverter:
         
         return points
     
-    def _matches_criteria(self, point: Dict, criteria: Dict) -> bool:
+    def _matches_criteria(self, point: Dict, criteria: Dict, map_name: str = None) -> bool:
         """Check if a spawn point matches the given criteria"""
         for key, value in criteria.items():
             if key == 'road_id':
@@ -229,7 +251,169 @@ class JsonToXoscConverter:
             elif key == 'is_intersection':
                 if point.get('is_intersection') != value:
                     return False
+                    
+            # NEW: Road intelligence criteria
+            elif key == 'road_context' and map_name:
+                if not self._matches_road_context(point, value, map_name):
+                    return False
+                    
+            elif key == 'junction_proximity' and map_name:
+                if not self._matches_junction_proximity(point, value, map_name):
+                    return False
+                    
+            elif key == 'junction_type' and map_name:
+                if not self._matches_junction_type(point, value, map_name):
+                    return False
+                    
+            elif key == 'road_curvature' and map_name:
+                if not self._matches_road_curvature(point, value, map_name):
+                    return False
+                    
+            elif key == 'speed_limit' and map_name:
+                if not self._matches_speed_limit(point, value, map_name):
+                    return False
+                    
+            elif key == 'road_connectivity' and map_name:
+                if not self._matches_road_connectivity(point, value, map_name):
+                    return False
         
+        return True
+    
+    def _matches_road_context(self, point: Dict, context: str, map_name: str) -> bool:
+        """Check if spawn point matches road context (highway/urban/suburban)"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True  # Skip if no intelligence data
+            
+        road_info = road_data.get('roads', {}).get(str(point.get('road_id', '')), {})
+        road_type = road_info.get('road_type', 'unknown')
+        speed_limit = road_info.get('speed_limit', 0) or 0  # Handle None values
+        
+        if context == 'highway' and speed_limit >= 60:
+            return True
+        elif context == 'urban' and road_type in ['town', 'city'] and speed_limit <= 50:
+            return True
+        elif context == 'suburban' and 30 <= speed_limit <= 60:
+            return True
+        elif context == 'service' and road_type == 'service':
+            return True
+        
+        return False
+    
+    def _matches_junction_proximity(self, point: Dict, proximity: Dict, map_name: str) -> bool:
+        """Check if spawn point matches junction proximity constraints"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True
+            
+        junctions = road_data.get('junctions', {})
+        if not junctions:
+            return True
+            
+        point_x, point_y = point.get('x', 0), point.get('y', 0)
+        min_distance = float('inf')
+        
+        # Find nearest junction
+        for junction_data in junctions.values():
+            junction_center = junction_data.get('center', {})
+            jx, jy = junction_center.get('x', 0), junction_center.get('y', 0)
+            distance = math.hypot(point_x - jx, point_y - jy)
+            min_distance = min(min_distance, distance)
+        
+        min_prox = proximity.get('min', 0)
+        max_prox = proximity.get('max', 1000)
+        return min_prox <= min_distance <= max_prox
+    
+    def _matches_junction_type(self, point: Dict, junction_type: str, map_name: str) -> bool:
+        """Check if spawn point is near the specified junction type"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True
+            
+        if junction_type == 'roundabout':
+            roundabouts = road_data.get('roundabouts', [])
+            if not roundabouts and junction_type == 'roundabout':
+                return False
+            # Check if point is near a roundabout
+            point_x, point_y = point.get('x', 0), point.get('y', 0)
+            for roundabout in roundabouts:
+                center = roundabout.get('center', {})
+                rx, ry = center.get('x', 0), center.get('y', 0)
+                radius = roundabout.get('radius', 20)
+                distance = math.hypot(point_x - rx, point_y - ry)
+                if distance <= radius * 2:  # Within 2x radius
+                    return True
+            return False
+            
+        elif junction_type == 'intersection':
+            # Check if near regular junctions
+            junctions = road_data.get('junctions', {})
+            point_x, point_y = point.get('x', 0), point.get('y', 0)
+            for junction_data in junctions.values():
+                junction_center = junction_data.get('center', {})
+                jx, jy = junction_center.get('x', 0), junction_center.get('y', 0)
+                distance = math.hypot(point_x - jx, point_y - jy)
+                if distance <= 50:  # Within 50m of junction
+                    return True
+            return False
+            
+        elif junction_type == 'none':
+            # Check that it's NOT near any junction
+            return not self._matches_junction_type(point, 'intersection', map_name)
+            
+        return True
+    
+    def _matches_road_curvature(self, point: Dict, curvature: str, map_name: str) -> bool:
+        """Check if spawn point is on road with specified curvature"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True
+            
+        road_info = road_data.get('roads', {}).get(str(point.get('road_id', '')), {})
+        geometry = road_info.get('geometry', [])
+        
+        has_curves = any(g.get('geometry_type') == 'arc' for g in geometry)
+        
+        if curvature == 'straight':
+            return not has_curves
+        elif curvature == 'curved':
+            return has_curves
+        elif curvature == 'any':
+            return True
+            
+        return True
+    
+    def _matches_speed_limit(self, point: Dict, speed_limit: Dict, map_name: str) -> bool:
+        """Check if spawn point is on road with specified speed limit"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True
+            
+        road_info = road_data.get('roads', {}).get(str(point.get('road_id', '')), {})
+        actual_speed = road_info.get('speed_limit', 0) or 0  # Handle None values
+        
+        min_speed = speed_limit.get('min', 0)
+        max_speed = speed_limit.get('max', 1000)
+        
+        return min_speed <= actual_speed <= max_speed
+    
+    def _matches_road_connectivity(self, point: Dict, connectivity: str, map_name: str) -> bool:
+        """Check if spawn point is on road with specified connectivity"""
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            return True
+            
+        road_info = road_data.get('roads', {}).get(str(point.get('road_id', '')), {})
+        predecessor = road_info.get('predecessor')
+        successor = road_info.get('successor')
+        
+        if connectivity == 'well_connected':
+            return predecessor is not None and successor is not None
+        elif connectivity == 'isolated':
+            return predecessor is None and successor is None
+        elif connectivity == 'terminal':
+            return (predecessor is None) != (successor is None)  # XOR - exactly one connection
+            
         return True
     
     def validate_json(self, data: Dict[str, Any]) -> None:
@@ -702,33 +886,40 @@ class JsonToXoscConverter:
     def _choose_spawn(self, map_name: str, crit: Dict[str, Any],
                     ego_pos: Optional[Tuple[float, float, float, float]] = None,
                     ego_lane: Optional[Tuple[int, int]] = None) -> Tuple[float, float, float, float]:
-        """Return a spawn (x,y,z,yaw) that meets the criteria using enhanced selection logic with explicit road/lane relationships"""
+        """Return a spawn (x,y,z,yaw) that meets the criteria using intelligent selection with road intelligence"""
         pts = self._get_spawn_points_for_map(map_name)
         if not pts:
             self.logger.error(f"No enhanced spawn data available for map {map_name}")
             raise ValidationError(f"No enhanced spawn points available for map {map_name}. Please ensure enhanced_{map_name}.json exists in spawns/ directory.")
         
-        # NEW PRIORITY ORDER:
-        # 1. Road relationship (HIGHEST PRIORITY)
-        # 2. Lane relationship  
-        # 3. Lane type
-        # 4. Distance constraints
-        # 5. Relative position
-        # 6. Other criteria
+        # Check if we have road intelligence data for enhanced selection
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data:
+            self.logger.warning(f"No road intelligence data for {map_name}, falling back to legacy spawn selection")
+            return self._legacy_choose_spawn(map_name, crit, ego_pos, ego_lane, pts)
         
+        # Use intelligent spawn selection with road intelligence
+        return self._intelligent_choose_spawn(map_name, road_data, crit, ego_pos, ego_lane, pts)
+    
+    def _legacy_choose_spawn(self, map_name: str, crit: Dict[str, Any],
+                           ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                           ego_lane: Optional[Tuple[int, int]] = None,
+                           pts: List[Dict] = None) -> Tuple[float, float, float, float]:
+        """Fallback to original spawn selection logic when no road intelligence is available"""
+        if pts is None:
+            pts = self._get_spawn_points_for_map(map_name)
+            
         candidates = pts
         
-        # Step 1: Filter by road relationship FIRST (HIGHEST PRIORITY)
+        # Apply legacy filtering logic
         if 'road_relationship' in crit:
             candidates = self._filter_by_road_relationship(candidates, crit, ego_lane)
             self.logger.debug(f"Road relationship filter: {len(pts)} -> {len(candidates)} candidates")
         
-        # Step 2: Filter by lane relationship
         if 'lane_relationship' in crit:
             candidates = self._filter_by_lane_relationship(candidates, crit, ego_lane)
             self.logger.debug(f"Lane relationship filter: -> {len(candidates)} candidates")
         
-        # Step 3: Filter by lane type
         if 'lane_type' in crit:
             type_filtered = []
             valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
@@ -738,7 +929,6 @@ class JsonToXoscConverter:
             candidates = type_filtered
             self.logger.debug(f"Lane type filter: -> {len(candidates)} candidates")
         
-        # Step 4: Filter by distance (after road/lane logic)
         if 'distance_to_ego' in crit and ego_pos:
             distance_filtered = []
             for pt in candidates:
@@ -750,7 +940,7 @@ class JsonToXoscConverter:
             candidates = distance_filtered
             self.logger.debug(f"Distance filter: -> {len(candidates)} candidates")
         
-        # Step 5: Apply remaining filters (relative position, intersection, etc.)
+        # Apply remaining filters
         filtered_candidates = []
         for pt in candidates:
             if self._matches_spawn_criteria(pt, crit, ego_pos, ego_lane):
@@ -758,27 +948,274 @@ class JsonToXoscConverter:
         
         self.logger.debug(f"Remaining criteria filter: {len(candidates)} -> {len(filtered_candidates)} candidates")
         
-        # Step 6: Use fallback strategy if no matches
+        # Use fallback strategy if no matches
         final_candidates = self._apply_fallback_strategy(filtered_candidates, candidates, pts, crit, ego_pos, ego_lane)
         
-        # Step 7: Score and select best spawn point
+        # Score and select best spawn point
         if not final_candidates:
             raise ValidationError(f"No spawn in {map_name} matches criteria {crit} even with fallbacks")
         
         if len(final_candidates) == 1:
             pick = final_candidates[0]
         else:
-            # Score candidates and pick the best
             scored_candidates = [(self._score_spawn_point(pt, crit, ego_pos, ego_lane), pt) for pt in final_candidates]
             scored_candidates.sort(reverse=True, key=lambda x: x[0])
             pick = scored_candidates[0][1]
         
         self._last_pick = pick
-        
-        # Enhanced debug output
         self._log_spawn_decision(pick, ego_pos, ego_lane, crit)
         
         return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+    
+    def _intelligent_choose_spawn(self, map_name: str, road_data: Dict, crit: Dict[str, Any],
+                                ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                                ego_lane: Optional[Tuple[int, int]] = None,
+                                pts: List[Dict] = None) -> Tuple[float, float, float, float]:
+        """Enhanced spawn selection using road intelligence data"""
+        if pts is None:
+            pts = self._get_spawn_points_for_map(map_name)
+            
+        self.logger.info(f"Using intelligent spawn selection with road intelligence for {map_name}")
+        
+        # Step 1: Get enhanced spawn candidates with road context
+        candidates = self._get_enhanced_spawn_candidates(pts, road_data)
+        
+        # Step 2: Apply road intelligence filters in priority order
+        candidates = self._filter_by_road_context(candidates, crit, map_name)
+        self.logger.debug(f"Road context filter: -> {len(candidates)} candidates")
+        
+        candidates = self._filter_by_junction_context(candidates, crit, map_name)
+        self.logger.debug(f"Junction context filter: -> {len(candidates)} candidates")
+        
+        candidates = self._filter_by_road_relationships(candidates, crit, ego_lane, road_data)
+        self.logger.debug(f"Road relationships filter: -> {len(candidates)} candidates")
+        
+        candidates = self._filter_by_geometry(candidates, crit, road_data)
+        self.logger.debug(f"Geometry filter: -> {len(candidates)} candidates")
+        
+        # Step 3: Apply existing constraint filters
+        candidates = self._apply_legacy_filters(candidates, crit, ego_pos, ego_lane)
+        self.logger.debug(f"Legacy filters: -> {len(candidates)} candidates")
+        
+        # Step 4: Score and select best candidate
+        return self._score_and_select_spawn(candidates, crit, ego_pos, ego_lane, road_data, pts)
+    
+    def _get_enhanced_spawn_candidates(self, pts: List[Dict], road_data: Dict) -> List[Dict]:
+        """Enhance spawn candidates with road intelligence metadata"""
+        enhanced_candidates = []
+        
+        for pt in pts:
+            enhanced_pt = pt.copy()
+            road_id = str(pt.get('road_id', ''))
+            road_info = road_data.get('roads', {}).get(road_id, {})
+            
+            # Add road intelligence metadata
+            enhanced_pt.update({
+                'road_context': self._classify_road_context(road_info),
+                'junction_distance': self._calculate_junction_distance(pt, road_data),
+                'speed_limit': road_info.get('speed_limit', 40) or 40,  # Handle None values
+                'curvature': self._analyze_road_curvature(road_info),
+                'connectivity': self._analyze_road_connectivity(road_info)
+            })
+            
+            enhanced_candidates.append(enhanced_pt)
+        
+        return enhanced_candidates
+    
+    def _classify_road_context(self, road_info: Dict) -> str:
+        """Classify road context based on type and speed limit"""
+        road_type = road_info.get('road_type', 'unknown')
+        speed_limit = road_info.get('speed_limit', 0) or 0  # Handle None values
+        
+        if speed_limit >= 60:
+            return 'highway'
+        elif road_type in ['town', 'city'] and speed_limit <= 50:
+            return 'urban'
+        elif 30 <= speed_limit <= 60:
+            return 'suburban'
+        elif road_type == 'service':
+            return 'service'
+        else:
+            return 'unknown'
+    
+    def _calculate_junction_distance(self, pt: Dict, road_data: Dict) -> float:
+        """Calculate distance to nearest junction"""
+        junctions = road_data.get('junctions', {})
+        if not junctions:
+            return float('inf')
+            
+        point_x, point_y = pt.get('x', 0), pt.get('y', 0)
+        min_distance = float('inf')
+        
+        for junction_data in junctions.values():
+            junction_center = junction_data.get('center', {})
+            jx, jy = junction_center.get('x', 0), junction_center.get('y', 0)
+            distance = math.hypot(point_x - jx, point_y - jy)
+            min_distance = min(min_distance, distance)
+            
+        return min_distance
+    
+    def _analyze_road_curvature(self, road_info: Dict) -> str:
+        """Analyze road curvature from geometry"""
+        geometry = road_info.get('geometry', [])
+        has_curves = any(g.get('geometry_type') == 'arc' for g in geometry)
+        return 'curved' if has_curves else 'straight'
+    
+    def _analyze_road_connectivity(self, road_info: Dict) -> str:
+        """Analyze road connectivity"""
+        predecessor = road_info.get('predecessor')
+        successor = road_info.get('successor')
+        
+        if predecessor and successor:
+            return 'well_connected'
+        elif not predecessor and not successor:
+            return 'isolated'
+        else:
+            return 'terminal'
+    
+    def _filter_by_road_context(self, candidates: List[Dict], crit: Dict[str, Any], map_name: str) -> List[Dict]:
+        """Filter candidates by road context"""
+        if 'road_context' not in crit:
+            return candidates
+            
+        context = crit['road_context']
+        return [c for c in candidates if c.get('road_context') == context]
+    
+    def _filter_by_junction_context(self, candidates: List[Dict], crit: Dict[str, Any], map_name: str) -> List[Dict]:
+        """Filter candidates by junction proximity and type"""
+        # Filter by junction proximity
+        if 'junction_proximity' in crit:
+            proximity = crit['junction_proximity']
+            min_dist = proximity.get('min', 0)
+            max_dist = proximity.get('max', 1000)
+            candidates = [c for c in candidates 
+                        if min_dist <= c.get('junction_distance', float('inf')) <= max_dist]
+        
+        # Filter by junction type
+        if 'junction_type' in crit:
+            junction_type = crit['junction_type']
+            filtered = []
+            for c in candidates:
+                if self._matches_junction_type(c, junction_type, map_name):
+                    filtered.append(c)
+            candidates = filtered
+            
+        return candidates
+    
+    def _filter_by_road_relationships(self, candidates: List[Dict], crit: Dict[str, Any], 
+                                    ego_lane: Optional[Tuple[int, int]], road_data: Dict) -> List[Dict]:
+        """Filter candidates by road relationships using road intelligence"""
+        if 'road_relationship' in crit:
+            candidates = self._filter_by_road_relationship(candidates, crit, ego_lane)
+            
+        if 'lane_relationship' in crit:
+            candidates = self._filter_by_lane_relationship(candidates, crit, ego_lane)
+            
+        return candidates
+    
+    def _filter_by_geometry(self, candidates: List[Dict], crit: Dict[str, Any], road_data: Dict) -> List[Dict]:
+        """Filter candidates by geometric constraints"""
+        if 'road_curvature' in crit:
+            curvature_type = crit['road_curvature']
+            if curvature_type != 'any':
+                candidates = [c for c in candidates if c.get('curvature') == curvature_type]
+                
+        if 'speed_limit' in crit:
+            speed_constraint = crit['speed_limit']
+            min_speed = speed_constraint.get('min', 0)
+            max_speed = speed_constraint.get('max', 1000)
+            candidates = [c for c in candidates 
+                        if min_speed <= (c.get('speed_limit', 0) or 0) <= max_speed]
+                        
+        return candidates
+    
+    def _apply_legacy_filters(self, candidates: List[Dict], crit: Dict[str, Any],
+                            ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                            ego_lane: Optional[Tuple[int, int]] = None) -> List[Dict]:
+        """Apply existing spawn criteria filters"""
+        filtered = []
+        for pt in candidates:
+            if self._matches_spawn_criteria(pt, crit, ego_pos, ego_lane):
+                filtered.append(pt)
+        return filtered
+    
+    def _score_and_select_spawn(self, candidates: List[Dict], crit: Dict[str, Any],
+                              ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                              ego_lane: Optional[Tuple[int, int]] = None,
+                              road_data: Dict = None, all_pts: List[Dict] = None) -> Tuple[float, float, float, float]:
+        """Score candidates and select the best spawn point"""
+        if not candidates:
+            # Apply fallback strategy
+            if all_pts:
+                candidates = self._apply_fallback_strategy([], [], all_pts, crit, ego_pos, ego_lane)
+            if not candidates:
+                raise ValidationError(f"No valid spawn points found even with fallbacks")
+        
+        if len(candidates) == 1:
+            pick = candidates[0]
+        else:
+            # Score candidates with enhanced scoring including road intelligence
+            scored_candidates = [(self._enhanced_score_spawn_point(pt, crit, ego_pos, ego_lane, road_data), pt) 
+                               for pt in candidates]
+            scored_candidates.sort(reverse=True, key=lambda x: x[0])
+            pick = scored_candidates[0][1]
+        
+        self._last_pick = pick
+        self._log_enhanced_spawn_decision(pick, ego_pos, ego_lane, crit, road_data)
+        
+        return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+    
+    def _enhanced_score_spawn_point(self, pt: Dict, crit: Dict[str, Any],
+                                  ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                                  ego_lane: Optional[Tuple[int, int]] = None,
+                                  road_data: Dict = None) -> float:
+        """Enhanced scoring that includes road intelligence factors"""
+        score = self._score_spawn_point(pt, crit, ego_pos, ego_lane)  # Base score
+        
+        # Add road intelligence bonuses
+        if 'road_context' in crit and pt.get('road_context') == crit['road_context']:
+            score += 50
+            
+        if 'junction_type' in crit:
+            # Bonus for correct junction type proximity
+            map_name = None  # We need to pass this through
+            # For now, skip junction type bonus in enhanced scoring
+            pass
+            
+        if 'road_curvature' in crit and pt.get('curvature') == crit['road_curvature']:
+            score += 30
+            
+        if 'speed_limit' in crit:
+            speed_constraint = crit['speed_limit']
+            actual_speed = pt.get('speed_limit', 0) or 0  # Handle None values
+            target_min = speed_constraint.get('min', 0)
+            target_max = speed_constraint.get('max', 1000)
+            if target_min <= actual_speed <= target_max:
+                score += 25
+                
+        return score
+    
+    def _log_enhanced_spawn_decision(self, selected_spawn: Dict, 
+                                   ego_pos: Optional[Tuple[float, float, float, float]], 
+                                   ego_lane: Optional[Tuple[int, int]], 
+                                   criteria: Dict[str, Any],
+                                   road_data: Dict = None):
+        """Enhanced logging with road intelligence information"""
+        self._log_spawn_decision(selected_spawn, ego_pos, ego_lane, criteria)  # Base logging
+        
+        # Add road intelligence logging
+        self.logger.info(f"Road Intelligence:")
+        self.logger.info(f"  Road context: {selected_spawn.get('road_context', 'unknown')}")
+        
+        junction_distance = selected_spawn.get('junction_distance', 'unknown')
+        if isinstance(junction_distance, (int, float)):
+            self.logger.info(f"  Junction distance: {junction_distance:.1f}m")
+        else:
+            self.logger.info(f"  Junction distance: {junction_distance}")
+            
+        self.logger.info(f"  Speed limit: {selected_spawn.get('speed_limit', 'unknown')} km/h")
+        self.logger.info(f"  Curvature: {selected_spawn.get('curvature', 'unknown')}")
+        self.logger.info(f"  Connectivity: {selected_spawn.get('connectivity', 'unknown')}")
     
     def _matches_spawn_criteria(self, pt: Dict, crit: Dict[str, Any], 
                                ego_pos: Optional[Tuple[float, float, float, float]] = None,

@@ -1,0 +1,6573 @@
+{
+  "network_graph": {
+    "nodes": 122,
+    "edges": 274,
+    "adjacency_list": {
+      "0": {
+        "11": {
+          "connection_type": "direct",
+          "distance": 0.0
+        },
+        "40": {
+          "connection_type": "direct",
+          "distance": 36.359999999999985
+        },
+        "41": {
+          "connection_type": "direct",
+          "distance": 36.359999999999985
+        },
+        "46": {
+          "connection_type": "direct",
+          "distance": 36.359999999999985
+        },
+        "52": {
+          "connection_type": "direct",
+          "distance": 36.359999999999985
+        },
+        "1": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        },
+        "16": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        }
+      },
+      "1": {
+        "28": {
+          "connection_type": "direct",
+          "distance": 35.49225175610873
+        },
+        "33": {
+          "connection_type": "direct",
+          "distance": 35.26647139052964
+        },
+        "61": {
+          "connection_type": "direct",
+          "distance": 122.28386474846289
+        },
+        "62": {
+          "connection_type": "direct",
+          "distance": 122.28386474846289
+        },
+        "67": {
+          "connection_type": "direct",
+          "distance": 122.28386474846289
+        },
+        "70": {
+          "connection_type": "direct",
+          "distance": 122.34926880786972
+        },
+        "75": {
+          "connection_type": "direct",
+          "distance": 122.28386474846289
+        },
+        "1": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        },
+        "16": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        },
+        "2": {
+          "connection_type": "junction",
+          "junction_id": 54,
+          "distance": 12.816004751282481
+        },
+        "25": {
+          "connection_type": "junction",
+          "junction_id": 54,
+          "distance": 12.816004751282481
+        }
+      },
+      "2": {
+        "77": {
+          "connection_type": "direct",
+          "distance": 42.17827129907576
+        },
+        "85": {
+          "connection_type": "direct",
+          "distance": 41.98848380116381
+        },
+        "117": {
+          "connection_type": "direct",
+          "distance": 0.2818237512501537
+        },
+        "118": {
+          "connection_type": "direct",
+          "distance": 0.2818237512501537
+        },
+        "123": {
+          "connection_type": "direct",
+          "distance": 4.009915787989654
+        },
+        "128": {
+          "connection_type": "direct",
+          "distance": 0.2818237512501537
+        },
+        "131": {
+          "connection_type": "direct",
+          "distance": 0.2818237512501537
+        },
+        "2": {
+          "connection_type": "junction",
+          "junction_id": 54,
+          "distance": 12.816004751282481
+        },
+        "25": {
+          "connection_type": "junction",
+          "junction_id": 54,
+          "distance": 12.816004751282481
+        },
+        "3": {
+          "connection_type": "junction",
+          "junction_id": 110,
+          "distance": 12.950523755241894
+        },
+        "21": {
+          "connection_type": "junction",
+          "junction_id": 110,
+          "distance": 12.950523755241894
+        }
+      },
+      "3": {
+        "13": {
+          "connection_type": "direct",
+          "distance": 80.0374632323077
+        },
+        "133": {
+          "connection_type": "direct",
+          "distance": 3.9999999999999996
+        },
+        "141": {
+          "connection_type": "direct",
+          "distance": 0.00029566679374627643
+        },
+        "3": {
+          "connection_type": "junction",
+          "junction_id": 110,
+          "distance": 12.950523755241894
+        },
+        "21": {
+          "connection_type": "junction",
+          "junction_id": 110,
+          "distance": 12.950523755241894
+        }
+      },
+      "4": {
+        "284": {
+          "connection_type": "direct",
+          "distance": 224.22
+        },
+        "297": {
+          "connection_type": "direct",
+          "distance": 224.25567640530298
+        },
+        "302": {
+          "connection_type": "direct",
+          "distance": 224.22
+        },
+        "304": {
+          "connection_type": "direct",
+          "distance": 224.22035299952412
+        },
+        "307": {
+          "connection_type": "direct",
+          "distance": 3.9999999999999925
+        },
+        "314": {
+          "connection_type": "direct",
+          "distance": 4.000000000000021
+        },
+        "319": {
+          "connection_type": "direct",
+          "distance": 0.00030704003625525565
+        },
+        "17": {
+          "connection_type": "junction",
+          "junction_id": 278,
+          "distance": 12.341978125813874
+        },
+        "18": {
+          "connection_type": "junction",
+          "junction_id": 278,
+          "distance": 12.341978125813874
+        },
+        "22": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        },
+        "4": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        },
+        "23": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        }
+      },
+      "5": {
+        "20": {
+          "connection_type": "direct",
+          "distance": 0.0
+        },
+        "93": {
+          "connection_type": "direct",
+          "distance": 69.63
+        },
+        "94": {
+          "connection_type": "direct",
+          "distance": 69.63
+        },
+        "98": {
+          "connection_type": "direct",
+          "distance": 69.74479837235174
+        },
+        "102": {
+          "connection_type": "direct",
+          "distance": 69.63
+        },
+        "6": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        },
+        "24": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        }
+      },
+      "6": {
+        "104": {
+          "connection_type": "direct",
+          "distance": 189.00734062722753
+        },
+        "157": {
+          "connection_type": "direct",
+          "distance": 35.13329062699006
+        },
+        "158": {
+          "connection_type": "direct",
+          "distance": 35.13329062699006
+        },
+        "163": {
+          "connection_type": "direct",
+          "distance": 35.13329062699006
+        },
+        "6": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        },
+        "24": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        },
+        "7": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        },
+        "19": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        }
+      },
+      "7": {
+        "14": {
+          "connection_type": "direct",
+          "distance": 47.69519203903474
+        },
+        "145": {
+          "connection_type": "direct",
+          "distance": 4.0
+        },
+        "7": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        },
+        "19": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        }
+      },
+      "8": {
+        "11": {
+          "connection_type": "direct",
+          "distance": 87.1733596407213
+        },
+        "14": {
+          "connection_type": "direct",
+          "distance": 231.88773839098428
+        }
+      },
+      "9": {
+        "183": {
+          "connection_type": "direct",
+          "distance": 0.00028727164355866526
+        },
+        "334": {
+          "connection_type": "direct",
+          "distance": 43.599999999999994
+        },
+        "354": {
+          "connection_type": "direct",
+          "distance": 43.599999999999994
+        },
+        "355": {
+          "connection_type": "direct",
+          "distance": 43.599999999999994
+        },
+        "9": {
+          "connection_type": "junction",
+          "junction_id": 171,
+          "distance": 12.301337922969116
+        },
+        "25": {
+          "connection_type": "junction",
+          "junction_id": 332,
+          "distance": 12.365782185186944
+        },
+        "10": {
+          "connection_type": "junction",
+          "junction_id": 332,
+          "distance": 12.365782185186944
+        }
+      },
+      "10": {
+        "229": {
+          "connection_type": "direct",
+          "distance": 157.99000000000004
+        },
+        "232": {
+          "connection_type": "direct",
+          "distance": 157.99000000000004
+        },
+        "247": {
+          "connection_type": "direct",
+          "distance": 157.99000000000007
+        },
+        "248": {
+          "connection_type": "direct",
+          "distance": 158.04062800432044
+        },
+        "17": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        },
+        "16": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        },
+        "10": {
+          "connection_type": "junction",
+          "junction_id": 332,
+          "distance": 12.365782185186944
+        }
+      },
+      "11": {
+        "0": {
+          "connection_type": "direct",
+          "distance": 13.263723446743583
+        },
+        "8": {
+          "connection_type": "direct",
+          "distance": 309.57227814430985
+        }
+      },
+      "12": {
+        "195": {
+          "connection_type": "direct",
+          "distance": 224.25032314599235
+        },
+        "197": {
+          "connection_type": "direct",
+          "distance": 224.28567163329896
+        },
+        "201": {
+          "connection_type": "direct",
+          "distance": 224.24999999999997
+        },
+        "203": {
+          "connection_type": "direct",
+          "distance": 224.2856716332989
+        },
+        "209": {
+          "connection_type": "direct",
+          "distance": 224.24999999999997
+        },
+        "256": {
+          "connection_type": "direct",
+          "distance": 0.00033466346591738737
+        },
+        "274": {
+          "connection_type": "direct",
+          "distance": 3.999999999999995
+        },
+        "19": {
+          "connection_type": "junction",
+          "junction_id": 194,
+          "distance": 12.324895781513993
+        },
+        "18": {
+          "connection_type": "junction",
+          "junction_id": 194,
+          "distance": 12.324895781513993
+        },
+        "12": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        },
+        "23": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        }
+      },
+      "13": {
+        "3": {
+          "connection_type": "direct",
+          "distance": 70.1531717112268
+        },
+        "15": {
+          "connection_type": "direct",
+          "distance": 13.611679956325114
+        }
+      },
+      "14": {
+        "8": {
+          "connection_type": "direct",
+          "distance": 13.914320829264536
+        },
+        "7": {
+          "connection_type": "direct",
+          "distance": 37.01776660942255
+        }
+      },
+      "15": {
+        "13": {
+          "connection_type": "direct",
+          "distance": 231.21321506481317
+        },
+        "20": {
+          "connection_type": "direct",
+          "distance": 87.93607188234726
+        }
+      },
+      "16": {
+        "27": {
+          "connection_type": "direct",
+          "distance": 0.0003117005164849828
+        },
+        "48": {
+          "connection_type": "direct",
+          "distance": 3.9999999999999623
+        },
+        "243": {
+          "connection_type": "direct",
+          "distance": 35.63
+        },
+        "244": {
+          "connection_type": "direct",
+          "distance": 35.63
+        },
+        "253": {
+          "connection_type": "direct",
+          "distance": 35.63
+        },
+        "16": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        },
+        "0": {
+          "connection_type": "junction",
+          "junction_id": 26,
+          "distance": 12.52573960570468
+        },
+        "17": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        },
+        "10": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        }
+      },
+      "17": {
+        "223": {
+          "connection_type": "direct",
+          "distance": 4.000000000000019
+        },
+        "279": {
+          "connection_type": "direct",
+          "distance": 51.550000000000004
+        },
+        "280": {
+          "connection_type": "direct",
+          "distance": 51.704956242124425
+        },
+        "295": {
+          "connection_type": "direct",
+          "distance": 51.55000000000002
+        },
+        "296": {
+          "connection_type": "direct",
+          "distance": 51.55000000000002
+        },
+        "10": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        },
+        "17": {
+          "connection_type": "junction",
+          "junction_id": 222,
+          "distance": 12.730695440593388
+        },
+        "4": {
+          "connection_type": "junction",
+          "junction_id": 278,
+          "distance": 12.341978125813874
+        },
+        "18": {
+          "connection_type": "junction",
+          "junction_id": 278,
+          "distance": 12.341978125813874
+        }
+      },
+      "18": {
+        "208": {
+          "connection_type": "direct",
+          "distance": 41.98
+        },
+        "218": {
+          "connection_type": "direct",
+          "distance": 41.980000000000025
+        },
+        "219": {
+          "connection_type": "direct",
+          "distance": 41.980000000000025
+        },
+        "12": {
+          "connection_type": "junction",
+          "junction_id": 194,
+          "distance": 12.324895781513993
+        },
+        "19": {
+          "connection_type": "junction",
+          "junction_id": 194,
+          "distance": 12.324895781513993
+        },
+        "18": {
+          "connection_type": "junction",
+          "junction_id": 278,
+          "distance": 12.341978125813874
+        }
+      },
+      "19": {
+        "144": {
+          "connection_type": "direct",
+          "distance": 108.29036158262195
+        },
+        "150": {
+          "connection_type": "direct",
+          "distance": 108.28999999999996
+        },
+        "165": {
+          "connection_type": "direct",
+          "distance": 108.36385052221061
+        },
+        "169": {
+          "connection_type": "direct",
+          "distance": 108.28999999999996
+        },
+        "7": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        },
+        "6": {
+          "connection_type": "junction",
+          "junction_id": 143,
+          "distance": 12.339373952058194
+        },
+        "19": {
+          "connection_type": "junction",
+          "junction_id": 194,
+          "distance": 12.324895781513993
+        }
+      },
+      "20": {
+        "5": {
+          "connection_type": "direct",
+          "distance": 14.523130651047937
+        },
+        "15": {
+          "connection_type": "direct",
+          "distance": 308.0481121012145
+        }
+      },
+      "21": {
+        "139": {
+          "connection_type": "direct",
+          "distance": 0.0
+        },
+        "178": {
+          "connection_type": "direct",
+          "distance": 34.910000000000004
+        },
+        "179": {
+          "connection_type": "direct",
+          "distance": 34.910000000000004
+        },
+        "188": {
+          "connection_type": "direct",
+          "distance": 34.91000000000001
+        },
+        "189": {
+          "connection_type": "direct",
+          "distance": 35.13841345308579
+        },
+        "193": {
+          "connection_type": "direct",
+          "distance": 34.910346725272134
+        },
+        "21": {
+          "connection_type": "junction",
+          "junction_id": 110,
+          "distance": 12.950523755241894
+        },
+        "22": {
+          "connection_type": "junction",
+          "junction_id": 171,
+          "distance": 12.301337922969116
+        },
+        "9": {
+          "connection_type": "junction",
+          "junction_id": 171,
+          "distance": 12.301337922969116
+        }
+      },
+      "22": {
+        "184": {
+          "connection_type": "direct",
+          "distance": 0.0003281380391056782
+        },
+        "185": {
+          "connection_type": "direct",
+          "distance": 3.9999999999999973
+        },
+        "312": {
+          "connection_type": "direct",
+          "distance": 51.690338245012384
+        },
+        "313": {
+          "connection_type": "direct",
+          "distance": 51.69
+        },
+        "330": {
+          "connection_type": "direct",
+          "distance": 51.69000000000001
+        },
+        "331": {
+          "connection_type": "direct",
+          "distance": 51.69000000000001
+        },
+        "22": {
+          "connection_type": "junction",
+          "junction_id": 171,
+          "distance": 12.301337922969116
+        },
+        "9": {
+          "connection_type": "junction",
+          "junction_id": 171,
+          "distance": 12.301337922969116
+        },
+        "4": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        },
+        "23": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        }
+      },
+      "23": {
+        "271": {
+          "connection_type": "direct",
+          "distance": 44.49000000000003
+        },
+        "272": {
+          "connection_type": "direct",
+          "distance": 44.49000000000003
+        },
+        "273": {
+          "connection_type": "direct",
+          "distance": 44.490324881771436
+        },
+        "277": {
+          "connection_type": "direct",
+          "distance": 44.49000000000003
+        },
+        "318": {
+          "connection_type": "direct",
+          "distance": 0.00029656169057708844
+        },
+        "24": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        },
+        "12": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        },
+        "23": {
+          "connection_type": "junction",
+          "junction_id": 306,
+          "distance": 12.305755310864999
+        }
+      },
+      "24": {
+        "103": {
+          "connection_type": "direct",
+          "distance": 108.97000000000007
+        },
+        "108": {
+          "connection_type": "direct",
+          "distance": 108.97043531420958
+        },
+        "109": {
+          "connection_type": "direct",
+          "distance": 108.97000000000007
+        },
+        "257": {
+          "connection_type": "direct",
+          "distance": 0.0003599873268837246
+        },
+        "258": {
+          "connection_type": "direct",
+          "distance": 4.0000000000000115
+        },
+        "5": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        },
+        "6": {
+          "connection_type": "junction",
+          "junction_id": 87,
+          "distance": 12.355716570484727
+        },
+        "24": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        },
+        "12": {
+          "connection_type": "junction",
+          "junction_id": 255,
+          "distance": 12.30313589118173
+        }
+      },
+      "25": {
+        "83": {
+          "connection_type": "direct",
+          "distance": 1.7763568394002505e-15
+        },
+        "333": {
+          "connection_type": "direct",
+          "distance": 35.18
+        },
+        "335": {
+          "connection_type": "direct",
+          "distance": 35.40667168769186
+        },
+        "339": {
+          "connection_type": "direct",
+          "distance": 35.18
+        },
+        "341": {
+          "connection_type": "direct",
+          "distance": 35.18033961220091
+        },
+        "343": {
+          "connection_type": "direct",
+          "distance": 35.40667168769186
+        },
+        "25": {
+          "connection_type": "junction",
+          "junction_id": 54,
+          "distance": 12.816004751282481
+        },
+        "9": {
+          "connection_type": "junction",
+          "junction_id": 332,
+          "distance": 12.365782185186944
+        },
+        "10": {
+          "connection_type": "junction",
+          "junction_id": 332,
+          "distance": 12.365782185186944
+        }
+      },
+      "27": {
+        "1": {
+          "connection_type": "direct",
+          "distance": 3.308227745913317
+        }
+      },
+      "28": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 4.4766170262822484
+        }
+      },
+      "33": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 2.8269153652898003
+        }
+      },
+      "40": {
+        "1": {
+          "connection_type": "direct",
+          "distance": 0.6499999999999937
+        }
+      },
+      "41": {
+        "1": {
+          "connection_type": "direct",
+          "distance": 0.6499999999999937
+        }
+      },
+      "46": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 3.002508561105235
+        }
+      },
+      "48": {
+        "0": {
+          "connection_type": "direct",
+          "distance": 37.17582009855333
+        }
+      },
+      "52": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 3.615780890079821
+        }
+      },
+      "61": {
+        "2": {
+          "connection_type": "direct",
+          "distance": 23.120000000000058
+        }
+      },
+      "62": {
+        "2": {
+          "connection_type": "direct",
+          "distance": 23.120000000000058
+        }
+      },
+      "67": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 0.31000000000000155
+        }
+      },
+      "70": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 4.619101644259429
+        }
+      },
+      "75": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 3.5376216908602776
+        }
+      },
+      "77": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 4.634177381154068
+        }
+      },
+      "83": {
+        "2": {
+          "connection_type": "direct",
+          "distance": 3.834850569370184
+        }
+      },
+      "85": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 0.31000000000000155
+        }
+      },
+      "93": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 21.980000000000004
+        }
+      },
+      "94": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 21.980000000000004
+        }
+      },
+      "98": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 111.04206815437118
+        }
+      },
+      "102": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 109.15662224779513
+        }
+      },
+      "103": {
+        "5": {
+          "connection_type": "direct",
+          "distance": 69.8166222477951
+        }
+      },
+      "104": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 111.06205517637432
+        }
+      },
+      "108": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 0.19406201593760875
+        }
+      },
+      "109": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 0.19406201593760875
+        }
+      },
+      "117": {
+        "3": {
+          "connection_type": "direct",
+          "distance": 23.310000000000013
+        }
+      },
+      "118": {
+        "3": {
+          "connection_type": "direct",
+          "distance": 23.310000000000013
+        }
+      },
+      "123": {
+        "21": {
+          "connection_type": "direct",
+          "distance": 4.754461063043841
+        }
+      },
+      "128": {
+        "21": {
+          "connection_type": "direct",
+          "distance": 0.569999999999998
+        }
+      },
+      "131": {
+        "21": {
+          "connection_type": "direct",
+          "distance": 2.908198287984388
+        }
+      },
+      "133": {
+        "21": {
+          "connection_type": "direct",
+          "distance": 4.759873947910798
+        }
+      },
+      "139": {
+        "3": {
+          "connection_type": "direct",
+          "distance": 3.1493353604098777
+        }
+      },
+      "141": {
+        "21": {
+          "connection_type": "direct",
+          "distance": 0.569999999999998
+        }
+      },
+      "144": {
+        "7": {
+          "connection_type": "direct",
+          "distance": 2.060136321026164
+        }
+      },
+      "145": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 110.38249906574865
+        }
+      },
+      "150": {
+        "7": {
+          "connection_type": "direct",
+          "distance": 2.3379391484667167
+        }
+      },
+      "157": {
+        "7": {
+          "connection_type": "direct",
+          "distance": 0.020000000000038654
+        }
+      },
+      "158": {
+        "7": {
+          "connection_type": "direct",
+          "distance": 0.020000000000038654
+        }
+      },
+      "163": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 111.13401461365761
+        }
+      },
+      "165": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 226.1450076565422
+        }
+      },
+      "169": {
+        "6": {
+          "connection_type": "direct",
+          "distance": 224.1099996609991
+        }
+      },
+      "178": {
+        "22": {
+          "connection_type": "direct",
+          "distance": 1.9999999999999987
+        }
+      },
+      "179": {
+        "22": {
+          "connection_type": "direct",
+          "distance": 1.9999999999999987
+        }
+      },
+      "183": {
+        "22": {
+          "connection_type": "direct",
+          "distance": 3.7679022949318743
+        }
+      },
+      "184": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 2.5195998094264405
+        }
+      },
+      "185": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 4.472135954999574
+        }
+      },
+      "188": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 2.9827664618929957
+        }
+      },
+      "189": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 4.481115932443622
+        }
+      },
+      "193": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 1.8693940097050032
+        }
+      },
+      "195": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 1.5099999999999894
+        }
+      },
+      "197": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 5.321663273827095
+        }
+      },
+      "201": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 1.5099999999999894
+        }
+      },
+      "203": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 44.16152624174123
+        }
+      },
+      "208": {
+        "12": {
+          "connection_type": "direct",
+          "distance": 226.50751086250753
+        }
+      },
+      "209": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 44.121463820174675
+        }
+      },
+      "218": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 1.5099999999999894
+        }
+      },
+      "219": {
+        "19": {
+          "connection_type": "direct",
+          "distance": 1.5099999999999894
+        }
+      },
+      "223": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 158.51047788711006
+        }
+      },
+      "229": {
+        "17": {
+          "connection_type": "direct",
+          "distance": 0.6100000000000033
+        }
+      },
+      "232": {
+        "17": {
+          "connection_type": "direct",
+          "distance": 0.6100000000000033
+        }
+      },
+      "243": {
+        "17": {
+          "connection_type": "direct",
+          "distance": 0.6100000000000033
+        }
+      },
+      "244": {
+        "17": {
+          "connection_type": "direct",
+          "distance": 0.6100000000000033
+        }
+      },
+      "247": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 37.07304841952136
+        }
+      },
+      "248": {
+        "16": {
+          "connection_type": "direct",
+          "distance": 37.84199915437872
+        }
+      },
+      "253": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 158.46
+        }
+      },
+      "256": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 2.64102104403619
+        }
+      },
+      "257": {
+        "12": {
+          "connection_type": "direct",
+          "distance": 1.7471385199096199
+        }
+      },
+      "258": {
+        "12": {
+          "connection_type": "direct",
+          "distance": 4.494719123593812
+        }
+      },
+      "271": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 1.4399999999999558
+        }
+      },
+      "272": {
+        "24": {
+          "connection_type": "direct",
+          "distance": 1.4399999999999558
+        }
+      },
+      "273": {
+        "12": {
+          "connection_type": "direct",
+          "distance": 2.391360290936404
+        }
+      },
+      "274": {
+        "23": {
+          "connection_type": "direct",
+          "distance": 46.661762718525736
+        }
+      },
+      "277": {
+        "12": {
+          "connection_type": "direct",
+          "distance": 3.037794658716513
+        }
+      },
+      "279": {
+        "4": {
+          "connection_type": "direct",
+          "distance": 226.2117988633617
+        }
+      },
+      "280": {
+        "4": {
+          "connection_type": "direct",
+          "distance": 226.25536104145684
+        }
+      },
+      "284": {
+        "17": {
+          "connection_type": "direct",
+          "distance": 53.76366547406297
+        }
+      },
+      "295": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 23.089999999999982
+        }
+      },
+      "296": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 23.089999999999982
+        }
+      },
+      "297": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 5.054512835081124
+        }
+      },
+      "302": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 1.089999999999992
+        }
+      },
+      "304": {
+        "18": {
+          "connection_type": "direct",
+          "distance": 1.089999999999992
+        }
+      },
+      "307": {
+        "22": {
+          "connection_type": "direct",
+          "distance": 53.838797349123624
+        }
+      },
+      "312": {
+        "4": {
+          "connection_type": "direct",
+          "distance": 2.909514092751292
+        }
+      },
+      "313": {
+        "4": {
+          "connection_type": "direct",
+          "distance": 2.289280701123228
+        }
+      },
+      "314": {
+        "23": {
+          "connection_type": "direct",
+          "distance": 4.472135954999583
+        }
+      },
+      "318": {
+        "4": {
+          "connection_type": "direct",
+          "distance": 3.3814115452278326
+        }
+      },
+      "319": {
+        "23": {
+          "connection_type": "direct",
+          "distance": 2.858740265579189
+        }
+      },
+      "330": {
+        "23": {
+          "connection_type": "direct",
+          "distance": 21.99999999999997
+        }
+      },
+      "331": {
+        "23": {
+          "connection_type": "direct",
+          "distance": 21.99999999999997
+        }
+      },
+      "333": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 46.40946725906447
+        }
+      },
+      "334": {
+        "25": {
+          "connection_type": "direct",
+          "distance": 38.51667460195631
+        }
+      },
+      "335": {
+        "9": {
+          "connection_type": "direct",
+          "distance": 43.99222772263301
+        }
+      },
+      "339": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 0.180000000000004
+        }
+      },
+      "341": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 2.336343661701893
+        }
+      },
+      "343": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 4.555480216179178
+        }
+      },
+      "354": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 22.180000000000014
+        }
+      },
+      "355": {
+        "10": {
+          "connection_type": "direct",
+          "distance": 22.180000000000014
+        }
+      }
+    }
+  },
+  "road_connections": [
+    {
+      "from_road": 11,
+      "to_road": 0,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 13.263723446743583
+    },
+    {
+      "from_road": 3,
+      "to_road": 13,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 80.0374632323077
+    },
+    {
+      "from_road": 20,
+      "to_road": 5,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 14.523130651047937
+    },
+    {
+      "from_road": 7,
+      "to_road": 14,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 47.69519203903474
+    },
+    {
+      "from_road": 14,
+      "to_road": 8,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 13.914320829264536
+    },
+    {
+      "from_road": 8,
+      "to_road": 11,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 87.1733596407213
+    },
+    {
+      "from_road": 0,
+      "to_road": 11,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0
+    },
+    {
+      "from_road": 11,
+      "to_road": 8,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 309.57227814430985
+    },
+    {
+      "from_road": 15,
+      "to_road": 13,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 231.21321506481317
+    },
+    {
+      "from_road": 13,
+      "to_road": 3,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 70.1531717112268
+    },
+    {
+      "from_road": 8,
+      "to_road": 14,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 231.88773839098428
+    },
+    {
+      "from_road": 14,
+      "to_road": 7,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 37.01776660942255
+    },
+    {
+      "from_road": 13,
+      "to_road": 15,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 13.611679956325114
+    },
+    {
+      "from_road": 15,
+      "to_road": 20,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 87.93607188234726
+    },
+    {
+      "from_road": 5,
+      "to_road": 20,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0
+    },
+    {
+      "from_road": 20,
+      "to_road": 15,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 308.0481121012145
+    },
+    {
+      "from_road": 16,
+      "to_road": 27,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0003117005164849828
+    },
+    {
+      "from_road": 27,
+      "to_road": 1,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.308227745913317
+    },
+    {
+      "from_road": 1,
+      "to_road": 28,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.49225175610873
+    },
+    {
+      "from_road": 28,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.4766170262822484
+    },
+    {
+      "from_road": 1,
+      "to_road": 33,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.26647139052964
+    },
+    {
+      "from_road": 33,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.8269153652898003
+    },
+    {
+      "from_road": 0,
+      "to_road": 40,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 36.359999999999985
+    },
+    {
+      "from_road": 40,
+      "to_road": 1,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6499999999999937
+    },
+    {
+      "from_road": 0,
+      "to_road": 41,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 36.359999999999985
+    },
+    {
+      "from_road": 41,
+      "to_road": 1,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6499999999999937
+    },
+    {
+      "from_road": 0,
+      "to_road": 46,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 36.359999999999985
+    },
+    {
+      "from_road": 46,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.002508561105235
+    },
+    {
+      "from_road": 16,
+      "to_road": 48,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.9999999999999623
+    },
+    {
+      "from_road": 48,
+      "to_road": 0,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 37.17582009855333
+    },
+    {
+      "from_road": 0,
+      "to_road": 52,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 36.359999999999985
+    },
+    {
+      "from_road": 52,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.615780890079821
+    },
+    {
+      "from_road": 1,
+      "to_road": 61,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 122.28386474846289
+    },
+    {
+      "from_road": 61,
+      "to_road": 2,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.120000000000058
+    },
+    {
+      "from_road": 1,
+      "to_road": 62,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 122.28386474846289
+    },
+    {
+      "from_road": 62,
+      "to_road": 2,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.120000000000058
+    },
+    {
+      "from_road": 1,
+      "to_road": 67,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 122.28386474846289
+    },
+    {
+      "from_road": 67,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.31000000000000155
+    },
+    {
+      "from_road": 1,
+      "to_road": 70,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 122.34926880786972
+    },
+    {
+      "from_road": 70,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.619101644259429
+    },
+    {
+      "from_road": 1,
+      "to_road": 75,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 122.28386474846289
+    },
+    {
+      "from_road": 75,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.5376216908602776
+    },
+    {
+      "from_road": 2,
+      "to_road": 77,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 42.17827129907576
+    },
+    {
+      "from_road": 77,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.634177381154068
+    },
+    {
+      "from_road": 25,
+      "to_road": 83,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.7763568394002505e-15
+    },
+    {
+      "from_road": 83,
+      "to_road": 2,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.834850569370184
+    },
+    {
+      "from_road": 2,
+      "to_road": 85,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 41.98848380116381
+    },
+    {
+      "from_road": 85,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.31000000000000155
+    },
+    {
+      "from_road": 5,
+      "to_road": 93,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 69.63
+    },
+    {
+      "from_road": 93,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 21.980000000000004
+    },
+    {
+      "from_road": 5,
+      "to_road": 94,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 69.63
+    },
+    {
+      "from_road": 94,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 21.980000000000004
+    },
+    {
+      "from_road": 5,
+      "to_road": 98,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 69.74479837235174
+    },
+    {
+      "from_road": 98,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 111.04206815437118
+    },
+    {
+      "from_road": 5,
+      "to_road": 102,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 69.63
+    },
+    {
+      "from_road": 102,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 109.15662224779513
+    },
+    {
+      "from_road": 24,
+      "to_road": 103,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.97000000000007
+    },
+    {
+      "from_road": 103,
+      "to_road": 5,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 69.8166222477951
+    },
+    {
+      "from_road": 6,
+      "to_road": 104,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 189.00734062722753
+    },
+    {
+      "from_road": 104,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 111.06205517637432
+    },
+    {
+      "from_road": 24,
+      "to_road": 108,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.97043531420958
+    },
+    {
+      "from_road": 108,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.19406201593760875
+    },
+    {
+      "from_road": 24,
+      "to_road": 109,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.97000000000007
+    },
+    {
+      "from_road": 109,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.19406201593760875
+    },
+    {
+      "from_road": 2,
+      "to_road": 117,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.2818237512501537
+    },
+    {
+      "from_road": 117,
+      "to_road": 3,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.310000000000013
+    },
+    {
+      "from_road": 2,
+      "to_road": 118,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.2818237512501537
+    },
+    {
+      "from_road": 118,
+      "to_road": 3,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.310000000000013
+    },
+    {
+      "from_road": 2,
+      "to_road": 123,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.009915787989654
+    },
+    {
+      "from_road": 123,
+      "to_road": 21,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.754461063043841
+    },
+    {
+      "from_road": 2,
+      "to_road": 128,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.2818237512501537
+    },
+    {
+      "from_road": 128,
+      "to_road": 21,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.569999999999998
+    },
+    {
+      "from_road": 2,
+      "to_road": 131,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.2818237512501537
+    },
+    {
+      "from_road": 131,
+      "to_road": 21,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.908198287984388
+    },
+    {
+      "from_road": 3,
+      "to_road": 133,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.9999999999999996
+    },
+    {
+      "from_road": 133,
+      "to_road": 21,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.759873947910798
+    },
+    {
+      "from_road": 21,
+      "to_road": 139,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0
+    },
+    {
+      "from_road": 139,
+      "to_road": 3,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.1493353604098777
+    },
+    {
+      "from_road": 3,
+      "to_road": 141,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.00029566679374627643
+    },
+    {
+      "from_road": 141,
+      "to_road": 21,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.569999999999998
+    },
+    {
+      "from_road": 19,
+      "to_road": 144,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.29036158262195
+    },
+    {
+      "from_road": 144,
+      "to_road": 7,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.060136321026164
+    },
+    {
+      "from_road": 7,
+      "to_road": 145,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.0
+    },
+    {
+      "from_road": 145,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 110.38249906574865
+    },
+    {
+      "from_road": 19,
+      "to_road": 150,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.28999999999996
+    },
+    {
+      "from_road": 150,
+      "to_road": 7,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.3379391484667167
+    },
+    {
+      "from_road": 6,
+      "to_road": 157,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.13329062699006
+    },
+    {
+      "from_road": 157,
+      "to_road": 7,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.020000000000038654
+    },
+    {
+      "from_road": 6,
+      "to_road": 158,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.13329062699006
+    },
+    {
+      "from_road": 158,
+      "to_road": 7,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.020000000000038654
+    },
+    {
+      "from_road": 6,
+      "to_road": 163,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.13329062699006
+    },
+    {
+      "from_road": 163,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 111.13401461365761
+    },
+    {
+      "from_road": 19,
+      "to_road": 165,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.36385052221061
+    },
+    {
+      "from_road": 165,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 226.1450076565422
+    },
+    {
+      "from_road": 19,
+      "to_road": 169,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 108.28999999999996
+    },
+    {
+      "from_road": 169,
+      "to_road": 6,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.1099996609991
+    },
+    {
+      "from_road": 21,
+      "to_road": 178,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 34.910000000000004
+    },
+    {
+      "from_road": 178,
+      "to_road": 22,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.9999999999999987
+    },
+    {
+      "from_road": 21,
+      "to_road": 179,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 34.910000000000004
+    },
+    {
+      "from_road": 179,
+      "to_road": 22,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.9999999999999987
+    },
+    {
+      "from_road": 9,
+      "to_road": 183,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.00028727164355866526
+    },
+    {
+      "from_road": 183,
+      "to_road": 22,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.7679022949318743
+    },
+    {
+      "from_road": 22,
+      "to_road": 184,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0003281380391056782
+    },
+    {
+      "from_road": 184,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.5195998094264405
+    },
+    {
+      "from_road": 22,
+      "to_road": 185,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.9999999999999973
+    },
+    {
+      "from_road": 185,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.472135954999574
+    },
+    {
+      "from_road": 21,
+      "to_road": 188,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 34.91000000000001
+    },
+    {
+      "from_road": 188,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.9827664618929957
+    },
+    {
+      "from_road": 21,
+      "to_road": 189,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.13841345308579
+    },
+    {
+      "from_road": 189,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.481115932443622
+    },
+    {
+      "from_road": 21,
+      "to_road": 193,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 34.910346725272134
+    },
+    {
+      "from_road": 193,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.8693940097050032
+    },
+    {
+      "from_road": 12,
+      "to_road": 195,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.25032314599235
+    },
+    {
+      "from_road": 195,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.5099999999999894
+    },
+    {
+      "from_road": 12,
+      "to_road": 197,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.28567163329896
+    },
+    {
+      "from_road": 197,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 5.321663273827095
+    },
+    {
+      "from_road": 12,
+      "to_road": 201,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.24999999999997
+    },
+    {
+      "from_road": 201,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.5099999999999894
+    },
+    {
+      "from_road": 12,
+      "to_road": 203,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.2856716332989
+    },
+    {
+      "from_road": 203,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.16152624174123
+    },
+    {
+      "from_road": 18,
+      "to_road": 208,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 41.98
+    },
+    {
+      "from_road": 208,
+      "to_road": 12,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 226.50751086250753
+    },
+    {
+      "from_road": 12,
+      "to_road": 209,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.24999999999997
+    },
+    {
+      "from_road": 209,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.121463820174675
+    },
+    {
+      "from_road": 18,
+      "to_road": 218,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 41.980000000000025
+    },
+    {
+      "from_road": 218,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.5099999999999894
+    },
+    {
+      "from_road": 18,
+      "to_road": 219,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 41.980000000000025
+    },
+    {
+      "from_road": 219,
+      "to_road": 19,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.5099999999999894
+    },
+    {
+      "from_road": 17,
+      "to_road": 223,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.000000000000019
+    },
+    {
+      "from_road": 223,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 158.51047788711006
+    },
+    {
+      "from_road": 10,
+      "to_road": 229,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 157.99000000000004
+    },
+    {
+      "from_road": 229,
+      "to_road": 17,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6100000000000033
+    },
+    {
+      "from_road": 10,
+      "to_road": 232,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 157.99000000000004
+    },
+    {
+      "from_road": 232,
+      "to_road": 17,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6100000000000033
+    },
+    {
+      "from_road": 16,
+      "to_road": 243,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.63
+    },
+    {
+      "from_road": 243,
+      "to_road": 17,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6100000000000033
+    },
+    {
+      "from_road": 16,
+      "to_road": 244,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.63
+    },
+    {
+      "from_road": 244,
+      "to_road": 17,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.6100000000000033
+    },
+    {
+      "from_road": 10,
+      "to_road": 247,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 157.99000000000007
+    },
+    {
+      "from_road": 247,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 37.07304841952136
+    },
+    {
+      "from_road": 10,
+      "to_road": 248,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 158.04062800432044
+    },
+    {
+      "from_road": 248,
+      "to_road": 16,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 37.84199915437872
+    },
+    {
+      "from_road": 16,
+      "to_road": 253,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.63
+    },
+    {
+      "from_road": 253,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 158.46
+    },
+    {
+      "from_road": 12,
+      "to_road": 256,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.00033466346591738737
+    },
+    {
+      "from_road": 256,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.64102104403619
+    },
+    {
+      "from_road": 24,
+      "to_road": 257,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.0003599873268837246
+    },
+    {
+      "from_road": 257,
+      "to_road": 12,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.7471385199096199
+    },
+    {
+      "from_road": 24,
+      "to_road": 258,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.0000000000000115
+    },
+    {
+      "from_road": 258,
+      "to_road": 12,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.494719123593812
+    },
+    {
+      "from_road": 23,
+      "to_road": 271,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.49000000000003
+    },
+    {
+      "from_road": 271,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.4399999999999558
+    },
+    {
+      "from_road": 23,
+      "to_road": 272,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.49000000000003
+    },
+    {
+      "from_road": 272,
+      "to_road": 24,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.4399999999999558
+    },
+    {
+      "from_road": 23,
+      "to_road": 273,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.490324881771436
+    },
+    {
+      "from_road": 273,
+      "to_road": 12,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.391360290936404
+    },
+    {
+      "from_road": 12,
+      "to_road": 274,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.999999999999995
+    },
+    {
+      "from_road": 274,
+      "to_road": 23,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 46.661762718525736
+    },
+    {
+      "from_road": 23,
+      "to_road": 277,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 44.49000000000003
+    },
+    {
+      "from_road": 277,
+      "to_road": 12,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.037794658716513
+    },
+    {
+      "from_road": 17,
+      "to_road": 279,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.550000000000004
+    },
+    {
+      "from_road": 279,
+      "to_road": 4,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 226.2117988633617
+    },
+    {
+      "from_road": 17,
+      "to_road": 280,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.704956242124425
+    },
+    {
+      "from_road": 280,
+      "to_road": 4,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 226.25536104145684
+    },
+    {
+      "from_road": 4,
+      "to_road": 284,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.22
+    },
+    {
+      "from_road": 284,
+      "to_road": 17,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 53.76366547406297
+    },
+    {
+      "from_road": 17,
+      "to_road": 295,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.55000000000002
+    },
+    {
+      "from_road": 295,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.089999999999982
+    },
+    {
+      "from_road": 17,
+      "to_road": 296,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.55000000000002
+    },
+    {
+      "from_road": 296,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 23.089999999999982
+    },
+    {
+      "from_road": 4,
+      "to_road": 297,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.25567640530298
+    },
+    {
+      "from_road": 297,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 5.054512835081124
+    },
+    {
+      "from_road": 4,
+      "to_road": 302,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.22
+    },
+    {
+      "from_road": 302,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.089999999999992
+    },
+    {
+      "from_road": 4,
+      "to_road": 304,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 224.22035299952412
+    },
+    {
+      "from_road": 304,
+      "to_road": 18,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 1.089999999999992
+    },
+    {
+      "from_road": 4,
+      "to_road": 307,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.9999999999999925
+    },
+    {
+      "from_road": 307,
+      "to_road": 22,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 53.838797349123624
+    },
+    {
+      "from_road": 22,
+      "to_road": 312,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.690338245012384
+    },
+    {
+      "from_road": 312,
+      "to_road": 4,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.909514092751292
+    },
+    {
+      "from_road": 22,
+      "to_road": 313,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.69
+    },
+    {
+      "from_road": 313,
+      "to_road": 4,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.289280701123228
+    },
+    {
+      "from_road": 4,
+      "to_road": 314,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.000000000000021
+    },
+    {
+      "from_road": 314,
+      "to_road": 23,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.472135954999583
+    },
+    {
+      "from_road": 23,
+      "to_road": 318,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.00029656169057708844
+    },
+    {
+      "from_road": 318,
+      "to_road": 4,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 3.3814115452278326
+    },
+    {
+      "from_road": 4,
+      "to_road": 319,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.00030704003625525565
+    },
+    {
+      "from_road": 319,
+      "to_road": 23,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.858740265579189
+    },
+    {
+      "from_road": 22,
+      "to_road": 330,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.69000000000001
+    },
+    {
+      "from_road": 330,
+      "to_road": 23,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 21.99999999999997
+    },
+    {
+      "from_road": 22,
+      "to_road": 331,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 51.69000000000001
+    },
+    {
+      "from_road": 331,
+      "to_road": 23,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 21.99999999999997
+    },
+    {
+      "from_road": 25,
+      "to_road": 333,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.18
+    },
+    {
+      "from_road": 333,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 46.40946725906447
+    },
+    {
+      "from_road": 9,
+      "to_road": 334,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 43.599999999999994
+    },
+    {
+      "from_road": 334,
+      "to_road": 25,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 38.51667460195631
+    },
+    {
+      "from_road": 25,
+      "to_road": 335,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.40667168769186
+    },
+    {
+      "from_road": 335,
+      "to_road": 9,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 43.99222772263301
+    },
+    {
+      "from_road": 25,
+      "to_road": 339,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.18
+    },
+    {
+      "from_road": 339,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 0.180000000000004
+    },
+    {
+      "from_road": 25,
+      "to_road": 341,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.18033961220091
+    },
+    {
+      "from_road": 341,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 2.336343661701893
+    },
+    {
+      "from_road": 25,
+      "to_road": 343,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 35.40667168769186
+    },
+    {
+      "from_road": 343,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 4.555480216179178
+    },
+    {
+      "from_road": 9,
+      "to_road": 354,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 43.599999999999994
+    },
+    {
+      "from_road": 354,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 22.180000000000014
+    },
+    {
+      "from_road": 9,
+      "to_road": 355,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 43.599999999999994
+    },
+    {
+      "from_road": 355,
+      "to_road": 10,
+      "connection_type": "direct",
+      "junction_id": null,
+      "distance": 22.180000000000014
+    },
+    {
+      "from_road": 1,
+      "to_road": 1,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 1,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 16,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 0,
+      "to_road": 1,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 1,
+      "to_road": 1,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 0,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 16,
+      "to_road": 0,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 16,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 26,
+      "distance": 12.52573960570468
+    },
+    {
+      "from_road": 2,
+      "to_road": 2,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 1,
+      "to_road": 2,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 1,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 1,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 25,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 2,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 2,
+      "to_road": 2,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 25,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 54,
+      "distance": 12.816004751282481
+    },
+    {
+      "from_road": 6,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 5,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 5,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 5,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 24,
+      "to_road": 5,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 6,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 6,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 24,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 87,
+      "distance": 12.355716570484727
+    },
+    {
+      "from_road": 3,
+      "to_road": 3,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 2,
+      "to_road": 3,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 2,
+      "to_road": 21,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 2,
+      "to_road": 21,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 21,
+      "to_road": 21,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 3,
+      "to_road": 21,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 3,
+      "to_road": 3,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 21,
+      "to_road": 21,
+      "connection_type": "junction",
+      "junction_id": 110,
+      "distance": 12.950523755241894
+    },
+    {
+      "from_road": 7,
+      "to_road": 7,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 7,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 19,
+      "to_road": 7,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 6,
+      "to_road": 7,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 7,
+      "to_road": 7,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 6,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 19,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 19,
+      "to_road": 6,
+      "connection_type": "junction",
+      "junction_id": 143,
+      "distance": 12.339373952058194
+    },
+    {
+      "from_road": 21,
+      "to_road": 22,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 22,
+      "to_road": 22,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 22,
+      "to_road": 22,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 9,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 22,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 21,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 21,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 9,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 171,
+      "distance": 12.301337922969116
+    },
+    {
+      "from_road": 19,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 12,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 12,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 12,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 18,
+      "to_road": 12,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 12,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 18,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 19,
+      "to_road": 19,
+      "connection_type": "junction",
+      "junction_id": 194,
+      "distance": 12.324895781513993
+    },
+    {
+      "from_road": 17,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 10,
+      "to_road": 17,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 17,
+      "to_road": 17,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 16,
+      "to_road": 17,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 17,
+      "to_road": 17,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 10,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 10,
+      "to_road": 16,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 16,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 222,
+      "distance": 12.730695440593388
+    },
+    {
+      "from_road": 24,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 12,
+      "to_road": 12,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 24,
+      "to_road": 12,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 23,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 24,
+      "to_road": 24,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 12,
+      "to_road": 12,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 12,
+      "to_road": 23,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 23,
+      "to_road": 12,
+      "connection_type": "junction",
+      "junction_id": 255,
+      "distance": 12.30313589118173
+    },
+    {
+      "from_road": 17,
+      "to_road": 4,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 17,
+      "to_road": 4,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 4,
+      "to_road": 17,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 18,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 17,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 4,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 4,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 18,
+      "to_road": 18,
+      "connection_type": "junction",
+      "junction_id": 278,
+      "distance": 12.341978125813874
+    },
+    {
+      "from_road": 4,
+      "to_road": 22,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 4,
+      "to_road": 4,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 22,
+      "to_road": 4,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 4,
+      "to_road": 23,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 4,
+      "to_road": 4,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 23,
+      "to_road": 23,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 23,
+      "to_road": 23,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 22,
+      "to_road": 23,
+      "connection_type": "junction",
+      "junction_id": 306,
+      "distance": 12.305755310864999
+    },
+    {
+      "from_road": 25,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 9,
+      "to_road": 25,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 25,
+      "to_road": 9,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 25,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 10,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 25,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 10,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    },
+    {
+      "from_road": 9,
+      "to_road": 10,
+      "connection_type": "junction",
+      "junction_id": 332,
+      "distance": 12.365782185186944
+    }
+  ],
+  "intersection_analyses": {
+    "26": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        1,
+        16,
+        0
+      ],
+      "conflict_points": [
+        [
+          336.92894058969273,
+          -5.390546260447974
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "54": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        2,
+        1,
+        25
+      ],
+      "conflict_points": [
+        [
+          156.51979692001308,
+          -5.487230842640459
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "87": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        6,
+        5,
+        24
+      ],
+      "conflict_points": [
+        [
+          90.63106006085472,
+          -322.9444729388556
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "110": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        3,
+        2,
+        21
+      ],
+      "conflict_points": [
+        [
+          91.03581097223258,
+          -5.595063487485401
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "143": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        7,
+        19,
+        6
+      ],
+      "conflict_points": [
+        [
+          336.7249857674992,
+          -323.02875569057096
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "171": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        21,
+        22,
+        9
+      ],
+      "conflict_points": [
+        [
+          95.88336339146537,
+          -57.14953124770186
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "194": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        19,
+        12,
+        18
+      ],
+      "conflict_points": [
+        [
+          331.22873109679034,
+          -196.64996410895853
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "222": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        17,
+        10,
+        16
+      ],
+      "conflict_points": [
+        [
+          331.0156950534438,
+          -57.72378142906198
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "255": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        24,
+        12,
+        23
+      ],
+      "conflict_points": [
+        [
+          95.90932673218326,
+          -197.32981772880441
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "278": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        17,
+        4,
+        18
+      ],
+      "conflict_points": [
+        [
+          331.2326380383742,
+          -131.57876795683063
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "306": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        4,
+        22,
+        23
+      ],
+      "conflict_points": [
+        [
+          95.90500147316027,
+          -130.83985020984292
+        ]
+      ],
+      "traffic_complexity": 0.45
+    },
+    "332": {
+      "intersection_type": "signalized",
+      "approach_roads": [
+        25,
+        9,
+        10
+      ],
+      "conflict_points": [
+        [
+          155.9899955458456,
+          -51.84422802934662
+        ]
+      ],
+      "traffic_complexity": 0.45
+    }
+  },
+  "road_segments": {
+    "0": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 36.36000000000001,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "1": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 35.05388154148471,
+        "curvature": 1.2668759929610163e-17,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 35.05388154148471,
+        "end_s": 35.2661352515371,
+        "curvature": 0.0020000000161472134,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 35.2661352515371,
+        "end_s": 157.54999999999998,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "2": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 41.77185671038123,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 41.77185671038123,
+        "end_s": 41.98817624874985,
+        "curvature": 0.002000000014908109,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 41.98817624874985,
+        "end_s": 42.27000000000001,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "3": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 68.35001583193343,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "4": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 224.22,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "5": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 69.63,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "6": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 1.652783006611699,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 1.652783006611699,
+        "end_s": 1.8672378339816191,
+        "curvature": 0.0020000000145102216,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 1.8672378339816191,
+        "end_s": 188.9133142092299,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 188.9133142092299,
+        "end_s": 188.9667093730099,
+        "curvature": 0.002000000006016375,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 188.9667093730099,
+        "end_s": 224.09999999999997,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "7": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 36.350000803097146,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "8": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 77.21557258839468,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 77.21557258839468,
+        "end_s": 77.30439757920867,
+        "curvature": 0.0020000000233734564,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 77.30439757920867,
+        "end_s": 231.182235166857,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 231.182235166857,
+        "end_s": 231.8877394667317,
+        "curvature": 0.0020000001657629165,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 231.8877394667317,
+        "end_s": 308.69004324444666,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "9": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 43.60000000000001,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "10": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 157.99,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "11": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 1.0324346605913954,
+        "curvature": 2.1506891757957887e-15,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 1.0324346605913954,
+        "end_s": 14.940693109472667,
+        "curvature": 0.11594862944429364,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 14.940693109472667,
+        "end_s": 15.822642220972062,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "12": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 224.25,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "13": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 1.3825970283743512,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 1.3825970283743512,
+        "end_s": 15.414158698482124,
+        "curvature": 0.11483690261655585,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 15.414158698482124,
+        "end_s": 17.216960944205255,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "14": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 1.1679276420262352,
+        "curvature": 2.8517769029741422e-15,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 1.1679276420262352,
+        "end_s": 15.714442897007382,
+        "curvature": 0.11085410266249836,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 15.714442897007382,
+        "end_s": 16.381841468586707,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "15": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 77.65312620265401,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 77.65312620265401,
+        "end_s": 78.10687792193221,
+        "curvature": 0.0020000000689796744,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 78.10687792193221,
+        "end_s": 230.88680591162773,
+        "curvature": 1.4533624138113706e-18,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 230.88680591162773,
+        "end_s": 231.21323629174842,
+        "curvature": 0.0020000000356272243,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 231.21323629174842,
+        "end_s": 307.64003332402933,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "16": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 35.629999999999995,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "17": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 51.55000000000001,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "18": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 41.98000000000002,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "19": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 108.28999999999999,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "20": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 0.6514046573394386,
+        "curvature": -4.0904455150555064e-14,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "curve",
+        "start_s": 0.6514046573394386,
+        "end_s": 16.29642472610742,
+        "curvature": 0.10303510654856858,
+        "speed_context": "residential"
+      },
+      {
+        "segment_type": "straight",
+        "start_s": 16.29642472610742,
+        "end_s": 16.704130652863387,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "21": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 34.91,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "22": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 51.69,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "23": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 44.49000000000004,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "24": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 108.97000000000006,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "25": [
+      {
+        "segment_type": "straight",
+        "start_s": 0.0,
+        "end_s": 35.18,
+        "curvature": 0.0,
+        "speed_context": "residential"
+      }
+    ],
+    "27": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.672762813500928,
+        "curvature": 0.10439189847348702,
+        "speed_context": "arterial"
+      }
+    ],
+    "28": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.87184353455214,
+        "curvature": 0.16243894112476,
+        "speed_context": "arterial"
+      }
+    ],
+    "33": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.472233411012237,
+        "curvature": 0.10264490538784089,
+        "speed_context": "arterial"
+      }
+    ],
+    "40": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.599999999999994,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "41": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.599999999999994,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "46": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.718856189075535,
+        "curvature": 0.10200828149079533,
+        "speed_context": "arterial"
+      }
+    ],
+    "48": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.080292848844747,
+        "curvature": 0.13912455121286332,
+        "speed_context": "arterial"
+      }
+    ],
+    "52": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.862042494571618,
+        "curvature": 0.10517636785562653,
+        "speed_context": "arterial"
+      }
+    ],
+    "61": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.120000000000033,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "62": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.120000000000033,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "67": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.931494852435797,
+        "curvature": 0.08121259684086807,
+        "speed_context": "arterial"
+      }
+    ],
+    "70": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.996730889347337,
+        "curvature": 0.1495432106024444,
+        "speed_context": "arterial"
+      }
+    ],
+    "75": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.948505333626407,
+        "curvature": 0.09738576194631483,
+        "speed_context": "arterial"
+      }
+    ],
+    "77": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.040743178027224,
+        "curvature": 0.16529537622766569,
+        "speed_context": "arterial"
+      }
+    ],
+    "83": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.12713699862836,
+        "curvature": 0.1047488397059853,
+        "speed_context": "arterial"
+      }
+    ],
+    "85": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.859180720444087,
+        "curvature": 0.08619445635120343,
+        "speed_context": "arterial"
+      }
+    ],
+    "93": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.980000000000004,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "94": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.980000000000004,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "98": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.789313349681928,
+        "curvature": 0.16371189084074098,
+        "speed_context": "arterial"
+      }
+    ],
+    "102": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 17.408996976363042,
+        "curvature": 0.09361257120969182,
+        "speed_context": "arterial"
+      }
+    ],
+    "103": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 17.40899697636305,
+        "curvature": 0.09361257120969226,
+        "speed_context": "arterial"
+      }
+    ],
+    "104": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.231862101908822,
+        "curvature": 0.15667214446844252,
+        "speed_context": "arterial"
+      }
+    ],
+    "108": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 17.745515736178326,
+        "curvature": 0.09177032000455876,
+        "speed_context": "arterial"
+      }
+    ],
+    "109": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 17.745515736178284,
+        "curvature": 0.09176798511367396,
+        "speed_context": "arterial"
+      }
+    ],
+    "117": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.310000000000002,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "118": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.310000000000002,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "123": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 13.506069853667587,
+        "curvature": 0.14616039508534245,
+        "speed_context": "arterial"
+      }
+    ],
+    "128": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 20.63776242493703,
+        "curvature": 0.07936058048761996,
+        "speed_context": "arterial"
+      }
+    ],
+    "131": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 20.033463917066044,
+        "curvature": 0.09353362155393762,
+        "speed_context": "arterial"
+      }
+    ],
+    "133": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.181057861893299,
+        "curvature": 0.1669382780192209,
+        "speed_context": "arterial"
+      }
+    ],
+    "139": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.0662399401575,
+        "curvature": 0.10061307356293855,
+        "speed_context": "arterial"
+      }
+    ],
+    "141": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.056577814055565,
+        "curvature": 0.08638284866959636,
+        "speed_context": "arterial"
+      }
+    ],
+    "144": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.26090687528938,
+        "curvature": 0.09924605029852515,
+        "speed_context": "arterial"
+      }
+    ],
+    "145": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.948762486601144,
+        "curvature": 0.1613582625970723,
+        "speed_context": "arterial"
+      }
+    ],
+    "150": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.36482355632952,
+        "curvature": 0.10028678817740302,
+        "speed_context": "arterial"
+      }
+    ],
+    "157": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.010000000000048,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "158": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.010000000000048,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "163": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.641437175495312,
+        "curvature": 0.004041104936588355,
+        "speed_context": "arterial"
+      }
+    ],
+    "165": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.92458742262148,
+        "curvature": 0.16147120377749702,
+        "speed_context": "arterial"
+      }
+    ],
+    "169": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.4289223452356,
+        "curvature": 0.08688524349940684,
+        "speed_context": "arterial"
+      }
+    ],
+    "178": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.000000000000007,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "179": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.000000000000007,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "183": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.57671187206472,
+        "curvature": 0.10820591982533953,
+        "speed_context": "arterial"
+      }
+    ],
+    "184": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.10021760535343,
+        "curvature": 0.1030238457986413,
+        "speed_context": "arterial"
+      }
+    ],
+    "185": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.580840355604678,
+        "curvature": 0.16729237858982374,
+        "speed_context": "arterial"
+      }
+    ],
+    "188": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.81795418162054,
+        "curvature": 0.10131983481079422,
+        "speed_context": "arterial"
+      }
+    ],
+    "189": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.08042698002438,
+        "curvature": 0.15914044461492322,
+        "speed_context": "arterial"
+      }
+    ],
+    "193": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.648387708057673,
+        "curvature": 0.09562199419026672,
+        "speed_context": "arterial"
+      }
+    ],
+    "195": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.640860559325652,
+        "curvature": 0.08826333691032828,
+        "speed_context": "arterial"
+      }
+    ],
+    "197": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 13.05510289455858,
+        "curvature": 0.16801946035971985,
+        "speed_context": "arterial"
+      }
+    ],
+    "201": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.561647864224348,
+        "curvature": 0.08868886307826922,
+        "speed_context": "arterial"
+      }
+    ],
+    "203": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.278980404611012,
+        "curvature": 0.15564289803936274,
+        "speed_context": "arterial"
+      }
+    ],
+    "208": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.837828684260373,
+        "curvature": 0.09676638389437985,
+        "speed_context": "arterial"
+      }
+    ],
+    "209": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.757968943276904,
+        "curvature": 0.09661360896826814,
+        "speed_context": "arterial"
+      }
+    ],
+    "218": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.50999999999999,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "219": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.50999999999999,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "223": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 13.0273220203145,
+        "curvature": 0.1270749881195797,
+        "speed_context": "arterial"
+      }
+    ],
+    "229": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.71132258672951,
+        "curvature": 0.08373395148215859,
+        "speed_context": "arterial"
+      }
+    ],
+    "232": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.499978887843323,
+        "curvature": 0.08477998491723714,
+        "speed_context": "arterial"
+      }
+    ],
+    "243": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.609999999999992,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "244": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.609999999999992,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "247": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.565919522748796,
+        "curvature": 0.09383966461265687,
+        "speed_context": "arterial"
+      }
+    ],
+    "248": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.494548464232244,
+        "curvature": 0.15237143415805926,
+        "speed_context": "arterial"
+      }
+    ],
+    "253": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.904744347865794,
+        "curvature": 0.08686133424076815,
+        "speed_context": "arterial"
+      }
+    ],
+    "256": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.567458663401325,
+        "curvature": 0.10079504953380261,
+        "speed_context": "arterial"
+      }
+    ],
+    "257": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.297645810836766,
+        "curvature": 0.09706863962954626,
+        "speed_context": "arterial"
+      }
+    ],
+    "258": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.976274389464642,
+        "curvature": 0.16135926064555622,
+        "speed_context": "arterial"
+      }
+    ],
+    "271": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.999999999999943,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "272": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.999999999999943,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "273": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.391981040939967,
+        "curvature": 0.10022261498344123,
+        "speed_context": "arterial"
+      }
+    ],
+    "274": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.69960499272827,
+        "curvature": 0.16516757810734542,
+        "speed_context": "arterial"
+      }
+    ],
+    "277": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.394137372051183,
+        "curvature": 0.10445403898014062,
+        "speed_context": "arterial"
+      }
+    ],
+    "279": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.35749118256433,
+        "curvature": 0.09809981719189384,
+        "speed_context": "arterial"
+      }
+    ],
+    "280": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.905410644069011,
+        "curvature": 0.16167941014879408,
+        "speed_context": "arterial"
+      }
+    ],
+    "284": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.435759911439373,
+        "curvature": 0.09891945783125368,
+        "speed_context": "arterial"
+      }
+    ],
+    "295": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.08999999999999,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "296": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 23.08999999999999,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "297": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 13.089128746532172,
+        "curvature": 0.1601469342391541,
+        "speed_context": "arterial"
+      }
+    ],
+    "302": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.604915567355313,
+        "curvature": 0.08647211521887103,
+        "speed_context": "arterial"
+      }
+    ],
+    "304": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 19.491634566012134,
+        "curvature": 0.08706744561556391,
+        "speed_context": "arterial"
+      }
+    ],
+    "307": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.273273536959353,
+        "curvature": 0.15574198744074633,
+        "speed_context": "arterial"
+      }
+    ],
+    "312": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.966795337408087,
+        "curvature": 0.09992540076380439,
+        "speed_context": "arterial"
+      }
+    ],
+    "313": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.73775846902681,
+        "curvature": 0.09761231681658451,
+        "speed_context": "arterial"
+      }
+    ],
+    "314": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 11.447333694823318,
+        "curvature": 0.16978110072297803,
+        "speed_context": "arterial"
+      }
+    ],
+    "318": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.23787953949942,
+        "curvature": 0.10796152607774494,
+        "speed_context": "arterial"
+      }
+    ],
+    "319": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.12939718191051,
+        "curvature": 0.10504893935383851,
+        "speed_context": "arterial"
+      }
+    ],
+    "330": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.999999999999986,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "331": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 21.999999999999986,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "333": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.793921099481064,
+        "curvature": 0.100245110293427,
+        "speed_context": "arterial"
+      }
+    ],
+    "334": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.826108123130147,
+        "curvature": 0.10350515656130743,
+        "speed_context": "arterial"
+      }
+    ],
+    "335": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.050712932173134,
+        "curvature": 0.13471520258528447,
+        "speed_context": "arterial"
+      }
+    ],
+    "339": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.686957461442805,
+        "curvature": 0.08659610645747466,
+        "speed_context": "arterial"
+      }
+    ],
+    "341": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 18.772711649417232,
+        "curvature": 0.09770062108608622,
+        "speed_context": "arterial"
+      }
+    ],
+    "343": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 12.189035342643304,
+        "curvature": 0.16011088854274796,
+        "speed_context": "arterial"
+      }
+    ],
+    "354": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.18,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ],
+    "355": [
+      {
+        "segment_type": "intersection_approach",
+        "start_s": 0.0,
+        "end_s": 22.18,
+        "curvature": 0.0,
+        "speed_context": "arterial"
+      }
+    ]
+  },
+  "traffic_zones": {
+    "highway_zones": [],
+    "urban_zones": [],
+    "suburban_zones": [],
+    "service_zones": [
+      {
+        "roads": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ],
+        "center": [
+          193.18458821602064,
+          -146.0263327742781
+        ],
+        "characteristics": {
+          "total_length": 2479.8156684901346,
+          "avg_speed_limit": 25.0,
+          "predominant_road_type": "town",
+          "road_count": 26
+        }
+      },
+      {
+        "roads": [
+          27
+        ],
+        "center": [
+          334.32036106238024,
+          -5.224866442757492
+        ],
+        "characteristics": {
+          "total_length": 18.672762813500928,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          28
+        ],
+        "center": [
+          329.1530412226457,
+          -5.2578478067376935
+        ],
+        "characteristics": {
+          "total_length": 11.87184353455214,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          33
+        ],
+        "center": [
+          331.19006393480083,
+          -2.5426794331854223
+        ],
+        "characteristics": {
+          "total_length": 18.472233411012237,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          40
+        ],
+        "center": [
+          338.77666946910284,
+          0.004337722621651244
+        ],
+        "characteristics": {
+          "total_length": 22.599999999999994,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          41
+        ],
+        "center": [
+          338.77666946910284,
+          0.004337722621651244
+        ],
+        "characteristics": {
+          "total_length": 22.599999999999994,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          46
+        ],
+        "center": [
+          343.4095755485817,
+          -2.006854446042344
+        ],
+        "characteristics": {
+          "total_length": 18.718856189075535,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          48
+        ],
+        "center": [
+          343.12516972831907,
+          -6.2596294412283315
+        ],
+        "characteristics": {
+          "total_length": 12.080292848844747,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          52
+        ],
+        "center": [
+          343.4400607909648,
+          -1.8331928152143568
+        ],
+        "characteristics": {
+          "total_length": 18.862042494571618,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          61
+        ],
+        "center": [
+          168.08001031270084,
+          0.04306259308466573
+        ],
+        "characteristics": {
+          "total_length": 23.120000000000033,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          62
+        ],
+        "center": [
+          168.08001031270084,
+          0.04306259308466573
+        ],
+        "characteristics": {
+          "total_length": 23.120000000000033,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          67
+        ],
+        "center": [
+          161.42093264667,
+          -3.3705876310921177
+        ],
+        "characteristics": {
+          "total_length": 19.931494852435797,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          70
+        ],
+        "center": [
+          162.9500770809327,
+          -5.4467369657129545
+        ],
+        "characteristics": {
+          "total_length": 12.996730889347337,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          75
+        ],
+        "center": [
+          162.46525562964442,
+          -1.9121589243944161
+        ],
+        "characteristics": {
+          "total_length": 19.948505333626404,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          77
+        ],
+        "center": [
+          148.52077122330203,
+          -5.200630244146496
+        ],
+        "characteristics": {
+          "total_length": 12.040743178027224,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          83
+        ],
+        "center": [
+          154.1819258741709,
+          -6.110589725145149
+        ],
+        "characteristics": {
+          "total_length": 19.12713699862836,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          85
+        ],
+        "center": [
+          151.76659386069187,
+          -4.031368713116341
+        ],
+        "characteristics": {
+          "total_length": 18.859180720444087,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          93
+        ],
+        "center": [
+          79.63999023786586,
+          -328.57727881533384
+        ],
+        "characteristics": {
+          "total_length": 21.980000000000004,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          94
+        ],
+        "center": [
+          79.63999023786586,
+          -328.57727881533384
+        ],
+        "characteristics": {
+          "total_length": 21.980000000000004,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          98
+        ],
+        "center": [
+          83.45450967056964,
+          -322.86091598623216
+        ],
+        "characteristics": {
+          "total_length": 11.789313349681928,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          102
+        ],
+        "center": [
+          84.31356921950419,
+          -324.9802770135066
+        ],
+        "characteristics": {
+          "total_length": 17.408996976363042,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          103
+        ],
+        "center": [
+          87.0081307459693,
+          -322.1609563937584
+        ],
+        "characteristics": {
+          "total_length": 17.40899697636305,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          104
+        ],
+        "center": [
+          97.46346589642135,
+          -322.87379284849385
+        ],
+        "characteristics": {
+          "total_length": 12.231862101908822,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          108
+        ],
+        "center": [
+          93.97409341129672,
+          -322.1780537240739
+        ],
+        "characteristics": {
+          "total_length": 17.745515736178326,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          109
+        ],
+        "center": [
+          93.9740933947534,
+          -322.1779448955228
+        ],
+        "characteristics": {
+          "total_length": 17.745515736178284,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          117
+        ],
+        "center": [
+          102.69001070025007,
+          0.04987289756558597
+        ],
+        "characteristics": {
+          "total_length": 23.310000000000002,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          118
+        ],
+        "center": [
+          102.69001070025007,
+          0.04987289756558597
+        ],
+        "characteristics": {
+          "total_length": 23.310000000000002,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          123
+        ],
+        "center": [
+          97.35326945887124,
+          -5.424989032146666
+        ],
+        "characteristics": {
+          "total_length": 13.506069853667587,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          128
+        ],
+        "center": [
+          95.74238614187772,
+          -3.2355855442343056
+        ],
+        "characteristics": {
+          "total_length": 20.63776242493703,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          131
+        ],
+        "center": [
+          97.17322079706503,
+          -2.1203524149884387
+        ],
+        "characteristics": {
+          "total_length": 20.033463917066044,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          133
+        ],
+        "center": [
+          83.37057660498196,
+          -5.445169144643783
+        ],
+        "characteristics": {
+          "total_length": 12.181057861893299,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          139
+        ],
+        "center": [
+          88.33021261266346,
+          -6.1956991305033915
+        ],
+        "characteristics": {
+          "total_length": 19.0662399401575,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          141
+        ],
+        "center": [
+          86.23274626158602,
+          -4.036475197474603
+        ],
+        "characteristics": {
+          "total_length": 19.056577814055565,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          144
+        ],
+        "center": [
+          339.5942387342708,
+          -322.79411393452006
+        ],
+        "characteristics": {
+          "total_length": 18.26090687528938,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          145
+        ],
+        "center": [
+          343.727307000899,
+          -322.9481641100559
+        ],
+        "characteristics": {
+          "total_length": 11.948762486601144,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          150
+        ],
+        "center": [
+          339.502253147564,
+          -322.85599879700425
+        ],
+        "characteristics": {
+          "total_length": 18.36482355632952,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          157
+        ],
+        "center": [
+          334.88998576749924,
+          -328.6099853515625
+        ],
+        "characteristics": {
+          "total_length": 22.010000000000048,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          158
+        ],
+        "center": [
+          334.88998576749924,
+          -328.6099853515625
+        ],
+        "characteristics": {
+          "total_length": 22.010000000000048,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          163
+        ],
+        "center": [
+          330.24554463076504,
+          -326.4535968373938
+        ],
+        "characteristics": {
+          "total_length": 18.641437175495312,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          165
+        ],
+        "center": [
+          331.109957698424,
+          -321.5062866598069
+        ],
+        "characteristics": {
+          "total_length": 11.92458742262148,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          169
+        ],
+        "center": [
+          332.3152212360336,
+          -324.09354963980115
+        ],
+        "characteristics": {
+          "total_length": 18.4289223452356,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          178
+        ],
+        "center": [
+          90.37862305333336,
+          -56.70799934720236
+        ],
+        "characteristics": {
+          "total_length": 22.000000000000007,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          179
+        ],
+        "center": [
+          90.37862305333336,
+          -56.70799934720236
+        ],
+        "characteristics": {
+          "total_length": 22.000000000000007,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          183
+        ],
+        "center": [
+          95.59090854585168,
+          -59.7056789936245
+        ],
+        "characteristics": {
+          "total_length": 18.57671187206472,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          184
+        ],
+        "center": [
+          93.13374400157798,
+          -62.7760565237426
+        ],
+        "characteristics": {
+          "total_length": 18.10021760535343,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          185
+        ],
+        "center": [
+          95.99035862375516,
+          -64.29537435116427
+        ],
+        "characteristics": {
+          "total_length": 11.580840355604678,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          188
+        ],
+        "center": [
+          92.9600600217726,
+          -51.8988075524277
+        ],
+        "characteristics": {
+          "total_length": 18.81795418162054,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          189
+        ],
+        "center": [
+          95.96600471181684,
+          -50.53653369181435
+        ],
+        "characteristics": {
+          "total_length": 12.08042698002438,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          193
+        ],
+        "center": [
+          93.35473850624929,
+          -52.01812813921686
+        ],
+        "characteristics": {
+          "total_length": 18.648387708057673,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          195
+        ],
+        "center": [
+          332.3438802150404,
+          -201.24144450468447
+        ],
+        "characteristics": {
+          "total_length": 19.640860559325652,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          197
+        ],
+        "center": [
+          329.7065416757827,
+          -202.56036723724998
+        ],
+        "characteristics": {
+          "total_length": 13.05510289455858,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          201
+        ],
+        "center": [
+          332.30837323710205,
+          -201.2978596857358
+        ],
+        "characteristics": {
+          "total_length": 19.561647864224348,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          203
+        ],
+        "center": [
+          329.72941741476563,
+          -191.34737535945126
+        ],
+        "characteristics": {
+          "total_length": 12.278980404611012,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          208
+        ],
+        "center": [
+          333.92102214260115,
+          -191.4442078966586
+        ],
+        "characteristics": {
+          "total_length": 18.837828684260373,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          209
+        ],
+        "center": [
+          331.2122901122579,
+          -194.11462647061165
+        ],
+        "characteristics": {
+          "total_length": 18.757968943276904,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          218
+        ],
+        "center": [
+          336.7819641219375,
+          -195.2899643570424
+        ],
+        "characteristics": {
+          "total_length": 23.50999999999999,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          219
+        ],
+        "center": [
+          336.7819641219375,
+          -195.2899643570424
+        ],
+        "characteristics": {
+          "total_length": 23.50999999999999,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          223
+        ],
+        "center": [
+          329.8723322019864,
+          -63.68307522221871
+        ],
+        "characteristics": {
+          "total_length": 13.0273220203145,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          229
+        ],
+        "center": [
+          331.1889977410331,
+          -61.01678308537891
+        ],
+        "characteristics": {
+          "total_length": 19.71132258672951,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          232
+        ],
+        "center": [
+          331.07206807439906,
+          -61.1136556394498
+        ],
+        "characteristics": {
+          "total_length": 19.499978887843323,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          243
+        ],
+        "center": [
+          336.8662407593984,
+          -55.761656475716194
+        ],
+        "characteristics": {
+          "total_length": 22.609999999999992,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          244
+        ],
+        "center": [
+          336.8662407593984,
+          -55.761656475716194
+        ],
+        "characteristics": {
+          "total_length": 22.609999999999992,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          247
+        ],
+        "center": [
+          330.71829103356646,
+          -54.374486037012915
+        ],
+        "characteristics": {
+          "total_length": 18.565919522748796,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          248
+        ],
+        "center": [
+          329.6257036193964,
+          -51.84362819158205
+        ],
+        "characteristics": {
+          "total_length": 12.494548464232244,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          253
+        ],
+        "center": [
+          332.2922662716093,
+          -52.94571189991389
+        ],
+        "characteristics": {
+          "total_length": 18.904744347865794,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          256
+        ],
+        "center": [
+          95.87349957669986,
+          -199.90701826210915
+        ],
+        "characteristics": {
+          "total_length": 18.567458663401325,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          257
+        ],
+        "center": [
+          93.40601405668241,
+          -202.82623181014733
+        ],
+        "characteristics": {
+          "total_length": 18.297645810836766,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          258
+        ],
+        "center": [
+          95.99596046985069,
+          -204.26115929420408
+        ],
+        "characteristics": {
+          "total_length": 11.976274389464642,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          271
+        ],
+        "center": [
+          90.39995560189199,
+          -197.04199772579332
+        ],
+        "characteristics": {
+          "total_length": 21.999999999999943,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          272
+        ],
+        "center": [
+          90.39995560189199,
+          -197.04199772579332
+        ],
+        "characteristics": {
+          "total_length": 21.999999999999943,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          273
+        ],
+        "center": [
+          93.21452287528813,
+          -192.02752737462075
+        ],
+        "characteristics": {
+          "total_length": 18.391981040939967,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          274
+        ],
+        "center": [
+          97.41743298637876,
+          -191.61046755021152
+        ],
+        "characteristics": {
+          "total_length": 11.69960499272827,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          277
+        ],
+        "center": [
+          92.97788633435604,
+          -191.84027560439768
+        ],
+        "characteristics": {
+          "total_length": 18.394137372051183,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          279
+        ],
+        "center": [
+          333.8346218942643,
+          -126.08283806187077
+        ],
+        "characteristics": {
+          "total_length": 18.35749118256433,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          280
+        ],
+        "center": [
+          331.14675174956,
+          -124.54761963915351
+        ],
+        "characteristics": {
+          "total_length": 11.905410644069011,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          284
+        ],
+        "center": [
+          331.3012394934077,
+          -128.69012200682698
+        ],
+        "characteristics": {
+          "total_length": 18.435759911439373,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          295
+        ],
+        "center": [
+          336.82708977802673,
+          -120.57997798523826
+        ],
+        "characteristics": {
+          "total_length": 23.08999999999999,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          296
+        ],
+        "center": [
+          336.82708977802673,
+          -120.57997798523826
+        ],
+        "characteristics": {
+          "total_length": 23.08999999999999,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          297
+        ],
+        "center": [
+          329.7256458709671,
+          -137.14812468208052
+        ],
+        "characteristics": {
+          "total_length": 13.089128746532172,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          302
+        ],
+        "center": [
+          332.3725111929772,
+          -136.0101834358801
+        ],
+        "characteristics": {
+          "total_length": 19.604915567355313,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          304
+        ],
+        "center": [
+          332.30584780817406,
+          -136.0800146051401
+        ],
+        "characteristics": {
+          "total_length": 19.491634566012134,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          307
+        ],
+        "center": [
+          97.3919878799093,
+          -125.57670718843022
+        ],
+        "characteristics": {
+          "total_length": 12.273273536959353,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          312
+        ],
+        "center": [
+          92.99288503821808,
+          -125.6239140024997
+        ],
+        "characteristics": {
+          "total_length": 18.966795337408087,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          313
+        ],
+        "center": [
+          93.19915780107873,
+          -125.49634063454106
+        ],
+        "characteristics": {
+          "total_length": 18.73775846902681,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          314
+        ],
+        "center": [
+          97.49039952985216,
+          -137.09146973472042
+        ],
+        "characteristics": {
+          "total_length": 11.447333694823318,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          318
+        ],
+        "center": [
+          92.87025722599594,
+          -136.39135624598984
+        ],
+        "characteristics": {
+          "total_length": 18.23787953949942,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          319
+        ],
+        "center": [
+          95.72889129974051,
+          -133.8494974734137
+        ],
+        "characteristics": {
+          "total_length": 18.12939718191051,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          330
+        ],
+        "center": [
+          90.38821991835255,
+          -119.83999861777974
+        ],
+        "characteristics": {
+          "total_length": 21.999999999999986,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          331
+        ],
+        "center": [
+          90.38821991835255,
+          -119.83999861777974
+        ],
+        "characteristics": {
+          "total_length": 21.999999999999986,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          333
+        ],
+        "center": [
+          153.36305849411423,
+          -52.01541316055381
+        ],
+        "characteristics": {
+          "total_length": 18.793921099481064,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          334
+        ],
+        "center": [
+          150.55462797716456,
+          -54.93150023539831
+        ],
+        "characteristics": {
+          "total_length": 18.826108123130147,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          335
+        ],
+        "center": [
+          149.53558636450876,
+          -50.83923818225902
+        ],
+        "characteristics": {
+          "total_length": 12.050712932173134,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          339
+        ],
+        "center": [
+          160.5433348311864,
+          -53.03105291054847
+        ],
+        "characteristics": {
+          "total_length": 18.686957461442805,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          341
+        ],
+        "center": [
+          158.88162490594252,
+          -51.992587625722116
+        ],
+        "characteristics": {
+          "total_length": 18.772711649417232,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          343
+        ],
+        "center": [
+          161.60016571484456,
+          -50.581837068074215
+        ],
+        "characteristics": {
+          "total_length": 12.189035342643304,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          354
+        ],
+        "center": [
+          144.98999562751015,
+          -57.49334927500128
+        ],
+        "characteristics": {
+          "total_length": 22.18,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      },
+      {
+        "roads": [
+          355
+        ],
+        "center": [
+          144.98999562751015,
+          -57.49334927500128
+        ],
+        "characteristics": {
+          "total_length": 22.18,
+          "avg_speed_limit": null,
+          "predominant_road_type": "unknown",
+          "road_count": 1
+        }
+      }
+    ]
+  },
+  "network_statistics": {
+    "network_topology": {
+      "total_roads": 122,
+      "total_connections": 274,
+      "average_connections_per_road": 2.2459016393442623,
+      "network_density": 0.01856117057309308,
+      "strongly_connected_components": 1,
+      "weakly_connected_components": 1
+    },
+    "road_characteristics": {
+      "by_type": {
+        "town": {
+          "count": 26,
+          "total_length": 2479.8156684901346
+        },
+        "unknown": {
+          "count": 96,
+          "total_length": 1736.2467269521153
+        }
+      },
+      "by_speed_limit": {
+        "20-29 mph": {
+          "count": 26,
+          "total_length": 2479.8156684901346
+        }
+      },
+      "total_network_length": 4216.062395442252
+    },
+    "intersection_analysis": {
+      "total_intersections": 12,
+      "by_type": {
+        "signalized": 12
+      },
+      "avg_complexity": 0.4500000000000001,
+      "high_complexity_intersections": [
+        {
+          "junction_id": 26,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 54,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 87,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 110,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 143,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 171,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 194,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 222,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 255,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 278,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 306,
+          "complexity": 0.45
+        },
+        {
+          "junction_id": 332,
+          "complexity": 0.45
+        }
+      ]
+    },
+    "traffic_zones": {
+      "highway_zones": 0,
+      "urban_zones": 0,
+      "suburban_zones": 0,
+      "service_zones": 97
+    }
+  }
+}
