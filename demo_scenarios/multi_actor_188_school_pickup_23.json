@@ -40,7 +40,8 @@
           "distance_to_ego": {
             "min": 41,
             "max": 51
-          }
+          },
+          "spawn_type": "sidewalk_adjacent"
         }
       }
     }

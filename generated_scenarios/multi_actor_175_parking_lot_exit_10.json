@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 36,
-            "max": 51
+            "min": 28,
+            "max": 58
           },
           "relative_position": "behind"
         }
@@ -43,8 +43,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 51,
-            "max": 66
+            "min": 43,
+            "max": 73
           },
           "relative_position": "ahead"
         }
@@ -60,8 +60,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 72,
-            "max": 87
+            "min": 64,
+            "max": 94
           },
           "relative_position": "ahead"
         }
@@ -126,5 +126,6 @@
   ],
   "success_distance": 81,
   "timeout": 104,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

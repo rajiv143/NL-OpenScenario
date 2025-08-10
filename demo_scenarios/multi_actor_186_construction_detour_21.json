@@ -26,7 +26,9 @@
             "min": 40,
             "max": 55
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       },
       "color": "0,0,255"
@@ -56,7 +58,9 @@
             "min": 67,
             "max": 82
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       },
       "color": "255,0,0"

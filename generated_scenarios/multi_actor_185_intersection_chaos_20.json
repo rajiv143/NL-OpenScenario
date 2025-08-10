@@ -22,13 +22,14 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "road_relationship": "same_road",
+          "road_relationship": "different_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "is_intersection": true
         }
       },
       "color": "0,0,255"
@@ -45,8 +46,9 @@
             "min": 35,
             "max": 55
           },
-          "relative_position": "adjacent",
-          "is_intersection": true
+          "relative_position": "ahead",
+          "is_intersection": true,
+          "lane_relationship": "adjacent_lane"
         }
       },
       "color": "128,128,128"
@@ -59,8 +61,8 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 20,
-            "max": 35
+            "min": 12,
+            "max": 42
           }
         }
       }
@@ -113,5 +115,6 @@
   ],
   "success_distance": 70,
   "timeout": 120,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

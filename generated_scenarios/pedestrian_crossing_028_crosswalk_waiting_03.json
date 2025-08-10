@@ -21,10 +21,10 @@
       "model": "walker.pedestrian.0048",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
+          "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 31,
-            "max": 46
+            "min": 23,
+            "max": 53
           }
         }
       }
@@ -50,5 +50,6 @@
   ],
   "success_distance": 106,
   "timeout": 65,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

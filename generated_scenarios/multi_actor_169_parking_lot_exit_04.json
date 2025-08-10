@@ -25,10 +25,10 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 44,
-            "max": 59
+            "min": 36,
+            "max": 66
           },
-          "relative_position": "adjacent"
+          "relative_position": "ahead"
         }
       }
     },
@@ -40,8 +40,8 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 43,
-            "max": 53
+            "min": 33,
+            "max": 63
           }
         }
       }
@@ -85,5 +85,6 @@
   ],
   "success_distance": 97,
   "timeout": 114,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

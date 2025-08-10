@@ -26,7 +26,9 @@
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "different_road",
+          "is_intersection": true
         }
       },
       "color": "0,255,0"
@@ -42,7 +44,10 @@
             "min": 35,
             "max": 55
           },
-          "relative_position": "adjacent"
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane",
+          "road_relationship": "different_road",
+          "is_intersection": true
         }
       },
       "color": "0,255,255"
@@ -55,8 +60,8 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 20,
-            "max": 35
+            "min": 12,
+            "max": 42
           }
         }
       }
@@ -109,5 +114,6 @@
   ],
   "success_distance": 118,
   "timeout": 107,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

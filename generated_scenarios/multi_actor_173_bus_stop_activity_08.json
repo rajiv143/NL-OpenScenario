@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 46,
-            "max": 61
+            "min": 38,
+            "max": 68
           },
           "relative_position": "ahead"
         }
@@ -38,8 +38,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 48,
-            "max": 63
+            "min": 40,
+            "max": 70
           },
           "relative_position": "behind"
         }
@@ -54,8 +54,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 75,
-            "max": 90
+            "min": 67,
+            "max": 97
           },
           "relative_position": "ahead"
         }
@@ -113,5 +113,6 @@
   ],
   "success_distance": 73,
   "timeout": 98,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

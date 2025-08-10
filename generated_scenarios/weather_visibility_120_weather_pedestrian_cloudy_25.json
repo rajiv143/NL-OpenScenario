@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 29,
-            "max": 44
+            "min": 21,
+            "max": 51
           }
         }
       }
@@ -50,5 +50,6 @@
   ],
   "success_distance": 101,
   "timeout": 109,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

@@ -26,7 +26,8 @@
             "min": 56,
             "max": 76
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "lane_relationship": "adjacent_lane"
         }
       }
     }
@@ -51,5 +52,6 @@
   ],
   "success_distance": 91,
   "timeout": 68,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

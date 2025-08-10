@@ -25,10 +25,10 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 43,
-            "max": 58
+            "min": 35,
+            "max": 65
           },
-          "relative_position": "adjacent"
+          "relative_position": "ahead"
         }
       },
       "color": "128,128,128"
@@ -48,5 +48,6 @@
   ],
   "success_distance": 114,
   "timeout": 99,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

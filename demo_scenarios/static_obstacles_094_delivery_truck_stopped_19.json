@@ -26,7 +26,9 @@
             "min": 57,
             "max": 67
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       }
     }

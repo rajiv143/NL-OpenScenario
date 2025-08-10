@@ -54,5 +54,6 @@
   ],
   "success_distance": 85,
   "timeout": 79,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

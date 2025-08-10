@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 62,
-            "max": 72
+            "min": 52,
+            "max": 82
           },
           "relative_position": "ahead"
         }
@@ -37,5 +37,6 @@
   "actions": [],
   "success_distance": 85,
   "timeout": 84,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

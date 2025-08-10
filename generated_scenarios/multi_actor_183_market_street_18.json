@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 30,
-            "max": 45
+            "min": 22,
+            "max": 52
           },
           "relative_position": "behind"
         }
@@ -39,8 +39,8 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 40,
-            "max": 50
+            "min": 30,
+            "max": 60
           }
         }
       }
@@ -84,5 +84,6 @@
   ],
   "success_distance": 80,
   "timeout": 140,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

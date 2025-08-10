@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 67,
-            "max": 77
+            "min": 57,
+            "max": 87
           },
           "relative_position": "ahead"
         }
@@ -43,5 +43,6 @@
   ],
   "success_distance": 76,
   "timeout": 85,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

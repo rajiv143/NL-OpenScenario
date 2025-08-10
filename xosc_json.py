@@ -460,15 +460,22 @@ class JsonToXoscConverter:
                 except:
                     raise ValidationError(f"Invalid color format: {actor['color']}")
     
-    def parse_position(self, pos_str: str) -> Tuple[float, float, float, float]:
-        """Parse position string 'x,y,z,yaw' with defaults"""
+    def parse_position(self, pos_str: str, map_name: str = None) -> Tuple[float, float, float, float]:
+        """Parse position string 'x,y,z,yaw' with defaults and auto-computed heading"""
         parts = pos_str.split(',')
         x = float(parts[0])
         y = float(parts[1])
         z = float(parts[2]) if len(parts) > 2 else 0.5
-        yaw = float(parts[3]) if len(parts) > 3 else 0.0
-        # Convert yaw from degrees to radians
-        yaw_rad = math.radians(yaw)
+        yaw = float(parts[3]) if len(parts) > 3 else None
+        
+        # Auto-compute heading if not specified and map is available
+        if yaw is None and map_name:
+            yaw_rad = self._auto_compute_heading_from_position(x, y, map_name)
+            self.logger.info(f"Auto-computed heading for position ({x:.1f}, {y:.1f}): {math.degrees(yaw_rad):.1f}°")
+        else:
+            # Convert yaw from degrees to radians
+            yaw_rad = math.radians(yaw) if yaw is not None else 0.0
+            
         return x, y, z, yaw_rad
     
     def create_file_header(self) -> ET.Element:
@@ -651,9 +658,10 @@ class JsonToXoscConverter:
                 self._ego_lane = (meta.get('road_id'), meta.get('lane_id'))
             self._ego_pos = (x, y, z, yaw)
         else:
-            x,y,z,yaw = self.parse_position(data['ego_start_position'])
+            x,y,z,yaw = self.parse_position(data['ego_start_position'], map_name)
             self._ego_pos  = (x, y, z, yaw)
-            self._ego_lane = None   
+            # Infer ego's road and lane from coordinates using spawn metadata
+            self._ego_lane = self._infer_road_lane_from_position(x, y, map_name)   
         
         world_pos.set('x', str(x))
         world_pos.set('y', str(y))
@@ -698,7 +706,7 @@ class JsonToXoscConverter:
                     ego_lane=self._ego_lane
                 )
             else:
-                ax, ay, az, ayaw = self.parse_position(actor['start_position'])
+                ax, ay, az, ayaw = self.parse_position(actor['start_position'], map_name)
             world_pos.set('x', str(ax))
             world_pos.set('y', str(ay))
             world_pos.set('z', str(az))
@@ -1260,10 +1268,10 @@ class JsonToXoscConverter:
             if pt.get('lane_type') not in valid_types:
                 return False
         
-        # Intersection filtering
-        if 'is_intersection' in crit:
-            if pt.get('is_intersection') is not crit['is_intersection']:
-                return False
+        # Intersection filtering with default to avoid intersections
+        intersection_filter = crit.get('is_intersection', False)  # Default to false (avoid intersections)
+        if pt.get('is_intersection') != intersection_filter:
+            return False
         
         # Heading tolerance
         if 'heading_tol' in crit and ego_pos:
@@ -1291,6 +1299,24 @@ class JsonToXoscConverter:
             if d > tgt.get('max', float('inf')):
                 return False
         
+        # Additional topology constraints using road intelligence
+        if hasattr(self, '_selected_map') and self._selected_map:
+            road_data = self.road_intelligence.get(self._selected_map, {})
+            if road_data:
+                # Speed zone compatibility
+                if 'avoid_highways' in crit and crit['avoid_highways']:
+                    road_info = road_data.get('roads', {}).get(str(pt.get('road_id', '')), {})
+                    speed_limit = road_info.get('speed_limit', 0) or 0
+                    if speed_limit >= 60:  # Highway speed
+                        return False
+                
+                # Service road filtering
+                if 'avoid_service_roads' in crit and crit['avoid_service_roads']:
+                    road_info = road_data.get('roads', {}).get(str(pt.get('road_id', '')), {})
+                    road_type = road_info.get('road_type', 'unknown')
+                    if road_type == 'service':
+                        return False
+        
         return True
     
     def _are_lanes_adjacent(self, ego_lane: Tuple[int, int], candidate_lane: Tuple[int, int]) -> bool:
@@ -1303,13 +1329,37 @@ class JsonToXoscConverter:
         return (road_id_ego == road_id_candidate and 
                 abs(lane_id_ego - lane_id_candidate) == 1)
     
+    def _are_same_direction_lanes(self, ego_lane_id: int, candidate_lane_id: int) -> bool:
+        """Check if two lane IDs represent lanes with same traffic direction"""
+        # In OpenDRIVE, negative lane IDs are typically right-hand traffic direction
+        # Positive lane IDs are typically left-hand traffic direction
+        # Same direction means same sign (both positive or both negative)
+        if ego_lane_id == 0 or candidate_lane_id == 0:
+            return True  # Center lane (reference line) is compatible with both directions
+        return (ego_lane_id > 0) == (candidate_lane_id > 0)
+    
     def _get_relative_position(self, ego_pos: Tuple[float, float, float, float], pt: Dict) -> str:
         """Get relative position (ahead/behind) with improved accuracy considering lane direction"""
         dx = pt.get('x', 0) - ego_pos[0]
         dy = pt.get('y', 0) - ego_pos[1]
+        
+        # Use spawn point's yaw if available to determine lane direction
+        pt_yaw = pt.get('yaw', 0)  # In degrees
+        ego_yaw = math.degrees(ego_pos[3])  # Convert to degrees
+        
+        # Check if vehicles are facing similar directions (within 90 degrees)
+        yaw_diff = abs((pt_yaw - ego_yaw + 180) % 360 - 180)
+        same_direction = yaw_diff < 90
+        
         # Project along ego's heading direction
         proj = math.cos(ego_pos[3]) * dx + math.sin(ego_pos[3]) * dy
-        return 'ahead' if proj > 0 else 'behind'
+        
+        if same_direction:
+            # Same direction lanes: ahead means positive projection
+            return 'ahead' if proj > 0 else 'behind'
+        else:
+            # Opposite direction lanes: ahead means negative projection
+            return 'ahead' if proj < 0 else 'behind'
     
     def _is_laterally_adjacent(self, ego_pos: Tuple[float, float, float, float], pt: Dict) -> bool:
         """Check if point is laterally adjacent (perpendicular to ego heading)"""
@@ -1402,17 +1452,10 @@ class JsonToXoscConverter:
                 self.logger.info(f"Fallback 2 (lane_relationship -> any_lane): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
-        # Fallback 3: Relax road_relationship (last resort for relationships)
-        if 'road_relationship' in crit and crit['road_relationship'] in ['same_road', 'different_road']:
-            relaxed_crit = crit.copy()
-            relaxed_crit['road_relationship'] = 'any_road'
-            
-            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
-            if fallback_candidates:
-                self.logger.info(f"Fallback 3 (road_relationship -> any_road): found {len(fallback_candidates)} candidates")
-                return fallback_candidates
+        # Skip relaxing road_relationship - it's critical for spawn safety
+        # Instead, try relaxing other non-critical constraints first
         
-        # Fallback 4: Expand distance range by 50%
+        # Fallback 3: Expand distance range by 50%
         if 'distance_to_ego' in crit and ego_pos:
             relaxed_crit = crit.copy()
             distance_constraint = relaxed_crit['distance_to_ego'].copy()
@@ -1427,17 +1470,27 @@ class JsonToXoscConverter:
             
             fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
             if fallback_candidates:
-                self.logger.info(f"Fallback 4 (expanded distance {current_min}-{current_max} -> {distance_constraint['min']:.1f}-{distance_constraint['max']:.1f}): found {len(fallback_candidates)} candidates")
+                self.logger.info(f"Fallback 3 (expanded distance {current_min}-{current_max} -> {distance_constraint['min']:.1f}-{distance_constraint['max']:.1f}): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
-        # Fallback 5: Ignore intersection requirements
+        # Fallback 4: Ignore intersection requirements
         if 'is_intersection' in crit:
             relaxed_crit = crit.copy()
             del relaxed_crit['is_intersection']
             
             fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
             if fallback_candidates:
-                self.logger.info(f"Fallback 5 (relaxed intersection): found {len(fallback_candidates)} candidates")
+                self.logger.info(f"Fallback 4 (relaxed intersection): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 5: Only as last resort, relax road relationship
+        if 'road_relationship' in crit and crit['road_relationship'] in ['same_road', 'different_road']:
+            relaxed_crit = crit.copy()
+            relaxed_crit['road_relationship'] = 'any_road'
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.warning(f"Fallback 5 (LAST RESORT - road_relationship -> any_road): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
         # Final fallback: Any valid spawn point with basic safety constraints
@@ -1504,7 +1557,7 @@ class JsonToXoscConverter:
             return candidates
     
     def _filter_by_lane_relationship(self, candidates: List[Dict], crit: Dict[str, Any], ego_lane: Optional[Tuple[int, int]]) -> List[Dict]:
-        """Filter spawn points based on lane relationship to ego vehicle"""
+        """Filter spawn points based on lane relationship to ego vehicle with direction awareness"""
         relationship = crit['lane_relationship'] 
         ego_road_id, ego_lane_id = ego_lane if ego_lane else (None, None)
         
@@ -1514,14 +1567,80 @@ class JsonToXoscConverter:
             self.logger.debug(f"Lane relationship 'same_lane': filtering to road_id={ego_road_id}, lane_id={ego_lane_id}")
             return result
         elif relationship == 'adjacent_lane' and ego_lane:
-            result = [pt for pt in candidates 
-                    if pt.get('road_id') == ego_road_id and 
-                    abs(pt.get('lane_id', 0) - ego_lane_id) == 1]
-            self.logger.debug(f"Lane relationship 'adjacent_lane': filtering to road_id={ego_road_id}, lane_id±1 from {ego_lane_id}")
-            return result
+            # For adjacent lanes, ensure same direction by default (same sign of lane_id)
+            adjacent_candidates = []
+            for pt in candidates:
+                if pt.get('road_id') == ego_road_id:
+                    pt_lane_id = pt.get('lane_id', 0)
+                    # Adjacent means distance of 1 AND same direction (same sign)
+                    if (abs(pt_lane_id - ego_lane_id) == 1 and 
+                        self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
+                        adjacent_candidates.append(pt)
+            
+            self.logger.debug(f"Lane relationship 'adjacent_lane': filtering to road_id={ego_road_id}, same-direction lanes adjacent to {ego_lane_id}")
+            return adjacent_candidates
         else:  # 'any_lane' or ego not positioned yet
             self.logger.debug(f"Lane relationship '{relationship}': no filtering")
             return candidates
+    
+    def _infer_road_lane_from_position(self, x: float, y: float, map_name: str) -> Optional[Tuple[int, int]]:
+        """Infer road and lane IDs from world coordinates by finding closest spawn point"""
+        spawn_points = self._get_spawn_points_for_map(map_name)
+        if not spawn_points:
+            self.logger.warning(f"No spawn points available for {map_name} to infer road/lane")
+            return None
+        
+        # Find closest spawn point
+        closest_point = None
+        min_distance = float('inf')
+        
+        for pt in spawn_points:
+            pt_x, pt_y = pt.get('x', 0), pt.get('y', 0)
+            distance = math.hypot(x - pt_x, y - pt_y)
+            if distance < min_distance:
+                min_distance = distance
+                closest_point = pt
+        
+        if closest_point and min_distance < 50.0:  # Within 50m threshold
+            road_id = closest_point.get('road_id')
+            lane_id = closest_point.get('lane_id')
+            if road_id is not None and lane_id is not None:
+                self.logger.info(f"Inferred ego position: road_id={road_id}, lane_id={lane_id} (distance: {min_distance:.1f}m)")
+                return (road_id, lane_id)
+            else:
+                self.logger.warning(f"Closest spawn point missing road/lane info: {closest_point}")
+        else:
+            self.logger.warning(f"No nearby spawn point found for coordinates ({x:.1f}, {y:.1f}), min_distance={min_distance:.1f}m")
+        
+        return None
+    
+    def _auto_compute_heading_from_position(self, x: float, y: float, map_name: str) -> float:
+        """Auto-compute heading based on road direction at given position"""
+        # Find nearby spawn points to get road heading
+        spawn_points = self._get_spawn_points_for_map(map_name)
+        if not spawn_points:
+            return 0.0
+        
+        # Find closest driving lane spawn point
+        closest_point = None
+        min_distance = float('inf')
+        
+        for pt in spawn_points:
+            if pt.get('lane_type') != 'Driving':
+                continue
+            pt_x, pt_y = pt.get('x', 0), pt.get('y', 0)
+            distance = math.hypot(x - pt_x, y - pt_y)
+            if distance < min_distance:
+                min_distance = distance
+                closest_point = pt
+        
+        if closest_point and min_distance < 20.0:  # Within 20m for heading inference
+            heading = math.radians(closest_point.get('yaw', 0))
+            self.logger.info(f"Auto-computed heading: {math.degrees(heading):.1f}° from nearby spawn point")
+            return heading
+        
+        self.logger.warning(f"Could not auto-compute heading for position ({x:.1f}, {y:.1f})")
+        return 0.0
     
     def _log_spawn_decision(self, selected_spawn: Dict, ego_pos: Optional[Tuple[float, float, float, float]], ego_lane: Optional[Tuple[int, int]], criteria: Dict[str, Any]):
         """Log comprehensive spawn decision information"""

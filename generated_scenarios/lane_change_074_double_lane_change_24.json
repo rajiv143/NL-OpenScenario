@@ -28,7 +28,7 @@
             "min": 35,
             "max": 55
           },
-          "relative_position": "adjacent"
+          "relative_position": "ahead"
         }
       },
       "color": "255,128,0"
@@ -70,5 +70,6 @@
   ],
   "success_distance": 72,
   "timeout": 48,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }
