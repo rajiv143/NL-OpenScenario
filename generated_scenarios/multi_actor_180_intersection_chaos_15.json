@@ -28,7 +28,8 @@
           },
           "relative_position": "ahead",
           "road_relationship": "different_road",
-          "is_intersection": true
+          "is_intersection": true,
+          "lane_relationship": "any"
         }
       },
       "color": "0,0,255"
@@ -62,7 +63,9 @@
           "distance_to_ego": {
             "min": 12,
             "max": 42
-          }
+          },
+          "road_relationship": "different_road",
+          "is_intersection": true
         }
       }
     }
@@ -112,8 +115,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 118,
-  "timeout": 144,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
 }

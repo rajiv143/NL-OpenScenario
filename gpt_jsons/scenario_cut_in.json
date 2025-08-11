@@ -1,13 +1,15 @@
 {
   "scenario_name": "CutInManeuver",
   "description": "A vehicle spawns in the adjacent lane and cuts in front of the ego, forcing an evasive maneuver",
-  "map_name": "Town03",
   "weather": "cloudy",
   "ego_vehicle_model": "vehicle.audi.a2",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
-      "lane_id": { "min": 2, "max": 50 },
+      "lane_id": {
+        "min": 2,
+        "max": 50
+      },
       "is_intersection": false
     }
   },
@@ -19,11 +21,14 @@
       "model": "vehicle.audi.tt",
       "spawn": {
         "criteria": {
-          "road_id": "same_as_ego",
           "lane_type": "Driving",
           "heading_tol": 20,
-          "distance_to_ego": { "min": 15, "max": 25 },
-          "relative_position": "adjacent"
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "adjacent",
+          "road_relationship": "same_road"
         }
       },
       "color": "0,255,0"
@@ -58,7 +63,7 @@
       "dynamics_value": 0.5
     }
   ],
-  "success_distance": 40,
+  "success_distance": 150,
   "timeout": 90,
   "collision_allowed": false
 }

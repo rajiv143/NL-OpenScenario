@@ -45,6 +45,6 @@
     }
   ],
   "success_distance": 109,
-  "timeout": 47,
+  "timeout": 60,
   "collision_allowed": false
 }

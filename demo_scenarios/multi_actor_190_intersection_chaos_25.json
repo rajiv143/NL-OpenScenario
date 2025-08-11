@@ -26,7 +26,10 @@
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "different_road",
+          "lane_relationship": "any",
+          "is_intersection": true
         }
       },
       "color": "128,0,255"
@@ -42,7 +45,10 @@
             "min": 35,
             "max": 55
           },
-          "relative_position": "adjacent"
+          "relative_position": "adjacent",
+          "road_relationship": "different_road",
+          "lane_relationship": "any",
+          "is_intersection": true
         }
       },
       "color": "0,0,255"
@@ -57,7 +63,9 @@
           "distance_to_ego": {
             "min": 20,
             "max": 35
-          }
+          },
+          "road_relationship": "different_road",
+          "is_intersection": true
         }
       }
     }
@@ -107,7 +115,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 116,
-  "timeout": 102,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

@@ -1,7 +1,6 @@
 {
   "scenario_name": "DynamicOvertakeBrakeCheck",
   "description": "A vehicle overtakes the ego from behind in the adjacent lane, cuts in front, and brake-checks",
-  "map_name": "Town03",
   "weather": "clear",
   "ego_vehicle_model": "vehicle.audi.a2",
   "ego_start_position": "120,193,3,180",
@@ -12,62 +11,73 @@
       "type": "vehicle",
       "model": "vehicle.audi.tt",
       "start_position": "130,193,3,180",
-      "color": "255,0,0"
+      "color": "255,0,0",
+      "spawn": {
+        "criteria": {
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "relative_position": "behind",
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 50
+          }
+        }
+      }
     }
   ],
   "actions": [
     {
-      "actor_id":       "overtaker",
-      "action_type":    "speed",
-      "trigger_type":   "distance_to_ego",
-      "trigger_value":  15,
+      "actor_id": "overtaker",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
       "trigger_comparison": ">",
-      "speed_value":    15.0
+      "speed_value": 15.0
     },
     {
-      "actor_id":       "overtaker",
-      "action_type":    "lane_change",
-      "trigger_type":   "distance_to_ego",
-      "trigger_value":  12,
+      "actor_id": "overtaker",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 12,
       "trigger_comparison": "<",
       "lane_direction": "right",
-      "dynamics_dimension":"time",
-      "dynamics_value":  2.0
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
     },
     {
-      "actor_id":         "overtaker",
-      "action_type":      "speed",
-      "trigger_type":     "after_previous",
-      "dynamics_dimension":"time",
-      "dynamics_shape":   "linear",
-      "dynamics_value":   3.0,
-      "speed_value":      10.0
+      "actor_id": "overtaker",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0,
+      "speed_value": 10.0
     },
     {
-      "actor_id":       "overtaker",
-      "action_type":    "lane_change",
-      "trigger_type":   "after_previous",
+      "actor_id": "overtaker",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
       "lane_direction": "left",
-      "dynamics_dimension":"time",
-      "dynamics_value":  2.0
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
     },
     {
-      "actor_id":         "overtaker",
-      "action_type":      "stop",
-      "trigger_type":     "after_previous",
-      "dynamics_dimension":"time",
-      "dynamics_shape":   "linear",
-      "dynamics_value":   2.0
+      "actor_id": "overtaker",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
     },
     {
-      "actor_id":      "overtaker",
-      "action_type":   "wait",
-      "trigger_type":  "after_previous",
+      "actor_id": "overtaker",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
       "wait_duration": 2.0
     }
   ],
-
-  "success_distance": 0,
-  "timeout": 60,
+  "success_distance": 200,
+  "timeout": 120,
   "collision_allowed": false
 }

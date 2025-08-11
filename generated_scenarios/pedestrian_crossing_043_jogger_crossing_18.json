@@ -25,7 +25,9 @@
           "distance_to_ego": {
             "min": 16,
             "max": 46
-          }
+          },
+          "road_relationship": "different_road",
+          "is_intersection": true
         }
       }
     }
@@ -44,6 +46,5 @@
   ],
   "success_distance": 111,
   "timeout": 71,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "collision_allowed": false
 }

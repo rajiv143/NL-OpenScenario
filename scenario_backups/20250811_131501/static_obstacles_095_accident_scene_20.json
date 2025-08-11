@@ -1,0 +1,42 @@
+{
+  "scenario_name": "accident_scene_20",
+  "description": "Accident scene requiring lane change",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "obstacle",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 65
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [],
+  "success_distance": 110,
+  "timeout": 62,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

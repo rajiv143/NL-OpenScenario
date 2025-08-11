@@ -1,13 +1,15 @@
 {
   "scenario_name": "ConstructionZone_Town04",
   "description": "Navigate through highway construction with workers and equipment",
-  "map_name": "Town04",
   "weather": "cloudy",
   "ego_vehicle_model": "vehicle.audi.etron",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
-      "lane_id": {"min": 1, "max": 5},
+      "lane_id": {
+        "min": 1,
+        "max": 5
+      },
       "is_intersection": false
     }
   },
@@ -19,10 +21,14 @@
       "model": "vehicle.carlamotors.european_hgv",
       "spawn": {
         "criteria": {
-          "road_id": "same_as_ego",
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 30, "max": 50},
-          "relative_position": "ahead"
+          "distance_to_ego": {
+            "min": 30,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       },
       "color": "255,140,0"
@@ -33,8 +39,13 @@
       "model": "walker.pedestrian.0026",
       "spawn": {
         "criteria": {
-          "distance_to_ego": {"min": 25, "max": 35},
-          "relative_position": "ahead"
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_type": "Sidewalk"
         }
       }
     }
@@ -69,7 +80,7 @@
       "wait_duration": 3.0
     }
   ],
-  "success_distance": 120,
+  "success_distance": 150,
   "timeout": 90,
   "collision_allowed": false
 }

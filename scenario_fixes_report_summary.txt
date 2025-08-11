@@ -1,0 +1,2870 @@
+============================================================
+CARLA SCENARIO CONSTRAINT FIX REPORT
+============================================================
+
+📊 SUMMARY:
+  Files processed: 570
+  Files fixed: 562
+  Hardcoded maps removed: 366
+  Constraints added: 480
+  Success conditions updated: 883
+
+📁 Backup location: scenario_backups/20250811_131501
+
+✅ CHANGES APPLIED:
+----------------------------------------
+
+📁 demo_scenarios/weather_visibility_114_glare_detection_soft_rain_19.json (unknown)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/basic_following_023_sudden_brake_ahead_23.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_095_construction_barrier_20.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+
+📁 generated_scenarios/static_obstacles_085_parked_car_ahead_10.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/emergency_priority_140_breakdown_hazards_20.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_010_merge_gap_closing_10.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_168_market_street_03.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 gpt_jsons/overtake.json (overtake)
+  • Removed hardcoded map: Town03
+  • Added road_relationship: same_road to overtaker
+  • Added lane_relationship: adjacent_lane to overtaker
+  • Updated deprecated road_id constraint for overtaker
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/vulnerable_users_158_wheelchair_user_18.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_148_wheelchair_user_08.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_053_merge_from_ramp_03.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_029_jogger_crossing_04.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 handcrafted_jsons/example-json-pedestrian.json (pedestrian)
+  • Removed hardcoded map: Town01
+  • Added road_relationship: same_road to adversary
+  • Added lane_type: Sidewalk to adversary
+  • Added distance_to_ego constraint for adversary
+  • Updated timeout to 120
+
+📁 generated_scenarios/vulnerable_users_152_jogger_headphones_12.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_009_following_slow_leader_09.json (following)
+  • Removed hardcoded map: Town04
+
+📁 demo_scenarios/weather_visibility_097_weather_pedestrian_soft_rain_02.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_025_merge_gap_closing_25.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_194_delivery_zone_29.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/static_obstacles_086_delivery_truck_stopped_11.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_048_jogger_crossing_23.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 demo_scenarios/vulnerable_users_149_school_zone_09.json (pedestrian)
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_016_merge_gap_closing_16.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 handcrafted_jsons/example-json-overtake.json (overtake)
+  • Removed hardcoded map: Town03
+  • Added road_relationship: same_road to overtaker
+  • Added lane_relationship: adjacent_lane to overtaker
+  • Added relative_position: behind to overtaker
+  • Added lane_type: Driving to overtaker
+  • Added distance_to_ego constraint for overtaker
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/weather_visibility_098_wet_braking_cloudy_03.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_120_rain_following_soft_rain_25.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Added lane_relationship: same_lane to lead_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/emergency_priority_136_emergency_stop_16.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+
+📁 gpt_jsons/vehicle_starts_moving.json (stationary)
+  • Removed hardcoded map: Town01
+  • Added road_relationship: same_road to parked_car
+  • Added lane_relationship: same_lane to parked_car
+
+📁 generated_scenarios/static_obstacles_088_construction_barrier_13.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/pedestrian_crossing_034_slow_elderly_crossing_09.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_066_aggressive_merge_16.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_070_slow_vehicle_overtake_20.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_046_slow_elderly_crossing_21.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_173_delivery_zone_08.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/static_obstacles_077_construction_barrier_02.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/weather_visibility_112_visibility_merge_cloudy_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_067_aggressive_merge_17.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_037_sudden_crossing_12.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+
+📁 generated_scenarios/pedestrian_crossing_050_sudden_crossing_25.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+
+📁 generated_scenarios/static_obstacles_086_construction_barrier_11.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/pedestrian_crossing_028_crosswalk_waiting_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_119_wet_braking_cloudy_24.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/lane_change_057_slow_vehicle_overtake_07.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_068_cut_in_ahead_18.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_031_slow_elderly_crossing_06.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_058_double_lane_change_08.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/pedestrian_crossing_047_crosswalk_waiting_22.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_041_sudden_crossing_16.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/emergency_priority_129_breakdown_hazards_09.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_014_following_slow_leader_14.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/vulnerable_users_144_child_playing_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_098_wet_braking_wet_03.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_154_elderly_crossing_14.json (pedestrian)
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_043_jogger_crossing_18.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 test_scenarios/lane_change_004_cut_in_ahead_02.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_130_emergency_stop_10.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_126_emergency_stop_06.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_041_sudden_crossing_16.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/basic_following_017_stop_and_go_traffic_17.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/vulnerable_users_165_wheelchair_user_25.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_138_police_pursuit_18.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_094_broken_down_vehicle_19.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+
+📁 generated_scenarios/basic_following_017_gradual_slowdown_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/weather_visibility_108_wet_braking_clear_sunset_13.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_167_construction_detour_02.json (stationary)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/weather_visibility_099_weather_pedestrian_clear_sunset_04.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_167_intersection_chaos_02.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/static_obstacles_092_accident_scene_17.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+
+📁 generated_scenarios/vulnerable_users_156_wheelchair_user_16.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_065_cut_in_ahead_15.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_064_cut_in_ahead_14.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_088_delivery_truck_stopped_13.json (unknown)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/emergency_priority_131_emergency_stop_11.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_177_delivery_zone_12.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/emergency_priority_135_ambulance_approach_15.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_125_ambulance_approach_05.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_159_child_playing_19.json (pedestrian)
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_071_double_lane_change_21.json (cut_in)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/static_obstacles_079_broken_down_vehicle_04.json (stationary)
+  • Updated success_distance to 100
+
+📁 demo_scenarios/weather_visibility_107_wet_braking_clear_sunset_12.json (emergency)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_184_highway_merge_19.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/static_obstacles_077_broken_down_vehicle_02.json (stationary)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/vulnerable_users_155_jogger_headphones_15.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_021_following_slow_leader_21.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/lane_change_073_aggressive_merge_23.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_167_school_pickup_02.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to actor_2
+  • Added road_relationship: same_road to pedestrian_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/static_obstacles_082_broken_down_vehicle_07.json (stationary)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/vulnerable_users_160_school_zone_20.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_177_bus_stop_activity_12.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/lane_change_061_slow_vehicle_overtake_11.json (overtake)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_146_child_playing_06.json (pedestrian)
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_101_visibility_merge_clear_sunset_06.json (unknown)
+  • Updated success_distance to 150
+
+📁 demo_scenarios/weather_visibility_108_glare_detection_hard_rain_13.json (unknown)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_044_crosswalk_waiting_19.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_154_wheelchair_user_14.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_151_school_zone_11.json (pedestrian)
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_103_rain_following_clear_sunset_08.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_034_jogger_crossing_09.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 gpt_jsons/slowbrakecheck.json (overtake)
+  • Removed hardcoded map: Town02
+  • Added road_relationship: same_road to leading_vehicle
+  • Added lane_relationship: adjacent_lane to leading_vehicle
+  • Updated deprecated road_id constraint for leading_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/lane_change_074_merge_from_ramp_24.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_055_aggressive_merge_05.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_024_gradual_slowdown_24.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_099_rain_following_hard_rain_04.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_010_merge_gap_closing_10.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_124_fire_truck_clearing_04.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_022_sudden_brake_ahead_22.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 gpt_jsons/highway_construction_zone.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to construction_truck
+  • Added lane_relationship: same_lane to construction_truck
+  • Updated deprecated road_id constraint for construction_truck
+  • Added road_relationship: same_road to worker1
+  • Added lane_type: Sidewalk to worker1
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_090_construction_barrier_15.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/weather_visibility_103_glare_detection_hard_rain_08.json (unknown)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_173_bus_stop_activity_08.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/multi_actor_190_intersection_chaos_25.json (intersection)
+  • Added road_relationship: different_road to cross_traffic1
+  • Added lane_relationship: any to cross_traffic1
+  • Added is_intersection: True to cross_traffic1
+  • Added road_relationship: different_road to cross_traffic2
+  • Added lane_relationship: any to cross_traffic2
+  • Added is_intersection: True to cross_traffic2
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_024_gradual_slowdown_24.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_192_delivery_zone_27.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/emergency_priority_137_ambulance_approach_17.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_135_ambulance_approach_15.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_054_double_lane_change_04.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/static_obstacles_084_delivery_truck_stopped_09.json (unknown)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/basic_following_018_merge_gap_closing_18.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/emergency_priority_132_fire_truck_clearing_12.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_092_delivery_truck_stopped_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/static_obstacles_085_accident_scene_10.json (stationary)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/pedestrian_crossing_036_slow_elderly_crossing_11.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_073_aggressive_merge_23.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_063_slow_vehicle_overtake_13.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_171_bus_stop_activity_06.json (unknown)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/vulnerable_users_164_jogger_headphones_24.json (pedestrian)
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_147_cyclist_overtake_07.json (overtake)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_166_construction_detour_01.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_3
+  • Added relative_position: ahead to pedestrian_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/lane_change_051_slow_vehicle_overtake_01.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_123_fire_truck_clearing_03.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_114_glare_detection_cloudy_19.json (unknown)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/vulnerable_users_147_blind_pedestrian_07.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_104_glare_detection_soft_rain_09.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/weather_visibility_114_glare_detection_wet_19.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/weather_visibility_111_glare_detection_wet_16.json (unknown)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/vulnerable_users_145_blind_pedestrian_05.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_185_intersection_chaos_20.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/multi_actor_166_market_street_01.json (unknown)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_024_sudden_brake_ahead_24.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_056_cut_in_ahead_06.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_088_broken_down_vehicle_13.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+
+📁 generated_scenarios/lane_change_052_slow_vehicle_overtake_02.json (overtake)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_040_crosswalk_waiting_15.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_184_construction_detour_19.json (stationary)
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/emergency_priority_128_fire_truck_clearing_08.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_044_child_dart_out_19.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/static_obstacles_093_delivery_truck_stopped_18.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/lane_change_054_slow_vehicle_overtake_04.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_072_aggressive_merge_22.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_163_jogger_headphones_23.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_025_gradual_slowdown_25.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_007_gradual_slowdown_07.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_003_sudden_brake_ahead_03.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_084_parked_car_ahead_09.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+
+📁 generated_scenarios/emergency_priority_132_police_pursuit_12.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_091_accident_scene_16.json (stationary)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/vulnerable_users_146_wheelchair_user_06.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_013_following_slow_leader_13.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/lane_change_060_cut_in_ahead_10.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_051_cut_in_ahead_01.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_109_visibility_merge_wet_14.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_068_merge_from_ramp_18.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_100_wet_braking_hard_rain_05.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/emergency_priority_122_fire_truck_clearing_02.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 test_scenarios/basic_following_002_gradual_slowdown_02.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_153_wheelchair_user_13.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_133_breakdown_hazards_13.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_185_market_street_20.json (unknown)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_064_double_lane_change_14.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/vulnerable_users_159_wheelchair_user_19.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_069_slow_vehicle_overtake_19.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_191_bus_stop_activity_26.json (unknown)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_026_slow_elderly_crossing_01.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_044_child_dart_out_19.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+
+📁 demo_scenarios/lane_change_072_double_lane_change_22.json (cut_in)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/multi_actor_174_delivery_zone_09.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/pedestrian_crossing_032_jogger_crossing_07.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/lane_change_067_cut_in_ahead_17.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_059_merge_from_ramp_09.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_108_visibility_merge_clear_sunset_13.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_015_stop_and_go_traffic_15.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/static_obstacles_080_broken_down_vehicle_05.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated timeout to 60
+
+📁 generated_scenarios/lane_change_062_slow_vehicle_overtake_12.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_015_following_slow_leader_15.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+
+📁 demo_scenarios/lane_change_070_cut_in_ahead_20.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_048_child_dart_out_23.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 exported_json/2.json (unknown)
+  • Removed hardcoded map: Town04
+  • Added distance_to_ego constraint for lead_vehicle
+  • Added distance_to_ego constraint for ego
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_179_market_street_14.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_016_following_slow_leader_16.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/weather_visibility_113_wet_braking_clear_sunset_18.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/emergency_priority_139_emergency_stop_19.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_155_cyclist_overtake_15.json (overtake)
+  • Updated success_distance to 100
+
+📁 test_scenarios/lane_change_003_cut_in_ahead_01.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_083_delivery_truck_stopped_08.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/weather_visibility_113_rain_following_hard_rain_18.json (following)
+  • Updated success_distance to 150
+
+📁 demo_scenarios/multi_actor_172_highway_merge_07.json (merge)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/emergency_priority_129_police_pursuit_09.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 gpt_jsons/scenario_cut_in.json (unknown)
+  • Removed hardcoded map: Town03
+  • Updated deprecated road_id constraint for cutter
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_001_stop_and_go_traffic_01.json (following)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/pedestrian_crossing_040_crosswalk_waiting_15.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_115_rain_following_wet_20.json (following)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_094_accident_scene_19.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated timeout to 60
+
+📁 demo_scenarios/lane_change_075_aggressive_merge_25.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_020_sudden_brake_ahead_20.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_174_parking_lot_exit_09.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Added road_relationship: same_road to pedestrian_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/vulnerable_users_152_cyclist_door_zone_12.json (stationary)
+  • Added road_relationship: same_road to parked_car
+  • Added lane_relationship: same_lane to parked_car
+  • Added road_relationship: same_road to cyclist
+  • Added lane_relationship: same_lane to cyclist
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_140_emergency_stop_20.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_187_highway_merge_22.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_105_weather_pedestrian_wet_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_078_parked_car_ahead_03.json (stationary)
+  • Removed hardcoded map: Town04
+
+📁 demo_scenarios/vulnerable_users_161_school_zone_21.json (pedestrian)
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_176_intersection_chaos_11.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 test_scenarios/basic_following_001_following_slow_leader_01.json (following)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/lane_change_057_aggressive_merge_07.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_151_school_zone_11.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_137_breakdown_hazards_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_164_jogger_headphones_24.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_122_police_pursuit_02.json (emergency)
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_156_child_playing_16.json (pedestrian)
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_075_cut_in_ahead_25.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_023_following_slow_leader_23.json (following)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/pedestrian_crossing_047_slow_elderly_crossing_22.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_176_construction_detour_11.json (stationary)
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 200
+
+📁 demo_scenarios/emergency_priority_128_fire_truck_clearing_08.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_096_glare_detection_hard_rain_01.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/vulnerable_users_145_jogger_headphones_05.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_010_gradual_slowdown_10.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_057_merge_from_ramp_07.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_169_parking_lot_exit_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/basic_following_003_merge_gap_closing_03.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_150_wheelchair_user_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_116_wet_braking_hard_rain_21.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/vulnerable_users_163_wheelchair_user_23.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_076_broken_down_vehicle_01.json (stationary)
+  • Updated success_distance to 100
+
+📁 demo_scenarios/basic_following_018_merge_gap_closing_18.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_112_weather_pedestrian_wet_17.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_065_aggressive_merge_15.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_187_school_pickup_22.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to actor_2
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_045_child_dart_out_20.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/multi_actor_177_delivery_zone_12.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/multi_actor_171_market_street_06.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_095_accident_scene_20.json (stationary)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/basic_following_002_following_slow_leader_02.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/multi_actor_189_bus_stop_activity_24.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/vulnerable_users_151_cyclist_door_zone_11.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_076_broken_down_vehicle_01.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/weather_visibility_107_rain_following_hard_rain_12.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Added lane_relationship: same_lane to lead_vehicle
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_178_bus_stop_activity_13.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/lane_change_055_merge_from_ramp_05.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_014_stop_and_go_traffic_14.json (following)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/weather_visibility_099_weather_pedestrian_soft_rain_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_062_aggressive_merge_12.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_144_jogger_headphones_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_027_jogger_crossing_02.json (intersection)
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/weather_visibility_100_visibility_merge_hard_rain_05.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_027_child_dart_out_02.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/basic_following_003_stop_and_go_traffic_03.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 generated_scenarios/basic_following_013_stop_and_go_traffic_13.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 demo_scenarios/emergency_priority_133_breakdown_hazards_13.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_055_cut_in_ahead_05.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_061_aggressive_merge_11.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_039_slow_elderly_crossing_14.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_037_slow_elderly_crossing_12.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_104_weather_pedestrian_wet_09.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_006_following_slow_leader_06.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/static_obstacles_087_broken_down_vehicle_12.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+
+📁 generated_scenarios/basic_following_007_stop_and_go_traffic_07.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/weather_visibility_103_glare_detection_wet_08.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/multi_actor_182_parking_lot_exit_17.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to pedestrian_2
+  • Added road_relationship: same_road to actor_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 test_scenarios/multi_actor_006_school_pickup_02.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/multi_actor_176_parking_lot_exit_11.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to actor_2
+  • Added road_relationship: same_road to pedestrian_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_001_stop_and_go_traffic_01.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 demo_scenarios/weather_visibility_106_visibility_merge_wet_11.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_065_cut_in_ahead_15.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_031_crosswalk_waiting_06.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_191_market_street_26.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+
+📁 demo_scenarios/pedestrian_crossing_046_jogger_crossing_21.json (intersection)
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 demo_scenarios/emergency_priority_136_ambulance_approach_16.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_092_accident_scene_17.json (stationary)
+  • Updated success_distance to 100
+
+📁 demo_scenarios/pedestrian_crossing_045_crosswalk_waiting_20.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_125_emergency_stop_05.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_141_blind_pedestrian_01.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_101_glare_detection_cloudy_06.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_190_market_street_25.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/emergency_priority_126_fire_truck_clearing_06.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_102_visibility_merge_cloudy_07.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_026_child_dart_out_01.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated timeout to 60
+
+📁 generated_scenarios/multi_actor_169_delivery_zone_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/static_obstacles_078_construction_barrier_03.json (stationary)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_183_bus_stop_activity_18.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/vulnerable_users_145_blind_pedestrian_05.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_083_delivery_truck_stopped_08.json (unknown)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/static_obstacles_077_delivery_truck_stopped_02.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/emergency_priority_140_fire_truck_clearing_20.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_100_weather_pedestrian_wet_05.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_186_market_street_21.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/lane_change_051_cut_in_ahead_01.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_178_parking_lot_exit_13.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 150
+
+📁 demo_scenarios/weather_visibility_120_glare_detection_cloudy_25.json (unknown)
+  • Updated success_distance to 100
+
+📁 demo_scenarios/lane_change_060_aggressive_merge_10.json (cut_in)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_141_elderly_crossing_01.json (pedestrian)
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_048_jogger_crossing_23.json (intersection)
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_171_parking_lot_exit_06.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_025_sudden_brake_ahead_25.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_146_elderly_crossing_06.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_069_double_lane_change_19.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/multi_actor_188_school_pickup_23.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_016_sudden_brake_ahead_16.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/multi_actor_179_intersection_chaos_14.json (intersection)
+  • Added road_relationship: different_road to cross_traffic1
+  • Added lane_relationship: any to cross_traffic1
+  • Added is_intersection: True to cross_traffic1
+  • Added road_relationship: different_road to cross_traffic2
+  • Added lane_relationship: any to cross_traffic2
+  • Added is_intersection: True to cross_traffic2
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_102_visibility_merge_clear_sunset_07.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_046_jogger_crossing_21.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 generated_scenarios/vulnerable_users_153_elderly_crossing_13.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_011_sudden_brake_ahead_11.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_032_crosswalk_waiting_07.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_134_ambulance_approach_14.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_027_sudden_crossing_02.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/multi_actor_192_delivery_zone_27.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/basic_following_009_stop_and_go_traffic_09.json (following)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 exported_json/1.json (pedestrian)
+  • Removed hardcoded map: Town01
+  • Added road_relationship: same_road to pedestrian1
+  • Added lane_type: Sidewalk to pedestrian1
+  • Added distance_to_ego constraint for pedestrian1
+  • Added road_relationship: same_road to ego
+  • Added lane_type: Sidewalk to ego
+  • Added distance_to_ego constraint for ego
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_082_delivery_truck_stopped_07.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/emergency_priority_123_ambulance_approach_03.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_066_merge_from_ramp_16.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_080_accident_scene_05.json (stationary)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/multi_actor_181_highway_merge_16.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/static_obstacles_086_broken_down_vehicle_11.json (stationary)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/static_obstacles_079_delivery_truck_stopped_04.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/basic_following_006_gradual_slowdown_06.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_169_construction_detour_04.json (stationary)
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/basic_following_020_merge_gap_closing_20.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_164_elderly_crossing_24.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 exported_json/4.json (cyclist)
+  • Removed hardcoded map: Town01
+  • Added road_relationship: same_road to cyclist1
+  • Added lane_relationship: adjacent_lane to cyclist1
+  • Added lane_type: Driving to cyclist1
+  • Added distance_to_ego constraint for cyclist1
+  • Added road_relationship: same_road to ego
+  • Added lane_relationship: adjacent_lane to ego
+  • Added lane_type: Driving to ego
+  • Added distance_to_ego constraint for ego
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_096_weather_pedestrian_clear_sunset_01.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/vulnerable_users_158_child_playing_18.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_050_sudden_crossing_25.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/vulnerable_users_142_child_playing_02.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_161_cyclist_overtake_21.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to cyclist
+
+📁 generated_scenarios/emergency_priority_127_breakdown_hazards_07.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_033_crosswalk_waiting_08.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_193_school_pickup_28.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/emergency_priority_122_emergency_stop_02.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_058_slow_vehicle_overtake_08.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_117_rain_following_wet_22.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/basic_following_007_following_slow_leader_07.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+
+📁 demo_scenarios/lane_change_061_merge_from_ramp_11.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_150_jogger_headphones_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_005_stop_and_go_traffic_05.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 generated_scenarios/pedestrian_crossing_038_slow_elderly_crossing_13.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_183_market_street_18.json (unknown)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/emergency_priority_121_fire_truck_clearing_01.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_085_accident_scene_10.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+
+📁 generated_scenarios/basic_following_014_merge_gap_closing_14.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/lane_change_066_merge_from_ramp_16.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_181_school_pickup_16.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to actor_2
+  • Updated success_distance to 150
+
+📁 generated_scenarios/emergency_priority_125_police_pursuit_05.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_012_merge_gap_closing_12.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/weather_visibility_112_visibility_merge_clear_sunset_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_180_market_street_15.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_179_school_pickup_14.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_182_bus_stop_activity_17.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/vulnerable_users_156_cyclist_overtake_16.json (overtake)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_194_construction_detour_29.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/lane_change_070_cut_in_ahead_20.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_038_child_dart_out_13.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/vulnerable_users_142_wheelchair_user_02.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_012_sudden_brake_ahead_12.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_035_slow_elderly_crossing_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 test_scenarios/relationship_demo.json (unknown)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/vulnerable_users_149_cyclist_overtake_09.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to cyclist
+  • Updated success_distance to 100
+
+📁 generated_scenarios/weather_visibility_120_weather_pedestrian_cloudy_25.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_170_market_street_05.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_172_highway_merge_07.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to merger1
+  • Added lane_relationship: adjacent_lane to merger1
+  • Added road_relationship: same_road to merger2
+  • Added lane_relationship: adjacent_lane to merger2
+  • Added road_relationship: same_road to highway_vehicle
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_110_wet_braking_wet_15.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/pedestrian_crossing_028_jogger_crossing_03.json (intersection)
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/pedestrian_crossing_026_slow_elderly_crossing_01.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_004_stop_and_go_traffic_04.json (following)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/pedestrian_crossing_030_child_dart_out_05.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+
+📁 demo_scenarios/pedestrian_crossing_029_slow_elderly_crossing_04.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_131_emergency_stop_11.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_189_school_pickup_24.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_091_delivery_truck_stopped_16.json (unknown)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/lane_change_063_aggressive_merge_13.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_165_blind_pedestrian_25.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_052_merge_from_ramp_02.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_168_delivery_zone_03.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/static_obstacles_089_broken_down_vehicle_14.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/lane_change_062_double_lane_change_12.json (cut_in)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 demo_scenarios/pedestrian_crossing_043_crosswalk_waiting_18.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_116_rain_following_wet_21.json (following)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_111_wet_braking_soft_rain_16.json (emergency)
+  • Updated success_distance to 150
+
+📁 demo_scenarios/multi_actor_174_delivery_zone_09.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/multi_actor_191_delivery_zone_26.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_115_rain_following_wet_20.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 example_enhanced_scenario.json (unknown)
+  • Removed hardcoded map: Town01
+  • Updated timeout to 150
+  • Added collision_allowed: false
+
+📁 demo_scenarios/vulnerable_users_165_blind_pedestrian_25.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_188_intersection_chaos_23.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added lane_relationship: any to cross_traffic1
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/emergency_priority_134_fire_truck_clearing_14.json (emergency)
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_091_accident_scene_16.json (stationary)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_188_delivery_zone_23.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/vulnerable_users_161_elderly_crossing_21.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_028_slow_elderly_crossing_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_110_wet_braking_cloudy_15.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_137_fire_truck_clearing_17.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 exported_json/5.json (intersection)
+  • Removed hardcoded map: Town03
+  • Added road_relationship: different_road to crossing_car
+  • Added lane_relationship: any to crossing_car
+  • Added is_intersection: True to crossing_car
+  • Added lane_type: Driving to crossing_car
+  • Added distance_to_ego constraint for crossing_car
+  • Added road_relationship: different_road to ego
+  • Added lane_relationship: any to ego
+  • Added is_intersection: True to ego
+  • Added lane_type: Driving to ego
+  • Added distance_to_ego constraint for ego
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_162_jogger_headphones_22.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to jogger
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_078_broken_down_vehicle_03.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated timeout to 60
+
+📁 generated_scenarios/static_obstacles_084_construction_barrier_09.json (stationary)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/lane_change_059_merge_from_ramp_09.json (merge)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_121_police_pursuit_01.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_189_highway_merge_24.json (merge)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_118_wet_braking_soft_rain_23.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_029_child_dart_out_04.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated timeout to 60
+
+📁 generated_scenarios/lane_change_072_slow_vehicle_overtake_22.json (overtake)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_054_aggressive_merge_04.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_162_blind_pedestrian_22.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_160_child_playing_20.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_195_intersection_chaos_30.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/pedestrian_crossing_049_sudden_crossing_24.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/lane_change_067_slow_vehicle_overtake_17.json (overtake)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/vulnerable_users_150_elderly_crossing_10.json (pedestrian)
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_021_stop_and_go_traffic_21.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 generated_scenarios/emergency_priority_136_police_pursuit_16.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_183_market_street_18.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/emergency_priority_139_fire_truck_clearing_19.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_162_elderly_crossing_22.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_036_slow_elderly_crossing_11.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_071_aggressive_merge_21.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_068_aggressive_merge_18.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_132_police_pursuit_12.json (emergency)
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_130_police_pursuit_10.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_098_weather_pedestrian_cloudy_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 demo_scenarios/multi_actor_194_delivery_zone_29.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_002_sudden_brake_ahead_02.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/vulnerable_users_147_school_zone_07.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_040_sudden_crossing_15.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_049_crosswalk_waiting_24.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_106_wet_braking_cloudy_11.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_060_slow_vehicle_overtake_10.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/static_obstacles_095_parked_car_ahead_20.json (stationary)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/multi_actor_190_intersection_chaos_25.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/pedestrian_crossing_031_sudden_crossing_06.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/vulnerable_users_148_child_playing_08.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_081_broken_down_vehicle_06.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated timeout to 60
+
+📁 demo_scenarios/vulnerable_users_157_blind_pedestrian_17.json (pedestrian)
+  • Added road_relationship: same_road to vulnerable_pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/static_obstacles_081_parked_car_ahead_06.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/weather_visibility_104_visibility_merge_clear_sunset_09.json (unknown)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_045_sudden_crossing_20.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+
+📁 generated_scenarios/multi_actor_193_bus_stop_activity_28.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_106_visibility_merge_cloudy_11.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_111_wet_braking_cloudy_16.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_195_parking_lot_exit_30.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to pedestrian_2
+  • Updated success_distance to 150
+
+📁 demo_scenarios/vulnerable_users_160_elderly_crossing_20.json (pedestrian)
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_118_rain_following_hard_rain_23.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_074_double_lane_change_24.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/multi_actor_187_market_street_22.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/emergency_priority_129_emergency_stop_09.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/basic_following_021_gradual_slowdown_21.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_172_market_street_07.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_035_child_dart_out_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 demo_scenarios/vulnerable_users_144_elderly_crossing_04.json (pedestrian)
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_152_cyclist_door_zone_12.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_001_sudden_brake_ahead_01.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/weather_visibility_109_wet_braking_wet_14.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to brake_vehicle
+  • Added lane_relationship: any to brake_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_050_jogger_crossing_25.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+
+📁 generated_scenarios/lane_change_071_cut_in_ahead_21.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_113_weather_pedestrian_soft_rain_18.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_056_double_lane_change_06.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/static_obstacles_087_accident_scene_12.json (stationary)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/multi_actor_173_highway_merge_08.json (merge)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_004_following_slow_leader_04.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/lane_change_069_aggressive_merge_19.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_168_parking_lot_exit_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/pedestrian_crossing_033_child_dart_out_08.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 demo_scenarios/pedestrian_crossing_035_jogger_crossing_10.json (intersection)
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated timeout to 60
+
+📁 generated_scenarios/static_obstacles_082_parked_car_ahead_07.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated timeout to 60
+
+📁 exported_json/3.json (stationary)
+  • Removed hardcoded map: Town02
+  • Added road_relationship: same_road to static_vehicle
+  • Added lane_relationship: same_lane to static_vehicle
+  • Added relative_position: ahead to static_vehicle
+  • Added lane_type: Driving to static_vehicle
+  • Added distance_to_ego constraint for static_vehicle
+  • Added road_relationship: same_road to ego
+  • Added lane_relationship: same_lane to ego
+  • Added relative_position: ahead to ego
+  • Added lane_type: Driving to ego
+  • Added distance_to_ego constraint for ego
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_157_elderly_crossing_17.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_005_merge_gap_closing_05.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_030_jogger_crossing_05.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/static_obstacles_093_accident_scene_18.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to obstacle
+  • Added lane_relationship: same_lane to obstacle
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_036_sudden_crossing_11.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated timeout to 60
+
+📁 generated_scenarios/lane_change_064_slow_vehicle_overtake_14.json (overtake)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_041_crosswalk_waiting_16.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_002_sudden_brake_ahead_02.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_121_breakdown_hazards_01.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_192_bus_stop_activity_27.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/vulnerable_users_153_school_zone_13.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_107_rain_following_soft_rain_12.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/weather_visibility_119_rain_following_clear_sunset_24.json (following)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_012_stop_and_go_traffic_12.json (following)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 200
+
+📁 generated_scenarios/pedestrian_crossing_037_jogger_crossing_12.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_033_slow_elderly_crossing_08.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_157_school_zone_17.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_096_weather_pedestrian_hard_rain_01.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/pedestrian_crossing_039_child_dart_out_14.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 generated_scenarios/basic_following_022_following_slow_leader_22.json (following)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/basic_following_011_sudden_brake_ahead_11.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_032_crosswalk_waiting_07.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_193_bus_stop_activity_28.json (unknown)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_101_wet_braking_soft_rain_06.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_123_ambulance_approach_03.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_124_breakdown_hazards_04.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_155_school_zone_15.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child1
+  • Added road_relationship: same_road to child2
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_023_stop_and_go_traffic_23.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 demo_scenarios/weather_visibility_117_visibility_merge_soft_rain_22.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 test.json (unknown)
+  • Updated success_distance to 100
+  • Updated timeout to 60
+  • Added collision_allowed: false
+
+📁 generated_scenarios/vulnerable_users_149_child_playing_09.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_138_emergency_stop_18.json (emergency)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_182_construction_detour_17.json (stationary)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to actor_2
+  • Added lane_relationship: same_lane to actor_2
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_015_following_slow_leader_15.json (following)
+  • Updated timeout to 60
+
+📁 demo_scenarios/emergency_priority_130_police_pursuit_10.json (emergency)
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_119_wet_braking_clear_sunset_24.json (emergency)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_134_breakdown_hazards_14.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_175_delivery_zone_10.json (pedestrian)
+  • Added road_relationship: same_road to delivery
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/basic_following_008_stop_and_go_traffic_08.json (following)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/emergency_priority_127_emergency_stop_07.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/weather_visibility_118_weather_pedestrian_clear_sunset_23.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_178_highway_merge_13.json (merge)
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 demo_scenarios/static_obstacles_089_broken_down_vehicle_14.json (stationary)
+  • Updated timeout to 60
+
+📁 demo_scenarios/static_obstacles_090_broken_down_vehicle_15.json (stationary)
+  • Updated success_distance to 100
+
+📁 generated_scenarios/vulnerable_users_141_elderly_crossing_01.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/emergency_priority_133_ambulance_approach_13.json (emergency)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to emergency
+  • Added lane_relationship: any to emergency
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/vulnerable_users_143_child_playing_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to child
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_110_rain_following_hard_rain_15.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Added lane_relationship: same_lane to lead_vehicle
+  • Updated success_distance to 150
+
+📁 demo_scenarios/basic_following_005_following_slow_leader_05.json (following)
+  • Updated success_distance to 100
+
+📁 demo_scenarios/basic_following_019_merge_gap_closing_19.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_166_intersection_chaos_01.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added lane_relationship: any to cross_traffic1
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_097_glare_detection_soft_rain_02.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 100
+
+📁 demo_scenarios/multi_actor_180_market_street_15.json (unknown)
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_053_merge_from_ramp_03.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_124_breakdown_hazards_04.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_126_police_pursuit_06.json (emergency)
+  • Added road_relationship: same_road to police
+  • Added lane_relationship: any to police
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_116_visibility_merge_cloudy_21.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/static_obstacles_089_accident_scene_14.json (stationary)
+  • Removed hardcoded map: Town04
+
+📁 generated_scenarios/weather_visibility_115_visibility_merge_clear_sunset_20.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_019_sudden_brake_ahead_19.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/pedestrian_crossing_030_child_dart_out_05.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_042_crosswalk_waiting_17.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/weather_visibility_097_visibility_merge_cloudy_02.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/lane_change_074_aggressive_merge_24.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_042_jogger_crossing_17.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: different_road to pedestrian
+  • Added is_intersection: True to pedestrian
+  • Updated success_distance to 100
+
+📁 generated_scenarios/pedestrian_crossing_047_sudden_crossing_22.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated timeout to 60
+
+📁 demo_scenarios/basic_following_017_merge_gap_closing_17.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_170_school_pickup_05.json (pedestrian)
+  • Added road_relationship: same_road to actor_1
+  • Added road_relationship: same_road to pedestrian_2
+  • Added road_relationship: same_road to actor_3
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_008_merge_gap_closing_08.json (merge)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 demo_scenarios/pedestrian_crossing_042_sudden_crossing_17.json (pedestrian)
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 100
+  • Updated timeout to 60
+
+📁 test_scenarios/multi_actor_005_construction_detour_01.json (stationary)
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 200
+
+📁 demo_scenarios/basic_following_022_merge_gap_closing_22.json (merge)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/pedestrian_crossing_038_crosswalk_waiting_13.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to pedestrian
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/multi_actor_180_intersection_chaos_15.json (intersection)
+  • Removed hardcoded map: Town04
+  • Added lane_relationship: any to cross_traffic1
+  • Added road_relationship: different_road to crossing_ped
+  • Added is_intersection: True to crossing_ped
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/basic_following_019_stop_and_go_traffic_19.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Updated success_distance to 200
+
+📁 generated_scenarios/multi_actor_186_delivery_zone_21.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to delivery_worker
+  • Added road_relationship: same_road to customer
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/lane_change_052_double_lane_change_02.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lane_changer
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/weather_visibility_117_rain_following_hard_rain_22.json (following)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to lead_vehicle
+  • Added lane_relationship: same_lane to lead_vehicle
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_181_market_street_16.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/vulnerable_users_158_elderly_crossing_18.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/lane_change_056_double_lane_change_06.json (cut_in)
+  • Updated success_distance to 200
+  • Updated timeout to 120
+
+📁 generated_scenarios/vulnerable_users_143_elderly_crossing_03.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Added road_relationship: same_road to elderly
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/basic_following_006_sudden_brake_ahead_06.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+
+📁 generated_scenarios/multi_actor_175_parking_lot_exit_10.json (pedestrian)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 250
+  • Updated timeout to 150
+
+📁 generated_scenarios/weather_visibility_109_visibility_merge_cloudy_14.json (unknown)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 generated_scenarios/lane_change_059_aggressive_merge_09.json (cut_in)
+  • Removed hardcoded map: Town04
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/emergency_priority_127_breakdown_hazards_07.json (unknown)
+  • Updated success_distance to 150
+  • Updated timeout to 90
+
+📁 demo_scenarios/multi_actor_186_construction_detour_21.json (stationary)
+  • Added road_relationship: same_road to pedestrian_2
+  • Added relative_position: ahead to pedestrian_2
+  • Updated success_distance to 250
+  • Updated timeout to 150

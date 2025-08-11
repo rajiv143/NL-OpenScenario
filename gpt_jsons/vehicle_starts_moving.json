@@ -1,7 +1,6 @@
 {
   "scenario_name": "ReactiveCar_Town01",
   "description": "Parked car starts moving when ego approaches",
-  "map_name": "Town01",
   "weather": "clear",
   "ego_vehicle_model": "vehicle.audi.a2",
   "ego_spawn": {
@@ -19,8 +18,13 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 30, "max": 60},
-          "relative_position": "ahead"
+          "distance_to_ego": {
+            "min": 30,
+            "max": 60
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       }
     }

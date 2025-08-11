@@ -1,0 +1,60 @@
+{
+  "scenario_name": "rain_following_soft_rain_12",
+  "description": "Vehicle following in light rain with wet road conditions",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 34,
+            "max": 64
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 10.2,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 6.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 89,
+  "timeout": 101,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

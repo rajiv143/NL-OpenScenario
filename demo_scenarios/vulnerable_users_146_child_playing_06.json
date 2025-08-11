@@ -26,7 +26,8 @@
             "min": 15,
             "max": 30
           },
-          "spawn_type": "sidewalk_adjacent"
+          "spawn_type": "sidewalk_adjacent",
+          "road_relationship": "same_road"
         }
       }
     }
@@ -57,7 +58,7 @@
       "dynamics_value": 0.8
     }
   ],
-  "success_distance": 112,
-  "timeout": 80,
+  "success_distance": 150,
+  "timeout": 90,
   "collision_allowed": false
 }

@@ -43,7 +43,9 @@
           "distance_to_ego": {
             "min": 41,
             "max": 51
-          }
+          },
+          "road_relationship": "same_road",
+          "relative_position": "ahead"
         }
       }
     }
@@ -84,7 +86,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 84,
+  "success_distance": 200,
   "timeout": 144,
   "collision_allowed": false
 }

@@ -26,7 +26,8 @@
             "min": 50,
             "max": 65
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road"
         }
       },
       "color": "255,0,0"
@@ -42,7 +43,8 @@
             "min": 61,
             "max": 76
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
         }
       }
     }
@@ -77,7 +79,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 119,
+  "success_distance": 150,
   "timeout": 94,
   "collision_allowed": false
 }

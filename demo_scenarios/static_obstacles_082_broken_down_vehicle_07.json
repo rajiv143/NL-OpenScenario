@@ -44,7 +44,7 @@
       "wait_duration": 5.0
     }
   ],
-  "success_distance": 67,
-  "timeout": 46,
+  "success_distance": 100,
+  "timeout": 60,
   "collision_allowed": false
 }

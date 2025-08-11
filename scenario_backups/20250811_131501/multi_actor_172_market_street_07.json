@@ -1,0 +1,80 @@
+{
+  "scenario_name": "market_street_07",
+  "description": "Busy street with mixed traffic",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 34,
+            "max": 64
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "0,255,255"
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "distance_to_ego": {
+            "min": 39,
+            "max": 69
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 107,
+  "timeout": 124,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

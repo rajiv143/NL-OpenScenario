@@ -26,7 +26,8 @@
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
         }
       },
       "color": "0,0,255"
@@ -41,7 +42,8 @@
           "distance_to_ego": {
             "min": 27,
             "max": 57
-          }
+          },
+          "road_relationship": "same_road"
         }
       }
     },
@@ -55,7 +57,8 @@
           "distance_to_ego": {
             "min": 37,
             "max": 67
-          }
+          },
+          "road_relationship": "same_road"
         }
       }
     }
@@ -105,8 +108,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 72,
-  "timeout": 118,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
 }

@@ -112,8 +112,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 68,
-  "timeout": 149,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
 }

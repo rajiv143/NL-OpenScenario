@@ -26,7 +26,9 @@
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "any"
         }
       },
       "color": "128,128,128"
@@ -51,8 +53,7 @@
       "dynamics_value": 1.5
     }
   ],
-  "success_distance": 101,
-  "timeout": 46,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
 }

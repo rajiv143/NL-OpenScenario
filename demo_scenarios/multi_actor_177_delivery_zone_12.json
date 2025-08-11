@@ -26,7 +26,8 @@
             "min": 40,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
         }
       },
       "color": "128,0,255"
@@ -42,7 +43,8 @@
             "min": 35,
             "max": 50
           },
-          "spawn_type": "sidewalk_adjacent"
+          "spawn_type": "sidewalk_adjacent",
+          "road_relationship": "same_road"
         }
       }
     },
@@ -57,7 +59,8 @@
             "min": 45,
             "max": 60
           },
-          "spawn_type": "sidewalk_adjacent"
+          "spawn_type": "sidewalk_adjacent",
+          "road_relationship": "same_road"
         }
       }
     }
@@ -107,7 +110,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 70,
-  "timeout": 132,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

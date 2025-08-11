@@ -26,7 +26,8 @@
             "min": 29,
             "max": 59
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road"
         }
       }
     },
@@ -41,7 +42,8 @@
             "min": 51,
             "max": 81
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road"
         }
       }
     },
@@ -55,7 +57,8 @@
           "distance_to_ego": {
             "min": 36,
             "max": 66
-          }
+          },
+          "road_relationship": "same_road"
         }
       }
     }
@@ -106,8 +109,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 81,
-  "timeout": 135,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
 }

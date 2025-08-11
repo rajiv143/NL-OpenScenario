@@ -26,7 +26,9 @@
             "min": 60,
             "max": 80
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
         }
       },
       "color": "128,0,255"
@@ -42,7 +44,9 @@
             "min": 80,
             "max": 100
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
         }
       },
       "color": "128,0,255"
@@ -59,7 +63,8 @@
             "max": 60
           },
           "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "lane_relationship": "adjacent_lane",
+          "road_relationship": "same_road"
         }
       }
     }
@@ -112,8 +117,7 @@
       "dynamics_value": 3.5
     }
   ],
-  "success_distance": 112,
-  "timeout": 117,
-  "collision_allowed": false,
-  "map_name": "Town04"
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
 }

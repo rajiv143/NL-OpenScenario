@@ -1,0 +1,61 @@
+{
+  "scenario_name": "visibility_merge_clear_sunset_13",
+  "description": "Lane merge with sunset glare affecting visibility",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "merger",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "distance_to_ego": {
+            "min": 64,
+            "max": 84
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "merger",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 45,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "merger",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 83,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

@@ -54,7 +54,7 @@
       "dynamics_value": 4.0
     }
   ],
-  "success_distance": 88,
+  "success_distance": 150,
   "timeout": 111,
   "collision_allowed": false
 }
