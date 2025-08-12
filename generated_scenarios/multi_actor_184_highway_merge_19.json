@@ -59,7 +59,7 @@
         "criteria": {
           "lane_type": "Driving",
           "road_relationship": "same_road",
-          "lane_relationship": "same_lane",
+          "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
             "min": 28.0,
             "max": 90
@@ -120,5 +120,6 @@
   ],
   "success_distance": 250,
   "timeout": 150,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

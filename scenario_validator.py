@@ -16,9 +16,41 @@ class ScenarioValidator:
     VALID_LANE_RELATIONSHIPS = {'same_lane', 'adjacent_lane', 'any_lane'}
     VALID_MAPS = {'Town01', 'Town02', 'Town03', 'Town04', 'Town05', 'Town06', 'Town07', 'Town10HD'}
     
+    # Minimum distance requirements by scenario type
+    MIN_DISTANCES = {
+        'cut_in': 25,
+        'following': 20,
+        'gradual_slowdown': 20,
+        'sudden_brake': 20,
+        'parked_vehicle': 15,
+        'pedestrian': 10,
+        'intersection': 30,
+        'general': 10
+    }
+    
     def __init__(self):
         self.logger = logging.getLogger(self.__class__.__name__)
         self.scenario_names = set()
+        
+    def _detect_scenario_type(self, scenario_name: str) -> str:
+        """Detect the scenario type from the name"""
+        name_lower = scenario_name.lower()
+        if 'cut_in' in name_lower or 'cut-in' in name_lower or 'lane_change' in name_lower:
+            return 'cut_in'
+        elif 'following' in name_lower or 'follow' in name_lower:
+            return 'following'
+        elif 'brake' in name_lower and 'sudden' in name_lower:
+            return 'sudden_brake'
+        elif 'slowdown' in name_lower or 'gradual' in name_lower:
+            return 'gradual_slowdown'
+        elif 'parked' in name_lower:
+            return 'parked_vehicle'
+        elif 'pedestrian' in name_lower or 'crossing' in name_lower:
+            return 'pedestrian'
+        elif 'intersection' in name_lower or 'junction' in name_lower:
+            return 'intersection'
+        else:
+            return 'general'
         
     def validate_scenario(self, scenario_path: str) -> list:
         """Validate a scenario and return list of issues found"""
@@ -101,15 +133,35 @@ class ScenarioValidator:
         if lane_rel and lane_rel not in self.VALID_LANE_RELATIONSHIPS:
             issues.append(f"Actor '{actor_id}' has invalid lane_relationship '{lane_rel}'")
         
-        # Distance range validation
+        # Distance range validation with scenario-specific minimums
         distance_constraint = spawn_criteria.get('distance_to_ego')
+        scenario_type = self._detect_scenario_type(scenario_name)
+        required_min = self.MIN_DISTANCES.get(scenario_type, 10)
+        
+        if actor_type == 'pedestrian':
+            required_min = max(required_min, 10)  # At least 10m for pedestrians
+        
         if isinstance(distance_constraint, dict):
             min_dist = distance_constraint.get('min', 0)
             max_dist = distance_constraint.get('max', float('inf'))
+            
+            # Check minimum distance requirements
+            if min_dist < required_min:
+                issues.append(f"Actor '{actor_id}' has minimum distance {min_dist}m, should be at least {required_min}m for {scenario_type} scenario")
+            
+            # Check range width
             if max_dist - min_dist < 20:
                 issues.append(f"Actor '{actor_id}' has narrow distance range ({min_dist}-{max_dist}m), should be at least 20m range")
+            
+            # Check absolute minimum for safety
             if min_dist < 5:
                 issues.append(f"Actor '{actor_id}' has very small minimum distance ({min_dist}m), may cause collision")
+            
+            # Check pedestrian max distance
+            if actor_type == 'pedestrian' and max_dist > 50:
+                issues.append(f"Pedestrian '{actor_id}' has excessive max distance {max_dist}m, should be capped at 50m")
+        elif not distance_constraint:
+            issues.append(f"Actor '{actor_id}' missing distance_to_ego constraint for {scenario_type} scenario")
         
         # Scenario-specific validations
         if 'overtake' in scenario_name.lower() and actor_type in ['vehicle', 'cyclist']:
@@ -203,12 +255,29 @@ class ScenarioValidator:
                 self.logger.info(f"Fixed relative_position 'adjacent' -> 'ahead' + lane_relationship for {actor_id} in {scenario_path}")
                 modified = True
             
-            # Fix missing lane relationships for overtake scenarios
+            # Fix missing lane relationships for specific scenarios
             if ('overtake' in scenario_name.lower() and actor_type in ['vehicle', 'cyclist'] 
                 and 'lane_relationship' not in spawn_criteria):
                 spawn_criteria['lane_relationship'] = 'adjacent_lane'
                 self.logger.info(f"Added lane_relationship for overtake actor {actor_id} in {scenario_path}")
                 modified = True
+            
+            # Fix following scenarios
+            if any(keyword in scenario_name.lower() for keyword in ['following', 'brake', 'slowdown', 'stop_and_go']):
+                if actor_type in ['vehicle', 'cyclist'] and spawn_criteria.get('lane_relationship') != 'same_lane':
+                    spawn_criteria['lane_relationship'] = 'same_lane'
+                    spawn_criteria['road_relationship'] = 'same_road'
+                    spawn_criteria['relative_position'] = 'ahead'
+                    self.logger.info(f"Fixed following scenario constraints for {actor_id} in {scenario_path}")
+                    modified = True
+            
+            # Fix cut-in scenarios
+            if any(keyword in scenario_name.lower() for keyword in ['cut_in', 'cut-in', 'merge', 'gap_closing']):
+                if actor_type in ['vehicle', 'cyclist'] and spawn_criteria.get('lane_relationship') != 'adjacent_lane':
+                    spawn_criteria['lane_relationship'] = 'adjacent_lane'
+                    spawn_criteria['relative_position'] = 'ahead'
+                    self.logger.info(f"Fixed cut-in scenario constraints for {actor_id} in {scenario_path}")
+                    modified = True
             
             # Fix intersection scenarios
             if ('intersection' in scenario_name.lower() or 'chaos' in scenario_name.lower()):
@@ -225,18 +294,52 @@ class ScenarioValidator:
                         self.logger.info(f"Added is_intersection=true for actor {actor_id} in {scenario_path}")
                         modified = True
             
-            # Widen narrow distance ranges
-            distance_constraint = spawn_criteria.get('distance_to_ego')
-            if isinstance(distance_constraint, dict):
-                min_dist = distance_constraint.get('min', 0)
-                max_dist = distance_constraint.get('max', float('inf'))
-                if max_dist - min_dist < 20:
-                    # Widen the range to at least 20m, preferably 30m
-                    center = (min_dist + max_dist) / 2
-                    distance_constraint['min'] = max(5, int(center - 15))
-                    distance_constraint['max'] = int(center + 15)
-                    self.logger.info(f"Widened distance range for {actor_id} from {min_dist}-{max_dist} to {distance_constraint['min']}-{distance_constraint['max']} in {scenario_path}")
-                    modified = True
+            # Fix distance constraints based on scenario type
+            scenario_type = self._detect_scenario_type(scenario_name)
+            required_min = self.MIN_DISTANCES.get(scenario_type, 10)
+            
+            if actor_type == 'pedestrian':
+                required_min = max(required_min, 10)
+            
+            if 'spawn' not in actor:
+                actor['spawn'] = {'criteria': {}}
+            if 'criteria' not in actor['spawn']:
+                actor['spawn']['criteria'] = {}
+            spawn_criteria = actor['spawn']['criteria']
+            
+            # Ensure distance_to_ego exists
+            if 'distance_to_ego' not in spawn_criteria:
+                spawn_criteria['distance_to_ego'] = {'min': required_min, 'max': required_min * 3}
+                self.logger.info(f"Added missing distance_to_ego for {actor_id}: {required_min}-{required_min*3}m in {scenario_path}")
+                modified = True
+            else:
+                distance_constraint = spawn_criteria['distance_to_ego']
+                if isinstance(distance_constraint, dict):
+                    min_dist = distance_constraint.get('min', 0)
+                    max_dist = distance_constraint.get('max', float('inf'))
+                    
+                    # Enforce minimum distance
+                    if min_dist < required_min:
+                        distance_constraint['min'] = required_min
+                        self.logger.info(f"Increased minimum distance for {actor_id} from {min_dist}m to {required_min}m in {scenario_path}")
+                        modified = True
+                    
+                    # Ensure absolute minimum of 5m
+                    if distance_constraint['min'] < 5:
+                        distance_constraint['min'] = 5
+                        modified = True
+                    
+                    # Widen narrow ranges
+                    if max_dist - distance_constraint['min'] < 20:
+                        distance_constraint['max'] = distance_constraint['min'] + 30
+                        self.logger.info(f"Widened distance range for {actor_id} to {distance_constraint['min']}-{distance_constraint['max']}m in {scenario_path}")
+                        modified = True
+                    
+                    # Cap pedestrian max distance
+                    if actor_type == 'pedestrian' and max_dist > 50:
+                        distance_constraint['max'] = 50
+                        self.logger.info(f"Capped pedestrian max distance for {actor_id} to 50m in {scenario_path}")
+                        modified = True
         
         if modified:
             # Write back to file

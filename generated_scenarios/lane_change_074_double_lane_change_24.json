@@ -25,7 +25,7 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 24.5,
+            "min": 25,
             "max": 85
           },
           "relative_position": "ahead",
@@ -97,5 +97,6 @@
       21
     ],
     "constraint_relaxation": "enabled"
-  }
+  },
+  "map_name": "Town04"
 }

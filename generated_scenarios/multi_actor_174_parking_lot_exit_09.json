@@ -42,7 +42,7 @@
           "lane_type": "Sidewalk",
           "distance_to_ego": {
             "min": 24,
-            "max": 54
+            "max": 50
           },
           "road_relationship": "same_road",
           "lane_type_fallback": "Driving",
@@ -114,5 +114,6 @@
   ],
   "success_distance": 250,
   "timeout": 150,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "map_name": "Town04"
 }

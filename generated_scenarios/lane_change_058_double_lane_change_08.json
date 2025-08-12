@@ -96,5 +96,6 @@
       21
     ],
     "constraint_relaxation": "enabled"
-  }
+  },
+  "map_name": "Town04"
 }

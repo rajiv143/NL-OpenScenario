@@ -798,11 +798,83 @@ class JsonToXoscConverter:
         
         print("=" * 40)
 
+    def _detect_scenario_type(self, scenario_name: str) -> str:
+        """Detect the scenario type from the name"""
+        # Handle case where we get a dict instead of string
+        if isinstance(scenario_name, dict):
+            scenario_name = scenario_name.get('scenario_name', '')
+        name_lower = scenario_name.lower()
+        if 'cut_in' in name_lower or 'cut-in' in name_lower or 'lane_change' in name_lower:
+            return 'cut_in'
+        elif 'following' in name_lower or 'follow' in name_lower:
+            return 'following'
+        elif 'brake' in name_lower and 'sudden' in name_lower:
+            return 'sudden_brake'
+        elif 'slowdown' in name_lower or 'gradual' in name_lower:
+            return 'gradual_slowdown'
+        elif 'parked' in name_lower:
+            return 'parked_vehicle'
+        elif 'pedestrian' in name_lower or 'crossing' in name_lower:
+            return 'pedestrian'
+        elif 'intersection' in name_lower or 'junction' in name_lower:
+            return 'intersection'
+        else:
+            return 'general'
+    
+    def _enforce_minimum_distance(self, criteria: Dict[str, Any], scenario_type: str, actor_type: str = '') -> Dict[str, Any]:
+        """Enforce minimum distance constraints based on scenario type"""
+        MIN_DISTANCES = {
+            'cut_in': 25,
+            'following': 20,
+            'gradual_slowdown': 20,
+            'sudden_brake': 20,
+            'parked_vehicle': 15,
+            'pedestrian': 10,
+            'intersection': 30,
+            'general': 10
+        }
+        
+        min_d = MIN_DISTANCES.get(scenario_type, 10)
+        
+        # Special handling for pedestrians
+        if 'pedestrian' in actor_type.lower():
+            min_d = max(min_d, 10)  # At least 10m for pedestrians
+        
+        # Get or create distance constraints
+        dist_constraint = criteria.setdefault('distance_to_ego', {})
+        
+        # Get current min/max values
+        current_min = dist_constraint.get('min', min_d)
+        current_max = dist_constraint.get('max', min_d * 3)
+        
+        # Enforce minimum distance
+        if current_min < min_d:
+            self.logger.info(f"Enforcing minimum distance for {scenario_type}: {current_min}m -> {min_d}m")
+            dist_constraint['min'] = min_d
+        
+        # Ensure max is reasonable relative to min
+        if current_max < dist_constraint.get('min', min_d) * 2:
+            new_max = dist_constraint.get('min', min_d) * 3
+            self.logger.info(f"Adjusting maximum distance for {scenario_type}: {current_max}m -> {new_max}m")
+            dist_constraint['max'] = new_max
+        
+        # Cap pedestrian max distance to 50m
+        if 'pedestrian' in actor_type.lower() and dist_constraint.get('max', 0) > 50:
+            self.logger.info(f"Capping pedestrian spawn distance to 50m (was {dist_constraint['max']}m)")
+            dist_constraint['max'] = 50
+        
+        return criteria
+
     def _fix_spawn_criteria(self, criteria: Dict[str, Any], actor: Dict[str, Any], scenario_data: Dict[str, Any]) -> Dict[str, Any]:
         """Apply intelligent fixes to spawn criteria to prevent common issues"""
         fixed_criteria = criteria.copy()
         scenario_name = scenario_data.get('scenario_name', '').lower()
         actor_type = actor.get('type', '')
+        
+        # Detect scenario type and enforce minimum distances
+        scenario_type = self._detect_scenario_type(scenario_name)
+        fixed_criteria = self._enforce_minimum_distance(fixed_criteria, scenario_type, actor_type)
+        self.logger.debug(f"Enforced minimum distance for {scenario_type} scenario: {fixed_criteria.get('distance_to_ego', {})}")
         
         # Fix 1: Cut-in scenarios - ensure actors spawn ahead, not alongside
         if ('cut_in' in scenario_name or 'lane_change' in scenario_name or 
@@ -836,20 +908,8 @@ class JsonToXoscConverter:
             if 'relative_position' not in fixed_criteria:
                 fixed_criteria['relative_position'] = 'perpendicular'  # or 'crossing'
         
-        # Fix 3: Pedestrian distance constraints
-        if 'pedestrian' in actor_type.lower():
-            self.logger.debug(f"Applying pedestrian distance limits for {actor['id']}")
-            
-            # Pedestrians shouldn't spawn more than 50m away
-            if 'distance_to_ego' in fixed_criteria:
-                max_dist = fixed_criteria['distance_to_ego'].get('max', 100)
-                fixed_criteria['distance_to_ego']['max'] = min(max_dist, 50)
-                
-                # Also ensure minimum reasonable distance
-                min_dist = fixed_criteria['distance_to_ego'].get('min', 10)
-                fixed_criteria['distance_to_ego']['min'] = max(min_dist, 10)
-            else:
-                fixed_criteria['distance_to_ego'] = {'min': 10, 'max': 50}
+        # Fix 3: Pedestrian distance constraints (already handled by enforce_minimum_distance)
+        # Keep this for additional pedestrian-specific logic if needed
         
         # Fix 4: Following scenarios - ensure proper distance and same road
         if ('following' in scenario_name or 'brake' in scenario_name or 
@@ -861,9 +921,7 @@ class JsonToXoscConverter:
             fixed_criteria['road_relationship'] = 'same_road'
             fixed_criteria['relative_position'] = 'ahead'
             
-            # Reasonable following distance
-            if 'distance_to_ego' not in fixed_criteria:
-                fixed_criteria['distance_to_ego'] = {'min': 15, 'max': 40}
+            # Distance already handled by enforce_minimum_distance
         
         # Fix 5: General distance constraints to prevent extreme spawns
         if 'distance_to_ego' in fixed_criteria:
@@ -875,8 +933,9 @@ class JsonToXoscConverter:
                 self.logger.warning(f"Capping excessive spawn distance for {actor['id']}: {max_dist}m -> 200m")
                 fixed_criteria['distance_to_ego']['max'] = 200
             
-            # Ensure minimum distance for safety
+            # Ensure absolute minimum distance for safety (5m regardless of scenario)
             if min_dist < 5:
+                self.logger.warning(f"Enforcing absolute minimum distance of 5m for {actor['id']} (was {min_dist}m)")
                 fixed_criteria['distance_to_ego']['min'] = 5
         
         # Log changes if any were made
@@ -1248,9 +1307,26 @@ class JsonToXoscConverter:
         # Use fallback strategy if no matches
         final_candidates = self._apply_fallback_strategy(filtered_candidates, candidates, pts, crit, ego_pos, ego_lane)
         
+        # Filter out candidates that are too close to ego (< 5m)
+        if ego_pos and final_candidates:
+            safe_candidates = []
+            for pt in final_candidates:
+                dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                if dist >= 5.0:  # Minimum 5m distance from ego
+                    safe_candidates.append(pt)
+                else:
+                    self.logger.warning(f"Rejecting spawn at distance {dist:.1f}m from ego (too close)")
+            final_candidates = safe_candidates
+        
         # Score and select best spawn point
         if not final_candidates:
-            raise ValidationError(f"No spawn in {map_name} matches criteria {crit} even with fallbacks")
+            # Provide detailed error message to help debug the issue
+            error_msg = f"No valid spawn points found for actor in map {map_name}. "
+            if ego_pos:
+                error_msg += f"All candidate spawns were too close to ego (< 5m). "
+            error_msg += f"Criteria: {crit}. "
+            error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
+            raise RuntimeError(error_msg)
         
         if len(final_candidates) == 1:
             pick = final_candidates[0]
@@ -1560,12 +1636,64 @@ class JsonToXoscConverter:
                               ego_lane: Optional[Tuple[int, int]] = None,
                               road_data: Dict = None, all_pts: List[Dict] = None) -> Tuple[float, float, float, float]:
         """Score candidates and select the best spawn point"""
+        # First, filter out candidates that are too close to ego (< 5m)
+        if ego_pos and candidates:
+            safe_candidates = []
+            for pt in candidates:
+                dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                if dist >= 5.0:  # Minimum 5m distance from ego
+                    safe_candidates.append(pt)
+                else:
+                    self.logger.warning(f"Rejecting spawn at distance {dist:.1f}m from ego (too close)")
+            candidates = safe_candidates
+        
         if not candidates:
             # Apply fallback strategy
             if all_pts:
                 candidates = self._apply_fallback_strategy([], [], all_pts, crit, ego_pos, ego_lane)
+                # Filter fallback candidates too
+                if ego_pos and candidates:
+                    safe_candidates = []
+                    rejected_close = 0
+                    for pt in candidates:
+                        dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                        if dist >= 5.0:
+                            safe_candidates.append(pt)
+                        else:
+                            rejected_close += 1
+                    
+                    if rejected_close > 0:
+                        self.logger.warning(f"Rejected {rejected_close} fallback candidates that were too close to ego (< 5m)")
+                    candidates = safe_candidates
+            
+            # If still no candidates, try one more time with very relaxed constraints
+            if not candidates and all_pts and ego_pos:
+                self.logger.warning("All fallbacks failed, trying emergency fallback with basic distance constraints")
+                emergency_candidates = []
+                # Check more points and allow wider distance range
+                for pt in all_pts[:500]:  # Check more points
+                    dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                    # Use scenario-appropriate max distance
+                    max_dist = 50 if 'pedestrian' in str(crit).lower() else 150
+                    if 10 <= dist <= max_dist:  # At least 10m away for safety
+                        emergency_candidates.append(pt)
+                    if len(emergency_candidates) >= 20:  # Get more candidates
+                        break
+                
+                if emergency_candidates:
+                    # Sort by distance and pick best ones
+                    emergency_candidates.sort(key=lambda p: abs(math.hypot(p.get('x', 0) - ego_pos[0], p.get('y', 0) - ego_pos[1]) - 30))
+                    candidates = emergency_candidates[:10]
+                    self.logger.info(f"Emergency fallback found {len(candidates)} candidates")
+            
             if not candidates:
-                raise ValidationError(f"No valid spawn points found even with fallbacks")
+                # Provide detailed error message to help debug the issue
+                error_msg = f"No valid spawn points found for actor. "
+                if ego_pos:
+                    error_msg += f"All candidate spawns were too close to ego (< 5m). "
+                error_msg += f"Criteria: {crit}. "
+                error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
+                raise RuntimeError(error_msg)
         
         if len(candidates) == 1:
             pick = candidates[0]
@@ -1883,7 +2011,7 @@ class JsonToXoscConverter:
         # Skip relaxing road_relationship - it's critical for spawn safety
         # Instead, try relaxing other non-critical constraints first
         
-        # Fallback 3: Expand distance range by 50%
+        # Fallback 3: Expand distance range by 50% but respect 5m minimum
         if 'distance_to_ego' in crit and ego_pos:
             relaxed_crit = crit.copy()
             distance_constraint = relaxed_crit['distance_to_ego'].copy()
@@ -1892,7 +2020,8 @@ class JsonToXoscConverter:
             current_max = distance_constraint.get('max', 1000)
             range_expansion = (current_max - current_min) * 0.5
             
-            distance_constraint['min'] = max(0, current_min - range_expansion)
+            # Never go below 5m for safety
+            distance_constraint['min'] = max(5, current_min - range_expansion)
             distance_constraint['max'] = current_max + range_expansion
             relaxed_crit['distance_to_ego'] = distance_constraint
             
@@ -1922,9 +2051,22 @@ class JsonToXoscConverter:
                 return fallback_candidates
         
         # Final fallback: Any valid spawn point with basic safety constraints
-        if all_points:
-            self.logger.warning("Using final fallback: any valid spawn point")
-            return all_points[:10]  # Limit to 10 for performance
+        if all_points and ego_pos:
+            self.logger.warning("Using final fallback: any valid spawn point with distance constraints")
+            # Apply at least a basic distance filter for safety
+            safe_fallback = []
+            for pt in all_points[:100]:  # Check first 100 points for performance
+                d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                # For pedestrians, cap at 50m; for others, cap at 200m
+                max_dist = 50 if 'pedestrian' in str(crit).lower() else 200
+                if 5 <= d <= max_dist:  # Between 5m and max_dist
+                    safe_fallback.append(pt)
+                if len(safe_fallback) >= 10:  # Limit to 10 candidates
+                    break
+            if safe_fallback:
+                return safe_fallback
+        elif all_points:
+            return all_points[:10]  # No ego position, return first 10
         
         return []
     
@@ -1997,6 +2139,8 @@ class JsonToXoscConverter:
         elif relationship == 'adjacent_lane' and ego_lane:
             # For adjacent lanes, ensure same direction by default (same sign of lane_id)
             adjacent_candidates = []
+            
+            # First try to find lanes with delta of ±1
             for pt in candidates:
                 if pt.get('road_id') == ego_road_id:
                     pt_lane_id = pt.get('lane_id', 0)
@@ -2005,7 +2149,25 @@ class JsonToXoscConverter:
                         self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
                         adjacent_candidates.append(pt)
             
-            self.logger.debug(f"Lane relationship 'adjacent_lane': filtering to road_id={ego_road_id}, same-direction lanes adjacent to {ego_lane_id}")
+            # If no lanes found with ±1, try ±2 as fallback
+            if not adjacent_candidates:
+                self.logger.warning(f"No adjacent lanes with ±1 delta found, trying ±2 delta for road_id={ego_road_id}, lane_id={ego_lane_id}")
+                for pt in candidates:
+                    if pt.get('road_id') == ego_road_id:
+                        pt_lane_id = pt.get('lane_id', 0)
+                        # Try distance of 2 with same direction
+                        if (abs(pt_lane_id - ego_lane_id) == 2 and 
+                            self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
+                            adjacent_candidates.append(pt)
+            
+            # If still no lanes found, allow same lane as last resort
+            if not adjacent_candidates:
+                self.logger.warning(f"No adjacent lanes found with ±1 or ±2 delta, falling back to same lane for road_id={ego_road_id}, lane_id={ego_lane_id}")
+                for pt in candidates:
+                    if pt.get('road_id') == ego_road_id and pt.get('lane_id') == ego_lane_id:
+                        adjacent_candidates.append(pt)
+            
+            self.logger.debug(f"Lane relationship 'adjacent_lane': found {len(adjacent_candidates)} candidates for road_id={ego_road_id}, lanes adjacent to {ego_lane_id}")
             return adjacent_candidates
         else:  # 'any_lane' or ego not positioned yet
             self.logger.debug(f"Lane relationship '{relationship}': no filtering")
