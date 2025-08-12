@@ -1,0 +1,64 @@
+============================================================
+SPAWN CONSTRAINT QUICK FIXES REPORT
+============================================================
+
+📊 SUMMARY:
+  Files processed: 562
+  Constraints relaxed: 49
+  Distances widened: 409
+  Fallback strategies added: 50
+
+📁 Backup location: constraint_fix_backups/20250811_141931
+
+🔧 FIXES BY SCENARIO TYPE:
+----------------------------------------
+
+UNKNOWN:
+  Files: 311
+  Files with fixes: 204
+  Common fixes:
+    • Distance widening: 195
+    • Fallback strategies: 144
+
+OVERTAKE:
+  Files: 23
+  Files with fixes: 23
+  Common fixes:
+    • Fallback strategies: 22
+    • Distance widening: 23
+    • Other fixes: 44
+
+MERGE:
+  Files: 82
+  Files with fixes: 75
+  Common fixes:
+    • Distance widening: 91
+
+CUT_IN:
+  Files: 27
+  Files with fixes: 27
+  Common fixes:
+    • Fallback strategies: 27
+    • Distance widening: 27
+    • Other fixes: 54
+
+PEDESTRIAN:
+  Files: 79
+  Files with fixes: 79
+  Common fixes:
+    • Distance widening: 42
+    • Fallback strategies: 70
+
+FOLLOWING:
+  Files: 30
+  Files with fixes: 30
+  Common fixes:
+    • Distance widening: 9
+    • Other fixes: 30
+
+INTERSECTION:
+  Files: 10
+  Files with fixes: 10
+  Common fixes:
+    • Distance widening: 22
+    • Fallback strategies: 10

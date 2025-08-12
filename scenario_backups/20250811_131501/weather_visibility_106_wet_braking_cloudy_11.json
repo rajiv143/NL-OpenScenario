@@ -1,0 +1,60 @@
+{
+  "scenario_name": "wet_braking_cloudy_11",
+  "description": "Emergency braking on overcast conditions with reduced lighting",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "brake_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 32,
+            "max": 62
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "brake_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "brake_vehicle",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 73,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

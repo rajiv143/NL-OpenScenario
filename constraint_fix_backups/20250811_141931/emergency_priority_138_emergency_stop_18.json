@@ -1,0 +1,59 @@
+{
+  "scenario_name": "emergency_stop_18",
+  "description": "Emergency vehicle sudden stop",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "emergency",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "emergency",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "emergency",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

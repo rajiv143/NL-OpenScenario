@@ -1,0 +1,115 @@
+{
+  "scenario_name": "delivery_zone_23",
+  "description": "Delivery truck with pedestrian activity",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "delivery",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "delivery_worker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0001",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 27,
+            "max": 57
+          },
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "customer",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 37,
+            "max": 67
+          },
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "delivery",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "delivery",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "delivery_worker",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "customer",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 55,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "customer",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 250,
+  "timeout": 150,
+  "collision_allowed": false
+}

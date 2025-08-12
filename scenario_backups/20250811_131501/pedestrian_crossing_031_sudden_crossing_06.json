@@ -1,0 +1,49 @@
+{
+  "scenario_name": "sudden_crossing_06",
+  "description": "Pedestrian suddenly enters roadway",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 17,
+            "max": 47
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 62,
+  "timeout": 63,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

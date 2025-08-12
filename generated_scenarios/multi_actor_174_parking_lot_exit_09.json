@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 44,
-            "max": 59
+            "min": 36,
+            "max": 66
           },
           "relative_position": "ahead"
         }
@@ -41,9 +41,12 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 34,
-            "max": 44
-          }
+            "min": 24,
+            "max": 54
+          },
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     },
@@ -55,9 +58,12 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 55,
-            "max": 65
-          }
+            "min": 45,
+            "max": 75
+          },
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }
@@ -106,7 +112,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 65,
-  "timeout": 91,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-07-29T20:26:46" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T11:55:45" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
-    <LogicFile filepath="Town01"/>
+    <LogicFile filepath="Town05"/>
     <SceneGraphFile filepath=""/>
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+      <Vehicle name="vehicle.audi.a2" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
@@ -25,8 +25,8 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="vehicle1">
-      <Vehicle name="vehicle.audi.a2" vehicleCategory="car">
+    <ScenarioObject name="lane_changer">
+      <Vehicle name="vehicle.mercedes.sprinter" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
@@ -63,7 +63,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="1.5720180572712925" x="154.067" y="11.018" z="0.0"/>
+                <WorldPosition h="4.719265577637548" x="-125.01" y="-25.918" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -87,11 +87,11 @@
             </ControllerAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="vehicle1">
+        <Private entityRef="lane_changer">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="4.71223190075201" x="92.372" y="11.24" z="0.0"/>
+                <WorldPosition h="4.719265577637548" x="-121.51" y="-25.894" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -100,19 +100,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="vehicle1ManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="lane_changerManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="vehicle1"/>
+            <EntityRef entityRef="lane_changer"/>
           </Actors>
-          <Maneuver name="vehicle1Maneuver">
-            <Event name="vehicle1Event0" priority="overwrite">
-              <Action name="vehicle1Action0">
+          <Maneuver name="lane_changerManeuver">
+            <Event name="lane_changerEvent0" priority="overwrite">
+              <Action name="lane_changerAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.5"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="30"/>
+                        <AbsoluteTargetSpeed value="16.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -121,8 +121,59 @@
               <StartTrigger>
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="hero"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="lane_changer" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="35"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="lane_changerEvent1" priority="overwrite">
+              <Action name="lane_changerAction1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsDimension="distance" dynamicsShape="linear" value="2.5"/>
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="lane_changer" value="1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="2.0"/>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction0" storyboardElementType="action"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="lane_changerEvent2" priority="overwrite">
+              <Action name="lane_changerAction2">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="12.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition2">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction1" storyboardElementType="action"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -147,7 +198,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="200"/>
+                  <TraveledDistanceCondition value="150"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -189,7 +240,7 @@
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="lessThan" value="200"/>
+            <ParameterCondition parameterRef="distance_success" rule="lessThan" value="150"/>
           </ByValueCondition>
         </Condition>
       </ConditionGroup>

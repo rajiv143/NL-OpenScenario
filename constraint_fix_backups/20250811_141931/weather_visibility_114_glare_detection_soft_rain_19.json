@@ -1,0 +1,50 @@
+{
+  "scenario_name": "glare_detection_soft_rain_19",
+  "description": "Object detection with light rain with wet road conditions",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "hard_to_see",
+      "type": "vehicle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 43,
+            "max": 58
+          },
+          "relative_position": "adjacent"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "hard_to_see",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 66,
+  "collision_allowed": false
+}

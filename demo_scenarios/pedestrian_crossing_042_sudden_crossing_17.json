@@ -23,9 +23,13 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 39,
-            "max": 54
-          }
+            "min": 27.299999999999997,
+            "max": 89
+          },
+          "spawn_type": "sidewalk_adjacent",
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }
@@ -42,7 +46,7 @@
       "dynamics_value": 0.5
     }
   ],
-  "success_distance": 81,
-  "timeout": 45,
+  "success_distance": 100,
+  "timeout": 60,
   "collision_allowed": false
 }

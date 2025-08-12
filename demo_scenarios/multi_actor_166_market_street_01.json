@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 44,
-            "max": 59
+            "min": 30.799999999999997,
+            "max": 94
           },
           "relative_position": "adjacent"
         }
@@ -38,8 +38,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 53,
-            "max": 68
+            "min": 37.099999999999994,
+            "max": 103
           },
           "relative_position": "adjacent"
         }
@@ -53,8 +53,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 75,
-            "max": 90
+            "min": 52.5,
+            "max": 125
           },
           "relative_position": "ahead"
         }
@@ -102,7 +102,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 67,
-  "timeout": 107,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

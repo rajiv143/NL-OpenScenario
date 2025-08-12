@@ -23,9 +23,11 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 20,
-            "max": 35
-          }
+            "min": 15,
+            "max": 70
+          },
+          "spawn_type": "sidewalk_adjacent",
+          "road_relationship": "same_road"
         }
       }
     }
@@ -48,7 +50,7 @@
       "dynamics_value": 1.0
     }
   ],
-  "success_distance": 111,
-  "timeout": 58,
+  "success_distance": 150,
+  "timeout": 90,
   "collision_allowed": false
 }

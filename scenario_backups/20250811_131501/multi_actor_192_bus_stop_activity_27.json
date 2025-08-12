@@ -1,0 +1,119 @@
+{
+  "scenario_name": "bus_stop_activity_27",
+  "description": "Bus with boarding passengers and traffic",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 26,
+            "max": 56
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 65
+          }
+        }
+      }
+    },
+    {
+      "id": "pedestrian_3",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0048",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 33,
+            "max": 63
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.4,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "pedestrian_3",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 60,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "pedestrian_3",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 68,
+  "timeout": 149,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

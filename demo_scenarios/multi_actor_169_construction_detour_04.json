@@ -23,10 +23,12 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 30,
-            "max": 45
+            "min": 21.0,
+            "max": 80
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       },
       "color": "0,255,0"
@@ -39,9 +41,13 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 30,
-            "max": 40
-          }
+            "min": 21.0,
+            "max": 80
+          },
+          "road_relationship": "same_road",
+          "relative_position": "ahead",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     },
@@ -53,10 +59,12 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 65,
-            "max": 80
+            "min": 45.5,
+            "max": 115
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
         }
       },
       "color": "128,0,255"
@@ -100,7 +108,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 73,
-  "timeout": 117,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

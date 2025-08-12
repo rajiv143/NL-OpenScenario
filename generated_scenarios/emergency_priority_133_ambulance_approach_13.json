@@ -23,10 +23,12 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 70,
-            "max": 90
+            "min": 49.0,
+            "max": 120
           },
-          "relative_position": "behind"
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "any"
         }
       },
       "color": "255,255,255"
@@ -52,7 +54,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 117,
-  "timeout": 48,
+  "success_distance": 150,
+  "timeout": 90,
   "collision_allowed": false
 }

@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 30,
-            "max": 40
+            "min": 21.0,
+            "max": 80
           },
           "relative_position": "ahead"
         }
@@ -42,8 +42,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 20,
-            "max": 30
+            "min": 15,
+            "max": 70
           },
           "relative_position": "behind"
         }
@@ -58,8 +58,8 @@
           "lane_type": "Driving",
           "road_relationship": "different_road",
           "distance_to_ego": {
-            "min": 40,
-            "max": 60
+            "min": 28.0,
+            "max": 90
           },
           "is_intersection": true
         }
@@ -67,7 +67,7 @@
     }
   ],
   "actions": [],
-  "success_distance": 100,
-  "timeout": 60,
+  "success_distance": 250,
+  "timeout": 150,
   "collision_allowed": false
 }

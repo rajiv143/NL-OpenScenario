@@ -1,0 +1,55 @@
+{
+  "scenario_name": "weather_pedestrian_wet_09",
+  "description": "Pedestrian crossing during wet roads after rain",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 2,
+  "actors": [
+    {
+      "id": "pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 24,
+            "max": 54
+          },
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "wait_duration": 3.0
+    },
+    {
+      "actor_id": "pedestrian",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.4,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 111,
+  "collision_allowed": false
+}

@@ -21,11 +21,15 @@
       "model": "walker.pedestrian.0025",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
+          "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 24,
-            "max": 39
-          }
+            "min": 16,
+            "max": 46
+          },
+          "road_relationship": "different_road",
+          "is_intersection": true,
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

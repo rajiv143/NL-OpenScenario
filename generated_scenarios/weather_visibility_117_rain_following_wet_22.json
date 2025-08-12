@@ -25,10 +25,11 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 40,
-            "max": 55
+            "min": 32,
+            "max": 62
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "heading_tol": 45
         }
       }
     }
@@ -53,7 +54,7 @@
       "dynamics_value": 4.0
     }
   ],
-  "success_distance": 89,
+  "success_distance": 150,
   "timeout": 110,
   "collision_allowed": false
 }

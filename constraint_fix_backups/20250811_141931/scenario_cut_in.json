@@ -1,0 +1,69 @@
+{
+  "scenario_name": "CutInManeuver",
+  "description": "A vehicle spawns in the adjacent lane and cuts in front of the ego, forcing an evasive maneuver",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 2,
+        "max": 50
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "cutter",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "heading_tol": 20,
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "adjacent",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "0,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cutter",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "cutter",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "speed_value": 8.0
+    },
+    {
+      "actor_id": "cutter",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 10,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

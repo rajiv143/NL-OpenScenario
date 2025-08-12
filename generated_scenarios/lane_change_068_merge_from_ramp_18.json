@@ -25,10 +25,10 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 51,
-            "max": 71
+            "min": 35.699999999999996,
+            "max": 101
           },
-          "relative_position": "adjacent"
+          "relative_position": "ahead"
         }
       },
       "color": "0,255,255"
@@ -54,7 +54,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 90,
-  "timeout": 75,
+  "success_distance": 150,
+  "timeout": 90,
   "collision_allowed": false
 }
