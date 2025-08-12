@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T11:31:01" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T11:55:45" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
-    <LogicFile filepath="Town04"/>
+    <LogicFile filepath="Town05"/>
     <SceneGraphFile filepath=""/>
   </RoadNetwork>
   <Entities>
@@ -25,7 +25,7 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="lead_vehicle">
+    <ScenarioObject name="lane_changer">
       <Vehicle name="vehicle.mercedes.sprinter" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
@@ -39,7 +39,6 @@
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="255,255,0"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -52,9 +51,9 @@
             <Environment name="Environment1">
               <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
               <Weather cloudState="free">
-                <Sun azimuth="0" elevation="1.31" intensity="0.65"/>
+                <Sun azimuth="0" elevation="1.31" intensity="0.85"/>
                 <Fog visualRange="100000.0"/>
-                <Precipitation intensity="0.2" precipitationType="rain"/>
+                <Precipitation intensity="0.0" precipitationType="dry"/>
               </Weather>
               <RoadCondition frictionScaleFactor="1.0"/>
             </Environment>
@@ -64,7 +63,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="6.2762912566342095" x="246.76" y="-246.151" z="0.004"/>
+                <WorldPosition h="4.719265577637548" x="-125.01" y="-25.918" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -88,11 +87,11 @@
             </ControllerAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="lead_vehicle">
+        <Private entityRef="lane_changer">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1346986030444155" x="214.737" y="-249.43" z="0.004"/>
+                <WorldPosition h="4.719265577637548" x="-121.51" y="-25.894" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -101,19 +100,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="lead_vehicleManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="lane_changerManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="lead_vehicle"/>
+            <EntityRef entityRef="lane_changer"/>
           </Actors>
-          <Maneuver name="lead_vehicleManeuver">
-            <Event name="lead_vehicleEvent0" priority="overwrite">
-              <Action name="lead_vehicleAction0">
+          <Maneuver name="lane_changerManeuver">
+            <Event name="lane_changerEvent0" priority="overwrite">
+              <Action name="lane_changerAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
                       <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.5"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="15.0"/>
+                        <AbsoluteTargetSpeed value="16.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -127,44 +126,44 @@
                         <EntityRef entityRef="hero"/>
                       </TriggeringEntities>
                       <EntityCondition>
-                        <RelativeDistanceCondition entityRef="lead_vehicle" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="25"/>
+                        <RelativeDistanceCondition entityRef="lane_changer" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="35"/>
                       </EntityCondition>
                     </ByEntityCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="lead_vehicleEvent1" priority="overwrite">
-              <Action name="lead_vehicleAction1">
+            <Event name="lane_changerEvent1" priority="overwrite">
+              <Action name="lane_changerAction1">
                 <PrivateAction>
-                  <LongitudinalAction>
-                    <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.0"/>
-                      <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0"/>
-                      </SpeedActionTarget>
-                    </SpeedAction>
-                  </LongitudinalAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsDimension="distance" dynamicsShape="linear" value="2.5"/>
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="lane_changer" value="1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
                 </PrivateAction>
               </Action>
               <StartTrigger>
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="StartCondition1">
                     <ByValueCondition>
-                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lead_vehicleAction0" storyboardElementType="action"/>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction0" storyboardElementType="action"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="lead_vehicleEvent2" priority="overwrite">
-              <Action name="lead_vehicleAction2">
+            <Event name="lane_changerEvent2" priority="overwrite">
+              <Action name="lane_changerAction2">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="3.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0"/>
+                        <AbsoluteTargetSpeed value="12.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -174,7 +173,7 @@
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="StartCondition2">
                     <ByValueCondition>
-                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lead_vehicleAction1" storyboardElementType="action"/>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction1" storyboardElementType="action"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>

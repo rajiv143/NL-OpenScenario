@@ -1,0 +1,284 @@
+2025-08-12 12:01:44,233 - JsonToXoscConverter - INFO - Loaded 1562 spawn points for Town02 from enhanced file
+2025-08-12 12:01:44,262 - JsonToXoscConverter - INFO - Loaded 17289 spawn points for Town04 from enhanced file
+2025-08-12 12:01:44,281 - JsonToXoscConverter - INFO - Loaded 12738 spawn points for Town05 from enhanced file
+2025-08-12 12:01:44,285 - JsonToXoscConverter - INFO - Loaded 3309 spawn points for Town01 from enhanced file
+2025-08-12 12:01:44,296 - JsonToXoscConverter - INFO - Loaded 7688 spawn points for Town03 from enhanced file
+2025-08-12 12:01:44,310 - JsonToXoscConverter - INFO - Loaded road intelligence for Town07 (277 roads)
+2025-08-12 12:01:44,322 - JsonToXoscConverter - INFO - Loaded road intelligence for Town04 (276 roads)
+2025-08-12 12:01:44,326 - JsonToXoscConverter - INFO - Loaded road intelligence for Town01 (122 roads)
+2025-08-12 12:01:44,334 - JsonToXoscConverter - INFO - Loaded road intelligence for Town06 (200 roads)
+2025-08-12 12:01:44,338 - JsonToXoscConverter - INFO - Loaded road intelligence for Town02 (84 roads)
+2025-08-12 12:01:44,356 - JsonToXoscConverter - INFO - Loaded road intelligence for Town05 (323 roads)
+2025-08-12 12:01:44,362 - JsonToXoscConverter - INFO - Loaded road intelligence for Town10HD (108 roads)
+2025-08-12 12:01:44,375 - JsonToXoscConverter - INFO - Loaded road intelligence for Town03 (369 roads)
+2025-08-12 12:01:44,375 - JsonToXoscConverter - INFO - Detected scenario type: cut_in
+2025-08-12 12:01:44,381 - JsonToXoscConverter - DEBUG - Map Town04 suitability score: 13857.8
+2025-08-12 12:01:44,385 - JsonToXoscConverter - DEBUG - Map Town03 suitability score: 16517.6
+2025-08-12 12:01:44,386 - JsonToXoscConverter - DEBUG - Map Town02 suitability score: 886.2
+2025-08-12 12:01:44,387 - JsonToXoscConverter - DEBUG - Map Town01 suitability score: 1310.9
+2025-08-12 12:01:44,392 - JsonToXoscConverter - DEBUG - Map Town05 suitability score: 18727.6
+2025-08-12 12:01:44,392 - JsonToXoscConverter - INFO - Auto-detected best map: Town05 (score: 18727.6, scenario: cut_in)
+2025-08-12 12:01:44,392 - JsonToXoscConverter - INFO - Using intelligent spawn selection with road intelligence for Town05
+2025-08-12 12:01:44,513 - JsonToXoscConverter - DEBUG - Road suitability filter: -> 12738 candidates
+2025-08-12 12:01:44,514 - JsonToXoscConverter - DEBUG - Road context filter: -> 12738 candidates
+2025-08-12 12:01:44,514 - JsonToXoscConverter - DEBUG - Junction context filter: -> 12738 candidates
+2025-08-12 12:01:44,514 - JsonToXoscConverter - DEBUG - Road relationships filter: -> 12738 candidates
+2025-08-12 12:01:44,514 - JsonToXoscConverter - DEBUG - Geometry filter: -> 12738 candidates
+2025-08-12 12:01:44,525 - JsonToXoscConverter - DEBUG - Legacy filters: -> 4416 candidates
+2025-08-12 12:01:44,528 - JsonToXoscConverter - INFO - === Spawning ego ===
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO - Ego: not positioned yet
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO - Actor: road_id=49, lane_id=1
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO - ========================================
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO - Road Intelligence:
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO -   Road context: suburban
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO -   Junction distance: 127.7m
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO -   Speed limit: 55.0 km/h
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO -   Curvature: curved
+2025-08-12 12:01:44,529 - JsonToXoscConverter - INFO -   Connectivity: well_connected
+2025-08-12 12:01:44,530 - JsonToXoscConverter - DEBUG - Applying cut-in fixes for lane_changer
+2025-08-12 12:01:44,530 - JsonToXoscConverter - DEBUG - No spawn fixes needed for lane_changer
+2025-08-12 12:01:44,530 - JsonToXoscConverter - INFO - Using intelligent spawn selection with road intelligence for Town05
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2358 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 16)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2324 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2292 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2282 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2242 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2241 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2148 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2131 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2117 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 15)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2096 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 15)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2087 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 15)
+2025-08-12 12:01:44,661 - JsonToXoscConverter - WARNING - Road 2071 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 2065 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 2052 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 16)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 2043 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1957 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1946 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1940 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1931 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1921 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1920 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1911 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 727 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 715 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 706 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1464 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 306 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 507 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 14)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 489 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 746 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 721 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 467 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 2318 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1236 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 15)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 455 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 444 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 369 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 368 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1, 4], spawns: 16)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1784 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 245 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1211 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 376 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 627 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 116 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1313 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 281 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,662 - JsonToXoscConverter - WARNING - Road 1907 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 797 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 2187 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 564 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 249 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1818 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1307 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 791 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 144 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 2179 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1299 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 2353 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1812 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 892 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 2165 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1800 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 383 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 130 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 639 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,663 - JsonToXoscConverter - WARNING - Road 1293 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 14)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 905 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 137 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 646 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 157 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 2370 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 89 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 2172 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 1631 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 572 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 14)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 1575 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 1319 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 2039 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 16)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 293 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 476 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,664 - JsonToXoscConverter - WARNING - Road 1504 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 1121 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 296 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 499 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 1581 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 811 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 2104 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 15)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 481 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 14)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 816 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,665 - JsonToXoscConverter - WARNING - Road 48 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1, 1, 5], spawns: 33)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 2363 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 16)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1824 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 742 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 824 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 831 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1639 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 886 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 370 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 911 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 920 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 927 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 935 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 943 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1481 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 987 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1758 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 994 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1000 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1094 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 269 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1351 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1100 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1114 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 100 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1182 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1193 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 14)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1707 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 119 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1201 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1174 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1715 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1222 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 13)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1231 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1339 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1344 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1356 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,666 - JsonToXoscConverter - WARNING - Road 1360 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 285 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 12)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1367 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1376 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 391 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1473 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1489 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1512 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 2057 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1516 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 10)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 981 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1522 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1779 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 9)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 2138 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 9)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1597 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1605 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 8)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 2156 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1615 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1623 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 13)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1693 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 8)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1697 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 11)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 623 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 10)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1776 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 12)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 462 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 465 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 947 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 695 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 916 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1913 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 106 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 148 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1125 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1801 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1765 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 2287 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1924 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1829 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1789 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 2247 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1529 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 284 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,667 - JsonToXoscConverter - WARNING - Road 1209 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1478 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 258 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1353 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1591 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 2125 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 2145 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1691 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1705 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 2195 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 740 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 823 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [1], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 930 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 497 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 515 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 898 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1245 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1355 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [3], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - WARNING - Road 1381 lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: [-2], spawns: 1)
+2025-08-12 12:01:44,668 - JsonToXoscConverter - INFO - Filtered out 1701 spawns from unsuitable roads, keeping 11037 from suitable roads
+2025-08-12 12:01:44,668 - JsonToXoscConverter - DEBUG - Road suitability filter: -> 11037 candidates
+2025-08-12 12:01:44,668 - JsonToXoscConverter - DEBUG - Road context filter: -> 11037 candidates
+2025-08-12 12:01:44,668 - JsonToXoscConverter - DEBUG - Junction context filter: -> 11037 candidates
+2025-08-12 12:01:44,669 - JsonToXoscConverter - DEBUG - Road relationship 'same_road': filtering to road_id=49
+2025-08-12 12:01:44,669 - JsonToXoscConverter - DEBUG - Lane relationship 'adjacent_lane': filtering to road_id=49, same-direction lanes adjacent to 1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Road relationships filter: -> 7 candidates
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Geometry filter: -> 7 candidates
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Checking lane relationship 'adjacent_lane' for pt road=49, lane=2 vs ego road=49, lane=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   Adjacent check: lane_diff=1, same_direction=True
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG -   ACCEPT: adjacent lane valid
+2025-08-12 12:01:44,671 - JsonToXoscConverter - DEBUG - Legacy filters: -> 1 candidates
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - === Spawning actor ===
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - Ego: road_id=49, lane_id=1
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - Actor: road_id=49, lane_id=2
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - Distance: 3.5m
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - Constraints: road_relationship(same_road): ✓, lane_relationship(adjacent_lane): ✓
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - ========================================
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO - Road Intelligence:
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO -   Road context: suburban
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO -   Junction distance: 124.2m
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO -   Speed limit: 55.0 km/h
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO -   Curvature: curved
+2025-08-12 12:01:44,671 - JsonToXoscConverter - INFO -   Connectivity: well_connected
+
+=== SPAWN SUMMARY ===
+EGO Position:
+  Road: 49, Lane: 2
+  Coordinates: x=-125.01, y=-25.92
+  Heading: 4.72 rad (270.4°)
+
+lane_changer Position:
+  Road: 49, Lane: 2
+  Coordinates: x=-121.51, y=-25.89
+  Distance from ego: 3.5m
+  Relative position: ahead
+  Heading: 4.72 rad (270.4°)
+  Issues: Too close to ego (<5m), Same lane as ego
+========================================
+Successfully converted to test_debug.xosc

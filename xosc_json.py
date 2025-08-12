@@ -750,6 +750,146 @@ class JsonToXoscConverter:
         
         return entities
     
+    def log_spawn_details(self, ego_spawn: Dict, actor_spawns: List[Dict]):
+        """Log spawn positions for debugging"""
+        print("\n=== SPAWN SUMMARY ===")
+        print(f"EGO Position:")
+        print(f"  Road: {ego_spawn.get('road_id', 'unknown')}, Lane: {ego_spawn.get('lane_id', 'unknown')}")
+        print(f"  Coordinates: x={ego_spawn.get('x', 0):.2f}, y={ego_spawn.get('y', 0):.2f}")
+        print(f"  Heading: {ego_spawn.get('yaw', 0):.2f} rad ({math.degrees(ego_spawn.get('yaw', 0)):.1f}°)")
+        
+        for actor_spawn in actor_spawns:
+            actor_name = actor_spawn.get('actor_name', 'unknown')
+            spawn = actor_spawn.get('spawn', {})
+            print(f"\n{actor_name} Position:")
+            print(f"  Road: {spawn.get('road_id', 'unknown')}, Lane: {spawn.get('lane_id', 'unknown')}")
+            print(f"  Coordinates: x={spawn.get('x', 0):.2f}, y={spawn.get('y', 0):.2f}")
+            
+            # Calculate distance to ego
+            ego_x, ego_y = ego_spawn.get('x', 0), ego_spawn.get('y', 0)
+            actor_x, actor_y = spawn.get('x', 0), spawn.get('y', 0)
+            distance = math.sqrt((actor_x - ego_x)**2 + (actor_y - ego_y)**2)
+            print(f"  Distance from ego: {distance:.1f}m")
+            
+            # Determine relative position
+            relative_pos = "unknown"
+            if distance > 0:
+                # Simple ahead/behind calculation based on ego heading
+                ego_yaw = ego_spawn.get('yaw', 0)
+                dx, dy = actor_x - ego_x, actor_y - ego_y
+                # Project onto ego's forward direction
+                forward_dist = dx * math.cos(ego_yaw) + dy * math.sin(ego_yaw)
+                relative_pos = "ahead" if forward_dist > 0 else "behind"
+            
+            print(f"  Relative position: {relative_pos}")
+            print(f"  Heading: {spawn.get('yaw', 0):.2f} rad ({math.degrees(spawn.get('yaw', 0)):.1f}°)")
+            
+            # Check for issues
+            issues = []
+            if distance > 100:
+                issues.append("Too far from ego (>100m)")
+            if distance < 5:
+                issues.append("Too close to ego (<5m)")
+            if spawn.get('road_id') == ego_spawn.get('road_id') and spawn.get('lane_id') == ego_spawn.get('lane_id'):
+                issues.append("Same lane as ego")
+            
+            if issues:
+                print(f"  Issues: {', '.join(issues)}")
+        
+        print("=" * 40)
+
+    def _fix_spawn_criteria(self, criteria: Dict[str, Any], actor: Dict[str, Any], scenario_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Apply intelligent fixes to spawn criteria to prevent common issues"""
+        fixed_criteria = criteria.copy()
+        scenario_name = scenario_data.get('scenario_name', '').lower()
+        actor_type = actor.get('type', '')
+        
+        # Fix 1: Cut-in scenarios - ensure actors spawn ahead, not alongside
+        if ('cut_in' in scenario_name or 'lane_change' in scenario_name or 
+            fixed_criteria.get('lane_relationship') == 'adjacent_lane'):
+            
+            self.logger.debug(f"Applying cut-in fixes for {actor['id']}")
+            
+            # Force ahead position for cut-ins
+            fixed_criteria['relative_position'] = 'ahead'
+            
+            # Ensure minimum distance so they're not alongside
+            if 'distance_to_ego' in fixed_criteria:
+                min_dist = fixed_criteria['distance_to_ego'].get('min', 20)
+                max_dist = fixed_criteria['distance_to_ego'].get('max', 60)
+                fixed_criteria['distance_to_ego']['min'] = max(min_dist, 25)  # At least 25m ahead
+                fixed_criteria['distance_to_ego']['max'] = max(max_dist, 60)  # Up to 60m ahead
+            else:
+                fixed_criteria['distance_to_ego'] = {'min': 25, 'max': 60}
+        
+        # Fix 2: Intersection constraint logic - fix contradictory constraints
+        if fixed_criteria.get('road_relationship') == 'different_road':
+            self.logger.debug(f"Fixing intersection constraints for {actor['id']}")
+            
+            # Can't have adjacent lane on different road
+            if 'lane_relationship' in fixed_criteria:
+                self.logger.warning(f"Removing contradictory 'lane_relationship' for different_road actor {actor['id']}")
+                del fixed_criteria['lane_relationship']
+            
+            # For cross-traffic at intersections
+            fixed_criteria['is_intersection'] = True
+            if 'relative_position' not in fixed_criteria:
+                fixed_criteria['relative_position'] = 'perpendicular'  # or 'crossing'
+        
+        # Fix 3: Pedestrian distance constraints
+        if 'pedestrian' in actor_type.lower():
+            self.logger.debug(f"Applying pedestrian distance limits for {actor['id']}")
+            
+            # Pedestrians shouldn't spawn more than 50m away
+            if 'distance_to_ego' in fixed_criteria:
+                max_dist = fixed_criteria['distance_to_ego'].get('max', 100)
+                fixed_criteria['distance_to_ego']['max'] = min(max_dist, 50)
+                
+                # Also ensure minimum reasonable distance
+                min_dist = fixed_criteria['distance_to_ego'].get('min', 10)
+                fixed_criteria['distance_to_ego']['min'] = max(min_dist, 10)
+            else:
+                fixed_criteria['distance_to_ego'] = {'min': 10, 'max': 50}
+        
+        # Fix 4: Following scenarios - ensure proper distance and same road
+        if ('following' in scenario_name or 'brake' in scenario_name or 
+            'stop_and_go' in scenario_name or 'slow_leader' in scenario_name):
+            
+            self.logger.debug(f"Applying following scenario fixes for {actor['id']}")
+            
+            # Force same road for following scenarios
+            fixed_criteria['road_relationship'] = 'same_road'
+            fixed_criteria['relative_position'] = 'ahead'
+            
+            # Reasonable following distance
+            if 'distance_to_ego' not in fixed_criteria:
+                fixed_criteria['distance_to_ego'] = {'min': 15, 'max': 40}
+        
+        # Fix 5: General distance constraints to prevent extreme spawns
+        if 'distance_to_ego' in fixed_criteria:
+            min_dist = fixed_criteria['distance_to_ego'].get('min', 0)
+            max_dist = fixed_criteria['distance_to_ego'].get('max', 1000)
+            
+            # Cap maximum distance to prevent extreme spawns
+            if max_dist > 200:
+                self.logger.warning(f"Capping excessive spawn distance for {actor['id']}: {max_dist}m -> 200m")
+                fixed_criteria['distance_to_ego']['max'] = 200
+            
+            # Ensure minimum distance for safety
+            if min_dist < 5:
+                fixed_criteria['distance_to_ego']['min'] = 5
+        
+        # Log changes if any were made
+        if fixed_criteria != criteria:
+            changes = [k for k in fixed_criteria if k not in criteria or fixed_criteria[k] != criteria[k]]
+            self.logger.info(f"Applied spawn fixes for {actor['id']}: {len(changes)} changes - {changes}")
+            self.logger.info(f"  Before: {criteria}")
+            self.logger.info(f"  After: {fixed_criteria}")
+        else:
+            self.logger.debug(f"No spawn fixes needed for {actor['id']}")
+        
+        return fixed_criteria
+
     def create_init(self, data: Dict[str, Any]) -> ET.Element:
         """Create Init section with positions and environment"""
         init = ET.Element('Init')
@@ -778,12 +918,14 @@ class JsonToXoscConverter:
             meta = self._last_pick
             if meta:
                 self._ego_lane = (meta.get('road_id'), meta.get('lane_id'))
+                self._ego_spawn_info = meta  # Store ego spawn info for logging
             self._ego_pos = (x, y, z, yaw)
         else:
             x,y,z,yaw = self.parse_position(data['ego_start_position'], map_name)
             self._ego_pos  = (x, y, z, yaw)
             # Infer ego's road and lane from coordinates using spawn metadata
-            self._ego_lane = self._infer_road_lane_from_position(x, y, map_name)   
+            self._ego_lane = self._infer_road_lane_from_position(x, y, map_name)
+            self._ego_spawn_info = {'road_id': self._ego_lane[0], 'lane_id': self._ego_lane[1]} if self._ego_lane else {}   
         
         world_pos.set('x', str(x))
         world_pos.set('y', str(y))
@@ -811,6 +953,7 @@ class JsonToXoscConverter:
             elem.set('active', 'false')
         
         # Other actors positions
+        actor_spawns = []
         for actor in data.get('actors', []):
             private = ET.SubElement(actions, 'Private')
             private.set('entityRef', actor['id'])
@@ -822,6 +965,8 @@ class JsonToXoscConverter:
     
             if 'spawn' in actor:
                 crit = actor['spawn'].get('criteria', {})
+                # Apply fixes before spawning
+                crit = self._fix_spawn_criteria(crit, actor, data)
                 ax, ay, az, ayaw = self._choose_spawn(
                     map_name, crit,
                     ego_pos=self._ego_pos,
@@ -829,10 +974,32 @@ class JsonToXoscConverter:
                 )
             else:
                 ax, ay, az, ayaw = self.parse_position(actor['start_position'], map_name)
+            
             world_pos.set('x', str(ax))
             world_pos.set('y', str(ay))
             world_pos.set('z', str(az))
             world_pos.set('h', str(ayaw))
+            
+            # Collect spawn data for debugging
+            spawn_info = self._last_pick or {}
+            actor_spawns.append({
+                'actor_name': actor['id'],
+                'spawn': {
+                    'x': ax, 'y': ay, 'z': az, 'yaw': ayaw,
+                    'road_id': spawn_info.get('road_id'),
+                    'lane_id': spawn_info.get('lane_id')
+                }
+            })
+        
+        # Log spawn details for debugging
+        if self.logger.level <= logging.INFO:  # Only if INFO level or below
+            ego_spawn_info = getattr(self, '_ego_spawn_info', {})
+            ego_spawn = {
+                'x': x, 'y': y, 'z': z, 'yaw': yaw,
+                'road_id': ego_spawn_info.get('road_id'),
+                'lane_id': ego_spawn_info.get('lane_id')
+            }
+            self.log_spawn_details(ego_spawn, actor_spawns)
         
         return init
     
@@ -1508,6 +1675,26 @@ class JsonToXoscConverter:
             valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
             if pt.get('lane_type') not in valid_types:
                 return False
+        
+        # Lane relationship filtering (critical for cut-in scenarios)
+        if 'lane_relationship' in crit and ego_lane:
+            relationship = crit['lane_relationship']
+            if relationship == 'same_lane':
+                if pt.get('road_id') != ego_lane[0] or pt.get('lane_id') != ego_lane[1]:
+                    return False
+            elif relationship == 'adjacent_lane':
+                # Adjacent lanes must be on same road with lane_id differing by ±1 and same direction
+                if pt.get('road_id') != ego_lane[0]:
+                    return False
+                pt_lane_id = pt.get('lane_id', 0)
+                ego_lane_id = ego_lane[1]
+                if not (abs(pt_lane_id - ego_lane_id) == 1 and 
+                       self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
+                    return False
+            elif relationship == 'different_lane':
+                if pt.get('road_id') == ego_lane[0] and pt.get('lane_id') == ego_lane[1]:
+                    return False
+            # 'any_lane' has no filtering
         
         # Intersection filtering with default to avoid intersections
         intersection_filter = crit.get('is_intersection', False)  # Default to false (avoid intersections)
