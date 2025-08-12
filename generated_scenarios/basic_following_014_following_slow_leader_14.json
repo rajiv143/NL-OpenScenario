@@ -28,7 +28,8 @@
             "min": 30,
             "max": 60
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "heading_tol": 45
         }
       }
     }

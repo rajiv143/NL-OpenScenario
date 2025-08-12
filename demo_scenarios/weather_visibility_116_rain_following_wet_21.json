@@ -23,12 +23,13 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 46,
-            "max": 61
+            "min": 32.199999999999996,
+            "max": 96
           },
           "relative_position": "ahead",
           "road_relationship": "same_road",
-          "lane_relationship": "same_lane"
+          "lane_relationship": "same_lane",
+          "heading_tol": 45
         }
       },
       "color": "128,128,128"

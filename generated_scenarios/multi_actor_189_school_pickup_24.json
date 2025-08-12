@@ -43,7 +43,9 @@
             "min": 26,
             "max": 56
           },
-          "road_relationship": "same_road"
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

@@ -1,0 +1,55 @@
+{
+  "scenario_name": "wheelchair_user_25",
+  "description": "Person in wheelchair crossing",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "vulnerable_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0030",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 50
+          },
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "vulnerable_pedestrian",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "wait_duration": 3.0
+    },
+    {
+      "actor_id": "vulnerable_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

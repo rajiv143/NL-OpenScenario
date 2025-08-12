@@ -63,7 +63,9 @@
             "max": 64
           },
           "road_relationship": "same_road",
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

@@ -25,8 +25,8 @@
           "road_relationship": "different_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 40,
-            "max": 60
+            "min": 28.0,
+            "max": 90
           },
           "relative_position": "ahead",
           "is_intersection": true
@@ -42,8 +42,8 @@
           "lane_type": "Driving",
           "road_relationship": "different_road",
           "distance_to_ego": {
-            "min": 35,
-            "max": 55
+            "min": 24.5,
+            "max": 85
           },
           "relative_position": "ahead",
           "is_intersection": true,
@@ -63,7 +63,9 @@
             "max": 42
           },
           "road_relationship": "different_road",
-          "is_intersection": true
+          "is_intersection": true,
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

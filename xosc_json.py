@@ -153,8 +153,120 @@ class JsonToXoscConverter:
             except Exception as e:
                 self.logger.warning(f"Could not load road intelligence from {path}: {e}")
     
+    def _detect_scenario_type(self, data: Dict[str, Any]) -> str:
+        """Detect scenario type based on scenario content"""
+        scenario_name = data.get('scenario_name', '').lower()
+        description = data.get('description', '').lower()
+        
+        # Check for lane change related scenarios
+        if any(keyword in scenario_name or keyword in description for keyword in 
+               ['cut_in', 'lane_change', 'overtake', 'merge', 'aggressive_merge']):
+            return 'cut_in'
+        
+        # Check for intersection scenarios
+        if any(keyword in scenario_name or keyword in description for keyword in
+               ['intersection', 'cross', 'traffic_light', 'stop_sign']):
+            return 'intersection'
+        
+        # Check for highway scenarios
+        if any(keyword in scenario_name or keyword in description for keyword in
+               ['highway', 'freeway', 'motorway']):
+            return 'highway'
+        
+        # Check for following scenarios
+        if any(keyword in scenario_name or keyword in description for keyword in
+               ['following', 'brake', 'stop_and_go', 'slow_leader']):
+            return 'following'
+        
+        # Check actor lane relationships for additional hints
+        for actor in data.get('actors', []):
+            if 'spawn' in actor and 'criteria' in actor['spawn']:
+                criteria = actor['spawn']['criteria']
+                if criteria.get('lane_relationship') in ['adjacent_lane']:
+                    return 'cut_in'
+        
+        return 'general'
+
+    def _calculate_map_suitability_score(self, map_name: str, scenario_type: str, spawn_criteria: List[Dict]) -> float:
+        """Calculate how suitable a map is for a given scenario type"""
+        score = 0.0
+        
+        try:
+            spawn_points = self._get_spawn_points_for_map(map_name)
+            total_spawns = len(spawn_points)
+            
+            # Base score from spawn point count
+            score += total_spawns * 0.1
+            
+            # Analyze road topology for scenario-specific scoring
+            road_groups = {}
+            for pt in spawn_points:
+                road_id = pt.get('road_id')
+                if road_id not in road_groups:
+                    road_groups[road_id] = []
+                road_groups[road_id].append(pt)
+            
+            # Count roads with different capabilities
+            adjacent_lane_roads = 0
+            multi_spawn_roads = 0
+            
+            for road_id, points in road_groups.items():
+                # Check if road has adjacent lanes (for cut-in scenarios)
+                lanes = set(pt.get('lane_id') for pt in points if pt.get('lane_id') is not None)
+                sorted_lanes = sorted(lanes)
+                has_adjacent = False
+                for i in range(len(sorted_lanes) - 1):
+                    if abs(sorted_lanes[i+1] - sorted_lanes[i]) == 1:
+                        has_adjacent = True
+                        break
+                
+                if has_adjacent:
+                    adjacent_lane_roads += 1
+                
+                if len(points) >= 4:  # Good spawn density
+                    multi_spawn_roads += 1
+            
+            # Apply scenario-specific scoring
+            if scenario_type == 'cut_in':
+                score += adjacent_lane_roads * 50  # Heavily favor maps with adjacent lanes
+                score += multi_spawn_roads * 10
+                
+                # Penalty for maps with few suitable roads
+                if adjacent_lane_roads < 3:
+                    score *= 0.5
+                    
+            elif scenario_type == 'following':
+                score += multi_spawn_roads * 20
+                
+            elif scenario_type == 'highway':
+                # Check road intelligence for highway roads if available
+                road_data = self.road_intelligence.get(map_name, {})
+                highway_roads = 0
+                if 'roads' in road_data:
+                    for road_info in road_data['roads'].values():
+                        if road_info.get('type') == 'highway' or road_info.get('speed_limit', 0) > 70:
+                            highway_roads += 1
+                score += highway_roads * 30
+                
+            # Bonus for maps that can satisfy all spawn criteria
+            criteria_satisfied = 0
+            for criteria in spawn_criteria:
+                if any(self._matches_criteria(pt, criteria, map_name) for pt in spawn_points):
+                    criteria_satisfied += 1
+            
+            if criteria_satisfied == len(spawn_criteria):
+                score *= 2.0  # Double score for full compatibility
+            else:
+                score *= (criteria_satisfied / max(1, len(spawn_criteria)))  # Proportional penalty
+                
+        except Exception as e:
+            self.logger.debug(f"Error calculating suitability for {map_name}: {e}")
+            score = 0.0
+        
+        return score
+
     def _detect_best_map(self, data: Dict[str, Any]) -> str:
-        """Auto-detect the best map based on spawn constraints"""
+        """Auto-detect the best map based on spawn constraints and scenario requirements"""
         # If map is explicitly specified, validate and use it
         if 'map_name' in data:
             map_name = data['map_name']
@@ -163,6 +275,10 @@ class JsonToXoscConverter:
                 return map_name
             else:
                 self.logger.warning(f"Specified map {map_name} not found, attempting auto-detection")
+        
+        # Detect scenario type
+        scenario_type = self._detect_scenario_type(data)
+        self.logger.info(f"Detected scenario type: {scenario_type}")
         
         # Collect all spawn criteria
         spawn_criteria = []
@@ -174,41 +290,47 @@ class JsonToXoscConverter:
                 spawn_criteria.append(actor['spawn'].get('criteria', {}))
         
         if not spawn_criteria:
-            # No criteria specified, use default map
-            default_map = 'Town01'
-            self.logger.info(f"No spawn criteria found, using default map: {default_map}")
+            # No criteria specified, use scenario type to pick best default
+            default_maps = {
+                'cut_in': 'Town04',  # Has many multi-lane roads
+                'highway': 'Town04',  # Has highway-like roads  
+                'intersection': 'Town01',  # Good intersection variety
+                'following': 'Town02',  # Good for basic following
+                'general': 'Town01'
+            }
+            default_map = default_maps.get(scenario_type, 'Town01')
+            self.logger.info(f"No spawn criteria found, using scenario-based default map: {default_map}")
             return default_map
         
-        # Test each available map
+        # Score each available map based on scenario requirements
         available_maps = set(self.spawn_meta.keys()) | set(self.waypoint_meta.keys())
-        compatible_maps = []
+        map_scores = {}
         
         for map_name in available_maps:
-            try:
-                # Try to satisfy all spawn criteria for this map
-                all_satisfied = True
-                for criteria in spawn_criteria:
-                    spawn_points = self._get_spawn_points_for_map(map_name)
-                    if not any(self._matches_criteria(pt, criteria, map_name) for pt in spawn_points):
-                        all_satisfied = False
-                        break
-                
-                if all_satisfied:
-                    compatible_maps.append(map_name)
-                    self.logger.debug(f"Map {map_name} satisfies all spawn criteria")
-            except Exception as e:
-                self.logger.debug(f"Map {map_name} failed compatibility check: {e}")
+            score = self._calculate_map_suitability_score(map_name, scenario_type, spawn_criteria)
+            map_scores[map_name] = score
+            self.logger.debug(f"Map {map_name} suitability score: {score:.1f}")
         
-        if compatible_maps:
-            # Prefer maps with more spawn points (more flexibility)
-            best_map = max(compatible_maps, key=lambda m: len(self._get_spawn_points_for_map(m)))
-            self.logger.info(f"Auto-detected best map: {best_map} (from {len(compatible_maps)} compatible maps)")
-            return best_map
-        else:
-            # Fall back to default with warning
-            default_map = 'Town01'
-            self.logger.warning(f"No maps satisfy all spawn criteria, falling back to: {default_map}")
-            return default_map
+        if map_scores:
+            # Select the highest scoring map
+            best_map = max(map_scores.items(), key=lambda x: x[1])[0]
+            best_score = map_scores[best_map]
+            
+            if best_score > 0:
+                self.logger.info(f"Auto-detected best map: {best_map} (score: {best_score:.1f}, scenario: {scenario_type})")
+                return best_map
+        
+        # Fall back to scenario-based default with warning
+        default_maps = {
+            'cut_in': 'Town04',
+            'highway': 'Town04',
+            'intersection': 'Town01', 
+            'following': 'Town02',
+            'general': 'Town01'
+        }
+        default_map = default_maps.get(scenario_type, 'Town01')
+        self.logger.warning(f"No suitable maps found, falling back to scenario-based default: {default_map}")
+        return default_map
     
     def _get_spawn_points_for_map(self, map_name: str) -> List[Dict]:
         """Get spawn points for a given map from enhanced spawn files only"""
@@ -975,6 +1097,120 @@ class JsonToXoscConverter:
         
         return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
     
+    def _get_scenario_type_from_criteria(self, crit: Dict[str, Any]) -> str:
+        """Detect scenario type from spawn criteria"""
+        if crit.get('lane_relationship') in ['adjacent_lane']:
+            return 'cut_in'
+        elif crit.get('road_relationship') == 'same_road':
+            return 'following'
+        elif crit.get('is_intersection'):
+            return 'intersection'
+        else:
+            return 'general'
+
+    def _filter_unsuitable_roads(self, candidates: List[Dict], scenario_type: str, map_name: str, crit: Dict[str, Any]) -> List[Dict]:
+        """Filter out roads that can't support the scenario requirements and suggest alternatives"""
+        if scenario_type != 'cut_in':
+            return candidates  # Only filter for cut-in scenarios for now
+        
+        # Get roads that need adjacent lanes
+        needs_adjacent = crit.get('lane_relationship') in ['adjacent_lane']
+        if not needs_adjacent:
+            return candidates
+        
+        # Group candidates by road
+        road_groups = {}
+        for candidate in candidates:
+            road_id = candidate.get('road_id')
+            if road_id not in road_groups:
+                road_groups[road_id] = []
+            road_groups[road_id].append(candidate)
+        
+        suitable_roads = []
+        unsuitable_roads = []
+        
+        # Check each road for adjacent lane support
+        for road_id, road_candidates in road_groups.items():
+            lanes = set(c.get('lane_id') for c in road_candidates if c.get('lane_id') is not None)
+            sorted_lanes = sorted(lanes)
+            
+            # Check for adjacent lanes
+            has_adjacent = False
+            for i in range(len(sorted_lanes) - 1):
+                if abs(sorted_lanes[i+1] - sorted_lanes[i]) == 1:
+                    has_adjacent = True
+                    break
+            
+            if has_adjacent and len(road_candidates) >= 4:  # Need adequate spawn points too
+                suitable_roads.extend(road_candidates)
+            else:
+                unsuitable_roads.extend(road_candidates)
+                self.logger.warning(f"Road {road_id} lacks adjacent lanes or adequate spawns for cut-in scenario (lanes: {sorted_lanes}, spawns: {len(road_candidates)})")
+        
+        if suitable_roads:
+            self.logger.info(f"Filtered out {len(unsuitable_roads)} spawns from unsuitable roads, keeping {len(suitable_roads)} from suitable roads")
+            
+            # If we have good alternatives, exclude problematic roads entirely
+            if len(suitable_roads) >= 10:  # Enough alternatives
+                return suitable_roads
+        
+        # If no suitable roads or very few alternatives, try to find better roads
+        if not suitable_roads or len(suitable_roads) < 5:
+            self.logger.warning(f"Very few suitable roads found, attempting to find better alternatives...")
+            better_candidates = self._find_alternative_roads(map_name, scenario_type, crit)
+            if better_candidates:
+                self.logger.info(f"Found {len(better_candidates)} alternative spawn points on better roads")
+                return better_candidates
+        
+        # Return what we have (may include unsuitable roads as fallback)
+        return suitable_roads if suitable_roads else candidates
+
+    def _find_alternative_roads(self, map_name: str, scenario_type: str, crit: Dict[str, Any]) -> List[Dict]:
+        """Find spawn points on roads that better support the scenario"""
+        all_spawns = self._get_spawn_points_for_map(map_name)
+        
+        if scenario_type == 'cut_in':
+            # Look for roads with many lanes and spawn points (like highways)
+            road_groups = {}
+            for spawn in all_spawns:
+                road_id = spawn.get('road_id')
+                if road_id not in road_groups:
+                    road_groups[road_id] = []
+                road_groups[road_id].append(spawn)
+            
+            # Score roads based on suitability for cut-in scenarios
+            scored_roads = []
+            for road_id, road_spawns in road_groups.items():
+                if len(road_spawns) < 10:  # Skip roads with too few spawns
+                    continue
+                
+                lanes = set(s.get('lane_id') for s in road_spawns if s.get('lane_id') is not None)
+                sorted_lanes = sorted(lanes)
+                
+                # Count adjacent lane pairs
+                adjacent_pairs = 0
+                for i in range(len(sorted_lanes) - 1):
+                    if abs(sorted_lanes[i+1] - sorted_lanes[i]) == 1:
+                        adjacent_pairs += 1
+                
+                if adjacent_pairs > 0:
+                    score = adjacent_pairs * 50 + len(road_spawns) * 2
+                    scored_roads.append((score, road_id, road_spawns))
+            
+            # Return spawns from the best roads
+            if scored_roads:
+                scored_roads.sort(reverse=True)  # Highest score first
+                
+                # Take spawns from top 3 roads 
+                best_spawns = []
+                for _, road_id, road_spawns in scored_roads[:3]:
+                    best_spawns.extend(road_spawns)
+                    self.logger.info(f"Using alternative road {road_id} with {len(road_spawns)} spawns for cut-in scenario")
+                
+                return best_spawns
+        
+        return []
+
     def _intelligent_choose_spawn(self, map_name: str, road_data: Dict, crit: Dict[str, Any],
                                 ego_pos: Optional[Tuple[float, float, float, float]] = None,
                                 ego_lane: Optional[Tuple[int, int]] = None,
@@ -987,6 +1223,11 @@ class JsonToXoscConverter:
         
         # Step 1: Get enhanced spawn candidates with road context
         candidates = self._get_enhanced_spawn_candidates(pts, road_data)
+        
+        # Step 1.5: Filter out unsuitable roads and find alternatives
+        scenario_type = self._get_scenario_type_from_criteria(crit)
+        candidates = self._filter_unsuitable_roads(candidates, scenario_type, map_name, crit)
+        self.logger.debug(f"Road suitability filter: -> {len(candidates)} candidates")
         
         # Step 2: Apply road intelligence filters in priority order
         candidates = self._filter_by_road_context(candidates, crit, map_name)

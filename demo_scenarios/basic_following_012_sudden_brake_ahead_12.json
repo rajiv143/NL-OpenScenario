@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 42,
-            "max": 52
+            "min": 29.4,
+            "max": 92
           },
           "relative_position": "ahead",
           "road_relationship": "same_road",

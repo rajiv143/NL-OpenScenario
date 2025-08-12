@@ -25,10 +25,13 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 54,
-            "max": 74
+            "min": 37.8,
+            "max": 104
           },
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "lane_relationship_fallback": "same_direction_nearby",
+          "max_lane_distance": 2,
+          "heading_tol": 45
         }
       },
       "color": "0,0,255"
@@ -64,5 +67,29 @@
   ],
   "success_distance": 150,
   "timeout": 90,
-  "collision_allowed": false
+  "collision_allowed": false,
+  "spawn_strategy": {
+    "prefer_highways": true,
+    "preferred_roads": [
+      45,
+      35,
+      38,
+      40,
+      41,
+      50
+    ],
+    "avoid_roads": [
+      27,
+      26,
+      24,
+      18,
+      14,
+      16,
+      17,
+      19,
+      20,
+      21
+    ],
+    "constraint_relaxation": "enabled"
+  }
 }

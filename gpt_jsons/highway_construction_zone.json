@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 30,
-            "max": 50
+            "min": 21.0,
+            "max": 80
           },
           "relative_position": "ahead",
           "road_relationship": "same_road",
@@ -40,12 +40,14 @@
       "spawn": {
         "criteria": {
           "distance_to_ego": {
-            "min": 25,
-            "max": 35
+            "min": 17.5,
+            "max": 75
           },
           "relative_position": "ahead",
           "road_relationship": "same_road",
-          "lane_type": "Sidewalk"
+          "lane_type": "Sidewalk",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

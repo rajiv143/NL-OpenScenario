@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 60,
-            "max": 80
+            "min": 42.0,
+            "max": 110
           },
           "relative_position": "behind"
         }
@@ -43,8 +43,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 80,
-            "max": 100
+            "min": 56.0,
+            "max": 130
           },
           "relative_position": "behind"
         }
@@ -61,8 +61,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 40,
-            "max": 60
+            "min": 28.0,
+            "max": 90
           },
           "relative_position": "ahead"
         }

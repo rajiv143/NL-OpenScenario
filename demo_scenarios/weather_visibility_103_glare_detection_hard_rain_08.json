@@ -23,9 +23,11 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 31,
-            "max": 46
-          }
+            "min": 21.7,
+            "max": 81
+          },
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

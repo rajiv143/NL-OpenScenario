@@ -24,10 +24,12 @@
           "lane_type": "Sidewalk",
           "distance_to_ego": {
             "min": 15,
-            "max": 30
+            "max": 65
           },
           "spawn_type": "sidewalk_adjacent",
-          "road_relationship": "same_road"
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

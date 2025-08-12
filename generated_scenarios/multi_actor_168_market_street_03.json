@@ -56,7 +56,9 @@
           "distance_to_ego": {
             "min": 36,
             "max": 66
-          }
+          },
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

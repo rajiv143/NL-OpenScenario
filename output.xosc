@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-07-30T21:01:05" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T11:27:52" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
-    <LogicFile filepath="Town04"/>
+    <LogicFile filepath="Town05"/>
     <SceneGraphFile filepath=""/>
   </RoadNetwork>
   <Entities>
@@ -25,17 +25,22 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="pedestrian">
-      <Pedestrian mass="90.0" model="walker.pedestrian.0025" name="walker.pedestrian.0025" pedestrianCategory="pedestrian">
+    <ScenarioObject name="lane_changer">
+      <Vehicle name="vehicle.mercedes.sprinter" vehicleCategory="car">
         <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
           <Center x="1.5" y="0.0" z="0.9"/>
           <Dimensions height="1.8" length="4.5" width="2.1"/>
         </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
         </Properties>
-      </Pedestrian>
+      </Vehicle>
     </ScenarioObject>
   </Entities>
   <Storyboard>
@@ -46,9 +51,9 @@
             <Environment name="Environment1">
               <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
               <Weather cloudState="free">
-                <Sun azimuth="0" elevation="1.31" intensity="0.35"/>
+                <Sun azimuth="0" elevation="1.31" intensity="0.85"/>
                 <Fog visualRange="100000.0"/>
-                <Precipitation intensity="0.3" precipitationType="rain"/>
+                <Precipitation intensity="0.0" precipitationType="dry"/>
               </Weather>
               <RoadCondition frictionScaleFactor="1.0"/>
             </Environment>
@@ -58,7 +63,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="6.2762912566342095" x="246.76" y="-246.151" z="0.004"/>
+                <WorldPosition h="4.719265577637548" x="-125.01" y="-25.918" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -82,11 +87,11 @@
             </ControllerAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="pedestrian">
+        <Private entityRef="lane_changer">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="4.735322606755895" x="204.219" y="-262.399" z="0.02"/>
+                <WorldPosition h="4.719265577637548" x="-121.51" y="-25.894" z="-0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -95,19 +100,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="pedestrianManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="lane_changerManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="pedestrian"/>
+            <EntityRef entityRef="lane_changer"/>
           </Actors>
-          <Maneuver name="pedestrianManeuver">
-            <Event name="pedestrianEvent0" priority="overwrite">
-              <Action name="pedestrianAction0">
+          <Maneuver name="lane_changerManeuver">
+            <Event name="lane_changerEvent0" priority="overwrite">
+              <Action name="lane_changerAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.3"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.5"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="2.5"/>
+                        <AbsoluteTargetSpeed value="16.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -121,9 +126,55 @@
                         <EntityRef entityRef="hero"/>
                       </TriggeringEntities>
                       <EntityCondition>
-                        <RelativeDistanceCondition entityRef="pedestrian" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="15"/>
+                        <RelativeDistanceCondition entityRef="lane_changer" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="35"/>
                       </EntityCondition>
                     </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="lane_changerEvent1" priority="overwrite">
+              <Action name="lane_changerAction1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsDimension="distance" dynamicsShape="linear" value="2.5"/>
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="lane_changer" value="1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction0" storyboardElementType="action"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="lane_changerEvent2" priority="overwrite">
+              <Action name="lane_changerAction2">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="12.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition2">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition state="completeState" storyboardElementRef="lane_changerAction1" storyboardElementType="action"/>
+                    </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
@@ -147,7 +198,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="85"/>
+                  <TraveledDistanceCondition value="150"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -189,7 +240,7 @@
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="lessThan" value="85"/>
+            <ParameterCondition parameterRef="distance_success" rule="lessThan" value="150"/>
           </ByValueCondition>
         </Condition>
       </ConditionGroup>

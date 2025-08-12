@@ -1,0 +1,60 @@
+{
+  "scenario_name": "rain_following_hard_rain_22",
+  "description": "Vehicle following in heavy rain reducing visibility and traction",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 32,
+            "max": 62
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 8.399999999999999,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 5.6,
+      "dynamics_dimension": "time",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 107,
+  "collision_allowed": false
+}

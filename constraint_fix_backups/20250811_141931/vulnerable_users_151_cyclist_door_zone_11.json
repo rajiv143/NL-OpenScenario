@@ -1,0 +1,86 @@
+{
+  "scenario_name": "cyclist_door_zone_11",
+  "description": "Cyclist avoiding parked car door zone",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "parked_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "0,0,255"
+    },
+    {
+      "id": "cyclist",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 55
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,128,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cyclist",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 45,
+      "trigger_comparison": "<",
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "cyclist",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cyclist",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

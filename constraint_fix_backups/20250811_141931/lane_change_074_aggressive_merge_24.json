@@ -1,0 +1,60 @@
+{
+  "scenario_name": "aggressive_merge_24",
+  "description": "Vehicle aggressively merges with small gap",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lane_changer",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 34,
+            "max": 54
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "128,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_changer",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25,
+      "trigger_comparison": "<",
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "lane_changer",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.8
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

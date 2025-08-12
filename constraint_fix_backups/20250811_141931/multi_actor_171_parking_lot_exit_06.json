@@ -1,0 +1,82 @@
+{
+  "scenario_name": "parking_lot_exit_06",
+  "description": "Vehicles and pedestrians in parking area",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 38,
+            "max": 68
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 22,
+            "max": 52
+          },
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 123,
+  "collision_allowed": false
+}

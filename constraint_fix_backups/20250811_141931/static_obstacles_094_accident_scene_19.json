@@ -1,0 +1,41 @@
+{
+  "scenario_name": "accident_scene_19",
+  "description": "Accident scene requiring lane change",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "obstacle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 80
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "0,255,255"
+    }
+  ],
+  "actions": [],
+  "success_distance": 106,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 40,
-            "max": 55
+            "min": 28.0,
+            "max": 90
           },
           "spawn_type": "sidewalk_adjacent",
           "road_relationship": "same_road"

@@ -25,7 +25,7 @@
           "heading_tol": 20,
           "distance_to_ego": {
             "min": 15,
-            "max": 25
+            "max": 65
           },
           "relative_position": "adjacent",
           "road_relationship": "same_road"

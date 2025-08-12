@@ -28,7 +28,8 @@
           },
           "relative_position": "ahead",
           "lane_relationship": "same_lane",
-          "road_relationship": "same_road"
+          "road_relationship": "same_road",
+          "heading_tol": 45
         }
       },
       "color": "128,0,255"

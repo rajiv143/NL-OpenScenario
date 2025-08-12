@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 31,
-            "max": 46
+            "min": 21.7,
+            "max": 81
           },
           "relative_position": "adjacent",
           "road_relationship": "same_road",
@@ -41,11 +41,13 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 44,
-            "max": 54
+            "min": 30.799999999999997,
+            "max": 94
           },
           "road_relationship": "same_road",
-          "relative_position": "ahead"
+          "relative_position": "ahead",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

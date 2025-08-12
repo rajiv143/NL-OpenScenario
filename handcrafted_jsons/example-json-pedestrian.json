@@ -16,9 +16,11 @@
           "road_relationship": "same_road",
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 20,
-            "max": 40
-          }
+            "min": 15,
+            "max": 70
+          },
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     }

@@ -25,8 +25,8 @@
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
           "distance_to_ego": {
-            "min": 99,
-            "max": 119
+            "min": 69.3,
+            "max": 149
           },
           "relative_position": "behind"
         }

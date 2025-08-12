@@ -1,0 +1,88 @@
+{
+  "scenario_name": "market_street_15",
+  "description": "Busy street with mixed traffic",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "distance_to_ego": {
+            "min": 36,
+            "max": 66
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,128,0"
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 75
+          },
+          "relative_position": "behind"
+        }
+      },
+      "color": "255,128,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 122,
+  "collision_allowed": false
+}

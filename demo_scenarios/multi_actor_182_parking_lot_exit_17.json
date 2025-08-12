@@ -23,8 +23,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 38,
-            "max": 53
+            "min": 26.599999999999998,
+            "max": 88
           },
           "relative_position": "behind",
           "road_relationship": "same_road"
@@ -40,11 +40,13 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 32,
-            "max": 42
+            "min": 22.4,
+            "max": 82
           },
           "spawn_type": "sidewalk_adjacent",
-          "road_relationship": "same_road"
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Driving",
+          "lateral_offset": 3.0
         }
       }
     },
@@ -56,8 +58,8 @@
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 78,
-            "max": 93
+            "min": 54.599999999999994,
+            "max": 128
           },
           "relative_position": "ahead",
           "road_relationship": "same_road"

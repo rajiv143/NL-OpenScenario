@@ -1,0 +1,40 @@
+{
+  "scenario_name": "parked_car_ahead_09",
+  "description": "Parked car blocking lane ahead",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "obstacle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 65,
+            "max": 95
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [],
+  "success_distance": 100,
+  "timeout": 68,
+  "collision_allowed": false
+}
