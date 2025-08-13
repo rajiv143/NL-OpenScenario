@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,11 @@
       "model": "vehicle.bmw.grandtourer",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 36,
-            "max": 66
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       },
       "color": "255,0,255"
@@ -38,10 +36,9 @@
       "model": "vehicle.ford.crown",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 55,
-            "max": 85
+            "min": 65,
+            "max": 95
           },
           "relative_position": "ahead"
         }
@@ -53,10 +50,9 @@
       "model": "vehicle.yamaha.yzf",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 56,
-            "max": 86
+            "min": 75,
+            "max": 105
           },
           "relative_position": "ahead"
         }
@@ -103,7 +99,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 250,
-  "timeout": 150,
+  "success_distance": 70,
+  "timeout": 60,
   "collision_allowed": false
 }

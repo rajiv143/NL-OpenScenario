@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T18:18:35" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T13:04:24" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -82,7 +82,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.15189009617656" x="233.377" y="-311.153" z="0.004"/>
+                <WorldPosition h="6.2762912566342095" x="246.76" y="-246.151" z="0.004"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -110,7 +110,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.15189009617656" x="213.378" y="-311.359" z="0.004"/>
+                <WorldPosition h="3.15189009617656" x="221.377" y="-311.277" z="0.004"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -119,7 +119,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.15189009617656" x="239.376" y="-311.091" z="0.004"/>
+                <WorldPosition h="1.5842528153277728" x="348.763" y="-199.508" z="0.004"/>
               </Position>
             </TeleportAction>
           </PrivateAction>

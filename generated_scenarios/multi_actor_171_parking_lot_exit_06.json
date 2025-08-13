@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,12 @@
       "model": "vehicle.yamaha.yzf",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
+          "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 38,
-            "max": 68
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "road_relationship": "same_road"
+          "relative_position": "ahead"
         }
       },
       "color": "255,255,0"
@@ -40,11 +39,9 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 22,
-            "max": 50
+            "min": 65,
+            "max": 95
           },
-          "road_relationship": "same_road",
-          "lane_type_fallback": "Driving",
           "lateral_offset": 3.0
         }
       }
@@ -78,7 +75,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 150,
-  "timeout": 123,
+  "success_distance": 70,
+  "timeout": 60,
   "collision_allowed": false
 }

@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,20 +21,19 @@
       "model": "vehicle.toyota.prius",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "relative_position": "ahead",
           "distance_to_ego": {
             "min": 47,
             "max": 77
-          },
-          "relative_position": "ahead",
-          "road_relationship": "same_road",
-          "lane_relationship": "same_lane"
+          }
         }
       }
     }
   ],
   "actions": [],
-  "success_distance": 112,
+  "success_distance": 70,
   "timeout": 80,
   "collision_allowed": false
 }

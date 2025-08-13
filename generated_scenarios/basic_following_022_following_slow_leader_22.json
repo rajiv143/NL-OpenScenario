@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,15 +21,13 @@
       "model": "vehicle.bh.crossbike",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
-          "distance_to_ego": {
-            "min": 20,
-            "max": 45
-          },
           "relative_position": "ahead",
-          "heading_tol": 45
+          "distance_to_ego": {
+            "min": 45,
+            "max": 75
+          }
         }
       },
       "color": "0,0,255"
@@ -47,7 +45,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 100,
+  "success_distance": 60,
   "timeout": 120,
   "collision_allowed": false
 }

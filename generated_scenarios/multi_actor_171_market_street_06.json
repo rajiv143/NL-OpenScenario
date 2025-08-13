@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,12 +21,9 @@
       "model": "vehicle.audi.a2",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
-          "road_relationship": "same_road",
-          "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 36,
-            "max": 66
+            "min": 55,
+            "max": 85
           },
           "relative_position": "ahead"
         }
@@ -39,12 +36,9 @@
       "model": "vehicle.ford.crown",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
-          "road_relationship": "same_road",
-          "lane_relationship": "adjacent_lane",
           "distance_to_ego": {
-            "min": 56,
-            "max": 86
+            "min": 65,
+            "max": 95
           },
           "relative_position": "behind"
         }
@@ -74,7 +68,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 150,
+  "success_distance": 70,
   "timeout": 119,
   "collision_allowed": false
 }

@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,20 +21,19 @@
       "model": "vehicle.ford.crown",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
+          "relative_position": "ahead",
           "distance_to_ego": {
             "min": 66,
             "max": 96
-          },
-          "relative_position": "ahead"
+          }
         }
       }
     }
   ],
   "actions": [],
-  "success_distance": 100,
+  "success_distance": 70,
   "timeout": 82,
   "collision_allowed": false
 }

@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -23,11 +23,9 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 21,
-            "max": 50
+            "min": 30,
+            "max": 60
           },
-          "road_relationship": "same_road",
-          "lane_type_fallback": "Driving",
           "lateral_offset": 3.0
         }
       }
@@ -45,7 +43,7 @@
       "dynamics_value": 0.3
     }
   ],
-  "success_distance": 100,
+  "success_distance": 70,
   "timeout": 88,
   "collision_allowed": false
 }
