@@ -1,0 +1,51 @@
+{
+  "scenario_name": "following_112",
+  "description": "Vehicle following scenario 112",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 60
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 7.60082842371839,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 171,
+  "timeout": 120,
+  "collision_allowed": false
+}

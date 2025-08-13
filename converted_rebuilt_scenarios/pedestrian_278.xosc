@@ -1,0 +1,164 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-12T18:37:44" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="Town04"/>
+    <SceneGraphFile filepath=""/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="hero">
+      <Vehicle name="vehicle.audi.a2" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="ego_vehicle"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="crossing_ped">
+      <Pedestrian mass="90.0" model="walker.pedestrian.0048" name="walker.pedestrian.0048" pedestrianCategory="pedestrian">
+        <ParameterDeclarations/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Properties>
+          <Property name="type" value="simulation"/>
+        </Properties>
+      </Pedestrian>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun azimuth="0" elevation="1.31" intensity="0.65"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation intensity="0.2" precipitationType="rain"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="hero">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="6.2762912566342095" x="246.76" y="-246.151" z="0.004"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="HeroAgent">
+                  <Properties>
+                    <Property name="module" value="external_control"/>
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle active="false" value="0"/>
+                <Brake active="false" value="0"/>
+                <Clutch active="false" value="0"/>
+                <ParkingBrake active="false" value="0"/>
+                <SteeringWheel active="false" value="0"/>
+                <Gear active="false" number="0"/>
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="crossing_ped">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="1.593729953166102" x="198.838" y="-180.461" z="0.02"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="MyStory">
+      <Act name="Behavior">
+        <ManeuverGroup maximumExecutionCount="1" name="crossing_pedManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="crossing_ped"/>
+          </Actors>
+          <Maneuver name="crossing_pedManeuver">
+            <Event name="crossing_pedEvent0" priority="overwrite">
+              <Action name="crossing_pedAction0">
+                <PrivateAction/>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="hero"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="crossing_ped" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="50"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="rising" delay="0" name="OverallStartCondition">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="0"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="rising" delay="0" name="EndCondition">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <TraveledDistanceCondition value="144"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StopTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="144"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="collision_count" rule="greaterThan" value="0"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

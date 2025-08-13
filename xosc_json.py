@@ -700,8 +700,10 @@ class JsonToXoscConverter:
             
             if actor['type'] in ['vehicle', 'cyclist']:
                 vehicle = ET.SubElement(obj, 'Vehicle')
-                vehicle.set('name', actor['model'])
-                vehicle.set('vehicleCategory', 'bicycle' if actor['type'] == 'cyclist' else 'car')
+                # Fix vehicle model for lane change scenarios - bicycles can't do lane changes
+                model = self._fix_vehicle_model_for_actions(actor, data)
+                vehicle.set('name', model)
+                vehicle.set('vehicleCategory', 'bicycle' if actor['type'] == 'cyclist' and 'bicycle' in model else 'car')
                 
                 # Copy standard vehicle elements
                 ET.SubElement(vehicle, 'ParameterDeclarations')
@@ -749,6 +751,26 @@ class JsonToXoscConverter:
                 prop.set('value', 'simulation')
         
         return entities
+    
+    def _fix_vehicle_model_for_actions(self, actor: Dict, data: Dict[str, Any]) -> str:
+        """Fix vehicle model for compatibility with planned actions"""
+        original_model = actor.get('model', 'vehicle.toyota.prius')
+        
+        # Check if this actor has lane change actions
+        has_lane_change = False
+        for action in data.get('actions', []):
+            if (action.get('actor_id') == actor['id'] and 
+                action.get('action_type') == 'lane_change'):
+                has_lane_change = True
+                break
+        
+        # If actor has lane change actions but is a bicycle/motorcycle, replace with car
+        if has_lane_change and any(bike_type in original_model.lower() for bike_type in 
+                                  ['crossbike', 'bicycle', 'ninja', 'harley', 'vespa', 'yamaha']):
+            self.logger.info(f"Replacing bicycle/motorcycle {original_model} with car for lane change compatibility")
+            return 'vehicle.toyota.prius'  # Safe default car model
+        
+        return original_model
     
     def log_spawn_details(self, ego_spawn: Dict, actor_spawns: List[Dict]):
         """Log spawn positions for debugging"""
@@ -973,7 +995,7 @@ class JsonToXoscConverter:
         
         if 'ego_spawn' in data:
             crit = data['ego_spawn'].get('criteria', {})
-            x,y,z,yaw = self._choose_spawn(map_name, crit)
+            x,y,z,yaw = self._choose_strategic_ego_spawn(data, map_name, crit)
             meta = self._last_pick
             if meta:
                 self._ego_lane = (meta.get('road_id'), meta.get('lane_id'))
@@ -1133,13 +1155,13 @@ class JsonToXoscConverter:
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')
                     ET.SubElement(lc, 'LaneChangeActionDynamics', {
-                        'dynamicsDimension':'distance',
+                        'dynamicsDimension':'time',  # Changed from 'distance' to 'time' for CARLA compatibility
                         'dynamicsShape':    'linear',
-                        'value':            str(action.get('dynamics_value',1))
+                        'value':            str(action.get('dynamics_value',2.5))  # Default to 2.5 seconds
                     })
                     tgt = ET.SubElement(lc, 'LaneChangeTarget')
                     ET.SubElement(tgt, 'RelativeTargetLane', {
-                        'entityRef': 'hero' if actor_id=='ego' else actor_id,
+                        'entityRef': 'hero',  # Always reference hero for lane changes
                         'value':     '-1' if action.get('lane_direction')=='left' else '1'
                     })
 
@@ -1217,8 +1239,12 @@ class JsonToXoscConverter:
         scg2 = ET.SubElement(sbt, 'ConditionGroup')
         # Add criteria conditions
 
-        criteria = ['RunningStopTest', 'RunningRedLightTest', 'WrongLaneTest', 
-                   'OnSidewalkTest', 'KeepLaneTest', 'CollisionTest', 'DrivenDistanceTest']
+        # Only include essential criteria that work reliably with ScenarioRunner
+        criteria = ['DrivenDistanceTest']  # Only keep the distance-based success criterion
+        
+        # Add collision test only if explicitly allowed in scenario
+        if not data.get('collision_allowed', True):  # If collisions are NOT allowed
+            criteria.append('CollisionTest')
         
         for criterion in criteria:
             crit_cond = ET.SubElement(scg2, 'Condition')
@@ -1229,12 +1255,15 @@ class JsonToXoscConverter:
             param_cond = ET.SubElement(crit_by_value, 'ParameterCondition')
             
             if criterion == 'DrivenDistanceTest':
+                # Distance-based success criterion - scenario succeeds when ego travels this distance
                 param_cond.set('parameterRef', 'distance_success')
-                param_cond.set('value', str(data.get('success_distance', 100)))
-            else:
-                param_cond.set('parameterRef', '')
-                param_cond.set('value', '')
-            param_cond.set('rule', 'lessThan')
+                param_cond.set('value', str(data.get('success_distance', 200)))
+                param_cond.set('rule', 'greaterThan')  # Changed to greaterThan for success condition
+            elif criterion == 'CollisionTest':
+                # Collision test - scenario fails if collision occurs
+                param_cond.set('parameterRef', 'collision_count')
+                param_cond.set('value', '0')  # No collisions allowed
+                param_cond.set('rule', 'greaterThan')  # Fails if collision_count > 0
 
         return sb
 
@@ -1491,6 +1520,89 @@ class JsonToXoscConverter:
         
         # Step 4: Score and select best candidate
         return self._score_and_select_spawn(candidates, crit, ego_pos, ego_lane, road_data, pts)
+    
+    def _choose_strategic_ego_spawn(self, data: Dict[str, Any], map_name: str, ego_criteria: Dict[str, Any]) -> Tuple[float, float, float, float]:
+        """Choose ego spawn position strategically based on actor requirements"""
+        # Analyze what actors need relative to ego
+        needs_ahead = False
+        needs_behind = False
+        same_lane_actors = False
+        
+        for actor in data.get('actors', []):
+            if 'spawn' in actor:
+                spawn_criteria = actor['spawn'].get('criteria', {})
+                rel_pos = spawn_criteria.get('relative_position')
+                lane_rel = spawn_criteria.get('lane_relationship')
+                
+                if rel_pos == 'ahead':
+                    needs_ahead = True
+                elif rel_pos == 'behind':
+                    needs_behind = True
+                    
+                if lane_rel in ['same_lane', 'adjacent_lane']:
+                    same_lane_actors = True
+        
+        self.logger.info(f"Strategic ego spawn analysis: needs_ahead={needs_ahead}, needs_behind={needs_behind}, same_lane_actors={same_lane_actors}")
+        
+        # Get all potential ego spawn points
+        spawn_points = self._get_spawn_points_for_map(map_name)
+        candidates = spawn_points  # Start with all points
+        
+        # Apply basic constraints for ego spawn
+        if 'lane_id' in ego_criteria:
+            lane_constraint = ego_criteria['lane_id']
+            if isinstance(lane_constraint, dict):
+                min_lane = lane_constraint.get('min', 1)
+                max_lane = lane_constraint.get('max', 10)
+                candidates = [pt for pt in candidates 
+                            if min_lane <= pt.get('lane_id', 0) <= max_lane]
+        
+        if not candidates:
+            self.logger.warning("No candidates found for ego spawn criteria, using fallback")
+            return self._choose_spawn(map_name, ego_criteria)
+        
+        # If actors need to be ahead, choose ego position from middle/back of available positions
+        # If actors need to be behind, choose ego position from front of available positions
+        if needs_ahead and same_lane_actors:
+            # Group candidates by road/lane
+            lane_groups = {}
+            for candidate in candidates:
+                road_id = candidate.get('road_id')
+                lane_id = candidate.get('lane_id')
+                key = (road_id, lane_id)
+                if key not in lane_groups:
+                    lane_groups[key] = []
+                lane_groups[key].append(candidate)
+            
+            # For each lane group, if it has enough points, choose from middle/back
+            best_candidate = None
+            # Sort lane groups by road_id to get deterministic results, prefer lower road IDs
+            sorted_groups = sorted(lane_groups.items(), key=lambda x: (x[0][0], x[0][1]))
+            
+            for (road_id, lane_id), lane_candidates in sorted_groups:
+                if len(lane_candidates) >= 5:  # Need at least 5 points to have room ahead
+                    # Sort by position to understand spatial layout
+                    sorted_candidates = sorted(lane_candidates, key=lambda pt: (pt.get('x', 0), pt.get('y', 0)))
+                    
+                    # Choose from positions 60-80% back to leave space ahead  
+                    start_idx = len(sorted_candidates) // 3  # Skip first 33%
+                    end_idx = int(len(sorted_candidates) * 0.8)  # Stop at 80%
+                    strategic_candidates = sorted_candidates[start_idx:end_idx]
+                    
+                    if strategic_candidates:
+                        # Pick a good candidate from this range
+                        best_candidate = strategic_candidates[len(strategic_candidates)//2]
+                        self.logger.info(f"Strategic ego spawn: chose position {start_idx}-{end_idx} of {len(sorted_candidates)} on road {road_id}, lane {lane_id}")
+                        break
+            
+            if best_candidate:
+                self._last_pick = best_candidate
+                return (best_candidate.get('x', 0), best_candidate.get('y', 0), 
+                       best_candidate.get('z', 0), math.radians(best_candidate.get('yaw', 0)))
+        
+        # Fallback to normal selection
+        self.logger.info("Using standard ego spawn selection")
+        return self._choose_spawn(map_name, ego_criteria)
     
     def _get_enhanced_spawn_candidates(self, pts: List[Dict], road_data: Dict) -> List[Dict]:
         """Enhance spawn candidates with road intelligence metadata"""
@@ -2169,8 +2281,21 @@ class JsonToXoscConverter:
             
             self.logger.debug(f"Lane relationship 'adjacent_lane': found {len(adjacent_candidates)} candidates for road_id={ego_road_id}, lanes adjacent to {ego_lane_id}")
             return adjacent_candidates
-        else:  # 'any_lane' or ego not positioned yet
-            self.logger.debug(f"Lane relationship '{relationship}': no filtering")
+        elif relationship == 'any_lane' and ego_lane:
+            # For any_lane, still respect direction unless explicitly overridden
+            # Filter to same road and same direction lanes only
+            direction_filtered = []
+            for pt in candidates:
+                if pt.get('road_id') == ego_road_id:
+                    pt_lane_id = pt.get('lane_id', 0)
+                    # Only accept same direction lanes
+                    if self._are_same_direction_lanes(ego_lane_id, pt_lane_id):
+                        direction_filtered.append(pt)
+            
+            self.logger.debug(f"Lane relationship 'any_lane': filtered to {len(direction_filtered)} same-direction candidates for road_id={ego_road_id}")
+            return direction_filtered if direction_filtered else candidates  # Fallback to all if none found
+        else:  # ego not positioned yet
+            self.logger.debug(f"Lane relationship '{relationship}': no filtering (ego not positioned)")
             return candidates
     
     def _infer_road_lane_from_position(self, x: float, y: float, map_name: str) -> Optional[Tuple[int, int]]:

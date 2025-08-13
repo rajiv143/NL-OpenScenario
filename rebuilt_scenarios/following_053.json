@@ -1,0 +1,51 @@
+{
+  "scenario_name": "following_053",
+  "description": "Vehicle following scenario 53",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 60
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35,
+      "trigger_comparison": "<",
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 120,
+  "collision_allowed": false
+}

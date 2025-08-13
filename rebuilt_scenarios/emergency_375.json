@@ -1,0 +1,51 @@
+{
+  "scenario_name": "emergency_375",
+  "description": "Emergency vehicle scenario 375",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "emergency_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 120
+          },
+          "relative_position": "behind"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "emergency_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 80,
+      "trigger_comparison": "<",
+      "speed_value": 21.726413349562417,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 272,
+  "timeout": 90,
+  "collision_allowed": false
+}
