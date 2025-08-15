@@ -1,0 +1,1 @@
+Vehicle A (crown) is ahead in same lane, remaining stationary. Vehicle B (grandtourer) is behind in adjacent lane, moving at 10 m/s.

@@ -1,0 +1,1 @@
+A crown is parked behind of the ego vehicle at close distance (10-20 meters). It remains completely stationary throughout the scenario.

@@ -1,0 +1,1 @@
+Vehicle in adjacent lane moves at 12 m/s then changes to ego's lane. Vehicle ahead in same lane reacts by slowing from 8 to 6 m/s to maintain safe distance.

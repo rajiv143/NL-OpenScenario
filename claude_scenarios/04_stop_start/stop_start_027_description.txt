@@ -1,0 +1,1 @@
+A sprinter positioned ahead of the ego vehicle moves at 12 m/s, then comes to a complete stop. After waiting for 1 seconds, it resumes movement at 12 m/s.

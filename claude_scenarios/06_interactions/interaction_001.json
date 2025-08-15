@@ -1,0 +1,106 @@
+{
+  "scenario_name": "interaction_001",
+  "description": "Actors interact based on relative positions",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "following_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35,
+      "trigger_comparison": "<",
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "following_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "<",
+      "speed_value": 5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 1.0
+    },
+    {
+      "actor_id": "following_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "<",
+      "speed_value": 5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.3
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

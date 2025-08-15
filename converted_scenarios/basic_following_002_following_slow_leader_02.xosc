@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T13:03:43" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T21:28:43" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -39,6 +39,7 @@
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
+          <Property name="color" value="255,255,255"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -110,7 +111,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="6.0"/>
                       </SpeedActionTarget>
@@ -137,10 +138,15 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0" name="OverallStartCondition">
-              <ByValueCondition>
-                <SimulationTimeCondition rule="greaterThan" value="0"/>
-              </ByValueCondition>
+            <Condition conditionEdge="rising" delay="0.5" name="OverallStartCondition">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <SpeedCondition rule="greaterThan" value="1.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
             </Condition>
           </ConditionGroup>
         </StartTrigger>
@@ -152,7 +158,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="100"/>
+                  <TraveledDistanceCondition value="60"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -164,7 +170,7 @@
       <ConditionGroup>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="100"/>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="60"/>
           </ByValueCondition>
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">

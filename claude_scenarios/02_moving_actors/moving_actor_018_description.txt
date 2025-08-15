@@ -1,0 +1,1 @@
+A a2 is positioned behind of the ego vehicle at 35-45 meters. When the ego vehicle approaches within 25 meters, the a2 starts moving at a constant speed of 5 m/s.

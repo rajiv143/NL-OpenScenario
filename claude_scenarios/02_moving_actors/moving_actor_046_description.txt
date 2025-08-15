@@ -1,0 +1,1 @@
+A sprinter is positioned behind of the ego vehicle at 25-35 meters. When the ego vehicle approaches within 15 meters, the sprinter starts moving at a constant speed of 15 m/s.

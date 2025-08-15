@@ -1,0 +1,53 @@
+{
+  "scenario_name": "moving_actor_011",
+  "description": "Actor ahead starts moving at 7 m/s when ego approaches",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "moving_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "moving_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": "<",
+      "speed_value": 7,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

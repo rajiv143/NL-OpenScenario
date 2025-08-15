@@ -1,0 +1,13 @@
+# Compatible requirements for Python 3.7
+# These are the maximum versions that support Python 3.7
+
+transformers==4.30.2  # Latest version for Python 3.7
+datasets==2.10.1      # Compatible with Python 3.7
+accelerate==0.20.3    # Compatible version
+peft==0.3.0           # Earlier version for Python 3.7
+scikit-learn==1.0.2   # Compatible with Python 3.7
+tqdm
+numpy<1.24.0          # NumPy 1.24+ requires Python 3.8+
+sentencepiece
+protobuf<4.0.0        # Protobuf 4+ may have issues
+wandb

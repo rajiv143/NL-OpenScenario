@@ -1,0 +1,1 @@
+A a2 is parked ahead of the ego vehicle at far distance (40-50 meters). It remains completely stationary throughout the scenario.

@@ -1,0 +1,1 @@
+Vehicle A (sprinter) is ahead in same lane, moving at 8 m/s. Vehicle B (crown) is ahead in adjacent lane, starts at 10 m/s then slows to 5 m/s. Vehicle C (prius) is behind in adjacent lane, performs stop-and-go behavior.

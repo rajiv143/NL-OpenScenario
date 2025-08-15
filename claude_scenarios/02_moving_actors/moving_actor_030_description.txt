@@ -1,0 +1,1 @@
+A prius is positioned behind of the ego vehicle at 45-55 meters. When the ego vehicle approaches within 35 meters, the prius starts moving at a constant speed of 15 m/s.

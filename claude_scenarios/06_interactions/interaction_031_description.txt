@@ -1,0 +1,1 @@
+Lead vehicle ahead moves at 10 m/s. Following vehicle maintains safe distance behind lead. When lead vehicle slows to 5 m/s, following vehicle also reduces speed.

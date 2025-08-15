@@ -1,0 +1,1 @@
+A crown is positioned behind of the ego vehicle at 30-40 meters. When the ego vehicle approaches within 20 meters, the crown starts moving at a constant speed of 5 m/s.

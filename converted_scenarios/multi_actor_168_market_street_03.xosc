@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T13:04:21" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T21:29:25" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -57,6 +57,7 @@
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
+          <Property name="color" value="255,255,255"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -121,7 +122,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="4.735322606755895" x="203.556" y="-233.517" z="0.02"/>
+                <WorldPosition h="1.5842528153277728" x="348.844" y="-205.508" z="0.004"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -130,7 +131,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1472824269512945" x="214.597" y="-172.935" z="0.196"/>
+                <WorldPosition h="0.5666909548300388" x="325.519" y="-349.597" z="0.0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -158,7 +159,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="10.0"/>
                       </SpeedActionTarget>
@@ -196,7 +197,7 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                  <Condition conditionEdge="rising" delay="0.2" name="StartCondition1">
                     <ByValueCondition>
                       <StoryboardElementStateCondition state="completeState" storyboardElementRef="actor_1Action0" storyboardElementType="action"/>
                     </ByValueCondition>
@@ -216,7 +217,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="15.0"/>
                       </SpeedActionTarget>
@@ -251,9 +252,9 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.1"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0"/>
+                        <RelativeTargetSpeed continuous="true" entityRef="pedestrian_3" speedTargetValueType="delta" value="0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -279,7 +280,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.5"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.5"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="1.4"/>
                       </SpeedActionTarget>
@@ -289,7 +290,7 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                  <Condition conditionEdge="rising" delay="0.2" name="StartCondition1">
                     <ByValueCondition>
                       <StoryboardElementStateCondition state="completeState" storyboardElementRef="pedestrian_3Action0" storyboardElementType="action"/>
                     </ByValueCondition>
@@ -301,10 +302,15 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0" name="OverallStartCondition">
-              <ByValueCondition>
-                <SimulationTimeCondition rule="greaterThan" value="0"/>
-              </ByValueCondition>
+            <Condition conditionEdge="rising" delay="0.5" name="OverallStartCondition">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <SpeedCondition rule="greaterThan" value="1.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
             </Condition>
           </ConditionGroup>
         </StartTrigger>
@@ -316,7 +322,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="250"/>
+                  <TraveledDistanceCondition value="70"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -328,7 +334,7 @@
       <ConditionGroup>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="250"/>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="70"/>
           </ByValueCondition>
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">

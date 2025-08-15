@@ -1,0 +1,1 @@
+A tt is positioned ahead of the ego vehicle at 35-45 meters. When the ego vehicle approaches within 25 meters, the tt starts moving at a constant speed of 7 m/s.

@@ -1,0 +1,1 @@
+Vehicle A (sprinter) is ahead in same lane, remaining stationary. Vehicle B (crown) is behind in adjacent lane, moving at 10 m/s. Vehicle C (grandtourer) is behind in adjacent lane, starts at 10 m/s then slows to 5 m/s.

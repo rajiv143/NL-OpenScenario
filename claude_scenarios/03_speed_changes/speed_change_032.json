@@ -1,0 +1,65 @@
+{
+  "scenario_name": "speed_change_032",
+  "description": "Actor changes speed from 18 to 10 m/s",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "speed_changing_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "behind",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "speed_changing_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25,
+      "trigger_comparison": "<",
+      "speed_value": 18,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "speed_changing_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "<",
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

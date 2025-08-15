@@ -1,0 +1,1 @@
+A a2 positioned behind of the ego vehicle initially moves at 18 m/s when ego approaches. After completing the initial movement, it decelerates to 10 m/s in a smooth transition.

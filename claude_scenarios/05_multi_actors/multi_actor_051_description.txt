@@ -1,0 +1,1 @@
+Vehicle A (tt) is ahead in same lane, performs stop-and-go behavior. Vehicle B (grandtourer) is ahead in adjacent lane, remaining stationary. Vehicle C (tt) is behind in adjacent lane, moving at 12 m/s.

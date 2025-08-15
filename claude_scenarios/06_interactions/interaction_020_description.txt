@@ -1,0 +1,1 @@
+Two vehicles ahead move in coordination at 12 m/s. When front vehicle brakes to 5 m/s, following vehicle immediately responds with matching deceleration.

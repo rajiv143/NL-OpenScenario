@@ -1,0 +1,1 @@
+A grandtourer is positioned ahead of the ego vehicle at 25-35 meters. When the ego vehicle approaches within 15 meters, the grandtourer starts moving at a constant speed of 3 m/s.

@@ -1,0 +1,1 @@
+Vehicle A (a2) is ahead in same lane, remaining stationary. Vehicle B (crown) is behind in adjacent lane, moving at 10 m/s.

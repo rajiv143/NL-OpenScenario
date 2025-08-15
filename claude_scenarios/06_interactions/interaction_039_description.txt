@@ -1,0 +1,1 @@
+Vehicle in adjacent lane accelerates to 15 m/s and performs aggressive cut-in maneuver into ego's lane, positioning between ego and vehicle ahead.

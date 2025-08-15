@@ -1,0 +1,1 @@
+A tt positioned ahead of the ego vehicle initially moves at 5 m/s when ego approaches. After completing the initial movement, it accelerates to 10 m/s in a smooth transition.

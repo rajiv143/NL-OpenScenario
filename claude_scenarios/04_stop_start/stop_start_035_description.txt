@@ -1,0 +1,1 @@
+A a2 positioned ahead of the ego vehicle moves at 5 m/s, then comes to a complete stop. After waiting for 2 seconds, it resumes movement at 15 m/s.

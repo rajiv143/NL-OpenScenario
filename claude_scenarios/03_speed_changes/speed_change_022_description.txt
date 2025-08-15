@@ -1,0 +1,1 @@
+A grandtourer positioned behind of the ego vehicle initially moves at 3 m/s when ego approaches. After completing the initial movement, it accelerates to 12 m/s in a smooth transition.

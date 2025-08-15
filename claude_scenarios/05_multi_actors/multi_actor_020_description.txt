@@ -1,0 +1,1 @@
+Vehicle A (tt) is ahead in same lane, remaining stationary. Vehicle B (a2) is behind in adjacent lane, moving at 10 m/s.

@@ -1,0 +1,40 @@
+{
+  "scenario_name": "static_actor_018",
+  "description": "Static behind vehicle at far distance",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "static_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "behind",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,0,255"
+    }
+  ],
+  "actions": [],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

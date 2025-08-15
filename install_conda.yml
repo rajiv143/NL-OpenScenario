@@ -1,0 +1,32 @@
+name: carla-llama
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  # Python version
+  - python=3.10
+  
+  # PyTorch with CUDA
+  - pytorch::pytorch>=2.0.0
+  - pytorch::torchvision
+  - pytorch::torchaudio
+  - pytorch::pytorch-cuda=11.8
+  
+  # Core packages
+  - pip
+  - numpy
+  - scikit-learn
+  
+  # Install remaining packages via pip
+  - pip:
+    - transformers==4.36.2
+    - datasets==2.14.0
+    - accelerate==0.25.0
+    - peft==0.7.1
+    - bitsandbytes==0.41.3
+    - sentencepiece
+    - protobuf
+    - wandb
+    - tqdm

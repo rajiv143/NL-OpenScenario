@@ -43,6 +43,13 @@ CARLA_VEHICLES = {
 
 CARLA_PEDESTRIANS = {f'walker.pedestrian.{i:04d}' for i in range(1, 52)}
 
+# Bicycle models that don't support lane changes
+BICYCLE_MODELS = {
+    'vehicle.bh.crossbike', 
+    'vehicle.diamondback.century', 
+    'vehicle.gazelle.omafiets'
+}
+
 CARLA_MAPS = {
     'Town01', 'Town02', 'Town03', 'Town04', 'Town05'
 }
@@ -716,10 +723,11 @@ class JsonToXoscConverter:
                 prop.set('name', 'type')
                 prop.set('value', 'simulation')
                 
-                if 'color' in actor:
-                    color_prop = ET.SubElement(props, 'Property')
-                    color_prop.set('name', 'color')
-                    color_prop.set('value', actor['color'])
+                # Add color property - use specified color or default white
+                color_value = actor.get('color', '255,255,255')  # Default white
+                color_prop = ET.SubElement(props, 'Property')
+                color_prop.set('name', 'color')
+                color_prop.set('value', color_value)
                     
             elif actor['type'] == 'pedestrian':
                 ped = ET.SubElement(obj, 'Pedestrian')
@@ -939,8 +947,9 @@ class JsonToXoscConverter:
             
             self.logger.debug(f"Applying following scenario fixes for {actor['id']}")
             
-            # Force same road for following scenarios
+            # Force same road AND same lane for following scenarios
             fixed_criteria['road_relationship'] = 'same_road'
+            fixed_criteria['lane_relationship'] = 'same_lane'  # Critical for following scenarios!
             fixed_criteria['relative_position'] = 'ahead'
             
             # Distance already handled by enforce_minimum_distance
@@ -1033,6 +1042,19 @@ class JsonToXoscConverter:
                 elem.set('value', '0')
             elem.set('active', 'false')
         
+        # Add initial speed action for ego if start speed is specified
+        ego_start_speed = data.get('ego_start_speed', 0)
+        if ego_start_speed > 0:
+            speed_action = ET.SubElement(ego_private, 'PrivateAction')
+            long_action = ET.SubElement(speed_action, 'LongitudinalAction')
+            speed_elem = ET.SubElement(long_action, 'SpeedAction')
+            dynamics = ET.SubElement(speed_elem, 'SpeedActionDynamics')
+            dynamics.set('dynamicsDimension', 'time')
+            dynamics.set('dynamicsShape', 'step')
+            dynamics.set('value', '1.0')
+            target = ET.SubElement(speed_elem, 'SpeedActionTarget')
+            ET.SubElement(target, 'AbsoluteTargetSpeed', {'value': str(ego_start_speed)})
+        
         # Other actors positions
         actor_spawns = []
         for actor in data.get('actors', []):
@@ -1116,6 +1138,21 @@ class JsonToXoscConverter:
 
             # iterate and chain events
             for i, action in enumerate(actions):
+                # Check for bicycle lane change incompatibility
+                atype = action['action_type']
+                if atype == 'lane_change':
+                    # Find the actor model to check if it's a bicycle
+                    actor_model = None
+                    for actor in data.get('actors', []):
+                        if actor['id'] == actor_id:
+                            actor_model = actor['model']
+                            break
+                    
+                    # Prevent bicycles from doing lane changes
+                    if actor_model in BICYCLE_MODELS:
+                        self.logger.warning(f"Skipping lane_change action for bicycle {actor_id} ({actor_model}) - not supported")
+                        continue  # Skip this action entirely
+                
                 ev_name = f"{actor_id}Event{i}"
                 ac_name = f"{actor_id}Action{i}"
 
@@ -1127,26 +1164,46 @@ class JsonToXoscConverter:
                 pa = ET.SubElement(ac, 'PrivateAction')
 
                 # --- build the PrivateAction body ---
-                atype = action['action_type']
                 if atype == 'wait':
+                    # Implement wait as maintaining current speed for a duration
                     la = ET.SubElement(pa, 'LongitudinalAction')
                     sa = ET.SubElement(la, 'SpeedAction')
+                    
+                    # Wait duration with minimum
+                    wait_duration = max(action.get('wait_duration', 2.0), 0.5)  # Minimum 0.5 seconds
+                    
                     ET.SubElement(sa, 'SpeedActionDynamics', {
-                        'dynamicsDimension': action.get('dynamics_dimension','time'),
-                        'dynamicsShape':     action.get('dynamics_shape','step'),
-                        'value':             str(action.get('wait_duration',0))
+                        'dynamicsDimension': 'time',
+                        'dynamicsShape':     'step',  # Instant to current speed
+                        'value':             '0.1'  # Very quick transition
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
-                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value':'0'})
+                    # Use RelativeTargetSpeed to maintain current speed
+                    ET.SubElement(tgt, 'RelativeTargetSpeed', {
+                        'entityRef': actor_id,
+                        'value': '0',  # No change in speed
+                        'speedTargetValueType': 'delta',
+                        'continuous': 'true'  # Required attribute for OpenSCENARIO
+                    })
 
                 elif atype in ('speed','stop'):
                     la = ET.SubElement(pa, 'LongitudinalAction')
                     sa = ET.SubElement(la, 'SpeedAction')
                     speed_val = 0 if atype=='stop' else action.get('speed_value',0)
+                    
+                    # Ensure minimum duration for sequential timing
+                    dynamics_value = action.get('dynamics_value', 2.0)
+                    dynamics_dimension = action.get('dynamics_dimension', 'time')
+                    dynamics_shape = action.get('dynamics_shape', 'linear')  # Changed from 'step' for smoother transitions
+                    
+                    # Apply minimum durations to prevent instant completion
+                    if dynamics_dimension == 'time' and dynamics_value < 0.5:
+                        dynamics_value = 0.5  # Minimum 0.5 seconds
+                    
                     ET.SubElement(sa, 'SpeedActionDynamics', {
-                        'dynamicsDimension': action.get('dynamics_dimension','time'),
-                        'dynamicsShape':     action.get('dynamics_shape','step'),
-                        'value':             str(action.get('dynamics_value',0))
+                        'dynamicsDimension': dynamics_dimension,
+                        'dynamicsShape':     dynamics_shape,
+                        'value':             str(dynamics_value)
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
                     ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value': str(speed_val)})
@@ -1154,15 +1211,35 @@ class JsonToXoscConverter:
                 elif atype == 'lane_change':
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')
+                    
+                    # Ensure minimum duration for lane changes
+                    dynamics_value = action.get('dynamics_value', 2.5)
+                    dynamics_dimension = action.get('dynamics_dimension', 'time')
+                    dynamics_shape = action.get('dynamics_shape', 'linear')
+                    
+                    # Apply minimum durations for lane changes
+                    if dynamics_dimension == 'time' and dynamics_value < 1.0:
+                        dynamics_value = 1.0  # Minimum 1 second for lane change
+                    elif dynamics_dimension == 'distance' and dynamics_value < 10.0:
+                        dynamics_value = 10.0  # Minimum 10 meters for lane change
+                    
                     ET.SubElement(lc, 'LaneChangeActionDynamics', {
-                        'dynamicsDimension':'time',  # Changed from 'distance' to 'time' for CARLA compatibility
-                        'dynamicsShape':    'linear',
-                        'value':            str(action.get('dynamics_value',2.5))  # Default to 2.5 seconds
+                        'dynamicsDimension': dynamics_dimension,
+                        'dynamicsShape':     dynamics_shape,
+                        'value':            str(dynamics_value)
                     })
                     tgt = ET.SubElement(lc, 'LaneChangeTarget')
+                    # For CARLA, we need to use RelativeTargetLane with a different entity as reference
+                    # Since we want the actor to change lanes relative to its current position,
+                    # we'll use the ego vehicle as a reference point if the actor is alongside or behind
+                    # Otherwise, we can use AbsoluteTargetLane if we know the target lane
+                    lane_value = -1 if action.get('lane_direction')=='left' else 1
+                    
+                    # Use RelativeTargetLane with ego as reference
+                    # This works when the actor changes lanes relative to where ego is
                     ET.SubElement(tgt, 'RelativeTargetLane', {
-                        'entityRef': 'hero',  # Always reference hero for lane changes
-                        'value':     '-1' if action.get('lane_direction')=='left' else '1'
+                        'entityRef': 'hero',  # Use ego as reference entity
+                        'value':     str(lane_value)
                     })
 
                 # --- StartTrigger under this Event ---
@@ -1200,8 +1277,13 @@ class JsonToXoscConverter:
                     })
 
                 elif ttype=='after_previous':
-                    # chain on previous action completion
+                    # chain on previous action completion with small delay
                     prev_ref = f"{actor_id}Action{i-1}"
+                    
+                    # Add small delay to prevent immediate firing after previous action
+                    trigger_delay = str(action.get('delay', 0.2))  # 200ms default delay
+                    cond.set('delay', trigger_delay)
+                    
                     bv = ET.SubElement(cond, 'ByValueCondition')
                     ET.SubElement(bv, 'StoryboardElementStateCondition', {
                         'storyboardElementType': 'action',
@@ -1209,15 +1291,25 @@ class JsonToXoscConverter:
                         'state':                 'completeState'
                     })
 
-        # --- Act-level StartTrigger ---
+        # --- Act-level StartTrigger: Wait for ego movement ---
         ast = ET.SubElement(act, 'StartTrigger')
         acg = ET.SubElement(ast, 'ConditionGroup')
         aco = ET.SubElement(acg, 'Condition', {
-            'name':'OverallStartCondition','delay':'0','conditionEdge':'rising'
+            'name': 'OverallStartCondition',
+            'delay': '0.5',  # Small delay to ensure ego is ready
+            'conditionEdge': 'rising'
         })
-        bv = ET.SubElement(aco, 'ByValueCondition')
-        ET.SubElement(bv, 'SimulationTimeCondition', {
-            'value':'0','rule':'greaterThan'
+        
+        # Wait for ego to start moving (speed > 1 m/s)
+        be = ET.SubElement(aco, 'ByEntityCondition')
+        te = ET.SubElement(be, 'TriggeringEntities', {
+            'triggeringEntitiesRule': 'any'
+        })
+        ET.SubElement(te, 'EntityRef', {'entityRef': 'hero'})
+        ec = ET.SubElement(be, 'EntityCondition')
+        ET.SubElement(ec, 'SpeedCondition', {
+            'value': '1.0',
+            'rule': 'greaterThan'
         })
 
         # --- Act-level StopTrigger: only driven distance ---

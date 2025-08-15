@@ -1,0 +1,106 @@
+{
+  "scenario_name": "interaction_003",
+  "description": "Actors interact based on relative positions",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "merging_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "128,128,128"
+    },
+    {
+      "id": "main_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,128,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "main_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 15,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "merging_vehicle",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25,
+      "trigger_comparison": "<",
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.3
+    },
+    {
+      "actor_id": "merging_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "<",
+      "speed_value": 15,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    },
+    {
+      "actor_id": "merging_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "<",
+      "lane_change_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

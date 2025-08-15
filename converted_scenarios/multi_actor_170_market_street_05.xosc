@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T13:04:24" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-13T21:29:28" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -110,7 +110,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.15189009617656" x="221.377" y="-311.277" z="0.004"/>
+                <WorldPosition h="-1.5573398382620203" x="352.478" y="-215.46" z="0.004"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -119,7 +119,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="1.5842528153277728" x="348.763" y="-199.508" z="0.004"/>
+                <WorldPosition h="-0.3540749453520896" x="129.174" y="-301.806" z="0.034"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -138,7 +138,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="6.0"/>
                       </SpeedActionTarget>
@@ -173,7 +173,7 @@
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed value="6.0"/>
                       </SpeedActionTarget>
@@ -200,10 +200,15 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0" name="OverallStartCondition">
-              <ByValueCondition>
-                <SimulationTimeCondition rule="greaterThan" value="0"/>
-              </ByValueCondition>
+            <Condition conditionEdge="rising" delay="0.5" name="OverallStartCondition">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <SpeedCondition rule="greaterThan" value="1.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
             </Condition>
           </ConditionGroup>
         </StartTrigger>
@@ -215,7 +220,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="150"/>
+                  <TraveledDistanceCondition value="70"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -227,7 +232,7 @@
       <ConditionGroup>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="150"/>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="70"/>
           </ByValueCondition>
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">
