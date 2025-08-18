@@ -1,0 +1,1 @@
+A yellow Low Rider initially moves at 6.3 m/s, then changes to 14.1 m/s after the first action completes.

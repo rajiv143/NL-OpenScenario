@@ -1,0 +1,1 @@
+A gray Yzf is positioned 45 meters behind of the ego vehicle. When the ego approaches within 30 meters, the Yzf begins moving at 14.2 m/s forward.

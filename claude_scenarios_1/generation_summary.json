@@ -1,0 +1,79 @@
+{
+  "generation_time": "2025-08-15T23:27:34.903549",
+  "total_scenarios": 300,
+  "target_scenarios": 300,
+  "levels": {
+    "01_static_actors": {
+      "status": "\u2705",
+      "expected": 50,
+      "actual": 50,
+      "valid": 50
+    },
+    "02_moving_actors": {
+      "status": "\u2705",
+      "expected": 50,
+      "actual": 50,
+      "valid": 50
+    },
+    "03_speed_changes": {
+      "status": "\u2705",
+      "expected": 50,
+      "actual": 50,
+      "valid": 50
+    },
+    "04_stop_start": {
+      "status": "\u2705",
+      "expected": 50,
+      "actual": 50,
+      "valid": 50
+    },
+    "05_multi_actors": {
+      "status": "\u2705",
+      "expected": 60,
+      "actual": 60,
+      "valid": 60
+    },
+    "06_interactions": {
+      "status": "\u2705",
+      "expected": 40,
+      "actual": 40,
+      "valid": 40
+    }
+  },
+  "color_usage": {
+    "red": 33,
+    "green": 31,
+    "blue": 31,
+    "yellow": 32,
+    "orange": 33,
+    "purple": 31,
+    "pink": 31,
+    "cyan": 32,
+    "magenta": 31,
+    "white": 32,
+    "black": 31,
+    "gray": 31,
+    "silver": 31
+  },
+  "ego_model_usage": {
+    "vehicle.audi.a2": 34,
+    "vehicle.toyota.prius": 34,
+    "vehicle.bmw.grandtourer": 34,
+    "vehicle.ford.crown": 33,
+    "vehicle.mercedes.sprinter": 33,
+    "vehicle.audi.tt": 33,
+    "vehicle.nissan.patrol": 33,
+    "vehicle.chevrolet.impala": 33,
+    "vehicle.mini.cooper_s": 33
+  },
+  "weather_usage": {
+    "clear": 38,
+    "cloudy": 38,
+    "soft_rain": 38,
+    "wet": 38,
+    "clear_sunset": 37,
+    "cloudy_sunset": 37,
+    "wet_sunset": 37,
+    "hard_rain": 37
+  }
+}

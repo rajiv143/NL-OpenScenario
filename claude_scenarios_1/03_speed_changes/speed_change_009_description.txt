@@ -1,0 +1,1 @@
+A orange Crossbike initially moves at 4.8 m/s, then changes to 10.9 m/s after the first action completes.

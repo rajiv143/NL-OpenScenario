@@ -1,0 +1,1 @@
+A red Yzf is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 25 meters, the Yzf begins moving at 9.8 m/s forward.

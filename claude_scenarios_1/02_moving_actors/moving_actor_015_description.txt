@@ -1,0 +1,1 @@
+A silver Crossbike is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 35 meters, the Crossbike begins moving at 17.3 m/s forward.

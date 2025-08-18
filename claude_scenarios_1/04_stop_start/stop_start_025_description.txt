@@ -1,0 +1,1 @@
+A purple Crossbike moves at 7.3 m/s, then stops completely for 5.0 seconds, then continues moving at 6.6 m/s.

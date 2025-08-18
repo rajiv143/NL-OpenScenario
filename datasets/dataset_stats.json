@@ -1,0 +1,14 @@
+{
+  "total_examples": 476,
+  "train_examples": 333,
+  "val_examples": 71,
+  "test_examples": 72,
+  "complexity_distribution": {
+    "04": 77,
+    "03": 78,
+    "02": 84,
+    "06": 63,
+    "05": 89,
+    "01": 85
+  }
+}

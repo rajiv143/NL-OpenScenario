@@ -1,0 +1,111 @@
+{
+  "scenario_name": "multi_actor_042",
+  "description": "Multi-actor scenario with 3 actors",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.harley.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,255,255"
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "lane_relationship": "adjacent_left"
+        }
+      },
+      "color": "192,192,192"
+    },
+    {
+      "id": "actor_3",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_right"
+        }
+      },
+      "color": "255,165,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "speed_value": 6.7,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25,
+      "trigger_comparison": "<",
+      "speed_value": 9.1,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    },
+    {
+      "actor_id": "actor_3",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 15.3,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.8
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 120,
+  "collision_allowed": false
+}

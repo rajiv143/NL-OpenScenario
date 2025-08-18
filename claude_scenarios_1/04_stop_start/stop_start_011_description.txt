@@ -1,0 +1,1 @@
+A orange Impala moves at 6.8 m/s, then stops completely for 1.0 seconds, then continues moving at 11.4 m/s.

@@ -1,0 +1,1 @@
+A magenta Crown initially moves at 11.7 m/s, then changes to 3.9 m/s after the first action completes.

@@ -1,0 +1,1 @@
+A silver Low Rider initially moves at 9.9 m/s, then changes to 3.8 m/s after the first action completes.

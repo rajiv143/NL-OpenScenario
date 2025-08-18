@@ -1,0 +1,1 @@
+A blue Grandtourer is positioned 45 meters behind of the ego vehicle. When the ego approaches within 25 meters, the Grandtourer begins moving at 9.6 m/s forward.

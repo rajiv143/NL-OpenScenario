@@ -1,1 +1,1 @@
-Vehicle A (crown) is ahead in same lane, performs stop-and-go behavior. Vehicle B (crown) is ahead in adjacent lane, remaining stationary. Vehicle C (sprinter) is behind in adjacent lane, moving at 12 m/s.
+Three actors with independent behaviors: multiple colored vehicles at different positions and speeds.

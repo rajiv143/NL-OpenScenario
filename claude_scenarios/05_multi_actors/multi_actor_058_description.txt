@@ -1,1 +1,1 @@
-Vehicle A (prius) is ahead in same lane, starts at 10 m/s then slows to 5 m/s. Vehicle B (tt) is behind in adjacent lane, performs stop-and-go behavior. Vehicle C (a2) is behind in same lane, remaining stationary.
+Three actors with independent behaviors: multiple colored vehicles at different positions and speeds.

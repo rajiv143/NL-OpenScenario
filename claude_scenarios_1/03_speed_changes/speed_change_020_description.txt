@@ -1,0 +1,1 @@
+A blue Crossbike initially moves at 7.1 m/s, then changes to 11.1 m/s after the first action completes.

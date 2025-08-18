@@ -1,0 +1,43 @@
+{
+  "training": {
+    "filepath": "carla_correct_train.jsonl",
+    "total_examples": 500,
+    "valid_examples": 500,
+    "invalid_examples": 0,
+    "validation_rate": 100.0,
+    "errors": [],
+    "warnings": [
+      "Instruction may contain position references: create a scenario with a indigo vehicle positioned...",
+      "Instruction may contain position references: create a scenario with a white vehicle positioned ...",
+      "Instruction may contain position references: create a scenario with a gold vehicle positioned a...",
+      "Instruction may contain position references: create a scenario with a gray vehicle positioned a...",
+      "Instruction may contain position references: create a scenario with a orange vehicle positioned...",
+      "Instruction may contain position references: create a scenario with a orange vehicle positioned...",
+      "Instruction may contain position references: create a scenario with a gold vehicle positioned a...",
+      "Instruction may contain position references: create a scenario with a blue vehicle positioned a...",
+      "Instruction may contain position references: create a scenario with a brown vehicle positioned ...",
+      "Instruction may contain position references: create a scenario with a gold vehicle positioned a..."
+    ]
+  },
+  "validation": {
+    "filepath": "carla_correct_val.jsonl",
+    "total_examples": 48,
+    "valid_examples": 48,
+    "invalid_examples": 0,
+    "validation_rate": 100.0,
+    "errors": [],
+    "warnings": [
+      "Instruction may contain position references: create a scenario with a brown vehicle positioned ...",
+      "Instruction may contain position references: create a scenario with a green vehicle positioned ...",
+      "Instruction may contain position references: create a scenario with a navy vehicle positioned a...",
+      "Instruction may contain position references: create a scenario with a yellow vehicle positioned...",
+      "Instruction may contain position references: create a scenario with a cyan vehicle positioned a..."
+    ]
+  },
+  "overall_validation_rate": 100.0,
+  "summary": {
+    "no_hardcoded_positions": true,
+    "correct_color_format": true,
+    "all_valid": true
+  }
+}

@@ -1,0 +1,1 @@
+A 128 vehicle is 30m ahead moving at 6.3 m/s. A 255 vehicle is 25m behind and accelerates when ego gets within 25m.

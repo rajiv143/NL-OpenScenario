@@ -1,0 +1,1 @@
+A green Crown is positioned 45 meters behind of the ego vehicle. When the ego approaches within 35 meters, the Crown begins moving at 18.8 m/s forward.

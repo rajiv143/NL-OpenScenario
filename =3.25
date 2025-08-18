@@ -39,4 +39,5 @@ The following NEW packages will be INSTALLED:
 
 
 Proceed ([y]/n)? Invalid choice: # or via pippip install cmake# then retry datasets installation
+Proceed ([y]/n)? Invalid choice: pip install datasets==2.14.0
 Proceed ([y]/n)? 

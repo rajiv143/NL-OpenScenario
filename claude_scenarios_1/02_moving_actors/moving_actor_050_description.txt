@@ -1,0 +1,1 @@
+A magenta Prius is positioned 45 meters behind of the ego vehicle. When the ego approaches within 35 meters, the Prius begins moving at 18.1 m/s forward.

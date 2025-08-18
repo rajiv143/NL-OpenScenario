@@ -1,1 +1,1 @@
-Vehicle A (a2) is ahead in same lane, starts at 10 m/s then slows to 5 m/s. Vehicle B (prius) is behind in adjacent lane, performs stop-and-go behavior. Vehicle C (crown) is behind in adjacent lane, remaining stationary.
+A 255 vehicle is 30m ahead moving at 7.9 m/s. A 255 vehicle is 25m behind and accelerates when ego gets within 25m.

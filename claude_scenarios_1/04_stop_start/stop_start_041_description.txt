@@ -1,0 +1,1 @@
+A magenta Sprinter moves at 7.5 m/s, then stops completely for 1.0 seconds, then continues moving at 10.1 m/s.
