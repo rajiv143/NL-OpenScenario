@@ -1,0 +1,1 @@
+A pink Crossbike is positioned 45 meters behind of the ego vehicle. When the ego approaches within 25 meters, the Crossbike begins moving at 10.9 m/s forward.

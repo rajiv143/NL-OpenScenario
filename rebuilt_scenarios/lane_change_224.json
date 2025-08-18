@@ -1,0 +1,67 @@
+{
+  "scenario_name": "lane_change_224",
+  "description": "Lane change scenario 224",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "lane_changer",
+      "type": "vehicle",
+      "model": "vehicle.chevrolet.impala",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 70
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_changer",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 45,
+      "trigger_comparison": "<",
+      "speed_value": 12.303975773639698,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "lane_changer",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "lane_changer",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 11.700718499452433,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 265,
+  "timeout": 90,
+  "collision_allowed": false
+}

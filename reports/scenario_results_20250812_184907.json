@@ -1,0 +1,69 @@
+{
+  "summary": {
+    "total_scenarios": 5,
+    "execution_time": 19.0085186958313,
+    "success_rate": 0.0
+  },
+  "results": [
+    {
+      "scenario": "emergency_331",
+      "status": "FAILED",
+      "execution_time": 2.64,
+      "return_code": 1,
+      "collision_detected": false,
+      "timeout_reached": false,
+      "distance_completed": null,
+      "error": "2025-08-12 18:48:49.274687: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructi",
+      "stdout_snippet": "",
+      "stderr_snippet": "2025-08-12 18:48:49.274687: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2025-08-12 18:48:49.519245: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; d"
+    },
+    {
+      "scenario": "emergency_332",
+      "status": "FAILED",
+      "execution_time": 1.83,
+      "return_code": 1,
+      "collision_detected": false,
+      "timeout_reached": false,
+      "distance_completed": null,
+      "error": "2025-08-12 18:48:53.960749: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructi",
+      "stdout_snippet": "",
+      "stderr_snippet": "2025-08-12 18:48:53.960749: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2025-08-12 18:48:54.045748: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; d"
+    },
+    {
+      "scenario": "emergency_333",
+      "status": "FAILED",
+      "execution_time": 1.76,
+      "return_code": 1,
+      "collision_detected": false,
+      "timeout_reached": false,
+      "distance_completed": null,
+      "error": "2025-08-12 18:48:57.762156: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructi",
+      "stdout_snippet": "",
+      "stderr_snippet": "2025-08-12 18:48:57.762156: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2025-08-12 18:48:57.850512: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; d"
+    },
+    {
+      "scenario": "emergency_334",
+      "status": "FAILED",
+      "execution_time": 1.77,
+      "return_code": 1,
+      "collision_detected": false,
+      "timeout_reached": false,
+      "distance_completed": null,
+      "error": "2025-08-12 18:49:01.506463: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructi",
+      "stdout_snippet": "",
+      "stderr_snippet": "2025-08-12 18:49:01.506463: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2025-08-12 18:49:01.596703: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; d"
+    },
+    {
+      "scenario": "emergency_335",
+      "status": "FAILED",
+      "execution_time": 1.78,
+      "return_code": 1,
+      "collision_detected": false,
+      "timeout_reached": false,
+      "distance_completed": null,
+      "error": "2025-08-12 18:49:05.280509: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructi",
+      "stdout_snippet": "",
+      "stderr_snippet": "2025-08-12 18:49:05.280509: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\nTo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n2025-08-12 18:49:05.372978: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; d"
+    }
+  ]
+}

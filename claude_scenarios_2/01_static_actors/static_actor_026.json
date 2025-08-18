@@ -1,0 +1,40 @@
+{
+  "scenario_name": "static_actor_026",
+  "description": "Static actor behind - silver vehicle",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 26,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "192,192,192"
+    }
+  ],
+  "actions": [],
+  "success_distance": 100,
+  "timeout": 90,
+  "collision_allowed": false
+}

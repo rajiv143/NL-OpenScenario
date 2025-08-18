@@ -1,0 +1,40 @@
+{
+  "scenario_name": "static_actor_001",
+  "description": "Static actor ahead - red vehicle",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 10,
+            "max": 25
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [],
+  "success_distance": 100,
+  "timeout": 90,
+  "collision_allowed": false
+}

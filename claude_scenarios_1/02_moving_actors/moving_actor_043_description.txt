@@ -1,0 +1,1 @@
+A green Tt is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 25 meters, the Tt begins moving at 11.5 m/s forward.

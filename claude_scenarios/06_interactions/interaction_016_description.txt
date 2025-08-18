@@ -1,0 +1,1 @@
+Complex interaction: A white Sprinter accelerates only when both close to ego AND near a blue Prius in adjacent lane.

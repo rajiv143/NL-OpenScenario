@@ -1,0 +1,557 @@
+[
+  {
+    "test": "A blue sedan is parked 20 meters ahead of the ego vehicle",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "actor_1",
+          "type": "vehicle",
+          "model": "model_4",
+          "color": "blue",
+          "spawn": {
+            "criteria": {
+              "distance_from_ego": {
+                "max": 20
+              }
+            }
+          },
+          "trigger_type": "spawning_criteria",
+          "trigger_value": 20,
+          "trigger_compare_type": "gt",
+          "trigger_value_type": "float",
+          "trigger_condition": "is_valid"
+        }
+      ],
+      "actions": [],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A truck is stationary behind the ego at far distance",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "actor_1",
+          "type": "vehicle",
+          "model": "vehicle.truck_18wheeler_2014",
+          "spawn_criteria": {
+            "distance": 500,
+            "relative_to_ego": "behind"
+          },
+          "trigger_type": "static",
+          "trigger_value": 0.0,
+          "trigger_condition": "true"
+        }
+      ],
+      "actions": [],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle ahead starts moving at 8 m/s when ego gets within 15 meters",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "vehicle_1",
+          "type": "vehicle",
+          "model": "Tesla Model S",
+          "spawn_criteria": {
+            "lane_type": "right",
+            "lane_id": 1,
+            "distance": 50
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "vehicle_1",
+          "action": "speed_set",
+          "trigger": {
+            "event": "ego_distance_to_actor",
+            "attribute": "distance",
+            "value": 15
+          },
+          "value": 8
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A car behind ego accelerates to 15 m/s when ego approaches",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "actor_1",
+          "type": "vehicle",
+          "model": "vehicle.audi.a4",
+          "color": "white",
+          "spawn": {
+            "criteria": {
+              "distance_to_ego": {
+                "min": 20.0
+              }
+            }
+          },
+          "transform": "{\"x\": -5.0, \"y\": 0.0, \"z\": 2.4}"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "actor_1",
+          "action_type": "speed",
+          "value": 15.0
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle ahead speeds up from 5 to 12 m/s",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "Driving",
+        "lane_id": 0,
+        "z_position": -10.0,
+        "distance_to_goal": 20.0
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": 1,
+          "type": "vehicle",
+          "model": "vehicle.audi.a4",
+          "spawn": {
+            "lane_type": "Driving",
+            "lane_id": 2,
+            "z_position": -30.0,
+            "distance_to_goal": 60.0
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": 1,
+          "action_type": "move_forward",
+          "trigger": {
+            "condition": "distance_to_goal < 40.0"
+          },
+          "start_time": 0.0,
+          "duration": 2.0
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A car slows down from 15 m/s to 5 m/s gradually",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "lane_middle",
+        "lane_id": 0,
+        "z_position": -10.0
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "car",
+          "type": "vehicle",
+          "model": "vehicle.bmw3",
+          "spawn": {
+            "lane_type": "lane_middle",
+            "lane_id": 1,
+            "distance": 20.0,
+            "z_position": -10.0,
+            "speed": 15.0
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "car",
+          "action_type": "set_speed",
+          "trigger_type": "distance_to_ego",
+          "trigger_value": 20.0,
+          "trigger_operator": ">=",
+          "value": 10.0
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle moves at 10 m/s, stops for 3 seconds, then continues at 8 m/s",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "lane_type_1"
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": 0,
+          "type": "vehicle",
+          "model": "vehicle.tesla.model3",
+          "spawn": {
+            "criteria": {
+              "distance_from ego": {
+                "min": -5.0,
+                "max": 15.0
+              },
+              "lane_type": "lane_type_1"
+            }
+          },
+          "speed": 10.0,
+          "acceleration": 2.0,
+          "deceleration": 2.0,
+          "braking": false,
+          "trigger_distance": 20.0,
+          "trigger_interval": 0.0
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": 0,
+          "action": "move",
+          "speed": 10.0,
+          "duration": 2.0
+        },
+        {
+          "actor_id": 0,
+          "action": "stop",
+          "duration": 3.0
+        },
+        {
+          "actor_id": 0,
+          "action": "move",
+          "speed": 8.0,
+          "duration": 4.0
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A car ahead brakes to a stop, waits briefly, then resumes",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "driveable",
+        "lane_id": 0,
+        "z_position": -30
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "actor_1",
+          "type": "vehicle",
+          "model": "vehicle.bmw3",
+          "spawn": {
+            "lane_type": "driveable",
+            "lane_id": 2,
+            "z_position": -50
+          },
+          "trigger": {
+            "condition": "distance_to_ego < 10"
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "actor_1",
+          "action": "brake",
+          "trigger": {
+            "condition": "ego_speed > 20"
+          }
+        },
+        {
+          "actor_id": "actor_1",
+          "action": "wait",
+          "duration": 5,
+          "trigger": {
+            "condition": "ego_speed <= 10"
+          }
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Two cars ahead: one moving slowly at 5 m/s, another overtaking at 15 m/s",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "road",
+        "lane_id": 0,
+        "z_position": -20.0
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": 1,
+          "type": "vehicle",
+          "model": "Toyota Camry",
+          "spawn": {
+            "lane_type": "road",
+            "lane_id": 2,
+            "distance_to_ego": 10.0,
+            "relative_position_x": -3.0,
+            "relative_position_z": 0.0
+          },
+          "speed": 5.0,
+          "trigger_type": "constant_distance",
+          "trigger_value": 10.0
+        },
+        {
+          "id": 2,
+          "type": "vehicle",
+          "model": "BMW 3 Series",
+          "spawn": {
+            "lane_type": "road",
+            "lane_id": 2,
+            "distance_to_ego": 25.0,
+            "relative_position_x": 6.0,
+            "relative_position_z": 0.0
+          },
+          "speed": 15.0,
+          "trigger_type": "constant_speed",
+          "trigger_min_speed": 15.0
+        }
+      ],
+      "actions": [],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Three vehicles: one ahead static, one behind moving, one in adjacent lane",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "lane_type.id_0",
+        "lane_index": 1,
+        "z": 30
+      },
+      "ego_start_speed": 0,
+      "actors": [],
+      "actions": [
+        {
+          "action": "move_forward",
+          "duration": 5
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle cuts in from the adjacent lane when ego approaches",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "road",
+        "lane_id": 1,
+        "z": -40,
+        "trigger_distance": 10
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "actor_0",
+          "type": "vehicle",
+          "model": "vehicle.fordfocus",
+          "spawn": {
+            "lane_type": "adjacent_lane",
+            "lane_id": 2,
+            "z": -50,
+            "distance_to_ego": {
+              "min": 20,
+              "max": 30
+            }
+          },
+          "trigger_distance": 15,
+          "speed": 30
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "actor_0",
+          "action": "steer_right",
+          "time_from_trigger": 2
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Two vehicles ahead maintain safe following distance while decelerating",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "blue_car_stops_001",
+      "description": "Blue car ahead of ego stops suddenly",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "lane_type": "main",
+        "lane_id": 1,
+        "z_position": -40.0
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "vehicle_1",
+          "type": "vehicle",
+          "model": "Tesla Model S",
+          "spawn": {
+            "lane_type": "main",
+            "lane_id": 2,
+            "distance_to_ego": 20.0,
+            "z_position": -30.0
+          }
+        },
+        {
+          "id": "vehicle_2",
+          "type": "vehicle",
+          "model": "Toyota Camry",
+          "spawn": {
+            "lane_type": "main",
+            "lane_id": 3,
+            "distance_to_ego": 15.0,
+            "z_position": -25.0
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "vehicle_1",
+          "action": "speed_set",
+          "value": 60.0
+        },
+        {
+          "actor_id": "vehicle_2",
+          "action": "speed_set",
+          "value": 55.0
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  }
+]

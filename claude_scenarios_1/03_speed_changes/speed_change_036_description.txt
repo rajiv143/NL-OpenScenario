@@ -1,0 +1,1 @@
+A purple Sprinter initially moves at 6.9 m/s, then changes to 14.2 m/s after the first action completes.

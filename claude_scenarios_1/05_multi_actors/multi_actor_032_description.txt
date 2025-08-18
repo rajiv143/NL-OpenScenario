@@ -1,0 +1,1 @@
+A 0 vehicle is 30m ahead moving at 6.2 m/s. A 0 vehicle is 25m behind and accelerates when ego gets within 25m.

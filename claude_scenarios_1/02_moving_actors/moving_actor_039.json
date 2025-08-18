@@ -1,0 +1,53 @@
+{
+  "scenario_name": "moving_actor_039",
+  "description": "Moving actor triggered by proximity - black fast speed",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 15.3,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 90,
+  "collision_allowed": false
+}

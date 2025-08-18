@@ -1,0 +1,43 @@
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/user/anaconda3_new/envs/llama-training
+
+  added / updated specs:
+    - cmake
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    c-ares-1.19.1              |       h5eee18b_0         118 KB
+    cmake-3.31.2               |       h27e300b_0        20.9 MB
+    libcurl-8.14.1             |       hc1efc7f_1         498 KB
+    libev-4.33                 |       h516909a_1         104 KB  conda-forge
+    libnghttp2-1.57.0          |       h2d74bed_0         674 KB
+    libssh2-1.11.1             |       h251f7ec_0         308 KB
+    libuv-1.48.0               |       h5eee18b_0         950 KB
+    rhash-1.4.3                |       hdbd6064_0         220 KB
+    ------------------------------------------------------------
+                                           Total:        23.7 MB
+
+The following NEW packages will be INSTALLED:
+
+  c-ares             pkgs/main/linux-64::c-ares-1.19.1-h5eee18b_0
+  cmake              pkgs/main/linux-64::cmake-3.31.2-h27e300b_0
+  libcurl            pkgs/main/linux-64::libcurl-8.14.1-hc1efc7f_1
+  libev              conda-forge/linux-64::libev-4.33-h516909a_1
+  libnghttp2         pkgs/main/linux-64::libnghttp2-1.57.0-h2d74bed_0
+  libssh2            pkgs/main/linux-64::libssh2-1.11.1-h251f7ec_0
+  libuv              pkgs/main/linux-64::libuv-1.48.0-h5eee18b_0
+  lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1
+  rhash              pkgs/main/linux-64::rhash-1.4.3-hdbd6064_0
+  zstd               pkgs/main/linux-64::zstd-1.5.6-hc292b87_0
+
+
+Proceed ([y]/n)? Invalid choice: # or via pippip install cmake# then retry datasets installation
+Proceed ([y]/n)? Invalid choice: pip install datasets==2.14.0
+Proceed ([y]/n)? 

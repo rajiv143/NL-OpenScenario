@@ -1,0 +1,1 @@
+A cyan Crossbike moves at 10.9 m/s, then stops completely for 4.0 seconds, then continues moving at 11.1 m/s.

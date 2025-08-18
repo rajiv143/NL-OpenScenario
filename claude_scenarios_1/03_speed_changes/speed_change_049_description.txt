@@ -1,0 +1,1 @@
+A purple Patrol initially moves at 3.1 m/s, then changes to 10.6 m/s after the first action completes.

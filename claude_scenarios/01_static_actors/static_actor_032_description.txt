@@ -1,0 +1,1 @@
+A purple Crossbike is parked 35 meters behind of the ego vehicle. It remains completely stationary throughout the scenario.

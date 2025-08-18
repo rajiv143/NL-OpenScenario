@@ -1,0 +1,1 @@
+A yellow Crown is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 30 meters, the Crown begins moving at 13.9 m/s forward.

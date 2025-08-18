@@ -1,0 +1,1 @@
+A green Low Rider initially moves at 13.9 m/s, then changes to 6.6 m/s after the first action completes.

@@ -1,0 +1,1 @@
+When a black Impala ahead slows down, a orange Crossbike also reduces speed in response.

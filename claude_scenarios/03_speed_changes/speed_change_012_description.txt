@@ -1,0 +1,1 @@
+A cyan Grandtourer initially moves at 14.2 m/s, then changes to 7.9 m/s after the first action completes.

@@ -1,0 +1,65 @@
+{
+  "scenario_name": "speed_change_027",
+  "description": "Speed change scenario - fast to slow",
+  "weather": "wet_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 13.8,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "=",
+      "speed_value": 6.6,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 100,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Complex interaction: A green Impala accelerates only when both close to ego AND near a cyan Sprinter in adjacent lane.

@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,14 +21,11 @@
       "model": "vehicle.audi.a2",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 42.0,
-            "max": 110
+            "min": 85,
+            "max": 115
           },
-          "relative_position": "behind",
-          "road_relationship": "same_road",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "behind"
         }
       },
       "color": "128,0,255"
@@ -39,14 +36,11 @@
       "model": "vehicle.yamaha.yzf",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 56.0,
-            "max": 130
+            "min": 105,
+            "max": 135
           },
-          "relative_position": "behind",
-          "road_relationship": "same_road",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "behind"
         }
       },
       "color": "128,0,255"
@@ -57,14 +51,11 @@
       "model": "vehicle.bmw.grandtourer",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 28.0,
-            "max": 90
+            "min": 65,
+            "max": 95
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane",
-          "road_relationship": "same_road"
+          "relative_position": "ahead"
         }
       }
     }
@@ -117,7 +108,7 @@
       "dynamics_value": 3.5
     }
   ],
-  "success_distance": 250,
-  "timeout": 150,
+  "success_distance": 80,
+  "timeout": 60,
   "collision_allowed": false
 }

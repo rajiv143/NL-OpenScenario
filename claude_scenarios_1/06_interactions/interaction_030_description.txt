@@ -1,0 +1,1 @@
+A yellow Sprinter follows 20m behind ego, matching ego speed.

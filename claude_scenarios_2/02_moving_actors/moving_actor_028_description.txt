@@ -1,0 +1,1 @@
+A silver Prius is positioned 45 meters behind of the ego vehicle. When the ego approaches within 25 meters, the Prius begins moving at 11.7 m/s forward.

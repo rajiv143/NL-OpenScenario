@@ -1,0 +1,1 @@
+A white Prius is parked 35 meters ahead of the ego vehicle. It remains completely stationary throughout the scenario.

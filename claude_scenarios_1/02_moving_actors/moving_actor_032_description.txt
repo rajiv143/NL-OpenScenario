@@ -1,0 +1,1 @@
+A yellow Tt is positioned 45 meters behind of the ego vehicle. When the ego approaches within 20 meters, the Tt begins moving at 7.7 m/s forward.

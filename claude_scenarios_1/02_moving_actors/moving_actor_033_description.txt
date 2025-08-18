@@ -1,0 +1,1 @@
+A orange Patrol is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 25 meters, the Patrol begins moving at 9.6 m/s forward.

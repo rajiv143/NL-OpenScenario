@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,11 @@
       "model": "vehicle.bmw.grandtourer",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 35,
-            "max": 65
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       }
     },
@@ -37,13 +35,11 @@
       "model": "vehicle.bmw.grandtourer",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 42,
-            "max": 72
+            "min": 65,
+            "max": 95
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       }
     }
@@ -78,7 +74,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 150,
-  "timeout": 146,
+  "success_distance": 70,
+  "timeout": 60,
   "collision_allowed": false
 }

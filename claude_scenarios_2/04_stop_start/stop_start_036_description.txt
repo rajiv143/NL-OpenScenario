@@ -1,0 +1,1 @@
+A yellow Crossbike moves at 11.4 m/s, then stops completely for 1.0 seconds, then continues moving at 15.7 m/s.

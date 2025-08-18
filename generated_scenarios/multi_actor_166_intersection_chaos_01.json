@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,15 +21,13 @@
       "model": "vehicle.ford.crown",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
-          "distance_to_ego": {
-            "min": 28.0,
-            "max": 90
-          },
-          "relative_position": "ahead",
           "road_relationship": "different_road",
           "is_intersection": true,
-          "lane_relationship": "any"
+          "distance_to_ego": {
+            "min": 65,
+            "max": 95
+          },
+          "relative_position": "ahead"
         }
       }
     },
@@ -39,15 +37,13 @@
       "model": "vehicle.carlamotors.european_hgv",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
-          "distance_to_ego": {
-            "min": 24.5,
-            "max": 85
-          },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane",
           "road_relationship": "different_road",
-          "is_intersection": true
+          "is_intersection": true,
+          "distance_to_ego": {
+            "min": 60,
+            "max": 90
+          },
+          "relative_position": "ahead"
         }
       }
     },
@@ -57,15 +53,14 @@
       "model": "walker.pedestrian.0030",
       "spawn": {
         "criteria": {
-          "lane_type": "Sidewalk",
-          "distance_to_ego": {
-            "min": 12,
-            "max": 42
-          },
-          "road_relationship": "different_road",
           "is_intersection": true,
-          "lane_type_fallback": "Driving",
-          "lateral_offset": 3.0
+          "distance_to_ego": {
+            "min": 45,
+            "max": 75
+          },
+          "lane_type": "Sidewalk",
+          "lateral_offset": 3.0,
+          "road_relationship": "different_road"
         }
       }
     }
@@ -115,7 +110,7 @@
       "dynamics_value": 2.0
     }
   ],
-  "success_distance": 250,
-  "timeout": 150,
+  "success_distance": 100,
+  "timeout": 60,
   "collision_allowed": false
 }

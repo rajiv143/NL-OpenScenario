@@ -1,0 +1,1 @@
+A cyan Low Rider is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 30 meters, the Low Rider begins moving at 15.0 m/s forward.

@@ -1,0 +1,1 @@
+A yellow Yzf initially moves at 10.0 m/s, then changes to 3.5 m/s after the first action completes.

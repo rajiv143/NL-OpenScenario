@@ -1,0 +1,1 @@
+A purple Impala is positioned 45 meters behind of the ego vehicle. When the ego approaches within 30 meters, the Impala begins moving at 15.9 m/s forward.

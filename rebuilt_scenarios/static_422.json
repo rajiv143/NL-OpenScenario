@@ -1,0 +1,40 @@
+{
+  "scenario_name": "static_422",
+  "description": "Static obstacle scenario 422",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "parked_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 80
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

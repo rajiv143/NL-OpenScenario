@@ -1,0 +1,1 @@
+A red Grandtourer is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 30 meters, the Grandtourer begins moving at 15.9 m/s forward.

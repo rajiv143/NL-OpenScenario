@@ -1,0 +1,1 @@
+A gray Tt moves at 6.5 m/s, then stops completely for 1.0 seconds, then continues moving at 6.0 m/s.

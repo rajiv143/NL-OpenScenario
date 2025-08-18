@@ -1,0 +1,1 @@
+A green Patrol is parked 17 meters behind of the ego vehicle. It remains completely stationary throughout the scenario.

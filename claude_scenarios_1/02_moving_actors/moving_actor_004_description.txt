@@ -1,0 +1,1 @@
+A green Crossbike is positioned 45 meters behind of the ego vehicle. When the ego approaches within 30 meters, the Crossbike begins moving at 15.5 m/s forward.

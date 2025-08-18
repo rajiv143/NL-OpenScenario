@@ -1,0 +1,1 @@
+A gray Grandtourer is positioned 45 meters behind of the ego vehicle. When the ego approaches within 35 meters, the Grandtourer begins moving at 20.0 m/s forward.

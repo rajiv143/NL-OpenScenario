@@ -1,0 +1,1 @@
+Complex interaction: A yellow Grandtourer accelerates only when both close to ego AND near a white Crossbike in adjacent lane.

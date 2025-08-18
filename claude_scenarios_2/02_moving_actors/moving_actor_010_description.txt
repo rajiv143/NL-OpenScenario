@@ -1,0 +1,1 @@
+A cyan Tt is positioned 45 meters behind of the ego vehicle. When the ego approaches within 35 meters, the Tt begins moving at 19.2 m/s forward.

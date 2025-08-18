@@ -1,0 +1,1 @@
+A green Impala initially moves at 7.6 m/s, then changes to 15.9 m/s after the first action completes.

@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,14 +21,12 @@
       "model": "vehicle.ford.ambulance",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
-          "distance_to_ego": {
-            "min": 28.0,
-            "max": 90
-          },
-          "relative_position": "ahead",
           "road_relationship": "same_road",
-          "lane_relationship": "any"
+          "distance_to_ego": {
+            "min": 65,
+            "max": 95
+          },
+          "relative_position": "ahead"
         }
       },
       "color": "255,0,255"
@@ -53,7 +51,7 @@
       "dynamics_value": 1.5
     }
   ],
-  "success_distance": 150,
+  "success_distance": 60,
   "timeout": 90,
   "collision_allowed": false
 }

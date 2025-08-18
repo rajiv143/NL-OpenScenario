@@ -1,0 +1,1 @@
+A cyan Patrol initially moves at 10.2 m/s, then changes to 3.2 m/s after the first action completes.

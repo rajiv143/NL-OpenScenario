@@ -1,0 +1,1 @@
+A magenta Impala initially moves at 3.4 m/s, then changes to 11.5 m/s after the first action completes.

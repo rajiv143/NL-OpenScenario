@@ -1,0 +1,1 @@
+A magenta Crossbike is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 20 meters, the Crossbike begins moving at 7.7 m/s forward.

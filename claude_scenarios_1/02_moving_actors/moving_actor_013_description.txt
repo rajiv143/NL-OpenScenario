@@ -1,0 +1,1 @@
+A black Cooper S is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 25 meters, the Cooper S begins moving at 10.8 m/s forward.

@@ -43,6 +43,13 @@ CARLA_VEHICLES = {
 
 CARLA_PEDESTRIANS = {f'walker.pedestrian.{i:04d}' for i in range(1, 52)}
 
+# Bicycle models that don't support lane changes
+BICYCLE_MODELS = {
+    'vehicle.bh.crossbike', 
+    'vehicle.diamondback.century', 
+    'vehicle.gazelle.omafiets'
+}
+
 CARLA_MAPS = {
     'Town01', 'Town02', 'Town03', 'Town04', 'Town05'
 }
@@ -700,8 +707,10 @@ class JsonToXoscConverter:
             
             if actor['type'] in ['vehicle', 'cyclist']:
                 vehicle = ET.SubElement(obj, 'Vehicle')
-                vehicle.set('name', actor['model'])
-                vehicle.set('vehicleCategory', 'bicycle' if actor['type'] == 'cyclist' else 'car')
+                # Fix vehicle model for lane change scenarios - bicycles can't do lane changes
+                model = self._fix_vehicle_model_for_actions(actor, data)
+                vehicle.set('name', model)
+                vehicle.set('vehicleCategory', 'bicycle' if actor['type'] == 'cyclist' and 'bicycle' in model else 'car')
                 
                 # Copy standard vehicle elements
                 ET.SubElement(vehicle, 'ParameterDeclarations')
@@ -714,10 +723,11 @@ class JsonToXoscConverter:
                 prop.set('name', 'type')
                 prop.set('value', 'simulation')
                 
-                if 'color' in actor:
-                    color_prop = ET.SubElement(props, 'Property')
-                    color_prop.set('name', 'color')
-                    color_prop.set('value', actor['color'])
+                # Add color property - use specified color or default white
+                color_value = actor.get('color', '255,255,255')  # Default white
+                color_prop = ET.SubElement(props, 'Property')
+                color_prop.set('name', 'color')
+                color_prop.set('value', color_value)
                     
             elif actor['type'] == 'pedestrian':
                 ped = ET.SubElement(obj, 'Pedestrian')
@@ -749,6 +759,26 @@ class JsonToXoscConverter:
                 prop.set('value', 'simulation')
         
         return entities
+    
+    def _fix_vehicle_model_for_actions(self, actor: Dict, data: Dict[str, Any]) -> str:
+        """Fix vehicle model for compatibility with planned actions"""
+        original_model = actor.get('model', 'vehicle.toyota.prius')
+        
+        # Check if this actor has lane change actions
+        has_lane_change = False
+        for action in data.get('actions', []):
+            if (action.get('actor_id') == actor['id'] and 
+                action.get('action_type') == 'lane_change'):
+                has_lane_change = True
+                break
+        
+        # If actor has lane change actions but is a bicycle/motorcycle, replace with car
+        if has_lane_change and any(bike_type in original_model.lower() for bike_type in 
+                                  ['crossbike', 'bicycle', 'ninja', 'harley', 'vespa', 'yamaha']):
+            self.logger.info(f"Replacing bicycle/motorcycle {original_model} with car for lane change compatibility")
+            return 'vehicle.toyota.prius'  # Safe default car model
+        
+        return original_model
     
     def log_spawn_details(self, ego_spawn: Dict, actor_spawns: List[Dict]):
         """Log spawn positions for debugging"""
@@ -798,11 +828,83 @@ class JsonToXoscConverter:
         
         print("=" * 40)
 
+    def _detect_scenario_type(self, scenario_name: str) -> str:
+        """Detect the scenario type from the name"""
+        # Handle case where we get a dict instead of string
+        if isinstance(scenario_name, dict):
+            scenario_name = scenario_name.get('scenario_name', '')
+        name_lower = scenario_name.lower()
+        if 'cut_in' in name_lower or 'cut-in' in name_lower or 'lane_change' in name_lower:
+            return 'cut_in'
+        elif 'following' in name_lower or 'follow' in name_lower:
+            return 'following'
+        elif 'brake' in name_lower and 'sudden' in name_lower:
+            return 'sudden_brake'
+        elif 'slowdown' in name_lower or 'gradual' in name_lower:
+            return 'gradual_slowdown'
+        elif 'parked' in name_lower:
+            return 'parked_vehicle'
+        elif 'pedestrian' in name_lower or 'crossing' in name_lower:
+            return 'pedestrian'
+        elif 'intersection' in name_lower or 'junction' in name_lower:
+            return 'intersection'
+        else:
+            return 'general'
+    
+    def _enforce_minimum_distance(self, criteria: Dict[str, Any], scenario_type: str, actor_type: str = '') -> Dict[str, Any]:
+        """Enforce minimum distance constraints based on scenario type"""
+        MIN_DISTANCES = {
+            'cut_in': 25,
+            'following': 20,
+            'gradual_slowdown': 20,
+            'sudden_brake': 20,
+            'parked_vehicle': 15,
+            'pedestrian': 10,
+            'intersection': 30,
+            'general': 10
+        }
+        
+        min_d = MIN_DISTANCES.get(scenario_type, 10)
+        
+        # Special handling for pedestrians
+        if 'pedestrian' in actor_type.lower():
+            min_d = max(min_d, 10)  # At least 10m for pedestrians
+        
+        # Get or create distance constraints
+        dist_constraint = criteria.setdefault('distance_to_ego', {})
+        
+        # Get current min/max values
+        current_min = dist_constraint.get('min', min_d)
+        current_max = dist_constraint.get('max', min_d * 3)
+        
+        # Enforce minimum distance
+        if current_min < min_d:
+            self.logger.info(f"Enforcing minimum distance for {scenario_type}: {current_min}m -> {min_d}m")
+            dist_constraint['min'] = min_d
+        
+        # Ensure max is reasonable relative to min
+        if current_max < dist_constraint.get('min', min_d) * 2:
+            new_max = dist_constraint.get('min', min_d) * 3
+            self.logger.info(f"Adjusting maximum distance for {scenario_type}: {current_max}m -> {new_max}m")
+            dist_constraint['max'] = new_max
+        
+        # Cap pedestrian max distance to 50m
+        if 'pedestrian' in actor_type.lower() and dist_constraint.get('max', 0) > 50:
+            self.logger.info(f"Capping pedestrian spawn distance to 50m (was {dist_constraint['max']}m)")
+            dist_constraint['max'] = 50
+        
+        return criteria
+
     def _fix_spawn_criteria(self, criteria: Dict[str, Any], actor: Dict[str, Any], scenario_data: Dict[str, Any]) -> Dict[str, Any]:
         """Apply intelligent fixes to spawn criteria to prevent common issues"""
         fixed_criteria = criteria.copy()
         scenario_name = scenario_data.get('scenario_name', '').lower()
         actor_type = actor.get('type', '')
+        
+        # Detect scenario type and enforce minimum distances
+        scenario_type = self._detect_scenario_type(scenario_name)
+        fixed_criteria = self._enforce_minimum_distance(fixed_criteria, scenario_type, actor_type)
+        self.logger.debug(f"Enforced minimum distance for {scenario_type} scenario: {fixed_criteria.get('distance_to_ego', {})}")
         
         # Fix 1: Cut-in scenarios - ensure actors spawn ahead, not alongside
         if ('cut_in' in scenario_name or 'lane_change' in scenario_name or 
@@ -836,20 +938,8 @@ class JsonToXoscConverter:
             if 'relative_position' not in fixed_criteria:
                 fixed_criteria['relative_position'] = 'perpendicular'  # or 'crossing'
         
-        # Fix 3: Pedestrian distance constraints
-        if 'pedestrian' in actor_type.lower():
-            self.logger.debug(f"Applying pedestrian distance limits for {actor['id']}")
-            
-            # Pedestrians shouldn't spawn more than 50m away
-            if 'distance_to_ego' in fixed_criteria:
-                max_dist = fixed_criteria['distance_to_ego'].get('max', 100)
-                fixed_criteria['distance_to_ego']['max'] = min(max_dist, 50)
-                
-                # Also ensure minimum reasonable distance
-                min_dist = fixed_criteria['distance_to_ego'].get('min', 10)
-                fixed_criteria['distance_to_ego']['min'] = max(min_dist, 10)
-            else:
-                fixed_criteria['distance_to_ego'] = {'min': 10, 'max': 50}
+        # Fix 3: Pedestrian distance constraints (already handled by enforce_minimum_distance)
+        # Keep this for additional pedestrian-specific logic if needed
         
         # Fix 4: Following scenarios - ensure proper distance and same road
         if ('following' in scenario_name or 'brake' in scenario_name or 
@@ -857,13 +947,12 @@ class JsonToXoscConverter:
             
             self.logger.debug(f"Applying following scenario fixes for {actor['id']}")
             
-            # Force same road for following scenarios
+            # Force same road AND same lane for following scenarios
             fixed_criteria['road_relationship'] = 'same_road'
+            fixed_criteria['lane_relationship'] = 'same_lane'  # Critical for following scenarios!
             fixed_criteria['relative_position'] = 'ahead'
             
-            # Reasonable following distance
-            if 'distance_to_ego' not in fixed_criteria:
-                fixed_criteria['distance_to_ego'] = {'min': 15, 'max': 40}
+            # Distance already handled by enforce_minimum_distance
         
         # Fix 5: General distance constraints to prevent extreme spawns
         if 'distance_to_ego' in fixed_criteria:
@@ -875,8 +964,9 @@ class JsonToXoscConverter:
                 self.logger.warning(f"Capping excessive spawn distance for {actor['id']}: {max_dist}m -> 200m")
                 fixed_criteria['distance_to_ego']['max'] = 200
             
-            # Ensure minimum distance for safety
+            # Ensure absolute minimum distance for safety (5m regardless of scenario)
             if min_dist < 5:
+                self.logger.warning(f"Enforcing absolute minimum distance of 5m for {actor['id']} (was {min_dist}m)")
                 fixed_criteria['distance_to_ego']['min'] = 5
         
         # Log changes if any were made
@@ -914,7 +1004,7 @@ class JsonToXoscConverter:
         
         if 'ego_spawn' in data:
             crit = data['ego_spawn'].get('criteria', {})
-            x,y,z,yaw = self._choose_spawn(map_name, crit)
+            x,y,z,yaw = self._choose_strategic_ego_spawn(data, map_name, crit)
             meta = self._last_pick
             if meta:
                 self._ego_lane = (meta.get('road_id'), meta.get('lane_id'))
@@ -951,6 +1041,19 @@ class JsonToXoscConverter:
             else:
                 elem.set('value', '0')
             elem.set('active', 'false')
+        
+        # Add initial speed action for ego if start speed is specified
+        ego_start_speed = data.get('ego_start_speed', 0)
+        if ego_start_speed > 0:
+            speed_action = ET.SubElement(ego_private, 'PrivateAction')
+            long_action = ET.SubElement(speed_action, 'LongitudinalAction')
+            speed_elem = ET.SubElement(long_action, 'SpeedAction')
+            dynamics = ET.SubElement(speed_elem, 'SpeedActionDynamics')
+            dynamics.set('dynamicsDimension', 'time')
+            dynamics.set('dynamicsShape', 'step')
+            dynamics.set('value', '1.0')
+            target = ET.SubElement(speed_elem, 'SpeedActionTarget')
+            ET.SubElement(target, 'AbsoluteTargetSpeed', {'value': str(ego_start_speed)})
         
         # Other actors positions
         actor_spawns = []
@@ -1035,6 +1138,21 @@ class JsonToXoscConverter:
 
             # iterate and chain events
             for i, action in enumerate(actions):
+                # Check for bicycle lane change incompatibility
+                atype = action['action_type']
+                if atype == 'lane_change':
+                    # Find the actor model to check if it's a bicycle
+                    actor_model = None
+                    for actor in data.get('actors', []):
+                        if actor['id'] == actor_id:
+                            actor_model = actor['model']
+                            break
+                    
+                    # Prevent bicycles from doing lane changes
+                    if actor_model in BICYCLE_MODELS:
+                        self.logger.warning(f"Skipping lane_change action for bicycle {actor_id} ({actor_model}) - not supported")
+                        continue  # Skip this action entirely
+                
                 ev_name = f"{actor_id}Event{i}"
                 ac_name = f"{actor_id}Action{i}"
 
@@ -1046,26 +1164,46 @@ class JsonToXoscConverter:
                 pa = ET.SubElement(ac, 'PrivateAction')
 
                 # --- build the PrivateAction body ---
-                atype = action['action_type']
                 if atype == 'wait':
+                    # Implement wait as maintaining current speed for a duration
                     la = ET.SubElement(pa, 'LongitudinalAction')
                     sa = ET.SubElement(la, 'SpeedAction')
+                    
+                    # Wait duration with minimum
+                    wait_duration = max(action.get('wait_duration', 2.0), 0.5)  # Minimum 0.5 seconds
+                    
                     ET.SubElement(sa, 'SpeedActionDynamics', {
-                        'dynamicsDimension': action.get('dynamics_dimension','time'),
-                        'dynamicsShape':     action.get('dynamics_shape','step'),
-                        'value':             str(action.get('wait_duration',0))
+                        'dynamicsDimension': 'time',
+                        'dynamicsShape':     'step',  # Instant to current speed
+                        'value':             '0.1'  # Very quick transition
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
-                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value':'0'})
+                    # Use RelativeTargetSpeed to maintain current speed
+                    ET.SubElement(tgt, 'RelativeTargetSpeed', {
+                        'entityRef': actor_id,
+                        'value': '0',  # No change in speed
+                        'speedTargetValueType': 'delta',
+                        'continuous': 'true'  # Required attribute for OpenSCENARIO
+                    })
 
                 elif atype in ('speed','stop'):
                     la = ET.SubElement(pa, 'LongitudinalAction')
                     sa = ET.SubElement(la, 'SpeedAction')
                     speed_val = 0 if atype=='stop' else action.get('speed_value',0)
+                    
+                    # Ensure minimum duration for sequential timing
+                    dynamics_value = action.get('dynamics_value', 2.0)
+                    dynamics_dimension = action.get('dynamics_dimension', 'time')
+                    dynamics_shape = action.get('dynamics_shape', 'linear')  # Changed from 'step' for smoother transitions
+                    
+                    # Apply minimum durations to prevent instant completion
+                    if dynamics_dimension == 'time' and dynamics_value < 0.5:
+                        dynamics_value = 0.5  # Minimum 0.5 seconds
+                    
                     ET.SubElement(sa, 'SpeedActionDynamics', {
-                        'dynamicsDimension': action.get('dynamics_dimension','time'),
-                        'dynamicsShape':     action.get('dynamics_shape','step'),
-                        'value':             str(action.get('dynamics_value',0))
+                        'dynamicsDimension': dynamics_dimension,
+                        'dynamicsShape':     dynamics_shape,
+                        'value':             str(dynamics_value)
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
                     ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value': str(speed_val)})
@@ -1073,15 +1211,35 @@ class JsonToXoscConverter:
                 elif atype == 'lane_change':
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')
+                    
+                    # Ensure minimum duration for lane changes
+                    dynamics_value = action.get('dynamics_value', 2.5)
+                    dynamics_dimension = action.get('dynamics_dimension', 'time')
+                    dynamics_shape = action.get('dynamics_shape', 'linear')
+                    
+                    # Apply minimum durations for lane changes
+                    if dynamics_dimension == 'time' and dynamics_value < 1.0:
+                        dynamics_value = 1.0  # Minimum 1 second for lane change
+                    elif dynamics_dimension == 'distance' and dynamics_value < 10.0:
+                        dynamics_value = 10.0  # Minimum 10 meters for lane change
+                    
                     ET.SubElement(lc, 'LaneChangeActionDynamics', {
-                        'dynamicsDimension':'distance',
-                        'dynamicsShape':    'linear',
-                        'value':            str(action.get('dynamics_value',1))
+                        'dynamicsDimension': dynamics_dimension,
+                        'dynamicsShape':     dynamics_shape,
+                        'value':            str(dynamics_value)
                     })
                     tgt = ET.SubElement(lc, 'LaneChangeTarget')
+                    # For CARLA, we need to use RelativeTargetLane with a different entity as reference
+                    # Since we want the actor to change lanes relative to its current position,
+                    # we'll use the ego vehicle as a reference point if the actor is alongside or behind
+                    # Otherwise, we can use AbsoluteTargetLane if we know the target lane
+                    lane_value = -1 if action.get('lane_direction')=='left' else 1
+                    
+                    # Use RelativeTargetLane with ego as reference
+                    # This works when the actor changes lanes relative to where ego is
                     ET.SubElement(tgt, 'RelativeTargetLane', {
-                        'entityRef': 'hero' if actor_id=='ego' else actor_id,
-                        'value':     '-1' if action.get('lane_direction')=='left' else '1'
+                        'entityRef': 'hero',  # Use ego as reference entity
+                        'value':     str(lane_value)
                     })
 
                 # --- StartTrigger under this Event ---
@@ -1119,8 +1277,13 @@ class JsonToXoscConverter:
                     })
 
                 elif ttype=='after_previous':
-                    # chain on previous action completion
+                    # chain on previous action completion with small delay
                     prev_ref = f"{actor_id}Action{i-1}"
+                    
+                    # Add small delay to prevent immediate firing after previous action
+                    trigger_delay = str(action.get('delay', 0.2))  # 200ms default delay
+                    cond.set('delay', trigger_delay)
+                    
                     bv = ET.SubElement(cond, 'ByValueCondition')
                     ET.SubElement(bv, 'StoryboardElementStateCondition', {
                         'storyboardElementType': 'action',
@@ -1128,15 +1291,25 @@ class JsonToXoscConverter:
                         'state':                 'completeState'
                     })
 
-        # --- Act-level StartTrigger ---
+        # --- Act-level StartTrigger: Wait for ego movement ---
         ast = ET.SubElement(act, 'StartTrigger')
         acg = ET.SubElement(ast, 'ConditionGroup')
         aco = ET.SubElement(acg, 'Condition', {
-            'name':'OverallStartCondition','delay':'0','conditionEdge':'rising'
+            'name': 'OverallStartCondition',
+            'delay': '0.5',  # Small delay to ensure ego is ready
+            'conditionEdge': 'rising'
         })
-        bv = ET.SubElement(aco, 'ByValueCondition')
-        ET.SubElement(bv, 'SimulationTimeCondition', {
-            'value':'0','rule':'greaterThan'
+        
+        # Wait for ego to start moving (speed > 1 m/s)
+        be = ET.SubElement(aco, 'ByEntityCondition')
+        te = ET.SubElement(be, 'TriggeringEntities', {
+            'triggeringEntitiesRule': 'any'
+        })
+        ET.SubElement(te, 'EntityRef', {'entityRef': 'hero'})
+        ec = ET.SubElement(be, 'EntityCondition')
+        ET.SubElement(ec, 'SpeedCondition', {
+            'value': '1.0',
+            'rule': 'greaterThan'
         })
 
         # --- Act-level StopTrigger: only driven distance ---
@@ -1158,8 +1331,12 @@ class JsonToXoscConverter:
         scg2 = ET.SubElement(sbt, 'ConditionGroup')
         # Add criteria conditions
 
-        criteria = ['RunningStopTest', 'RunningRedLightTest', 'WrongLaneTest', 
-                   'OnSidewalkTest', 'KeepLaneTest', 'CollisionTest', 'DrivenDistanceTest']
+        # Only include essential criteria that work reliably with ScenarioRunner
+        criteria = ['DrivenDistanceTest']  # Only keep the distance-based success criterion
+        
+        # Add collision test only if explicitly allowed in scenario
+        if not data.get('collision_allowed', True):  # If collisions are NOT allowed
+            criteria.append('CollisionTest')
         
         for criterion in criteria:
             crit_cond = ET.SubElement(scg2, 'Condition')
@@ -1170,12 +1347,15 @@ class JsonToXoscConverter:
             param_cond = ET.SubElement(crit_by_value, 'ParameterCondition')
             
             if criterion == 'DrivenDistanceTest':
+                # Distance-based success criterion - scenario succeeds when ego travels this distance
                 param_cond.set('parameterRef', 'distance_success')
-                param_cond.set('value', str(data.get('success_distance', 100)))
-            else:
-                param_cond.set('parameterRef', '')
-                param_cond.set('value', '')
-            param_cond.set('rule', 'lessThan')
+                param_cond.set('value', str(data.get('success_distance', 200)))
+                param_cond.set('rule', 'greaterThan')  # Changed to greaterThan for success condition
+            elif criterion == 'CollisionTest':
+                # Collision test - scenario fails if collision occurs
+                param_cond.set('parameterRef', 'collision_count')
+                param_cond.set('value', '0')  # No collisions allowed
+                param_cond.set('rule', 'greaterThan')  # Fails if collision_count > 0
 
         return sb
 
@@ -1248,9 +1428,26 @@ class JsonToXoscConverter:
         # Use fallback strategy if no matches
         final_candidates = self._apply_fallback_strategy(filtered_candidates, candidates, pts, crit, ego_pos, ego_lane)
         
+        # Filter out candidates that are too close to ego (< 5m)
+        if ego_pos and final_candidates:
+            safe_candidates = []
+            for pt in final_candidates:
+                dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                if dist >= 5.0:  # Minimum 5m distance from ego
+                    safe_candidates.append(pt)
+                else:
+                    self.logger.warning(f"Rejecting spawn at distance {dist:.1f}m from ego (too close)")
+            final_candidates = safe_candidates
+        
         # Score and select best spawn point
         if not final_candidates:
-            raise ValidationError(f"No spawn in {map_name} matches criteria {crit} even with fallbacks")
+            # Provide detailed error message to help debug the issue
+            error_msg = f"No valid spawn points found for actor in map {map_name}. "
+            if ego_pos:
+                error_msg += f"All candidate spawns were too close to ego (< 5m). "
+            error_msg += f"Criteria: {crit}. "
+            error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
+            raise RuntimeError(error_msg)
         
         if len(final_candidates) == 1:
             pick = final_candidates[0]
@@ -1416,6 +1613,89 @@ class JsonToXoscConverter:
         # Step 4: Score and select best candidate
         return self._score_and_select_spawn(candidates, crit, ego_pos, ego_lane, road_data, pts)
     
+    def _choose_strategic_ego_spawn(self, data: Dict[str, Any], map_name: str, ego_criteria: Dict[str, Any]) -> Tuple[float, float, float, float]:
+        """Choose ego spawn position strategically based on actor requirements"""
+        # Analyze what actors need relative to ego
+        needs_ahead = False
+        needs_behind = False
+        same_lane_actors = False
+        
+        for actor in data.get('actors', []):
+            if 'spawn' in actor:
+                spawn_criteria = actor['spawn'].get('criteria', {})
+                rel_pos = spawn_criteria.get('relative_position')
+                lane_rel = spawn_criteria.get('lane_relationship')
+                
+                if rel_pos == 'ahead':
+                    needs_ahead = True
+                elif rel_pos == 'behind':
+                    needs_behind = True
+                    
+                if lane_rel in ['same_lane', 'adjacent_lane']:
+                    same_lane_actors = True
+        
+        self.logger.info(f"Strategic ego spawn analysis: needs_ahead={needs_ahead}, needs_behind={needs_behind}, same_lane_actors={same_lane_actors}")
+        
+        # Get all potential ego spawn points
+        spawn_points = self._get_spawn_points_for_map(map_name)
+        candidates = spawn_points  # Start with all points
+        
+        # Apply basic constraints for ego spawn
+        if 'lane_id' in ego_criteria:
+            lane_constraint = ego_criteria['lane_id']
+            if isinstance(lane_constraint, dict):
+                min_lane = lane_constraint.get('min', 1)
+                max_lane = lane_constraint.get('max', 10)
+                candidates = [pt for pt in candidates 
+                            if min_lane <= pt.get('lane_id', 0) <= max_lane]
+        
+        if not candidates:
+            self.logger.warning("No candidates found for ego spawn criteria, using fallback")
+            return self._choose_spawn(map_name, ego_criteria)
+        
+        # If actors need to be ahead, choose ego position from middle/back of available positions
+        # If actors need to be behind, choose ego position from front of available positions
+        if needs_ahead and same_lane_actors:
+            # Group candidates by road/lane
+            lane_groups = {}
+            for candidate in candidates:
+                road_id = candidate.get('road_id')
+                lane_id = candidate.get('lane_id')
+                key = (road_id, lane_id)
+                if key not in lane_groups:
+                    lane_groups[key] = []
+                lane_groups[key].append(candidate)
+            
+            # For each lane group, if it has enough points, choose from middle/back
+            best_candidate = None
+            # Sort lane groups by road_id to get deterministic results, prefer lower road IDs
+            sorted_groups = sorted(lane_groups.items(), key=lambda x: (x[0][0], x[0][1]))
+            
+            for (road_id, lane_id), lane_candidates in sorted_groups:
+                if len(lane_candidates) >= 5:  # Need at least 5 points to have room ahead
+                    # Sort by position to understand spatial layout
+                    sorted_candidates = sorted(lane_candidates, key=lambda pt: (pt.get('x', 0), pt.get('y', 0)))
+                    
+                    # Choose from positions 60-80% back to leave space ahead  
+                    start_idx = len(sorted_candidates) // 3  # Skip first 33%
+                    end_idx = int(len(sorted_candidates) * 0.8)  # Stop at 80%
+                    strategic_candidates = sorted_candidates[start_idx:end_idx]
+                    
+                    if strategic_candidates:
+                        # Pick a good candidate from this range
+                        best_candidate = strategic_candidates[len(strategic_candidates)//2]
+                        self.logger.info(f"Strategic ego spawn: chose position {start_idx}-{end_idx} of {len(sorted_candidates)} on road {road_id}, lane {lane_id}")
+                        break
+            
+            if best_candidate:
+                self._last_pick = best_candidate
+                return (best_candidate.get('x', 0), best_candidate.get('y', 0), 
+                       best_candidate.get('z', 0), math.radians(best_candidate.get('yaw', 0)))
+        
+        # Fallback to normal selection
+        self.logger.info("Using standard ego spawn selection")
+        return self._choose_spawn(map_name, ego_criteria)
+    
     def _get_enhanced_spawn_candidates(self, pts: List[Dict], road_data: Dict) -> List[Dict]:
         """Enhance spawn candidates with road intelligence metadata"""
         enhanced_candidates = []
@@ -1560,12 +1840,64 @@ class JsonToXoscConverter:
                               ego_lane: Optional[Tuple[int, int]] = None,
                               road_data: Dict = None, all_pts: List[Dict] = None) -> Tuple[float, float, float, float]:
         """Score candidates and select the best spawn point"""
+        # First, filter out candidates that are too close to ego (< 5m)
+        if ego_pos and candidates:
+            safe_candidates = []
+            for pt in candidates:
+                dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                if dist >= 5.0:  # Minimum 5m distance from ego
+                    safe_candidates.append(pt)
+                else:
+                    self.logger.warning(f"Rejecting spawn at distance {dist:.1f}m from ego (too close)")
+            candidates = safe_candidates
+        
         if not candidates:
             # Apply fallback strategy
             if all_pts:
                 candidates = self._apply_fallback_strategy([], [], all_pts, crit, ego_pos, ego_lane)
+                # Filter fallback candidates too
+                if ego_pos and candidates:
+                    safe_candidates = []
+                    rejected_close = 0
+                    for pt in candidates:
+                        dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                        if dist >= 5.0:
+                            safe_candidates.append(pt)
+                        else:
+                            rejected_close += 1
+                    
+                    if rejected_close > 0:
+                        self.logger.warning(f"Rejected {rejected_close} fallback candidates that were too close to ego (< 5m)")
+                    candidates = safe_candidates
+            
+            # If still no candidates, try one more time with very relaxed constraints
+            if not candidates and all_pts and ego_pos:
+                self.logger.warning("All fallbacks failed, trying emergency fallback with basic distance constraints")
+                emergency_candidates = []
+                # Check more points and allow wider distance range
+                for pt in all_pts[:500]:  # Check more points
+                    dist = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                    # Use scenario-appropriate max distance
+                    max_dist = 50 if 'pedestrian' in str(crit).lower() else 150
+                    if 10 <= dist <= max_dist:  # At least 10m away for safety
+                        emergency_candidates.append(pt)
+                    if len(emergency_candidates) >= 20:  # Get more candidates
+                        break
+                
+                if emergency_candidates:
+                    # Sort by distance and pick best ones
+                    emergency_candidates.sort(key=lambda p: abs(math.hypot(p.get('x', 0) - ego_pos[0], p.get('y', 0) - ego_pos[1]) - 30))
+                    candidates = emergency_candidates[:10]
+                    self.logger.info(f"Emergency fallback found {len(candidates)} candidates")
+            
             if not candidates:
-                raise ValidationError(f"No valid spawn points found even with fallbacks")
+                # Provide detailed error message to help debug the issue
+                error_msg = f"No valid spawn points found for actor. "
+                if ego_pos:
+                    error_msg += f"All candidate spawns were too close to ego (< 5m). "
+                error_msg += f"Criteria: {crit}. "
+                error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
+                raise RuntimeError(error_msg)
         
         if len(candidates) == 1:
             pick = candidates[0]
@@ -1883,7 +2215,7 @@ class JsonToXoscConverter:
         # Skip relaxing road_relationship - it's critical for spawn safety
         # Instead, try relaxing other non-critical constraints first
         
-        # Fallback 3: Expand distance range by 50%
+        # Fallback 3: Expand distance range by 50% but respect 5m minimum
         if 'distance_to_ego' in crit and ego_pos:
             relaxed_crit = crit.copy()
             distance_constraint = relaxed_crit['distance_to_ego'].copy()
@@ -1892,7 +2224,8 @@ class JsonToXoscConverter:
             current_max = distance_constraint.get('max', 1000)
             range_expansion = (current_max - current_min) * 0.5
             
-            distance_constraint['min'] = max(0, current_min - range_expansion)
+            # Never go below 5m for safety
+            distance_constraint['min'] = max(5, current_min - range_expansion)
             distance_constraint['max'] = current_max + range_expansion
             relaxed_crit['distance_to_ego'] = distance_constraint
             
@@ -1922,9 +2255,22 @@ class JsonToXoscConverter:
                 return fallback_candidates
         
         # Final fallback: Any valid spawn point with basic safety constraints
-        if all_points:
-            self.logger.warning("Using final fallback: any valid spawn point")
-            return all_points[:10]  # Limit to 10 for performance
+        if all_points and ego_pos:
+            self.logger.warning("Using final fallback: any valid spawn point with distance constraints")
+            # Apply at least a basic distance filter for safety
+            safe_fallback = []
+            for pt in all_points[:100]:  # Check first 100 points for performance
+                d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                # For pedestrians, cap at 50m; for others, cap at 200m
+                max_dist = 50 if 'pedestrian' in str(crit).lower() else 200
+                if 5 <= d <= max_dist:  # Between 5m and max_dist
+                    safe_fallback.append(pt)
+                if len(safe_fallback) >= 10:  # Limit to 10 candidates
+                    break
+            if safe_fallback:
+                return safe_fallback
+        elif all_points:
+            return all_points[:10]  # No ego position, return first 10
         
         return []
     
@@ -1997,6 +2343,8 @@ class JsonToXoscConverter:
         elif relationship == 'adjacent_lane' and ego_lane:
             # For adjacent lanes, ensure same direction by default (same sign of lane_id)
             adjacent_candidates = []
+            
+            # First try to find lanes with delta of ±1
             for pt in candidates:
                 if pt.get('road_id') == ego_road_id:
                     pt_lane_id = pt.get('lane_id', 0)
@@ -2005,10 +2353,41 @@ class JsonToXoscConverter:
                         self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
                         adjacent_candidates.append(pt)
             
-            self.logger.debug(f"Lane relationship 'adjacent_lane': filtering to road_id={ego_road_id}, same-direction lanes adjacent to {ego_lane_id}")
+            # If no lanes found with ±1, try ±2 as fallback
+            if not adjacent_candidates:
+                self.logger.warning(f"No adjacent lanes with ±1 delta found, trying ±2 delta for road_id={ego_road_id}, lane_id={ego_lane_id}")
+                for pt in candidates:
+                    if pt.get('road_id') == ego_road_id:
+                        pt_lane_id = pt.get('lane_id', 0)
+                        # Try distance of 2 with same direction
+                        if (abs(pt_lane_id - ego_lane_id) == 2 and 
+                            self._are_same_direction_lanes(ego_lane_id, pt_lane_id)):
+                            adjacent_candidates.append(pt)
+            
+            # If still no lanes found, allow same lane as last resort
+            if not adjacent_candidates:
+                self.logger.warning(f"No adjacent lanes found with ±1 or ±2 delta, falling back to same lane for road_id={ego_road_id}, lane_id={ego_lane_id}")
+                for pt in candidates:
+                    if pt.get('road_id') == ego_road_id and pt.get('lane_id') == ego_lane_id:
+                        adjacent_candidates.append(pt)
+            
+            self.logger.debug(f"Lane relationship 'adjacent_lane': found {len(adjacent_candidates)} candidates for road_id={ego_road_id}, lanes adjacent to {ego_lane_id}")
             return adjacent_candidates
-        else:  # 'any_lane' or ego not positioned yet
-            self.logger.debug(f"Lane relationship '{relationship}': no filtering")
+        elif relationship == 'any_lane' and ego_lane:
+            # For any_lane, still respect direction unless explicitly overridden
+            # Filter to same road and same direction lanes only
+            direction_filtered = []
+            for pt in candidates:
+                if pt.get('road_id') == ego_road_id:
+                    pt_lane_id = pt.get('lane_id', 0)
+                    # Only accept same direction lanes
+                    if self._are_same_direction_lanes(ego_lane_id, pt_lane_id):
+                        direction_filtered.append(pt)
+            
+            self.logger.debug(f"Lane relationship 'any_lane': filtered to {len(direction_filtered)} same-direction candidates for road_id={ego_road_id}")
+            return direction_filtered if direction_filtered else candidates  # Fallback to all if none found
+        else:  # ego not positioned yet
+            self.logger.debug(f"Lane relationship '{relationship}': no filtering (ego not positioned)")
             return candidates
     
     def _infer_road_lane_from_position(self, x: float, y: float, map_name: str) -> Optional[Tuple[int, int]]:

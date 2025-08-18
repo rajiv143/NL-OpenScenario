@@ -1,0 +1,1 @@
+A magenta Impala follows 20m behind ego, matching ego speed.

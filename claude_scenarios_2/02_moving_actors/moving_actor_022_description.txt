@@ -1,0 +1,1 @@
+A pink Patrol is positioned 45 meters behind of the ego vehicle. When the ego approaches within 20 meters, the Patrol begins moving at 6.2 m/s forward.

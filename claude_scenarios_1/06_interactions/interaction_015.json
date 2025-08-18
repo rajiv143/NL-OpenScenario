@@ -1,0 +1,83 @@
+{
+  "scenario_name": "interaction_015",
+  "description": "Interaction scenario - responsive_speed",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.mercedes.sprinter",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.harley.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "speed_of_actor",
+      "trigger_actor": "actor_1",
+      "trigger_value": 7.0,
+      "trigger_comparison": "<",
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.5,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 120,
+  "collision_allowed": false
+}

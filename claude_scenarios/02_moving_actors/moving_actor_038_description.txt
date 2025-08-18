@@ -1,0 +1,1 @@
+A white Low Rider is positioned 45 meters behind of the ego vehicle. When the ego approaches within 25 meters, the Low Rider begins moving at 9.5 m/s forward.

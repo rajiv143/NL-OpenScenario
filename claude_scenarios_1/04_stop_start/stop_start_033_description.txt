@@ -1,0 +1,1 @@
+A red Impala moves at 6.5 m/s, then stops completely for 3.0 seconds, then continues moving at 13.3 m/s.

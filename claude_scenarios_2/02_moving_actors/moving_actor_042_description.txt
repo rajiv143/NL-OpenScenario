@@ -1,0 +1,1 @@
+A red Sprinter is positioned 45 meters behind of the ego vehicle. When the ego approaches within 20 meters, the Sprinter begins moving at 7.5 m/s forward.

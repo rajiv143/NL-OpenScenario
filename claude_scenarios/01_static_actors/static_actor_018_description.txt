@@ -1,0 +1,1 @@
+A orange Impala is parked 58 meters ahead of the ego vehicle. It remains completely stationary throughout the scenario.

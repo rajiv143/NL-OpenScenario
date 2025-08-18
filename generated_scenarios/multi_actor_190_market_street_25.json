@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,11 @@
       "model": "vehicle.mercedes.sprinter",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 41,
-            "max": 71
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       }
     },
@@ -37,10 +35,9 @@
       "model": "vehicle.carlamotors.european_hgv",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 51,
-            "max": 81
+            "min": 65,
+            "max": 95
           },
           "relative_position": "ahead"
         }
@@ -86,7 +83,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 200,
-  "timeout": 146,
+  "success_distance": 70,
+  "timeout": 60,
   "collision_allowed": false
 }

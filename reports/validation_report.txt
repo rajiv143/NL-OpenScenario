@@ -1,0 +1,38 @@
+============================================================
+CARLA Dataset Validation Report
+============================================================
+
+## Training Dataset
+File: carla_scenarios_train.jsonl
+Total examples: 500
+Valid examples: 500
+Invalid examples: 0
+Validation rate: 100.00%
+
+## Validation Dataset
+File: carla_scenarios_val.jsonl
+Total examples: 50
+Valid examples: 49
+Invalid examples: 1
+Validation rate: 98.00%
+
+## Overall Statistics
+Total examples processed: 550
+Valid JSON: 550
+Invalid JSON: 0
+RGB errors: 0
+Missing fields: 0
+Color consistency warnings: 1
+Action reference errors: 1
+
+## Sample Errors
+1. Action references non-existent actor: vehicle_1
+
+## Sample Warnings
+1. Color mismatch: orange RGB [255, 128, 0] differs from expected [255, 165, 0]
+
+## Quality Assessment
+✅ EXCELLENT: Dataset quality is excellent (>95% valid)
+Overall validation rate: 99.82%
+
+============================================================

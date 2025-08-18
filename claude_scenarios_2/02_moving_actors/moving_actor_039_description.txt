@@ -1,0 +1,1 @@
+A black Prius is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 30 meters, the Prius begins moving at 14.1 m/s forward.

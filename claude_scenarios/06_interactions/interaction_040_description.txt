@@ -1,0 +1,1 @@
+Complex interaction: A cyan Patrol accelerates only when both close to ego AND near a red Crown in adjacent lane.

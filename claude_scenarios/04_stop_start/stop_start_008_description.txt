@@ -1,0 +1,1 @@
+A green Sprinter moves at 10.5 m/s, then stops completely for 3.0 seconds, then continues moving at 10.9 m/s.

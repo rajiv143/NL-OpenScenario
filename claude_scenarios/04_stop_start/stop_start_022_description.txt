@@ -1,0 +1,1 @@
+A blue Impala moves at 11.3 m/s, then stops completely for 2.0 seconds, then continues moving at 7.3 m/s.

@@ -1,0 +1,1 @@
+A yellow Grandtourer initially moves at 4.5 m/s, then changes to 9.8 m/s after the first action completes.

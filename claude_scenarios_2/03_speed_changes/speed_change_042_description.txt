@@ -1,0 +1,1 @@
+A gray Crossbike initially moves at 15.0 m/s, then changes to 7.4 m/s after the first action completes.

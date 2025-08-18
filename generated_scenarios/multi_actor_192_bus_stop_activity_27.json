@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,11 @@
       "model": "vehicle.audi.a2",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 26,
-            "max": 56
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       }
     },
@@ -37,12 +35,11 @@
       "model": "walker.pedestrian.0025",
       "spawn": {
         "criteria": {
-          "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 35,
-            "max": 65
+            "min": 65,
+            "max": 95
           },
-          "lane_type_fallback": "Driving",
+          "lane_type": "Sidewalk",
           "lateral_offset": 3.0
         }
       }
@@ -53,12 +50,11 @@
       "model": "walker.pedestrian.0048",
       "spawn": {
         "criteria": {
-          "lane_type": "Sidewalk",
           "distance_to_ego": {
-            "min": 33,
-            "max": 63
+            "min": 75,
+            "max": 105
           },
-          "lane_type_fallback": "Driving",
+          "lane_type": "Sidewalk",
           "lateral_offset": 3.0
         }
       }
@@ -116,7 +112,7 @@
       "dynamics_value": 2.5
     }
   ],
-  "success_distance": 250,
-  "timeout": 150,
+  "success_distance": 60,
+  "timeout": 60,
   "collision_allowed": false
 }

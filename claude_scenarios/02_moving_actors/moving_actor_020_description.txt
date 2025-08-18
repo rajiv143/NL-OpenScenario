@@ -1,0 +1,1 @@
+A orange Sprinter is positioned 45 meters behind of the ego vehicle. When the ego approaches within 35 meters, the Sprinter begins moving at 18.7 m/s forward.

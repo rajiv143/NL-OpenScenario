@@ -1,0 +1,65 @@
+{
+  "scenario_name": "speed_change_004",
+  "description": "Speed change scenario - very_slow to medium",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.mercedes.sprinter",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "192,192,192"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 4.6,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "trigger_comparison": "=",
+      "speed_value": 10.9,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5,
+      "dynamics_shape": "linear",
+      "delay": 0.5
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 100,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+A silver Impala initially moves at 14.0 m/s, then changes to 7.5 m/s after the first action completes.

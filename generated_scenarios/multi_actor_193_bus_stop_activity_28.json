@@ -6,11 +6,11 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
+      "is_intersection": false,
       "lane_id": {
         "min": 1,
-        "max": 10
-      },
-      "is_intersection": false
+        "max": 4
+      }
     }
   },
   "ego_start_speed": 0,
@@ -21,13 +21,11 @@
       "model": "vehicle.ford.crown",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 42,
-            "max": 72
+            "min": 55,
+            "max": 85
           },
-          "relative_position": "ahead",
-          "lane_relationship": "adjacent_lane"
+          "relative_position": "ahead"
         }
       },
       "color": "0,255,255"
@@ -38,10 +36,9 @@
       "model": "vehicle.carlamotors.european_hgv",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 42,
-            "max": 72
+            "min": 65,
+            "max": 95
           },
           "relative_position": "behind"
         }
@@ -54,10 +51,9 @@
       "model": "vehicle.carlamotors.european_hgv",
       "spawn": {
         "criteria": {
-          "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 63,
-            "max": 93
+            "min": 75,
+            "max": 105
           },
           "relative_position": "behind"
         }
@@ -113,7 +109,7 @@
       "dynamics_value": 3.0
     }
   ],
-  "success_distance": 250,
-  "timeout": 150,
+  "success_distance": 60,
+  "timeout": 60,
   "collision_allowed": false
 }

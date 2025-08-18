@@ -1,0 +1,1 @@
+A blue Sprinter is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 15 meters, the Sprinter begins moving at 4.5 m/s forward.

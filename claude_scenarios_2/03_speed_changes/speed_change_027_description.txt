@@ -1,0 +1,1 @@
+A white Patrol initially moves at 13.8 m/s, then changes to 6.6 m/s after the first action completes.

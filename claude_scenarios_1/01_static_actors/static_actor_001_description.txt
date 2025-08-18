@@ -1,0 +1,1 @@
+A red Prius is parked 17 meters ahead of the ego vehicle. It remains completely stationary throughout the scenario.

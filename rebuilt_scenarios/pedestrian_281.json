@@ -1,0 +1,51 @@
+{
+  "scenario_name": "pedestrian_281",
+  "description": "Pedestrian crossing scenario 281",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 6
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "crossing_ped",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0031",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "road_relationship": "same_road",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 100
+          },
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_ped",
+      "action_type": "walk",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "target_location": "opposite_sidewalk",
+      "speed_value": 1.5828738148818189,
+      "dynamics_dimension": "time",
+      "dynamics_value": 5.0
+    }
+  ],
+  "success_distance": 214,
+  "timeout": 60,
+  "collision_allowed": false
+}

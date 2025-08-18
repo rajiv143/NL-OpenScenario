@@ -1,0 +1,1 @@
+A white Sprinter initially moves at 3.9 m/s, then changes to 9.0 m/s after the first action completes.

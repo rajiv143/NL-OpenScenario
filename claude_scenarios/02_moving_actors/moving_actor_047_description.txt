@@ -1,0 +1,1 @@
+A purple Yzf is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 20 meters, the Yzf begins moving at 7.3 m/s forward.

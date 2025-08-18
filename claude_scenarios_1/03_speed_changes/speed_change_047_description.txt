@@ -1,0 +1,1 @@
+A yellow Sprinter initially moves at 13.7 m/s, then changes to 7.7 m/s after the first action completes.

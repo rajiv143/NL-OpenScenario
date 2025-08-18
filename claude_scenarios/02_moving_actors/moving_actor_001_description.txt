@@ -1,0 +1,1 @@
+A gray Impala is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 15 meters, the Impala begins moving at 3.7 m/s forward.

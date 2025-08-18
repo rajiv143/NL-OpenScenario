@@ -1,0 +1,94 @@
+{
+  "scenario_name": "interaction_032",
+  "description": "Interaction scenario - complex_trigger",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 4
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_right"
+        }
+      },
+      "color": "128,0,128"
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "192,192,192"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0,
+      "dynamics_shape": "linear",
+      "delay": 0.2
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "complex",
+      "trigger_conditions": [
+        {
+          "type": "distance_to_ego",
+          "value": 20,
+          "comparison": "<"
+        },
+        {
+          "type": "distance_to_actor",
+          "actor": "actor_1",
+          "value": 40,
+          "comparison": "<"
+        }
+      ],
+      "trigger_logic": "AND",
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5,
+      "dynamics_shape": "linear",
+      "delay": 0.3
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 120,
+  "collision_allowed": false
+}

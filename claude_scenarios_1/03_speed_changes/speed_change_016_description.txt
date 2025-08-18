@@ -1,0 +1,1 @@
+A gray Patrol initially moves at 7.8 m/s, then changes to 14.1 m/s after the first action completes.

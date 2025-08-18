@@ -1,0 +1,1 @@
+A white Yzf is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 35 meters, the Yzf begins moving at 19.4 m/s forward.

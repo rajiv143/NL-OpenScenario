@@ -1,0 +1,1 @@
+A cyan Impala is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 25 meters, the Impala begins moving at 11.1 m/s forward.

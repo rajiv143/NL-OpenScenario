@@ -1,0 +1,1 @@
+A magenta Cooper S is positioned 45 meters behind of the ego vehicle. When the ego approaches within 30 meters, the Cooper S begins moving at 15.1 m/s forward.

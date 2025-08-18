@@ -1,0 +1,1 @@
+A pink Crown initially moves at 3.6 m/s, then changes to 11.2 m/s after the first action completes.

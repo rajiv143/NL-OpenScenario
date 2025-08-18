@@ -1,0 +1,1 @@
+A red Crossbike initially moves at 7.0 m/s, then changes to 15.1 m/s after the first action completes.

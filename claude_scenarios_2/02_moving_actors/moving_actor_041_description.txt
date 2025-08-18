@@ -1,0 +1,1 @@
+A silver Crown is positioned 40 meters ahead of the ego vehicle. When the ego approaches within 15 meters, the Crown begins moving at 4.2 m/s forward.
