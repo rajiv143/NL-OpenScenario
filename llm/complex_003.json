@@ -1,0 +1,116 @@
+{
+  "scenario_name": "generated_scenario_001",
+  "description": "Generated CARLA scenario",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "weaver_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "leading_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,200,200"
+    },
+    {
+      "id": "side_car",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "150,150,150"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "weaver_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "weaver_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "leading_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "side_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 160,
+  "timeout": 80,
+  "collision_allowed": false
+}

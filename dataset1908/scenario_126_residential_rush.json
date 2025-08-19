@@ -1,0 +1,132 @@
+{
+  "scenario_name": "residential_rush_126",
+  "description": "Residential area during morning rush with school children",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {"min": 25, "max": 35},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "parent_suv",
+      "type": "vehicle",
+      "model": "vehicle.jeep.wrangler_rubicon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,150,200"
+    },
+    {
+      "id": "backing_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,200,200"
+    },
+    {
+      "id": "child1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0050",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "lateral_offset": 2.0
+        }
+      }
+    },
+    {
+      "id": "dog_walker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0031",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "left",
+          "lateral_offset": -2.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parent_suv",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 2.5
+    },
+    {
+      "actor_id": "backing_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "child1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "backing_car",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.5
+    },
+    {
+      "actor_id": "dog_walker",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "wait_duration": 3.0
+    },
+    {
+      "actor_id": "parent_suv",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 65,
+  "collision_allowed": false
+}

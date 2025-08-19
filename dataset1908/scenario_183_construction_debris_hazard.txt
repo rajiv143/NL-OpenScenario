@@ -1,0 +1,1 @@
+Test navigation through construction zone with potential road debris from dump truck, street sweeper operating, workers crossing between equipment, and motorcycle avoiding rough surfaces. Evaluate hazard detection and path planning on compromised road surfaces with construction materials.

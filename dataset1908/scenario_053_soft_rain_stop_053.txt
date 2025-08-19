@@ -1,0 +1,1 @@
+Generate a test case for light rain conditions where the car in front of me gradually comes to a complete stop using smooth braking. Place it around 50 meters ahead in an urban setting.

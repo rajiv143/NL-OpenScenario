@@ -1,0 +1,146 @@
+{
+  "scenario_name": "extreme_speed_chase_191",
+  "description": "Ultra high-speed scenario with multiple vehicles at performance limits",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.tt",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {"min": 120, "max": 150},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 30,
+  "actors": [
+    {
+      "id": "racing_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 150, "max": 200},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "speeding_sports_car",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 180, "max": 230},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "blocking_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 120, "max": 150},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "weaving_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.isetta",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "racing_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 35.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 150.0
+    },
+    {
+      "actor_id": "racing_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 60.0,
+      "trigger_comparison": "<",
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "speeding_sports_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 33.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 120.0
+    },
+    {
+      "actor_id": "blocking_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 22.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "weaving_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "weaving_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 250,
+  "timeout": 120,
+  "collision_allowed": false
+}

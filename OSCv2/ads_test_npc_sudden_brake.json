@@ -1,0 +1,67 @@
+{
+  "name": "npc_sudden_brake",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 2
+  },
+  "actors": [
+    {
+      "name": "npc",
+      "type": "Rubicon",
+      "initial_speed": 50.0
+    }
+  ],
+  "duration": 15,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "ego_vehicle",
+      "speed": 50,
+      "lane": 1
+    },
+    {
+      "type": "drive",
+      "actor": "npc",
+      "speed": 50,
+      "lane": 1,
+      "position": {
+        "distance": "20m",
+        "relative": "ahead_of",
+        "target": "ego_vehicle",
+        "at": "start"
+      }
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "cruise",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "npc",
+            "speed": 50
+          }
+        },
+        {
+          "name": "sudden_brake",
+          "type": "parallel",
+          "duration": 3,
+          "drive": {
+            "actor": "npc",
+            "speed": 15
+          }
+        },
+        {
+          "name": "resume",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "npc",
+            "speed": 40
+          }
+        }
+      ]
+    }
+  ]
+}

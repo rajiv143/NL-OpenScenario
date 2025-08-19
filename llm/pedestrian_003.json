@@ -1,0 +1,46 @@
+{
+  "scenario_name": "children_play_084",
+  "description": "Children playing near road",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.volkswagen.t2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "playground_group",
+      "type": "group",
+      "model": "walker.pedestrian.0001",
+      "spawn": {
+        "criteria": {
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "playground_group",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 45,
+  "collision_allowed": false
+}

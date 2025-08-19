@@ -209,15 +209,13 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             # Default for other models
             return ["q_proj", "v_proj"]
     
-    def load_and_prepare_datasets(self, train_file: str = "carla_correct_train.jsonl",
-                                 val_file: str = "carla_correct_val.jsonl"):
-        """Load and prepare datasets for training"""
+    def load_and_prepare_datasets(self, train_file: str = "training_data/train_dataset.json",
+                                 val_file: str = "training_data/val_dataset.json"):
+        """Load and prepare datasets for training - supports both JSON and JSONL formats"""
         print("\nLoading datasets...")
         
-        # Handle relative paths - check if files exist, if not try parent directory
-        import os
-        
         def find_file(filename):
+            """Find file in current directory, parent directory, or absolute path"""
             if os.path.exists(filename):
                 return filename
             elif os.path.exists(f"../{filename}"):
@@ -225,7 +223,7 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", filename)):
                 return os.path.join(os.path.dirname(__file__), "..", filename)
             else:
-                raise FileNotFoundError(f"Cannot find {filename} in current directory or parent directory")
+                raise FileNotFoundError(f"Cannot find {filename}")
         
         train_file = find_file(train_file)
         val_file = find_file(val_file)
@@ -233,24 +231,38 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
         print(f"Using training file: {train_file}")
         print(f"Using validation file: {val_file}")
         
-        # Load JSONL files (one JSON object per line)
-        train_data = []
-        val_data = []
+        def load_data_file(filepath):
+            """Load data from either JSON or JSONL format"""
+            data = []
+            with open(filepath, 'r') as f:
+                try:
+                    # Try loading as JSON first
+                    content = f.read()
+                    if content.strip().startswith('['):
+                        # Standard JSON array format
+                        data = json.loads(content)
+                    else:
+                        # JSONL format - each line is a JSON object
+                        f.seek(0)  # Reset file pointer
+                        for line in f:
+                            if line.strip():
+                                data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    print(f"Error loading {filepath}: {e}")
+                    raise
+            return data
         
-        # Load training data
-        with open(train_file, 'r') as f:
-            for line in f:
-                if line.strip():
-                    train_data.append(json.loads(line))
-        
-        # Load validation data
-        with open(val_file, 'r') as f:
-            for line in f:
-                if line.strip():
-                    val_data.append(json.loads(line))
+        # Load training and validation data
+        train_data = load_data_file(train_file)
+        val_data = load_data_file(val_file)
         
         print(f"Loaded {len(train_data)} training examples")
         print(f"Loaded {len(val_data)} validation examples")
+        
+        # Validate data format
+        if train_data and not all(key in train_data[0] for key in ['instruction', 'input', 'output']):
+            print("Warning: Training data missing required keys (instruction, input, output)")
+            print("Available keys:", list(train_data[0].keys()) if train_data else "None")
         
         # Create datasets and format prompts
         train_dataset = Dataset.from_list(train_data).map(self.format_prompt)
@@ -300,6 +312,8 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             fp16=True,
             logging_steps=10,
             save_steps=100,
+            eval_steps=50,
+            eval_strategy="steps",
             warmup_steps=50,
             remove_unused_columns=False,
             logging_dir=str(self.output_dir / "logs"),
@@ -307,14 +321,16 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
         )
         return training_args
     
-    def train(self, num_epochs: int = 3, batch_size: int = 2, 
+    def train(self, train_file: str = "training_data/train_dataset.json",
+             val_file: str = "training_data/val_dataset.json",
+             num_epochs: int = 3, batch_size: int = 2, 
              learning_rate: float = 2e-4, use_wandb: bool = False):
         """Run the training"""
         # Setup model and tokenizer
         self.setup_model_and_tokenizer()
         
-        # Load datasets - use correct JSONL files (will auto-detect path)
-        self.load_and_prepare_datasets()
+        # Load datasets with specified files
+        self.load_and_prepare_datasets(train_file, val_file)
         
         # Get training arguments
         training_args = self.get_training_args(
@@ -335,7 +351,9 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
                     "lora_alpha": self.lora_alpha,
                     "epochs": num_epochs,
                     "batch_size": batch_size,
-                    "learning_rate": learning_rate
+                    "learning_rate": learning_rate,
+                    "train_examples": len(self.train_dataset),
+                    "val_examples": len(self.val_dataset)
                 }
             )
         
@@ -386,6 +404,10 @@ def main():
                        help="Model name or path (e.g., meta-llama/Llama-3.2-3B-Instruct)")
     parser.add_argument("--output-dir", type=str, default="./llama-carla-model",
                        help="Output directory for the trained model")
+    parser.add_argument("--train-file", type=str, default="training_data/train_dataset.json",
+                       help="Path to training dataset file (JSON or JSONL)")
+    parser.add_argument("--val-file", type=str, default="training_data/val_dataset.json",
+                       help="Path to validation dataset file (JSON or JSONL)")
     parser.add_argument("--epochs", type=int, default=3,
                        help="Number of training epochs")
     parser.add_argument("--batch-size", type=int, default=2,
@@ -421,6 +443,8 @@ def main():
     
     # Run training
     trainer.train(
+        train_file=args.train_file,
+        val_file=args.val_file,
         num_epochs=args.epochs,
         batch_size=args.batch_size,
         learning_rate=args.learning_rate,

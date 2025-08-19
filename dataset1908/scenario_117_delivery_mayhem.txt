@@ -1,0 +1,1 @@
+Design an urban delivery scenario on wet roads where a delivery truck stops ahead, a taxi pulls over in the adjacent lane, a vehicle approaches from behind and changes lanes, while a pedestrian jaywalks across the street.

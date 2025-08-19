@@ -1,0 +1,119 @@
+{
+  "scenario_name": "highway_blockade_113",
+  "description": "Highway blockade forcing multiple lane changes",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.etron",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {"min": 100, "max": 130},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "stopped_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 100, "max": 120},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "evading_car1",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 70, "max": 85},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "evading_car2",
+      "type": "vehicle",
+      "model": "vehicle.seat.leon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stopped_vehicle",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.0
+    },
+    {
+      "actor_id": "evading_car1",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 0.6
+    },
+    {
+      "actor_id": "evading_car1",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "evading_car2",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.7
+    },
+    {
+      "actor_id": "evading_car2",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "evading_car1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 25.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 170,
+  "timeout": 85,
+  "collision_allowed": false
+}

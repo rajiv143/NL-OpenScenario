@@ -1,0 +1,132 @@
+{
+  "scenario_name": "lidar_degradation_test_173",
+  "description": "Fog and rain degrading lidar performance with dark and reflective surfaces",
+  "weather": "fog",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "suburban",
+      "speed_limit": {"min": 50, "max": 70},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "matte_black_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_police",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "10,10,10"
+    },
+    {
+      "id": "glass_truck",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 60, "max": 80},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,200,255"
+    },
+    {
+      "id": "low_profile_bike",
+      "type": "motorcycle",
+      "model": "vehicle.vespa.zx125",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "pedestrian_dark_clothes",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0041",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "matte_black_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "matte_black_vehicle",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "glass_truck",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "low_profile_bike",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "pedestrian_dark_clothes",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 100,
+  "collision_allowed": false
+}

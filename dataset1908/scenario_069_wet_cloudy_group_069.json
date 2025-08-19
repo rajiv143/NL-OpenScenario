@@ -1,0 +1,60 @@
+{
+  "scenario_name": "wet_cloudy_group_069",
+  "description": "Group of pedestrians in wet cloudy conditions",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "group_leader",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 1.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "group_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "group_leader",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "group_leader",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "wait_duration": 2.0
+    }
+  ],
+  "success_distance": 85,
+  "timeout": 50,
+  "collision_allowed": false
+}

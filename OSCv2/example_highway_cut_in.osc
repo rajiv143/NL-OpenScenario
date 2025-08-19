@@ -1,0 +1,62 @@
+# OpenSCENARIO 2.0.0
+# Scenario: highway_cut_in
+# Description: Vehicle cuts in front of ego and slows down
+import osc.standard
+import osc.helpers
+import osc.motioncontrol
+
+parameters:
+    ego_initial_speed: speed = [20mps..30mps]
+    cutter_initial_speed: speed = [25mps..35mps]
+    cutter_cut_in_distance: length = [5m..10m]
+    num_lanes: int = [3..4]
+    weather_condition: string = "clear"
+    time_of_day: string = "noon"
+
+actor ego:
+    vehicle.car()
+    keep(vehicle.initial_speed == ego_initial_speed)
+
+actor cutter:
+    vehicle.car()
+    keep(vehicle.initial_speed == cutter_initial_speed)
+    keep(vehicle.color == "red")
+
+scenario highway_cut_in:
+    # Vehicle cuts in front of ego and slows down
+    
+    # Define the map and path
+    path: path
+    path.set_map("maps/Town04.xodr")
+    path.path_min_driving_lanes(3)
+
+    # Spawn actors with constraints
+
+    spawn:
+        ego:
+                lane.lane_id in [1..4]
+    position.relative_lane_position(start: 0.0, end: 1.0)
+
+        cutter:
+            
+    position:
+        behind(ego, distance: [5m..10m])
+        same_lane(ego)
+
+    # Define scenario actions
+    do parallel:
+
+    action cut_in:
+        serial:
+            cutter.change_lane(target_lane: ego.lane - 1)
+            cutter.position(ahead_of: ego, distance: cutter_cut_in_distance)
+            cutter.change_lane(target_lane: ego.lane)
+
+    action brake:
+        cutter.speed_change(target: 10mps)
+        duration: [2s..4s]
+
+    # Scenario ending conditions
+    end when:
+        elapsed_time > 60s or
+        ego.distance_traveled > 1000m

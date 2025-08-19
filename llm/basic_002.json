@@ -1,0 +1,53 @@
+{
+  "scenario_name": "generated_scenario_001",
+  "description": "Generated CARLA scenario",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "blocker",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "blocker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "blocker",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "brake_force": 0.6
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 60,
+  "collision_allowed": false
+}

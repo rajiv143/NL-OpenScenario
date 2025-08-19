@@ -1,0 +1,37 @@
+import basic.osc
+
+scenario top:
+    path: Path                 
+    path.set_map("Town04")
+    path.path_min_driving_lanes(2)
+
+    ego_vehicle: Model3                 # ego car
+    npc: Rubicon                        # The other car
+
+    event start
+    event end
+    do parallel(duration: 20s):
+        ego_vehicle.drive(path) with:
+            speed(40kph)
+            lane(2, at: start)
+        
+        serial:
+            npc_approach: parallel(duration: 5s):
+                npc.drive(path) with:
+                    speed(50kph)
+                    lane(1, at: start) # left to right: [1..n]
+                    position(30m, behind: ego_vehicle, at: start)
+
+            npc_overtake: parallel(duration: 3s):
+                npc.drive(path) with:
+                    speed(55kph)
+                    position(10m, ahead_of: ego_vehicle, at: end)
+
+            npc_cut_in: parallel(duration: 3s):
+                npc.drive(path) with:
+                    lane(same_as: ego_vehicle, at: end)
+
+            npc_brake: parallel(duration: 4s):
+                npc.drive(path) with:
+                    speed(25kph)
+

@@ -1,0 +1,68 @@
+{
+  "name": "following_scenario",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 2
+  },
+  "actors": [
+    {
+      "name": "ego_vehicle",
+      "type": "Model3"
+    },
+    {
+      "name": "npc",
+      "type": "Rubicon"
+    }
+  ],
+  "duration": 20,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "npc",
+      "speed": 50,
+      "lane": 1
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "follow_start",
+          "type": "parallel",
+          "duration": 10,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 50,
+            "lane": {
+              "same_as": "npc",
+              "at": "start"
+            },
+            "position": {
+              "distance": "15m",
+              "relative": "behind",
+              "target": "npc",
+              "at": "start"
+            }
+          }
+        },
+        {
+          "name": "npc_brakes",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "npc",
+            "speed": 30
+          }
+        },
+        {
+          "name": "ego_adjusts",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 30
+          }
+        }
+      ]
+    }
+  ]
+}

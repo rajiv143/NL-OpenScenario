@@ -1,0 +1,48 @@
+{
+  "scenario_name": "heavy_rain_112",
+  "description": "Heavy rain with poor visibility",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "rain_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,50,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "rain_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 9.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 60,
+  "collision_allowed": false
+}

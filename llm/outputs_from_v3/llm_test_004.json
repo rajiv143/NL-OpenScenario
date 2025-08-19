@@ -1,0 +1,74 @@
+{
+  "scenario_name": "generated_scenario_001",
+  "description": "Generated CARLA scenario",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "slow_leader",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    },
+    {
+      "id": "fast FOLLOWER",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "slow_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    },
+    {
+      "actor_id": "fast_FOLLOWer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1,
+      "speed_value": 18,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 60,
+  "collision_allowed": false
+}

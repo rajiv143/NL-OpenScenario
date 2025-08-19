@@ -1,0 +1,80 @@
+{
+  "scenario_name": "busy_intersection_scenario",
+  "description": "Multiple vehicles at busy intersection",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "junction_proximity": {"min": 10, "max": 30}
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "cross_vehicle_1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      }
+    },
+    {
+      "id": "oncoming_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cross_vehicle_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "oncoming_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cross_vehicle_1",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

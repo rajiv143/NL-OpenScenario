@@ -185,77 +185,76 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             return None
     
     def _extract_json(self, text: str, prompt_length: int) -> str:
-        """Smart JSON reconstruction from fragments"""
+        """Extract JSON from model response"""
         response = text[prompt_length:].strip()
         
-        print(f"🔍 Response length: {len(response)} characters")
+        print(f"🔍 Raw response length: {len(response)} characters")
         
-        # Remove JSON comments that break parsing
-        response = re.sub(r'//.*$', '', response, flags=re.MULTILINE)
+        # Try to find complete JSON first
+        json_match = re.search(r'\{.*\}', response, re.DOTALL)
+        if json_match:
+            json_text = json_match.group(0)
+            try:
+                # Test if it's valid JSON
+                parsed = json.loads(json_text)
+                print("✅ Found complete valid JSON")
+                return json_text
+            except json.JSONDecodeError:
+                print("⚠️ Found JSON-like text but invalid, trying reconstruction...")
         
-        # Try to extract meaningful components from the response
+        # If no complete JSON, try reconstruction
+        print("🔧 Reconstructing JSON from fragments...")
+        
+        # Extract all components
         components = {}
         
-        # Extract ego_spawn
-        ego_spawn_match = re.search(r'"ego_spawn":\s*(\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})', response, re.DOTALL)
-        if ego_spawn_match:
-            try:
-                components['ego_spawn'] = json.loads(ego_spawn_match.group(1))
-                print("✅ Extracted ego_spawn")
-            except:
-                pass
-        
-        # Extract actors (clean version)
-        actors_match = re.search(r'"actors":\s*(\[[^\]]*\])', response, re.DOTALL)
-        if actors_match:
-            try:
-                actors_text = actors_match.group(1)
-                # Clean up comments
-                actors_text = re.sub(r'//.*$', '', actors_text, flags=re.MULTILINE)
-                components['actors'] = json.loads(actors_text)
-                print("✅ Extracted actors")
-            except Exception as e:
-                print(f"⚠️  Failed to parse actors: {e}")
-        
-        # Extract actions
-        actions_match = re.search(r'"actions":\s*(\[[^\]]*\])', response, re.DOTALL)
-        if actions_match:
-            try:
-                actions_text = actions_match.group(1)
-                components['actions'] = json.loads(actions_text)
-                print("✅ Extracted actions")
-            except:
-                pass
-        
-        # Extract simple values
-        for key, pattern in [
-            ('ego_start_speed', r'"ego_start_speed":\s*(\d+)'),
-            ('success_distance', r'"success_distance":\s*(\d+)'),
-            ('timeout', r'"timeout":\s*(\d+)'),
-            ('collision_allowed', r'"collision_allowed":\s*(true|false)')
-        ]:
-            match = re.search(pattern, response)
+        # String fields
+        string_fields = ['scenario_name', 'description', 'weather', 'ego_vehicle_model']
+        for field in string_fields:
+            match = re.search(rf'"{field}":\s*"([^"]*)"', response)
             if match:
-                value = match.group(1)
-                if key in ['ego_start_speed', 'success_distance', 'timeout']:
-                    components[key] = int(value)
-                elif key == 'collision_allowed':
-                    components[key] = value.lower() == 'true'
+                components[field] = match.group(1)
+                print(f"✅ Extracted {field}: {match.group(1)}")
         
-        # Create complete scenario
+        # Numeric fields  
+        numeric_fields = ['ego_start_speed', 'success_distance', 'timeout']
+        for field in numeric_fields:
+            match = re.search(rf'"{field}":\s*(\d+)', response)
+            if match:
+                components[field] = int(match.group(1))
+                print(f"✅ Extracted {field}: {match.group(1)}")
+        
+        # Boolean fields
+        match = re.search(r'"collision_allowed":\s*(true|false)', response)
+        if match:
+            components['collision_allowed'] = match.group(1).lower() == 'true'
+            print(f"✅ Extracted collision_allowed: {match.group(1)}")
+        
+        # Complex objects (ego_spawn, actors, actions)
+        for field, is_array in [('ego_spawn', False), ('actors', True), ('actions', True)]:
+            if is_array:
+                pattern = rf'"{field}":\s*(\[[^\]]*\])'
+            else:
+                pattern = rf'"{field}":\s*(\{{[^}}]*(?:\{{[^}}]*\}}[^}}]*)*\}})'
+            
+            match = re.search(pattern, response, re.DOTALL)
+            if match:
+                try:
+                    components[field] = json.loads(match.group(1))
+                    print(f"✅ Extracted {field}")
+                except json.JSONDecodeError as e:
+                    print(f"⚠️ Failed to parse {field}: {e}")
+        
+        # Build final scenario using extracted values with fallbacks
         scenario = {
-            "scenario_name": "blue_car_stops_001",
-            "description": "Blue car ahead of ego stops suddenly",
-            "weather": "clear",
-            "ego_vehicle_model": "vehicle.audi.a2",
+            "scenario_name": components.get('scenario_name', "generated_scenario_001"),
+            "description": components.get('description', "Generated CARLA scenario"),
+            "weather": components.get('weather', "clear"),
+            "ego_vehicle_model": components.get('ego_vehicle_model', "vehicle.audi.a2"),
             "ego_spawn": components.get('ego_spawn', {
-                "criteria": {
-                    "lane_type": "Driving",
-                    "lane_id": {"min": 1, "max": 4},
-                    "is_intersection": False
-                }
+                "criteria": {"lane_type": "Driving", "is_intersection": False}
             }),
-            "ego_start_speed": components.get('ego_start_speed', 0),
+            "ego_start_speed": components.get('ego_start_speed', 10),
             "actors": components.get('actors', []),
             "actions": components.get('actions', []),
             "success_distance": components.get('success_distance', 100),
@@ -263,7 +262,7 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             "collision_allowed": components.get('collision_allowed', False)
         }
         
-        print(f"🔧 Reconstructed complete scenario!")
+        print(f"🔧 Reconstructed scenario with extracted values!")
         return json.dumps(scenario, indent=2)
     
     def generate_batch(self, descriptions: List[str], output_dir: str = "generated_scenarios") -> List[Dict]:

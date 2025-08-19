@@ -1,0 +1,101 @@
+{
+  "scenario_name": "suburban_complex_scenario",
+  "description": "Complex suburban scenario with multiple actors",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "parked_car",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Parking",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_type_fallback": "Shoulder"
+        }
+      }
+    },
+    {
+      "id": "oncoming_car",
+      "type": "vehicle",
+      "model": "vehicle.citroen.c3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    },
+    {
+      "id": "child_ped",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0005",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parked_car",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 3
+    },
+    {
+      "actor_id": "oncoming_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 10,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "parked_car",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "speed_value": 5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    },
+    {
+      "actor_id": "child_ped",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 12,
+      "trigger_comparison": "<",
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

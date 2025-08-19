@@ -1,0 +1,1 @@
+Create a split-second decision scenario where vehicles from both adjacent lanes attempt to merge into my lane almost simultaneously while a fast vehicle approaches from behind, requiring immediate assessment of multiple merge conflicts and rapid path planning.

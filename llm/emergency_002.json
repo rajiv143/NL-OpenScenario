@@ -1,0 +1,47 @@
+{
+  "scenario_name": "broken_down_vehicle_116",
+  "description": "Vehicle breaks down on side of road",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 23,
+  "actors": [
+    {
+      "id": "broken_down_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "broken_down_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 70,
+  "collision_allowed": false
+}

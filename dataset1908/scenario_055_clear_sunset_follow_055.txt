@@ -1,0 +1,1 @@
+For testing emergency braking, create an evening scenario where I follow a vehicle that maintains speed then brakes gradually when I get too close, starting around 25 meters ahead.

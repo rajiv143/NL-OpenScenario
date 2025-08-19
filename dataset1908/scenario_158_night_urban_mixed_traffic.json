@@ -1,0 +1,150 @@
+{
+  "scenario_name": "night_urban_mixed_traffic_158",
+  "description": "Complex night urban scenario with pedestrians, bicycles, and vehicles in dense traffic",
+  "weather": "night",
+  "ego_vehicle_model": "vehicle.mazda.cx5",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {"min": 30, "max": 50},
+      "is_intersection": true
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "crossing_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0037",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "cyclist_lane_share",
+      "type": "bicycle",
+      "model": "vehicle.diamondback.century",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.2
+        }
+      },
+      "color": "0,255,255"
+    },
+    {
+      "id": "delivery_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.yamaha.yzf",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,128,0"
+    },
+    {
+      "id": "turning_bus",
+      "type": "vehicle",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 40, "max": 60},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "100,100,255"
+    },
+    {
+      "id": "parked_car_opening",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "80,80,80"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cyclist_lane_share",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "delivery_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "delivery_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "turning_bus",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 140,
+  "timeout": 90,
+  "collision_allowed": false
+}

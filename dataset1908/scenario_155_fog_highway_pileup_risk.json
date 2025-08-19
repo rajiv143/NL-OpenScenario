@@ -1,0 +1,136 @@
+{
+  "scenario_name": "fog_highway_pileup_risk_155",
+  "description": "Dense fog on highway with chain reaction braking creating pileup risk scenario",
+  "weather": "fog",
+  "ego_vehicle_model": "vehicle.tesla.cybertruck",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {"min": 120, "max": 150},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 25,
+  "actors": [
+    {
+      "id": "stopped_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "swerving_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 60, "max": 80},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,0,255"
+    },
+    {
+      "id": "tailgating_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "emergency_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 150, "max": 200},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,255,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stopped_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "swerving_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "swerving_vehicle",
+      "action_type": "emergency_stop",
+      "trigger_type": "after_previous",
+      "brake_force": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "tailgating_truck",
+      "action_type": "brake",
+      "trigger_type": "ego_speed",
+      "trigger_value": 15.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "emergency_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 30.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 100,
+  "collision_allowed": false
+}

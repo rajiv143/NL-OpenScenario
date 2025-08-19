@@ -1,0 +1,160 @@
+{
+  "scenario_name": "highway_work_zone_185",
+  "description": "High-speed highway construction zone with lane closures and merging traffic",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.cybertruck",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "speed_limit": {"min": 60, "max": 80},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "arrow_board_truck",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 100, "max": 120},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,150,0"
+    },
+    {
+      "id": "merging_car_1",
+      "type": "vehicle",
+      "model": "vehicle.hyundai.sonata",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 60, "max": 80},
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,100,200"
+    },
+    {
+      "id": "merging_car_2",
+      "type": "vehicle",
+      "model": "vehicle.mazda.cx5",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "150,50,50"
+    },
+    {
+      "id": "speeding_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 120, "max": 150},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "work_zone_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 70, "max": 90},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "100,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "arrow_board_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "merging_car_1",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "merging_car_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "merging_car_2",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "speeding_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 28.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 100.0
+    },
+    {
+      "actor_id": "work_zone_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 100,
+  "collision_allowed": false
+}

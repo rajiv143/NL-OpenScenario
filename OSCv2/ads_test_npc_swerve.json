@@ -1,0 +1,57 @@
+{
+  "name": "npc_swerve",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 2
+  },
+  "actors": [
+    {
+      "name": "npc",
+      "type": "Rubicon",
+      "initial_speed": 60.0
+    }
+  ],
+  "duration": 12,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "ego_vehicle",
+      "speed": 50,
+      "lane": 2
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "npc_parallel_drive",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "npc",
+            "speed": 60,
+            "lane": 1,
+            "position": {
+              "distance": "5m",
+              "relative": "behind",
+              "target": "ego_vehicle",
+              "at": "start"
+            }
+          }
+        },
+        {
+          "name": "npc_sudden_swerve",
+          "type": "parallel",
+          "duration": 2,
+          "drive": {
+            "actor": "npc",
+            "lane": {
+              "same_as": "ego_vehicle",
+              "at": "end"
+            },
+            "speed": 60
+          }
+        }
+      ]
+    }
+  ]
+}

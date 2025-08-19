@@ -146,8 +146,9 @@ class JsonToXoscConverter:
         """Load road intelligence data for all available maps"""
         base_dir = os.path.dirname(__file__)
         
-        # Load road intelligence files (*_road_intelligence.json)
-        for path in glob.glob(os.path.join(base_dir, "*_road_intelligence.json")):
+        # Load road intelligence files (*_road_intelligence.json) from road_intelligence folder
+        road_intel_dir = os.path.join(base_dir, "road_intelligence")
+        for path in glob.glob(os.path.join(road_intel_dir, "*_road_intelligence.json")):
             # Extract town name from TownX_road_intelligence.json -> TownX
             filename = os.path.basename(path)
             town = filename.replace("_road_intelligence.json", "")
@@ -1207,7 +1208,19 @@ class JsonToXoscConverter:
                     })
                     tgt = ET.SubElement(sa, 'SpeedActionTarget')
                     ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value': str(speed_val)})
-
+                elif atype == 'brake':
+                    la = ET.SubElement(pa, 'LongitudinalAction')
+                    sa = ET.SubElement(la, 'SpeedAction')
+                    ET.SubElement(sa, 'SpeedActionDynamics', {
+                        'dynamicsDimension': action.get('dynamics_dimension','time'),
+                        'dynamicsShape':     action.get('dynamics_shape','step'),
+                        'value':             str(action.get('dynamics_value',1))
+                    })
+                    tgt = ET.SubElement(sa, 'SpeedActionTarget')
+                    # Convert brake_force to speed reduction
+                    brake_force = action.get('brake_force', 0.5)
+                    target_speed = max(0, 5 * (1 - brake_force))  # Simple conversion
+                    ET.SubElement(tgt, 'AbsoluteTargetSpeed', {'value': str(target_speed)})
                 elif atype == 'lane_change':
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')

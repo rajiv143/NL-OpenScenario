@@ -1,0 +1,58 @@
+# OpenSCENARIO 2.0.0
+# Scenario: highway_following
+# Description: Ego vehicle follows lead vehicle at safe distance
+import osc.standard
+import osc.helpers
+import osc.motioncontrol
+
+parameters:
+    ego_initial_speed: speed = [25mps..30mps]
+    lead_initial_speed: speed = [20mps..25mps]
+    ego_follow_distance: length = [20m..30m]
+    num_lanes: int = [2..3]
+    weather_condition: string = "rain"
+    time_of_day: string = "dusk"
+
+actor ego:
+    vehicle.car()
+    keep(vehicle.initial_speed == ego_initial_speed)
+
+actor lead:
+    vehicle.bus()
+    keep(vehicle.initial_speed == lead_initial_speed)
+
+scenario highway_following:
+    # Ego vehicle follows lead vehicle at safe distance
+    
+    # Define the map and path
+    path: path
+    path.set_map("maps/Town04.xodr")
+    path.path_min_driving_lanes(2)
+
+    # Spawn actors with constraints
+
+    spawn:
+        ego:
+                lane.lane_id in [1..3]
+    position.relative_lane_position(start: 0.0, end: 1.0)
+
+        lead:
+            
+    position:
+        near(ego, radius: [20m..100m])
+
+    # Define scenario actions
+    do parallel:
+
+    action follow_lead:
+        ego.follow_path()
+        ego.keep_distance(lead, distance: ego_follow_distance)
+
+    action brake:
+        lead.speed_change(target: 10mps)
+        duration: [2s..4s]
+
+    # Scenario ending conditions
+    end when:
+        elapsed_time > 60s or
+        ego.distance_traveled > 1000m

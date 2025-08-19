@@ -1,0 +1,56 @@
+{
+  "scenario_name": "wet_cloudy_overtake_078",
+  "description": "Overtaking vehicle in wet cloudy conditions",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "overtaking_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.lincoln.mkz_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "overtaking_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "overtaking_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": ">",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 55,
+  "collision_allowed": false
+}

@@ -1,0 +1,86 @@
+{
+  "scenario_name": "rain_two_peds_089",
+  "description": "Two pedestrians in rainy conditions",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.volkswagen.t2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 7,
+  "actors": [
+    {
+      "id": "ped_near",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0014",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 28},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 1.5
+        }
+      }
+    },
+    {
+      "id": "ped_far",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0019",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ped_near",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "ped_far",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "ped_near",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 8,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "ped_far",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "wait_duration": 2.5
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 50,
+  "collision_allowed": false
+}
