@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "construction",
-      "speed_limit": {"min": 30, "max": 50},
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "construction",
-          "distance_to_ego": {"min": 50, "max": 70},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -35,7 +41,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Shoulder",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -48,7 +57,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -64,7 +76,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 80, "max": 100},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -80,7 +95,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 30, "max": 45},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -96,7 +114,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "construction",
-          "distance_to_ego": {"min": 85, "max": 105},
+          "distance_to_ego": {
+            "min": 85,
+            "max": 105
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -141,10 +162,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4.0,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 3.5
+      "dynamics_value": 3.5,
+      "target_lane": 0
     },
     {
       "actor_id": "following_truck",

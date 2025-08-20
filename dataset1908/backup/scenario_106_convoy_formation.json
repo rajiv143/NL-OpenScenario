@@ -1,0 +1,137 @@
+{
+  "scenario_name": "convoy_formation_106",
+  "description": "Highway convoy formation with synchronized lane changes",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.nissan.micra",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {"min": 90, "max": 120},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 21,
+  "actors": [
+    {
+      "id": "convoy_lead",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "convoy_middle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 75, "max": 90},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "convoy_tail",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 110, "max": 130},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "150,150,150"
+    },
+    {
+      "id": "fast_bypasser",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 140, "max": 160},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "convoy_tail",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "convoy_middle",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.5,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "convoy_lead",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 6.0,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "fast_bypasser",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 30.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "fast_bypasser",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 100,
+  "collision_allowed": false
+}

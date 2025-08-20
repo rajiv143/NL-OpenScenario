@@ -1,0 +1,1 @@
+Can you design a realistic traffic situation involving a convoy of trucks performing synchronized lane changes on a highway while a fast vehicle attempts to overtake the entire convoy? Test how the ego vehicle navigates through this complex formation.

@@ -8,7 +8,10 @@
       "lane_type": "Driving",
       "road_context": "urban",
       "is_intersection": true,
-      "speed_limit": {"min": 30, "max": 50}
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      }
     }
   },
   "ego_start_speed": 12,
@@ -22,7 +25,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 30, "max": 45},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -38,7 +44,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -54,7 +63,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -69,7 +81,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "right",
           "lateral_offset": 3.0
         }
@@ -129,7 +144,10 @@
       "actor_id": "turning_vehicle",
       "action_type": "brake",
       "trigger_type": "after_previous",
-      "brake_force": 0.6
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     }
   ],
   "success_distance": 100,

@@ -1,13 +1,16 @@
 {
   "scenario_name": "delivery_mayhem_117",
   "description": "Urban delivery scenario with multiple stopping vehicles",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.bmw.grandtourer",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 25, "max": 40},
+      "speed_limit": {
+        "min": 25,
+        "max": 40
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -68,7 +80,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "right",
           "lateral_offset": 3.0
         }
@@ -81,7 +96,10 @@
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "brake_force": 0.7
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "delivery_truck",
@@ -112,10 +130,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": 1
     },
     {
       "actor_id": "taxi",

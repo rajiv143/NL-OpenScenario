@@ -1,0 +1,68 @@
+{
+  "scenario_name": "rural_gravel_road_307",
+  "description": "Navigating loose gravel road with dust cloud from vehicle ahead",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 40}
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "dusty_pickup",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 65},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "dusty_pickup",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "dusty_pickup",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "dusty_pickup",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 10.0,
+      "speed_value": 9.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 110,
+  "timeout": 75,
+  "collision_allowed": false
+}

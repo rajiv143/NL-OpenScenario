@@ -1,7 +1,7 @@
 {
   "scenario_name": "night_pedestrian_crossing",
   "description": "Pedestrian crosses at night",
-  "weather": "clear",
+  "weather": "clear_night",
   "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
   "ego_spawn": {
     "criteria": {
@@ -19,7 +19,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lateral_offset": 3.0
@@ -33,7 +36,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 0,
-      "wait_duration": 2
+      "wait_duration": 2,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "night_walker",

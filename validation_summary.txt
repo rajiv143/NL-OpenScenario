@@ -1,0 +1,29 @@
+VALIDATION COMPLETE - 339 Scenarios Processed
+
+CRITICAL ERRORS FOUND: 115 scenarios
+QUALITY WARNINGS: 11 scenarios
+PERFECT SCENARIOS: 213 scenarios (62.8%)
+
+ERROR BREAKDOWN:
+  - lane_relationship: 142 scenarios
+  - missing_field: 16 scenarios
+  - weather: 1 scenarios
+
+CATEGORICAL BREAKDOWN:
+  - following: 42 scenarios
+  - cut_in: 105 scenarios
+  - intersection: 40 scenarios
+  - pedestrian: 115 scenarios
+  - multi_actor: 229 scenarios
+  - emergency: 55 scenarios
+  - construction: 23 scenarios
+  - weather_specific: 0 scenarios
+
+CONTEXT DISTRIBUTION:
+  - urban: 99 scenarios
+  - highway: 104 scenarios
+  - suburban: 29 scenarios
+  - construction: 23 scenarios
+  - rural: 3 scenarios
+  - town: 30 scenarios
+  - service: 1 scenarios

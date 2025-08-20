@@ -1,0 +1,86 @@
+{
+  "scenario_name": "night_invisible_vehicle_233",
+  "description": "Vehicle without lights nearly invisible at night",
+  "weather": "clear_night",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "rural",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "dark_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "20,20,20"
+    },
+    {
+      "id": "oncoming_bright",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "dark_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "dark_vehicle",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "oncoming_bright",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 85,
+  "timeout": 55,
+  "collision_allowed": false
+}

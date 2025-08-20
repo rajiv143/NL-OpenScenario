@@ -8,7 +8,10 @@
       "lane_type": "Driving",
       "road_context": "urban",
       "is_intersection": true,
-      "speed_limit": {"min": 30, "max": 45}
+      "speed_limit": {
+        "min": 30,
+        "max": 45
+      }
     }
   },
   "ego_start_speed": 9,
@@ -22,7 +25,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -39,7 +45,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -55,7 +64,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "left",
           "road_relationship": "different_road"
         }
@@ -70,7 +82,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 15, "max": 25},
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -117,7 +132,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "wait_duration": 3.0
+      "wait_duration": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "impatient_honker",
@@ -135,7 +152,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 8.0,
       "trigger_comparison": "<",
-      "brake_force": 0.8
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "box_blocker1",

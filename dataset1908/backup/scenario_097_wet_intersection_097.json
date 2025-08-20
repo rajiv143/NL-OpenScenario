@@ -1,0 +1,54 @@
+{
+  "scenario_name": "wet_intersection_097",
+  "description": "Wet intersection with turning vehicle",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 7,
+  "actors": [
+    {
+      "id": "turning_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.mustang",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "left",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "turning_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "turning_car",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 45,
+  "collision_allowed": false
+}

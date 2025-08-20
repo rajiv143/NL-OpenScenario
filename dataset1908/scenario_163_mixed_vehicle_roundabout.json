@@ -1,13 +1,16 @@
 {
   "scenario_name": "mixed_vehicle_roundabout_163",
   "description": "Complex roundabout navigation with buses, trucks, motorcycles and bicycles",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.chevrolet.impala",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "suburban",
-      "speed_limit": {"min": 30, "max": 50},
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
       "is_intersection": true
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -36,7 +42,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 25, "max": 40},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 40
+          },
           "relative_position": "left",
           "road_relationship": "different_road"
         }
@@ -51,7 +60,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -68,7 +80,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 40, "max": 60},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -124,10 +139,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 20.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 1.5
+      "dynamics_value": 1.5,
+      "target_lane": -1
     }
   ],
   "success_distance": 140,

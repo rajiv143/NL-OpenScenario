@@ -1,0 +1,82 @@
+{
+  "scenario_name": "flooding_road_334",
+  "description": "Navigating partially flooded road with stalled vehicles",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 45}
+    }
+  },
+  "ego_start_speed": 4,
+  "actors": [
+    {
+      "id": "stalled_car",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "turning_suv",
+      "type": "vehicle",
+      "model": "vehicle.jeep.wrangler_rubicon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "ahead",
+          "road_relationship": "opposite_road",
+          "lane_relationship": "opposite_lane",
+          "road_context": "town"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stalled_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "turning_suv",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "turning_suv",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 70,
+  "collision_allowed": false
+}

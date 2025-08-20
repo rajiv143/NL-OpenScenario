@@ -1,0 +1,101 @@
+{
+  "scenario_name": "construction_temporary_lights_224",
+  "description": "Temporary traffic signals at single-lane construction zone",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "construction_barrier_truck",
+      "type": "vehicle",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "255,140,0"
+    },
+    {
+      "id": "waiting_opposite_1",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 60, "max": 70},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    },
+    {
+      "id": "waiting_opposite_2",
+      "type": "vehicle",
+      "model": "vehicle.seat.leon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 75, "max": 85},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "construction_barrier_truck",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 70.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "waiting_opposite_1",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "waiting_opposite_1",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "wait_duration": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "waiting_opposite_2",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 70,
+  "collision_allowed": false
+}

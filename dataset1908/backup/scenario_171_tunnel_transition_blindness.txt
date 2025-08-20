@@ -1,0 +1,1 @@
+Create a perception-challenging scenario simulating tunnel transitions where dark vehicles become invisible during entry and bright vehicles cause sensor saturation at exit. Include a motorcycle without lights and vehicles in shadow zones to test dynamic exposure adjustment and HDR capabilities of vision systems.

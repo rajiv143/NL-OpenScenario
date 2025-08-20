@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 20, "max": 30},
+      "speed_limit": {
+        "min": 20,
+        "max": 30
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 45, "max": 55},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "right",
           "lateral_offset": 2.5
         }
@@ -65,7 +77,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "left",
           "lateral_offset": -2.0
         }
@@ -78,7 +93,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 50, "max": 60},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 60
+          },
           "relative_position": "right",
           "lateral_offset": 3.0
         }
@@ -123,7 +141,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "wait_duration": 3.0
+      "wait_duration": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "student3",

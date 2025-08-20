@@ -19,7 +19,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -33,7 +36,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -47,7 +53,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lateral_offset": 3.0
@@ -91,10 +100,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4,
-      "target_lane": "same_as_ego",
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3
+      "dynamics_value": 3,
+      "target_lane": 1
     },
     {
       "actor_id": "rain_walker",

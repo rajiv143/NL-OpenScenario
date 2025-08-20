@@ -1,13 +1,16 @@
 {
   "scenario_name": "high_speed_weaving_105",
   "description": "High-speed weaving scenario with vehicles changing lanes aggressively",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.mercedes.coupe",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 110, "max": 140},
+      "speed_limit": {
+        "min": 110,
+        "max": 140
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 120, "max": 140},
+          "distance_to_ego": {
+            "min": 120,
+            "max": 140
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 85, "max": 100},
+          "distance_to_ego": {
+            "min": 85,
+            "max": 100
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -88,10 +100,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": -1
     },
     {
       "actor_id": "side_passer",
@@ -99,19 +111,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 50.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 3.5
+      "dynamics_value": 3.5,
+      "target_lane": 1
     },
     {
       "actor_id": "aggressive_driver",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": 1,
       "dynamics_dimension": "distance",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 45.0
+      "dynamics_value": 45.0,
+      "target_lane": 1
     },
     {
       "actor_id": "side_passer",

@@ -1,13 +1,16 @@
 {
   "scenario_name": "night_market_125",
   "description": "Night market area with heavy pedestrian traffic",
-  "weather": "clear_sunset",
+  "weather": "clear_night",
   "ego_vehicle_model": "vehicle.volkswagen.t2_2021",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 20, "max": 30},
+      "speed_limit": {
+        "min": 20,
+        "max": 30
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -36,7 +42,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "right",
           "lateral_offset": 1.5
         }
@@ -49,7 +58,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "left",
           "lateral_offset": -2.0
         }
@@ -62,7 +74,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 50, "max": 60},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 60
+          },
           "relative_position": "right",
           "lateral_offset": 2.5
         }
@@ -75,7 +90,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "left",
           "lateral_offset": -1.5
         }
@@ -114,7 +132,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 3.0,
-      "wait_duration": 2.0
+      "wait_duration": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "market_goer4",

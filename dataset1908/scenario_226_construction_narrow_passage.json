@@ -1,0 +1,93 @@
+{
+  "scenario_name": "construction_narrow_barriers_226",
+  "description": "Narrow passage through concrete barriers with oncoming truck",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.nissan.micra",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "oncoming_truck",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    },
+    {
+      "id": "barrier_truck_left",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.carlacola",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "left",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,140,0"
+    },
+    {
+      "id": "barrier_truck_right",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.carlacola",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,140,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "oncoming_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "barrier_truck_left",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 60.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "barrier_truck_right",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 60.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 20, "max": 30},
+      "speed_limit": {
+        "min": 20,
+        "max": 30
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -52,7 +61,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "right",
           "lateral_offset": 1.5
         }
@@ -65,7 +77,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "left",
           "lateral_offset": -1.5
         }
@@ -104,7 +119,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 2.5,
-      "wait_duration": 2.0
+      "wait_duration": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "oncoming_large",

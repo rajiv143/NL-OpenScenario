@@ -1,7 +1,7 @@
 {
   "scenario_name": "heavy_rain_cautious_following",
   "description": "Cautious following in heavy rain",
-  "weather": "hard_rain",
+  "weather": "mid_rain",
   "ego_vehicle_model": "vehicle.ford.mustang",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"

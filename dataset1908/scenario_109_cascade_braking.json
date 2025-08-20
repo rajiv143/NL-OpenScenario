@@ -1,13 +1,16 @@
 {
   "scenario_name": "cascade_braking_109",
   "description": "Cascade emergency braking scenario with four vehicles",
-  "weather": "soft_rain",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.mercedes.coupe",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 90, "max": 120},
+      "speed_limit": {
+        "min": 90,
+        "max": 120
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 90, "max": 110},
+          "distance_to_ego": {
+            "min": 90,
+            "max": 110
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -68,30 +80,39 @@
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "brake_force": 0.9
+      "brake_force": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "second_car",
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 2.8,
-      "brake_force": 0.85
+      "brake_force": 0.85,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "front_car",
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "brake_force": 0.8
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "front_car",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.5
+      "dynamics_value": 3.5,
+      "target_lane": 1
     },
     {
       "actor_id": "second_car",

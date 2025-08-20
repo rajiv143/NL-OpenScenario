@@ -1,0 +1,1 @@
+Create a highway work zone scenario with arrow board truck indicating lane closure, multiple vehicles merging from closed lane, fast-approaching motorcycle, and stationary work vehicles. Test high-speed merging behavior and work zone navigation with multiple vehicles competing for limited lane space.

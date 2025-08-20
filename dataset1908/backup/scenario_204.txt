@@ -1,0 +1,1 @@
+For ADAS testing, generate a pedestrian crosswalk scenario on wet roads. Two pedestrians should cross from different sides - one from the right starting immediately at 1.8 m/s, another from the left starting after 2 seconds at 1.2 m/s. Add an orange Volkswagen van behind that stops when approaching the crosswalk.

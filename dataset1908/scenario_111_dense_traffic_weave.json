@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 95, "max": 125},
+      "speed_limit": {
+        "min": 95,
+        "max": 125
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 80, "max": 95},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 95
+          },
           "relative_position": "behind",
           "road_relationship": "same_road"
         }
@@ -36,7 +42,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 100, "max": 120},
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -77,20 +89,20 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": 1
     },
     {
       "actor_id": "weaver2",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 2.5,
-      "target_lane": -1,
       "dynamics_dimension": "distance",
       "dynamics_shape": "cubic",
-      "dynamics_value": 55.0
+      "dynamics_value": 55.0,
+      "target_lane": -1
     },
     {
       "actor_id": "steady_truck",
@@ -108,16 +120,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 35.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     },
     {
       "actor_id": "weaver2",
       "action_type": "brake",
       "trigger_type": "after_previous",
-      "brake_force": 0.4
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     }
   ],
   "success_distance": 175,

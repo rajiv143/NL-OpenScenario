@@ -6,7 +6,10 @@
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
-      "lane_id": {"min": 2, "max": 4},
+      "lane_id": {
+        "min": 2,
+        "max": 4
+      },
       "is_intersection": false,
       "road_context": "highway"
     }
@@ -20,7 +23,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -45,10 +51,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 25,
       "trigger_comparison": "<",
-      "target_lane": "same_as_ego",
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2
+      "dynamics_value": 2,
+      "target_lane": 0
     }
   ],
   "success_distance": 100,

@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "construction",
-      "speed_limit": {"min": 50, "max": 70},
+      "speed_limit": {
+        "min": 50,
+        "max": 70
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -36,7 +42,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 50, "max": 60},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -50,7 +59,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 55, "max": 65},
+          "distance_to_ego": {
+            "min": 55,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -65,7 +77,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 70, "max": 85},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -81,7 +96,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 30, "max": 45},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -126,10 +144,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.0,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": -1
     },
     {
       "actor_id": "confused_motorcycle",
@@ -146,10 +164,10 @@
       "actor_id": "confused_motorcycle",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     }
   ],
   "success_distance": 160,

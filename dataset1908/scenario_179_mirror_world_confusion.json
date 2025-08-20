@@ -1,13 +1,16 @@
 {
   "scenario_name": "mirror_world_confusion_179",
   "description": "Reflective surfaces creating ghost images and sensor confusion",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.tesla.cybertruck",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 40, "max": 60},
+      "speed_limit": {
+        "min": 40,
+        "max": 60
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "urban",
-          "distance_to_ego": {"min": 30, "max": 45},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -36,7 +42,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 70, "max": 85},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -67,7 +79,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "left",
           "road_relationship": "same_road"
         }
@@ -81,7 +96,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 90, "max": 110},
+          "distance_to_ego": {
+            "min": 90,
+            "max": 110
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -117,10 +135,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": 1
     },
     {
       "actor_id": "wet_road_vehicle",

@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -33,7 +36,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 55, "max": 70},
+          "distance_to_ego": {
+            "min": 55,
+            "max": 70
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road"
         }
@@ -67,10 +73,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30,
       "trigger_comparison": "<",
-      "lane_direction": "right",
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 1
     },
     {
       "actor_id": "jogger",

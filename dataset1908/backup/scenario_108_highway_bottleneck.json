@@ -1,0 +1,146 @@
+{
+  "scenario_name": "highway_bottleneck_108",
+  "description": "Highway bottleneck with vehicles competing for space",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.volkswagen.t2_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {"min": 100, "max": 130},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "slow_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "180,180,180"
+    },
+    {
+      "id": "blocking_van",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 55, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "impatient_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "200,0,0"
+    },
+    {
+      "id": "side_squeezer",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,150,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "slow_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.5
+    },
+    {
+      "actor_id": "blocking_van",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "side_squeezer",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "impatient_car",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "blocking_van",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35.0,
+      "trigger_comparison": "<",
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "impatient_car",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 27.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 185,
+  "timeout": 90,
+  "collision_allowed": false
+}

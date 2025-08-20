@@ -1,0 +1,1 @@
+Create a scenario with mixed vehicle types including a car, motorcycle, truck, and bicycle all interacting on an urban street with different speeds and behaviors.

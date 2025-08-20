@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "suburban",
-      "speed_limit": {"min": 50, "max": 70},
+      "speed_limit": {
+        "min": 50,
+        "max": 70
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 30, "max": 45},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -38,7 +44,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -55,7 +64,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 100, "max": 130},
+          "distance_to_ego": {
+            "min": 100,
+            "max": 130
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -71,7 +83,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 25, "max": 40},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 40
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -128,10 +143,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 15.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     }
   ],
   "success_distance": 160,

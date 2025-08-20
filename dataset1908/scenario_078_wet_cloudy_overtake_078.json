@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 15, "max": 25},
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -44,10 +47,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 15,
       "trigger_comparison": ">",
-      "lane_direction": "left",
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 0
     }
   ],
   "success_distance": 90,

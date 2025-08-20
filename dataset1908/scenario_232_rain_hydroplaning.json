@@ -1,0 +1,93 @@
+{
+  "scenario_name": "rain_hydroplane_slide_232",
+  "description": "Vehicle hydroplanes and slides across lanes in heavy rain",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "hydroplaning_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    },
+    {
+      "id": "avoiding_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.jeep.wrangler_rubicon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "hydroplaning_car",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "hydroplaning_car",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "brake_force": 0.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "hydroplaning_car",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "avoiding_vehicle",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 60,
+  "collision_allowed": false
+}

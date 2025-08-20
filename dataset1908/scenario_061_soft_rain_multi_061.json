@@ -1,7 +1,7 @@
 {
   "scenario_name": "soft_rain_multi_061",
   "description": "Multiple speed changes in light rain",
-  "weather": "soft_rain",
+  "weather": "mid_rain",
   "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"

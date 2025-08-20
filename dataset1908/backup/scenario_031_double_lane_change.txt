@@ -1,0 +1,1 @@
+Indecisive lane changer - merges into my lane, realizes it's not faster (or wrong exit), then moves back. Like someone unsure about their route. Highway setting. Tests tracking through multiple lane changes.

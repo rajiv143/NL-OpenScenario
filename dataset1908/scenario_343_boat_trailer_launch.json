@@ -1,0 +1,79 @@
+{
+  "scenario_name": "boat_trailer_launch_343",
+  "description": "Vehicle with boat trailer backing into launch ramp blocking road",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 35}
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "boat_trailer",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "spotter",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "ahead",
+          "lateral_offset": 2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "boat_trailer",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "spotter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "boat_trailer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": -1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 70,
+  "collision_allowed": false
+}

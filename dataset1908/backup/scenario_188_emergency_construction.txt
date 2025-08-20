@@ -1,0 +1,1 @@
+Test response to unexpected emergency road repair with suddenly stopped emergency vehicle, repair crew in traffic lane, vehicles swerving to avoid, and confused motorcycle behind. Evaluate emergency hazard recognition and rapid path replanning on wet roads with no advance warning.

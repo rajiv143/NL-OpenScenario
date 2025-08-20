@@ -1,0 +1,102 @@
+{
+  "scenario_name": "suburban_garage_sale_316",
+  "description": "Weekend garage sale with cars parking and pedestrians crossing randomly",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 35}
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "parking_car",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "shopper_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0015",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "lateral_offset": 3.0
+        }
+      }
+    },
+    {
+      "id": "shopper_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0016",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "left",
+          "lateral_offset": -3.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parking_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "parking_car",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "shopper_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "shopper_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}

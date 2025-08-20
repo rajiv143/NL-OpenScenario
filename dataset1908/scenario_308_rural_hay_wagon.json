@@ -1,0 +1,93 @@
+{
+  "scenario_name": "rural_hay_wagon_308",
+  "description": "Oversized hay wagon partially blocking rural road during harvest",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 35, "max": 55}
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "hay_wagon",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      },
+      "color": "218,165,32"
+    },
+    {
+      "id": "oncoming_car",
+      "type": "vehicle",
+      "model": "vehicle.chevrolet.impala",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "opposite_road",
+          "lane_relationship": "opposite_lane",
+          "road_context": "town"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "hay_wagon",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "hay_wagon",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "oncoming_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "oncoming_car",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 80,
+  "collision_allowed": false
+}

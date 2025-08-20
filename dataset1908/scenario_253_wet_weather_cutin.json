@@ -1,0 +1,61 @@
+{
+  "scenario_name": "wet_weather_cutin_253",
+  "description": "Cautious cut-in maneuver during wet weather conditions with reduced speeds",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "cautious_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "0,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cautious_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "cautious_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.5,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 75,
+  "collision_allowed": false
+}

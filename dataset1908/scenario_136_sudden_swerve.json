@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 85, "max": 115},
+      "speed_limit": {
+        "min": 85,
+        "max": 115
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "left",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -68,27 +80,30 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 1.0
+      "dynamics_value": 1.0,
+      "target_lane": 1
     },
     {
       "actor_id": "swerving_vehicle",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 1.2
+      "dynamics_value": 1.2,
+      "target_lane": -1
     },
     {
       "actor_id": "adjacent_vehicle",
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 2.2,
-      "brake_force": 0.6
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "following_car",
@@ -104,7 +119,10 @@
       "actor_id": "swerving_vehicle",
       "action_type": "brake",
       "trigger_type": "after_previous",
-      "brake_force": 0.5
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "following_car",
@@ -112,7 +130,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 15.0,
       "trigger_comparison": "<",
-      "brake_force": 0.7
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     }
   ],
   "success_distance": 150,

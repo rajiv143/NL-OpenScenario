@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 110, "max": 140},
+      "speed_limit": {
+        "min": 110,
+        "max": 140
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 150, "max": 170},
+          "distance_to_ego": {
+            "min": 150,
+            "max": 170
+          },
           "relative_position": "behind",
           "road_relationship": "same_road"
         }
@@ -36,7 +42,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 130, "max": 145},
+          "distance_to_ego": {
+            "min": 130,
+            "max": 145
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 65, "max": 80},
+          "distance_to_ego": {
+            "min": 65,
+            "max": 80
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -98,10 +110,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 60.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": 1
     },
     {
       "actor_id": "racer2",
@@ -109,19 +121,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 50.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     },
     {
       "actor_id": "racer1",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "distance",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 40.0
+      "dynamics_value": 40.0,
+      "target_lane": -1
     }
   ],
   "success_distance": 200,

@@ -1,7 +1,7 @@
 {
   "scenario_name": "pedestrian_hesitates_midway",
   "description": "Pedestrian stops in middle of crossing",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.nissan.patrol",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 22, "max": 32},
+          "distance_to_ego": {
+            "min": 22,
+            "max": 32
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lateral_offset": 3.5
@@ -51,7 +54,9 @@
       "action_type": "wait",
       "trigger_type": "after_previous",
       "trigger_value": 0,
-      "wait_duration": 1.5
+      "wait_duration": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "hesitant_walker",

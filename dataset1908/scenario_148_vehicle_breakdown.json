@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 90, "max": 120},
+      "speed_limit": {
+        "min": 90,
+        "max": 120
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 70, "max": 85},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "left",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -84,17 +96,20 @@
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 3.0,
-      "brake_force": 0.6
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "swerving_avoider",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.8,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 1.5
+      "dynamics_value": 1.5,
+      "target_lane": 1
     },
     {
       "actor_id": "rubber_necker",

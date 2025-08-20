@@ -1,0 +1,119 @@
+{
+  "scenario_name": "car_wash_entrance_324",
+  "description": "Vehicles queuing and maneuvering at car wash entrance",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {
+        "min": 15,
+        "max": 25
+      }
+    }
+  },
+  "ego_start_speed": 3,
+  "actors": [
+    {
+      "id": "waiting_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "exiting_car",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "adjacent_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "cutting_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "town"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "waiting_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "exiting_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cutting_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0,
+      "target_lane": 0
+    },
+    {
+      "actor_id": "waiting_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 60,
+  "collision_allowed": false
+}

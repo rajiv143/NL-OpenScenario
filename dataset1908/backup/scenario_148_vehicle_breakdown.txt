@@ -1,0 +1,1 @@
+Create a highway breakdown scenario in heavy rain where a vehicle stops in my lane, the car ahead swerves to avoid it, and adjacent traffic slows down to look, testing emergency hazard avoidance in poor visibility conditions.

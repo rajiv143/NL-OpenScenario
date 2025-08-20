@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 90, "max": 110},
+      "speed_limit": {
+        "min": 90,
+        "max": 110
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 100, "max": 120},
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "highway",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -52,7 +61,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane",
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 10, "max": 15},
+          "distance_to_ego": {
+            "min": 10,
+            "max": 15
+          },
           "relative_position": "right",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -84,7 +99,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Shoulder",
-          "distance_to_ego": {"min": 80, "max": 95},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 95
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -139,10 +157,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 8.0,
       "trigger_comparison": ">",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": 1
     },
     {
       "actor_id": "thermal_pedestrian",

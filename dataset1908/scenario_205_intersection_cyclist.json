@@ -1,0 +1,48 @@
+{
+  "scenario_name": "intersection_cyclist_crossing_205",
+  "description": "Cyclist crosses intersection from bike lane",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "crossing_cyclist",
+      "type": "vehicle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Biking",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_cyclist",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "speed_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 65,
+  "timeout": 40,
+  "collision_allowed": false
+}

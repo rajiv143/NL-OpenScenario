@@ -1,0 +1,61 @@
+{
+  "scenario_name": "fast_sports_car_cutin_257",
+  "description": "High-performance sports car executes aggressive high-speed cut-in",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 28,
+  "actors": [
+    {
+      "id": "sports_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.mustang",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 80
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "sports_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 38.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "sports_car",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 22.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.8,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,7 +1,7 @@
 {
   "scenario_name": "wet_running_pedestrian_065",
   "description": "Running pedestrian on wet road",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.tesla.model3",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lateral_offset": 1.5

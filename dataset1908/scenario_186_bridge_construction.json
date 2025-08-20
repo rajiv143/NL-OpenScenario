@@ -1,13 +1,16 @@
 {
   "scenario_name": "bridge_construction_186",
   "description": "Bridge construction with narrow lanes and height restrictions",
-  "weather": "cloudy",
+  "weather": "mid_rain",
   "ego_vehicle_model": "vehicle.mercedes.sprinter",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "construction",
-      "speed_limit": {"min": 30, "max": 50},
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 50, "max": 70},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "construction",
-          "distance_to_ego": {"min": 60, "max": 80},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 80
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -52,7 +61,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "construction",
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "left",
           "road_relationship": "same_road"
         }

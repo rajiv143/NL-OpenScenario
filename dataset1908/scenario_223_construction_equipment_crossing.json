@@ -1,0 +1,91 @@
+{
+  "scenario_name": "construction_equipment_crossing_223",
+  "description": "Heavy equipment crossing road at construction site",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "crossing_bulldozer",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "waiting_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.jeep.wrangler_rubicon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 60},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    },
+    {
+      "id": "safety_worker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0048",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 30, "max": 35},
+          "relative_position": "ahead",
+          "lateral_offset": -2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_bulldozer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "waiting_vehicle",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "safety_worker",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 70,
+  "collision_allowed": false
+}

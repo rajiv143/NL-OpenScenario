@@ -19,7 +19,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 18, "max": 25},
+          "distance_to_ego": {
+            "min": 18,
+            "max": 25
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lateral_offset": 2.0
@@ -33,7 +36,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -69,17 +75,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 10,
       "trigger_comparison": "<",
-      "wait_duration": 2.0
+      "wait_duration": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "turning_vehicle",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "lane_direction": "right",
       "dynamics_dimension": "distance",
       "dynamics_shape": "cubic",
-      "dynamics_value": 20.0
+      "dynamics_value": 20.0,
+      "target_lane": 1
     }
   ],
   "success_distance": 100,

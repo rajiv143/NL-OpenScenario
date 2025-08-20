@@ -1,0 +1,1 @@
+Pedestrian at night wearing dark clothes - stands at curb (barely visible), waits as if checking traffic, then crosses. Urban area with streetlights but still challenging visibility. Tests low-light pedestrian detection.

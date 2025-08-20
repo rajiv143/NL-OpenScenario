@@ -1,7 +1,7 @@
 {
   "scenario_name": "night_time_lane_change",
   "description": "Lane change at night",
-  "weather": "clear",
+  "weather": "clear_night",
   "ego_vehicle_model": "vehicle.audi.tt",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,10 +56,10 @@
       "action_type": "lane_change",
       "trigger_type": "after_previous",
       "trigger_value": 1,
-      "target_lane": "same_as_ego",
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3
+      "dynamics_value": 3,
+      "target_lane": 1
     }
   ],
   "success_distance": 80,

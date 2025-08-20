@@ -1242,14 +1242,29 @@ class JsonToXoscConverter:
                         'value':            str(dynamics_value)
                     })
                     tgt = ET.SubElement(lc, 'LaneChangeTarget')
-                    # For CARLA, we need to use RelativeTargetLane with a different entity as reference
-                    # Since we want the actor to change lanes relative to its current position,
-                    # we'll use the ego vehicle as a reference point if the actor is alongside or behind
-                    # Otherwise, we can use AbsoluteTargetLane if we know the target lane
-                    lane_value = -1 if action.get('lane_direction')=='left' else 1
-                    
                     # Use RelativeTargetLane with ego as reference
-                    # This works when the actor changes lanes relative to where ego is
+                    # value=0: same lane as ego
+                    # value=1: one lane to the right of ego
+                    # value=-1: one lane to the left of ego
+                    
+                    # Check if we have target_lane (numeric) - preferred
+                    if 'target_lane' in action:
+                        lane_value = action.get('target_lane')
+                    # Fallback to lane_direction for backward compatibility
+                    elif 'lane_direction' in action:
+                        direction = action.get('lane_direction')
+                        if direction == 'left':
+                            lane_value = -1
+                        elif direction == 'right':
+                            lane_value = 1
+                        elif direction == 'ego_lane' or direction == 'same':
+                            lane_value = 0
+                        else:
+                            lane_value = 1  # Default to right
+                    else:
+                        # Default for cut-in scenarios
+                        lane_value = 0
+                    
                     ET.SubElement(tgt, 'RelativeTargetLane', {
                         'entityRef': 'hero',  # Use ego as reference entity
                         'value':     str(lane_value)

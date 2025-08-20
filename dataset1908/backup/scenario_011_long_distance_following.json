@@ -1,0 +1,45 @@
+{
+  "scenario_name": "long_distance_cruise",
+  "description": "Following at safe long distance",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "distant_leader",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 60, "max": 80},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "distant_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 25,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 90,
+  "collision_allowed": false
+}

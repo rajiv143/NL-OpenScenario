@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "is_intersection": true,
-      "junction_proximity": {"min": 10, "max": 25}
+      "junction_proximity": {
+        "min": 10,
+        "max": 25
+      }
     }
   },
   "ego_start_speed": 5,
@@ -20,7 +23,10 @@
         "criteria": {
           "lane_type": "Driving",
           "is_intersection": true,
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -34,7 +40,10 @@
         "criteria": {
           "lane_type": "Driving",
           "is_intersection": true,
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -49,7 +58,10 @@
         "criteria": {
           "lane_type": "Sidewalk",
           "is_intersection": true,
-          "distance_to_ego": {"min": 15, "max": 25},
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road",
           "lateral_offset": 2.0
@@ -83,7 +95,9 @@
       "action_type": "wait",
       "trigger_type": "time",
       "trigger_value": 0,
-      "wait_duration": 2
+      "wait_duration": 2,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "cross_traffic",

@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "construction",
-      "speed_limit": {"min": 30, "max": 50},
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 40, "max": 55},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 70, "max": 90},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 90
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Shoulder",
-          "distance_to_ego": {"min": 50, "max": 60},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 60
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -66,7 +78,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "construction",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -90,10 +105,10 @@
       "actor_id": "dump_truck",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 4.0
+      "dynamics_value": 4.0,
+      "target_lane": -1
     },
     {
       "actor_id": "sweeper_vehicle",
@@ -122,10 +137,10 @@
       "trigger_type": "ego_speed",
       "trigger_value": 8.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     }
   ],
   "success_distance": 150,

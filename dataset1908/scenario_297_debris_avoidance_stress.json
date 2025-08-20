@@ -1,0 +1,130 @@
+{
+  "scenario_name": "debris_avoidance_stress_297",
+  "description": "Multiple vehicles react to sudden debris in roadway",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 27,
+  "actors": [
+    {
+      "id": "debris_dropper",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "100,100,100",
+      "special_type": "debris_source"
+    },
+    {
+      "id": "swerving_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "0,0,200"
+    },
+    {
+      "id": "panic_braker",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "debris_dropper",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.8
+    },
+    {
+      "actor_id": "swerving_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "swerving_car",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "panic_braker",
+      "action_type": "brake",
+      "trigger_type": "ego_speed",
+      "trigger_value": 24.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "swerving_car",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.2,
+      "target_lane": 1
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 65,
+  "collision_allowed": false
+}

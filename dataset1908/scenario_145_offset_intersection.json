@@ -8,7 +8,10 @@
       "lane_type": "Driving",
       "road_context": "urban",
       "is_intersection": true,
-      "speed_limit": {"min": 30, "max": 45}
+      "speed_limit": {
+        "min": 30,
+        "max": 45
+      }
     }
   },
   "ego_start_speed": 10,
@@ -22,7 +25,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -38,7 +44,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 40, "max": 55},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "opposite_lane"
@@ -55,7 +64,10 @@
           "lane_type": "Driving",
           "road_context": "urban",
           "is_intersection": true,
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "right",
           "road_relationship": "different_road"
         }
@@ -100,7 +112,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 20.0,
       "trigger_comparison": "<",
-      "brake_force": 0.5
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "straight_through",
@@ -108,7 +123,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 22.0,
       "trigger_comparison": "<",
-      "brake_force": 0.4
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "wide_turner",

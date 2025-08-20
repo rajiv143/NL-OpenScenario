@@ -1,0 +1,46 @@
+{
+  "scenario_name": "highway_cruise_following",
+  "description": "High speed following on highway",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway",
+      "speed_limit": {"min": 80, "max": 120}
+    }
+  },
+  "ego_start_speed": 25,
+  "actors": [
+    {
+      "id": "highway_leader",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "highway_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 28,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 90,
+  "collision_allowed": false
+}

@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 100, "max": 130},
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 80, "max": 100},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 55, "max": 70},
+          "distance_to_ego": {
+            "min": 55,
+            "max": 70
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 45, "max": 55},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
           "relative_position": "right",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -104,20 +119,20 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": -1
     },
     {
       "actor_id": "impatient_car",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 1
     },
     {
       "actor_id": "blocking_van",
@@ -125,10 +140,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 35.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "linear",
-      "dynamics_value": 4.0
+      "dynamics_value": 4.0,
+      "target_lane": 1
     },
     {
       "actor_id": "impatient_car",

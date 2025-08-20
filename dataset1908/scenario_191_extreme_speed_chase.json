@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 120, "max": 150},
+      "speed_limit": {
+        "min": 120,
+        "max": 150
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 150, "max": 200},
+          "distance_to_ego": {
+            "min": 150,
+            "max": 200
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 180, "max": 230},
+          "distance_to_ego": {
+            "min": 180,
+            "max": 230
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 120, "max": 150},
+          "distance_to_ego": {
+            "min": 120,
+            "max": 150
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 80, "max": 100},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -95,10 +110,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 60.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 1.5
+      "dynamics_value": 1.5,
+      "target_lane": 1
     },
     {
       "actor_id": "speeding_sports_car",
@@ -125,19 +140,19 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4.0,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": -1
     },
     {
       "actor_id": "weaving_vehicle",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 1
     }
   ],
   "success_distance": 250,

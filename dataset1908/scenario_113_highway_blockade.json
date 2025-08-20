@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 100, "max": 130},
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 100, "max": 120},
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 70, "max": 85},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 45, "max": 55},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -74,17 +86,20 @@
       "action_type": "brake",
       "trigger_type": "time",
       "trigger_value": 2.5,
-      "brake_force": 0.6
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "evading_car1",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": 1
     },
     {
       "actor_id": "evading_car2",
@@ -92,16 +107,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "brake_force": 0.7
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "evading_car2",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     },
     {
       "actor_id": "evading_car1",

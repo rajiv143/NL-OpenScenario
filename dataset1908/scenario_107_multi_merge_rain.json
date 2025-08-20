@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 85, "max": 110},
+      "speed_limit": {
+        "min": 85,
+        "max": 110
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 100, "max": 120},
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 65, "max": 80},
+          "distance_to_ego": {
+            "min": 65,
+            "max": 80
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -68,10 +80,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 2.0,
-      "target_lane": -1,
       "dynamics_dimension": "distance",
       "dynamics_shape": "cubic",
-      "dynamics_value": 70.0
+      "dynamics_value": 70.0,
+      "target_lane": 0
     },
     {
       "actor_id": "late_merger",
@@ -97,10 +109,10 @@
       "actor_id": "late_merger",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 4.5
+      "dynamics_value": 4.5,
+      "target_lane": 0
     },
     {
       "actor_id": "aggressive_merger",
@@ -108,10 +120,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 20.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": 0
     },
     {
       "actor_id": "early_merger",
@@ -119,7 +131,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "brake_force": 0.5
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     }
   ],
   "success_distance": 170,

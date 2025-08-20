@@ -1,0 +1,92 @@
+{
+  "scenario_name": "pedestrian_crosswalk_busy_204",
+  "map": "Town01",
+  "weather": "wet_cloudy",
+  "ego_vehicle": {
+    "model": "vehicle.audi.a2",
+    "initial_speed": 7
+  },
+  "actors": [
+    {
+      "id": "pedestrian_1",
+      "type": "pedestrian",
+      "pedestrian_attributes": {
+        "model": "walker.pedestrian.0001"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "right",
+          "road_context": "intersection"
+        }
+      },
+      "actions": [
+        {
+          "type": "change_speed",
+          "target_speed": 1.8,
+          "trigger": {
+            "type": "simulation_start"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "pedestrian_attributes": {
+        "model": "walker.pedestrian.0048"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 18, "max": 28},
+          "relative_position": "left",
+          "road_context": "intersection"
+        }
+      },
+      "actions": [
+        {
+          "type": "change_speed",
+          "target_speed": 1.2,
+          "trigger": {
+            "type": "time",
+            "value": 2.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "waiting_vehicle",
+      "type": "vehicle",
+      "vehicle_attributes": {
+        "vehicle_model": "vehicle.volkswagen.t2",
+        "color": "255,128,0"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "actions": [
+        {
+          "type": "stop",
+          "trigger": {
+            "type": "distance_to_ego",
+            "value": 20,
+            "comparison": "<"
+          }
+        }
+      ]
+    }
+  ],
+  "success_criteria": {
+    "collision_free": true,
+    "min_distance": 80,
+    "max_time": 50
+  }
+}

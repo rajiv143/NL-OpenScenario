@@ -1,0 +1,1 @@
+Create a perception-challenging environment where multiple pedestrians cross at an urban intersection during a rainy night. Include a large vehicle that blocks visibility of one pedestrian, testing the system's ability to detect partially occluded pedestrians in extremely low visibility conditions with wet reflective surfaces.

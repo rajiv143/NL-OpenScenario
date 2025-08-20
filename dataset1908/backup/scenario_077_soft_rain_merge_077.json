@@ -1,0 +1,56 @@
+{
+  "scenario_name": "soft_rain_merge_077",
+  "description": "Aggressive merge in light rain",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "merging_car",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "merging_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "merging_car",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "lane_direction": "right",
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "linear",
+      "dynamics_value": 15.0
+    }
+  ],
+  "success_distance": 110,
+  "timeout": 65,
+  "collision_allowed": false
+}

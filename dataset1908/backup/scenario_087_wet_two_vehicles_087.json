@@ -1,0 +1,89 @@
+{
+  "scenario_name": "wet_two_vehicles_087",
+  "description": "Two vehicles on wet road",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "vehicle_ahead",
+      "type": "vehicle",
+      "model": "vehicle.lincoln.mkz_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    },
+    {
+      "id": "vehicle_adjacent",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "150,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "vehicle_ahead",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 14.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "vehicle_adjacent",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "vehicle_adjacent",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "vehicle_ahead",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

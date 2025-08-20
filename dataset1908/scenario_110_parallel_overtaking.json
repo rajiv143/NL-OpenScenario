@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 105, "max": 135},
+      "speed_limit": {
+        "min": 105,
+        "max": 135
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 70, "max": 85},
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 90, "max": 110},
+          "distance_to_ego": {
+            "min": 90,
+            "max": 110
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 130, "max": 150},
+          "distance_to_ego": {
+            "min": 130,
+            "max": 150
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road"
         }
@@ -114,10 +129,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 25.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": -1
     },
     {
       "actor_id": "right_overtaker",
@@ -125,16 +140,19 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 1
     },
     {
       "actor_id": "far_leader",
       "action_type": "brake",
       "trigger_type": "after_previous",
-      "brake_force": 0.6
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     }
   ],
   "success_distance": 195,

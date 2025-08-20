@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 90, "max": 120},
+      "speed_limit": {
+        "min": 90,
+        "max": 120
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 80, "max": 100},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 45, "max": 60},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
           "relative_position": "right",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -78,10 +90,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 2.5,
-      "target_lane": -1,
       "dynamics_dimension": "distance",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 45.0
+      "dynamics_value": 45.0,
+      "target_lane": -1
     },
     {
       "actor_id": "steady_truck",
@@ -99,10 +111,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 40.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     },
     {
       "actor_id": "side_car",
@@ -110,7 +122,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 30.0,
       "trigger_comparison": "<",
-      "brake_force": 0.4
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
     },
     {
       "actor_id": "diagonal_weaver",

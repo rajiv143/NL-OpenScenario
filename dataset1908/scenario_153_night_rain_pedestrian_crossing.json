@@ -1,13 +1,16 @@
 {
   "scenario_name": "night_rain_pedestrian_crossing_153",
   "description": "Night rain scenario with multiple pedestrians crossing at different times in low visibility",
-  "weather": "night_rain",
+  "weather": "mid_rain",
   "ego_vehicle_model": "vehicle.dodge.charger_police",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 40, "max": 60},
+      "speed_limit": {
+        "min": 40,
+        "max": 60
+      },
       "is_intersection": true
     }
   },
@@ -20,7 +23,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -33,7 +39,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 40, "max": 50},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
           "relative_position": "left",
           "road_relationship": "same_road"
         }
@@ -46,7 +55,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 60, "max": 75},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -60,7 +72,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "left",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"

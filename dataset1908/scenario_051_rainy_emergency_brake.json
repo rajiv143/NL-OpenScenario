@@ -1,7 +1,7 @@
 {
   "scenario_name": "rainy_emergency_brake_051",
   "description": "Lead vehicle emergency brakes in wet conditions",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.tesla.model3",
   "ego_spawn": {
     "criteria": {
@@ -18,7 +18,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"

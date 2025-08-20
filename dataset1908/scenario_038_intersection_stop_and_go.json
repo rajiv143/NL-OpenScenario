@@ -1,13 +1,16 @@
 {
   "scenario_name": "intersection_stop_and_proceed",
   "description": "Vehicle stops then proceeds through intersection",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.chevrolet.impala",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "is_intersection": true,
-      "junction_proximity": {"min": 5, "max": 25}
+      "junction_proximity": {
+        "min": 5,
+        "max": 25
+      }
     }
   },
   "ego_start_speed": 5,
@@ -20,7 +23,10 @@
         "criteria": {
           "lane_type": "Driving",
           "is_intersection": true,
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -52,7 +58,9 @@
       "action_type": "wait",
       "trigger_type": "after_previous",
       "trigger_value": 0,
-      "wait_duration": 3
+      "wait_duration": 3,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "intersection_stopper",

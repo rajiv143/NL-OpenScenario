@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 90, "max": 120},
+      "speed_limit": {
+        "min": 90,
+        "max": 120
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 45, "max": 55},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 75, "max": 90},
+          "distance_to_ego": {
+            "min": 75,
+            "max": 90
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 110, "max": 130},
+          "distance_to_ego": {
+            "min": 110,
+            "max": 130
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 140, "max": 160},
+          "distance_to_ego": {
+            "min": 140,
+            "max": 160
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -84,30 +99,30 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "linear",
-      "dynamics_value": 4.0
+      "dynamics_value": 4.0,
+      "target_lane": 1
     },
     {
       "actor_id": "convoy_middle",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4.5,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "linear",
-      "dynamics_value": 4.0
+      "dynamics_value": 4.0,
+      "target_lane": 1
     },
     {
       "actor_id": "convoy_lead",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 6.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "linear",
-      "dynamics_value": 4.0
+      "dynamics_value": 4.0,
+      "target_lane": 1
     },
     {
       "actor_id": "fast_bypasser",
@@ -125,10 +140,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 25.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": -1
     }
   ],
   "success_distance": 180,

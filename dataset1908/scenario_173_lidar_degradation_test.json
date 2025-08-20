@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "suburban",
-      "speed_limit": {"min": 50, "max": 70},
+      "speed_limit": {
+        "min": 50,
+        "max": 70
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 40, "max": 55},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 60, "max": 80},
+          "distance_to_ego": {
+            "min": 60,
+            "max": 80
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "suburban",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "right",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -68,11 +80,15 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
-      }
+      },
+      "color": "0,0,0"
     }
   ],
   "actions": [
@@ -99,10 +115,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 3.5,
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": -1
     },
     {
       "actor_id": "low_profile_bike",

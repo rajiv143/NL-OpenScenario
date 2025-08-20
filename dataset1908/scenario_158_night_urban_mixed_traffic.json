@@ -1,13 +1,16 @@
 {
   "scenario_name": "night_urban_mixed_traffic_158",
   "description": "Complex night urban scenario with pedestrians, bicycles, and vehicles in dense traffic",
-  "weather": "night",
+  "weather": "clear_night",
   "ego_vehicle_model": "vehicle.mazda.cx5",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 30, "max": 50},
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
       "is_intersection": true
     }
   },
@@ -20,7 +23,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 20, "max": 30},
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -34,7 +40,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 15, "max": 25},
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane",
@@ -51,7 +60,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 35, "max": 50},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -67,7 +79,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 40, "max": 60},
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
           "relative_position": "perpendicular",
           "road_relationship": "different_road"
         }
@@ -82,7 +97,10 @@
         "criteria": {
           "lane_type": "Shoulder",
           "road_context": "urban",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "right",
           "road_relationship": "same_road"
         }
@@ -128,10 +146,10 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 20.0,
       "trigger_comparison": "<",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.0
+      "dynamics_value": 2.0,
+      "target_lane": -1
     },
     {
       "actor_id": "turning_bus",

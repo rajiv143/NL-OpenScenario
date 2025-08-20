@@ -1,0 +1,134 @@
+{
+  "scenario_name": "stalled_vehicle_blind_curve_198",
+  "description": "Stalled vehicle after blind curve with limited reaction time",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.chevrolet.impala",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "suburban",
+      "speed_limit": {"min": 70, "max": 90},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "stalled_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "50,50,50"
+    },
+    {
+      "id": "warning_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0030",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "oncoming_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "200,150,100"
+    },
+    {
+      "id": "following_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.vespa.zx125",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 30, "max": 45},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stalled_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "warning_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35.0,
+      "trigger_comparison": "<",
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "oncoming_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "following_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "ego_speed",
+      "trigger_value": 15.0,
+      "trigger_comparison": "<",
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "following_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 160,
+  "timeout": 95,
+  "collision_allowed": false
+}

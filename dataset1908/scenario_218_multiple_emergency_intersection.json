@@ -1,0 +1,71 @@
+{
+  "scenario_name": "multi_emergency_intersection_218",
+  "description": "Multiple emergency vehicles at intersection from different directions",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "left_firetruck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 60},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "rear_ambulance",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "left_firetruck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "rear_ambulance",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 55,
+  "collision_allowed": false
+}

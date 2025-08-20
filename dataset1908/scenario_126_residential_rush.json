@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "urban",
-      "speed_limit": {"min": 25, "max": 35},
+      "speed_limit": {
+        "min": 25,
+        "max": 35
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "urban",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "right",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -52,7 +61,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 30, "max": 40},
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
           "relative_position": "right",
           "lateral_offset": 2.0
         }
@@ -65,7 +77,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Sidewalk",
-          "distance_to_ego": {"min": 45, "max": 55},
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
           "relative_position": "left",
           "lateral_offset": -2.5
         }
@@ -103,10 +118,10 @@
       "actor_id": "backing_car",
       "action_type": "lane_change",
       "trigger_type": "after_previous",
-      "target_lane": -1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.5
+      "dynamics_value": 3.5,
+      "target_lane": -1
     },
     {
       "actor_id": "dog_walker",
@@ -114,7 +129,9 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 25.0,
       "trigger_comparison": "<",
-      "wait_duration": 3.0
+      "wait_duration": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
     },
     {
       "actor_id": "parent_suv",

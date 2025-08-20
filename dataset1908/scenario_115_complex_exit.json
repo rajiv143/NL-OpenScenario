@@ -7,7 +7,10 @@
     "criteria": {
       "lane_type": "Driving",
       "road_context": "highway",
-      "speed_limit": {"min": 95, "max": 125},
+      "speed_limit": {
+        "min": 95,
+        "max": 125
+      },
       "is_intersection": false
     }
   },
@@ -21,7 +24,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 80, "max": 95},
+          "distance_to_ego": {
+            "min": 80,
+            "max": 95
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -37,7 +43,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 110, "max": 130},
+          "distance_to_ego": {
+            "min": 110,
+            "max": 130
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "adjacent_lane"
@@ -53,7 +62,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 50, "max": 65},
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -69,7 +81,10 @@
         "criteria": {
           "lane_type": "Driving",
           "road_context": "highway",
-          "distance_to_ego": {"min": 35, "max": 45},
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
           "relative_position": "behind",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
@@ -84,10 +99,10 @@
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 2.5,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 3.5
+      "dynamics_value": 3.5,
+      "target_lane": 0
     },
     {
       "actor_id": "exit_taker2",
@@ -115,20 +130,20 @@
       "trigger_type": "distance_to_ego",
       "trigger_value": 40.0,
       "trigger_comparison": "<",
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "cubic",
-      "dynamics_value": 3.0
+      "dynamics_value": 3.0,
+      "target_lane": 0
     },
     {
       "actor_id": "speeder",
       "action_type": "lane_change",
       "trigger_type": "time",
       "trigger_value": 4.0,
-      "target_lane": 1,
       "dynamics_dimension": "time",
       "dynamics_shape": "sinusoidal",
-      "dynamics_value": 2.5
+      "dynamics_value": 2.5,
+      "target_lane": 1
     },
     {
       "actor_id": "exit_taker1",

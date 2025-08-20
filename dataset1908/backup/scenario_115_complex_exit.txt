@@ -1,0 +1,1 @@
+Create a complex highway exit scenario in light rain where multiple vehicles are trying to reach the exit lane while navigating around a slow van, with vehicles cutting across multiple lanes and a speeder trying to overtake everyone, testing multi-agent coordination.

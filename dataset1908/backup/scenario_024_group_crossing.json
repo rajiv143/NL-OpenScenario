@@ -1,0 +1,68 @@
+{
+  "scenario_name": "pedestrian_group_crossing",
+  "description": "Multiple pedestrians cross together",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.dodge.charger_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "pedestrian_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 3.0
+        }
+      }
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 22, "max": 32},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 3.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2,
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 0.8
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 0.8
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 50,
+  "collision_allowed": false
+}

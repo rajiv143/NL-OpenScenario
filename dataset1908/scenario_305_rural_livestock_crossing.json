@@ -1,0 +1,114 @@
+{
+  "scenario_name": "rural_livestock_crossing_305",
+  "description": "Cattle crossing rural road with farmer guiding them",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 35, "max": 55}
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "farmer",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "ahead",
+          "lateral_offset": -2.0
+        }
+      }
+    },
+    {
+      "id": "cow_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0040",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "right",
+          "lateral_offset": 5.0
+        }
+      }
+    },
+    {
+      "id": "cow_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0041",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 38, "max": 53},
+          "relative_position": "right",
+          "lateral_offset": 6.5
+        }
+      }
+    },
+    {
+      "id": "cow_3",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0042",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 41, "max": 56},
+          "relative_position": "right",
+          "lateral_offset": 8.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "farmer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cow_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.8
+    },
+    {
+      "actor_id": "cow_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.8
+    },
+    {
+      "actor_id": "cow_3",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.8
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 80,
+  "collision_allowed": false
+}

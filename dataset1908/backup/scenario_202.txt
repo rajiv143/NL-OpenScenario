@@ -1,0 +1,1 @@
+I need a test case for traffic light compliance at an intersection under overcast conditions. A light green Toyota Prius ahead should stop after 2 seconds, simulating a red light stop, then proceed after 8 seconds. Add a yellow Audi TT from the left road that starts moving at 5 seconds to simulate cross traffic with right-of-way.

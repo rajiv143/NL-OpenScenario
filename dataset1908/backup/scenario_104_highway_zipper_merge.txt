@@ -1,0 +1,1 @@
+For advanced ADAS testing, generate a scenario with a zipper merge pattern on a highway where multiple vehicles from adjacent lanes need to merge into my lane due to a slow-moving truck ahead, with precise timing between vehicle actions to test merge decision algorithms.

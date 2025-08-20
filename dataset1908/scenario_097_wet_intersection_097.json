@@ -1,7 +1,7 @@
 {
   "scenario_name": "wet_intersection_097",
   "description": "Wet intersection with turning vehicle",
-  "weather": "wet",
+  "weather": "wet_cloudy",
   "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
   "ego_spawn": {
     "criteria": {
@@ -19,7 +19,10 @@
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "distance_to_ego": {"min": 25, "max": 35},
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
           "relative_position": "left",
           "road_relationship": "different_road",
           "is_intersection": true
