@@ -1,0 +1,23 @@
+{
+  "scenario_name": "test_map_fallback",
+  "description": "Scenario with very strict constraints to test map fallback",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving"
+    }
+  },
+  "actors": [
+    {
+      "id": "vehicle1",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 5, "max": 10},
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ]
+}

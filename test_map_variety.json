@@ -1,0 +1,24 @@
+{
+  "scenario_name": "test_intersection",
+  "description": "Test scenario requiring intersection",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true
+    }
+  },
+  "actors": [
+    {
+      "id": "vehicle1",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 20, "max": 40}
+        }
+      }
+    }
+  ]
+}

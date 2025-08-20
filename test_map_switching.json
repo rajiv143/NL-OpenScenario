@@ -1,0 +1,25 @@
+{
+  "scenario_name": "test_map_switching",
+  "description": "Force map switching",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving"
+    }
+  },
+  "actors": [
+    {
+      "id": "vehicle1",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 0.1,
+            "max": 0.2
+          }
+        }
+      }
+    }
+  ]
+}

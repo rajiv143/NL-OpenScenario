@@ -274,7 +274,7 @@ class JsonToXoscConverter:
         return score
 
     def _detect_best_map(self, data: Dict[str, Any]) -> str:
-        """Auto-detect the best map based on spawn constraints and scenario requirements"""
+        """Auto-detect the best map by trying each until constraints can be satisfied"""
         # If map is explicitly specified, validate and use it
         if 'map_name' in data:
             map_name = data['map_name']
@@ -311,7 +311,7 @@ class JsonToXoscConverter:
             return default_map
         
         # Score each available map based on scenario requirements
-        available_maps = set(self.spawn_meta.keys()) | set(self.waypoint_meta.keys())
+        available_maps = list(set(self.spawn_meta.keys()) | set(self.waypoint_meta.keys()))
         map_scores = {}
         
         for map_name in available_maps:
@@ -319,14 +319,29 @@ class JsonToXoscConverter:
             map_scores[map_name] = score
             self.logger.debug(f"Map {map_name} suitability score: {score:.1f}")
         
-        if map_scores:
-            # Select the highest scoring map
-            best_map = max(map_scores.items(), key=lambda x: x[1])[0]
-            best_score = map_scores[best_map]
+        # Sort maps by score (highest first)
+        sorted_maps = sorted(map_scores.items(), key=lambda x: x[1], reverse=True)
+        
+        # Try each map in order of score to see if it can satisfy the constraints
+        self.logger.info("Checking maps for constraint satisfaction...")
+        for map_name, score in sorted_maps:
+            if score <= 0:
+                continue  # Skip maps with no score
+                
+            self.logger.info(f"Trying map {map_name} (score: {score:.1f})...")
             
-            if best_score > 0:
-                self.logger.info(f"Auto-detected best map: {best_map} (score: {best_score:.1f}, scenario: {scenario_type})")
-                return best_map
+            # Check if this map can satisfy all spawn constraints
+            if self._can_map_satisfy_constraints(map_name, data):
+                self.logger.info(f"✓ Selected map: {map_name} - can satisfy all constraints")
+                return map_name
+            else:
+                self.logger.info(f"✗ Map {map_name} cannot satisfy all constraints, trying next...")
+        
+        # If no map can satisfy all constraints, return the highest scoring one
+        if sorted_maps and sorted_maps[0][1] > 0:
+            best_map = sorted_maps[0][0]
+            self.logger.warning(f"No map can satisfy all constraints perfectly. Using highest scoring: {best_map}")
+            return best_map
         
         # Fall back to scenario-based default with warning
         default_maps = {
@@ -339,6 +354,47 @@ class JsonToXoscConverter:
         default_map = default_maps.get(scenario_type, 'Town01')
         self.logger.warning(f"No suitable maps found, falling back to scenario-based default: {default_map}")
         return default_map
+    
+    def _can_map_satisfy_constraints(self, map_name: str, data: Dict[str, Any]) -> bool:
+        """Check if a map can satisfy all spawn constraints without actually spawning"""
+        try:
+            pts = self._get_spawn_points_for_map(map_name)
+            if not pts:
+                return False
+            
+            # Check ego spawn
+            if 'ego_spawn' in data:
+                ego_crit = data['ego_spawn'].get('criteria', {})
+                # Check if there are enough points matching ego criteria
+                ego_matches = [pt for pt in pts if self._matches_spawn_criteria(pt, ego_crit, None, None)]
+                if len(ego_matches) < 5:  # Need at least 5 options for ego
+                    return False
+            
+            # Check actor spawns
+            for actor in data.get('actors', []):
+                if 'spawn' in actor:
+                    actor_crit = actor['spawn'].get('criteria', {})
+                    # For actors with special lane types like Shoulder, check availability
+                    if 'lane_type' in actor_crit:
+                        lane_types = actor_crit['lane_type'] if isinstance(actor_crit['lane_type'], list) else [actor_crit['lane_type']]
+                        matching_points = [pt for pt in pts if pt.get('lane_type') in lane_types]
+                        
+                        # For Shoulder lanes with same_road constraint, check road variety
+                        if 'Shoulder' in lane_types and actor_crit.get('road_relationship') == 'same_road':
+                            # Count how many different roads have Shoulder lanes
+                            roads_with_shoulder = set(pt.get('road_id') for pt in matching_points if pt.get('road_id'))
+                            if len(roads_with_shoulder) < 10:  # Need variety of roads with Shoulder lanes
+                                self.logger.debug(f"Map {map_name} has Shoulder lanes on only {len(roads_with_shoulder)} roads")
+                                return False
+                        elif len(matching_points) < 3:  # For other lane types, just need 3 options
+                            self.logger.debug(f"Map {map_name} has only {len(matching_points)} {lane_types} spawns")
+                            return False
+            
+            return True
+            
+        except Exception as e:
+            self.logger.debug(f"Error checking constraints for {map_name}: {e}")
+            return False
     
     def _get_spawn_points_for_map(self, map_name: str) -> List[Dict]:
         """Get spawn points for a given map from enhanced spawn files only"""
@@ -555,17 +611,12 @@ class JsonToXoscConverter:
             except jsonschema.ValidationError as e:
                 raise ValidationError(f"Schema validation failed: {e.message}")
         
-        # Auto-detect and validate map
-        detected_map = self._detect_best_map(data)
-        self._selected_map = detected_map
-        
-        # Update data with selected map if not explicitly set
-        if 'map_name' not in data:
-            data['map_name'] = detected_map
-        
-        # Validate selected map exists
-        if detected_map not in CARLA_MAPS:
-            self.logger.warning(f"Selected map {detected_map} not in CARLA_MAPS list, proceeding anyway")
+        # Don't auto-detect map here anymore - it's done in convert()
+        # Just validate if a map is explicitly specified
+        if 'map_name' in data:
+            map_name = data['map_name']
+            if map_name not in CARLA_MAPS:
+                self.logger.warning(f"Specified map {map_name} not in CARLA_MAPS list, proceeding anyway")
         
         # Validate ego vehicle model
         ego_model = data.get('ego_vehicle_model', 'vehicle.tesla.model3')
@@ -1391,20 +1442,302 @@ class JsonToXoscConverter:
     def _choose_spawn(self, map_name: str, crit: Dict[str, Any],
                     ego_pos: Optional[Tuple[float, float, float, float]] = None,
                     ego_lane: Optional[Tuple[int, int]] = None) -> Tuple[float, float, float, float]:
-        """Return a spawn (x,y,z,yaw) that meets the criteria using intelligent selection with road intelligence"""
+        """Return a spawn (x,y,z,yaw) that meets the criteria - ALWAYS use pre-validated spawn points"""
+        # ALWAYS use the enhanced spawn files which contain pre-validated spawn points
+        # These are guaranteed to be on valid roads, not in water or off-road
         pts = self._get_spawn_points_for_map(map_name)
         if not pts:
             self.logger.error(f"No enhanced spawn data available for map {map_name}")
             raise ValidationError(f"No enhanced spawn points available for map {map_name}. Please ensure enhanced_{map_name}.json exists in spawns/ directory.")
         
-        # Check if we have road intelligence data for enhanced selection
-        road_data = self.road_intelligence.get(map_name, {})
-        if not road_data:
-            self.logger.warning(f"No road intelligence data for {map_name}, falling back to legacy spawn selection")
-            return self._legacy_choose_spawn(map_name, crit, ego_pos, ego_lane, pts)
+        # Use the legacy spawn selection which picks from actual spawn points
+        return self._legacy_choose_spawn(map_name, crit, ego_pos, ego_lane, pts)
+    
+    def _generate_spawn_from_road_intelligence(self, map_name: str, crit: Dict[str, Any], 
+                                              ego_pos: Optional[Tuple[float, float, float, float]] = None,
+                                              ego_lane: Optional[Tuple[int, int]] = None) -> Tuple[float, float, float, float]:
+        """Generate spawn points directly from road intelligence geometry"""
         
-        # Use intelligent spawn selection with road intelligence
-        return self._intelligent_choose_spawn(map_name, road_data, crit, ego_pos, ego_lane, pts)
+        road_data = self.road_intelligence.get(map_name, {})
+        if not road_data or 'roads' not in road_data:
+            raise RuntimeError(f"No road intelligence data for {map_name}")
+        
+        roads = road_data['roads']
+        
+        # Filter roads by criteria
+        candidate_roads = []
+        for road_id, road_info in roads.items():
+            # Check if road has the required lane type
+            if 'lane_type' in crit:
+                required_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+                lanes = road_info.get('lanes', {})
+                
+                has_required_lane = False
+                for lane_id, lane_info in lanes.items():
+                    if lane_info.get('lane_type', '').lower() in [lt.lower() for lt in required_types]:
+                        has_required_lane = True
+                        break
+                
+                if not has_required_lane:
+                    continue
+            
+            # Check road context (map between criteria names and road_type values)
+            if 'road_context' in crit:
+                road_type = road_info.get('road_type', '').lower()
+                context = crit['road_context'].lower()
+                
+                # Map common context names to road types
+                context_mapping = {
+                    'urban': ['town', 'city', 'urban'],
+                    'highway': ['highway', 'motorway', 'freeway'],
+                    'rural': ['rural', 'country'],
+                    'suburban': ['suburban', 'residential']
+                }
+                
+                # Check if road_type matches the context
+                matched = False
+                if context in context_mapping:
+                    matched = road_type in context_mapping[context]
+                else:
+                    matched = road_type == context
+                
+                if not matched:
+                    continue
+            
+            # Check speed limits
+            if 'speed_limit' in crit:
+                speed = road_info.get('speed_limit') or 0  # Handle None values
+                min_speed = crit['speed_limit'].get('min', 0)
+                max_speed = crit['speed_limit'].get('max', 1000)
+                if not (min_speed <= speed <= max_speed):
+                    continue
+            
+            # Check road relationship
+            if ego_lane and crit.get('road_relationship') == 'same_road':
+                if int(road_id) != ego_lane[0]:
+                    continue
+            elif ego_lane and crit.get('road_relationship') == 'different_road':
+                if int(road_id) == ego_lane[0]:
+                    continue
+            
+            candidate_roads.append((road_id, road_info))
+        
+        if not candidate_roads:
+            raise RuntimeError(f"No roads match criteria: {crit}")
+        
+        # Select a road - if relative_position is specified, try to find a suitable road
+        selected_road_id = None
+        selected_road = None
+        
+        if ego_pos and 'relative_position' in crit:
+            rel_pos = crit['relative_position']
+            ego_yaw = ego_pos[3] if len(ego_pos) > 3 else 0
+            
+            # Try to find a road that would place the spawn in the correct relative position
+            best_road = None
+            best_score = -1
+            
+            for road_id, road_info in candidate_roads:
+                geometry = road_info.get('geometry', [])
+                if not geometry:
+                    continue
+                    
+                # Check middle segment
+                geom = geometry[len(geometry) // 2] if len(geometry) > 2 else geometry[0]
+                test_x = geom['x'] + geom['length'] / 2 * math.cos(geom['hdg'])
+                test_y = geom['y'] + geom['length'] / 2 * math.sin(geom['hdg'])
+                
+                # Check relative position
+                dx, dy = test_x - ego_pos[0], test_y - ego_pos[1]
+                forward_dist = dx * math.cos(ego_yaw) + dy * math.sin(ego_yaw)
+                test_rel_pos = "ahead" if forward_dist > 0 else "behind"
+                
+                # Score based on matching relative position and distance
+                dist = math.hypot(dx, dy)
+                if 'distance_to_ego' in crit:
+                    min_dist = crit['distance_to_ego'].get('min', 0)
+                    max_dist = crit['distance_to_ego'].get('max', 100)
+                    if min_dist <= dist <= max_dist and test_rel_pos == rel_pos:
+                        score = 1.0 - abs(dist - (min_dist + max_dist) / 2) / max_dist
+                        if score > best_score:
+                            best_score = score
+                            best_road = (road_id, road_info)
+            
+            if best_road:
+                selected_road_id, selected_road = best_road
+        
+        # Fallback to deterministic selection if no best road found
+        if not selected_road:
+            # Sort by road_id for deterministic selection
+            candidate_roads.sort(key=lambda x: int(x[0]))
+            selected_road_id, selected_road = candidate_roads[0]
+        
+        # Generate spawn point from road geometry
+        geometry = selected_road.get('geometry', [])
+        if not geometry:
+            raise RuntimeError(f"Road {selected_road_id} has no geometry")
+        
+        # Select a geometry segment (prefer middle segments for stability)
+        if len(geometry) > 2:
+            geom = geometry[len(geometry) // 2]  # Middle segment
+        else:
+            geom = geometry[0]
+        
+        # Calculate spawn position
+        road_x = geom['x']
+        road_y = geom['y']
+        road_hdg = geom['hdg']  # heading in radians
+        road_length = geom['length']
+        
+        # Sample a point along the road considering relative position
+        if ego_pos and 'distance_to_ego' in crit:
+            # Try to place at desired distance from ego
+            target_dist = (crit['distance_to_ego']['min'] + crit['distance_to_ego']['max']) / 2
+            
+            # Calculate best position along road for target distance
+            # Consider relative_position if specified
+            if 'relative_position' in crit:
+                rel_pos = crit['relative_position']
+                # For ahead/behind, try to position appropriately along the road
+                if rel_pos == 'ahead':
+                    # Place further along the road
+                    s = min(road_length * 0.8, road_length - 5)
+                elif rel_pos == 'behind':
+                    # Place earlier along the road
+                    s = max(road_length * 0.2, 5)
+                else:
+                    s = road_length / 2
+            else:
+                s = min(road_length * 0.7, road_length / 2)  # Avoid road endpoints
+        else:
+            s = road_length / 2  # Middle of road segment
+        
+        # Calculate position along road centerline
+        x = road_x + s * math.cos(road_hdg)
+        y = road_y + s * math.sin(road_hdg)
+        
+        # Adjust for specific lane
+        lanes = selected_road.get('lanes', {})
+        selected_lane_id = None
+        selected_lane = None
+        
+        # Find appropriate lane
+        if 'lane_type' in crit:
+            required_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+            for lane_id, lane_info in lanes.items():
+                if lane_info.get('lane_type', '').lower() in [lt.lower() for lt in required_types]:
+                    selected_lane_id = int(lane_id)
+                    selected_lane = lane_info
+                    break
+        
+        if not selected_lane:
+            # Default to first driving lane
+            for lane_id, lane_info in lanes.items():
+                if lane_info.get('lane_type', '').lower() == 'driving':
+                    selected_lane_id = int(lane_id)
+                    selected_lane = lane_info
+                    break
+        
+        # Calculate lateral offset for the lane
+        lateral_offset = 0
+        if selected_lane_id and selected_lane_id != 0:
+            # Calculate offset from centerline to lane center by summing lane widths
+            # Need to sum all lane widths from center (0) to target lane
+            
+            if selected_lane_id > 0:  # Left side
+                # Sum widths from lane 1 to selected_lane_id
+                for i in range(1, selected_lane_id + 1):
+                    lane = lanes.get(str(i))
+                    if lane:
+                        width = lane.get('width', 3.5)
+                        if i == selected_lane_id:
+                            # For target lane, go to its center
+                            lateral_offset += width / 2
+                        else:
+                            # For intermediate lanes, add full width
+                            lateral_offset += width
+            else:  # Right side (negative lane IDs)
+                # Sum widths from lane -1 to selected_lane_id
+                for i in range(-1, selected_lane_id - 1, -1):
+                    lane = lanes.get(str(i))
+                    if lane:
+                        width = lane.get('width', 3.5)
+                        if i == selected_lane_id:
+                            # For target lane, go to its center
+                            lateral_offset -= width / 2
+                        else:
+                            # For intermediate lanes, add full width
+                            lateral_offset -= width
+        
+        # Apply lateral offset perpendicular to road heading
+        x += lateral_offset * math.cos(road_hdg + math.pi/2)
+        y += lateral_offset * math.sin(road_hdg + math.pi/2)
+        
+        # Z coordinate (height)
+        z = 0.5  # Default ground level with small offset
+        
+        # Apply additional distance and relative position constraints if ego position is provided
+        if ego_pos:
+            actual_dist = math.hypot(x - ego_pos[0], y - ego_pos[1])
+            
+            # Check relative position constraint
+            if 'relative_position' in crit:
+                rel_pos = crit['relative_position']
+                ego_yaw = ego_pos[3] if len(ego_pos) > 3 else 0
+                dx, dy = x - ego_pos[0], y - ego_pos[1]
+                # Project onto ego's forward direction
+                forward_dist = dx * math.cos(ego_yaw) + dy * math.sin(ego_yaw)
+                actual_rel_pos = "ahead" if forward_dist > 0 else "behind"
+                
+                # If relative position doesn't match, try to adjust
+                if rel_pos in ['ahead', 'behind'] and actual_rel_pos != rel_pos:
+                    # Try different geometry segments to find one that matches
+                    for geom_idx, alt_geom in enumerate(geometry):
+                        if geom_idx == geometry.index(geom):
+                            continue  # Skip current segment
+                        
+                        # Try this segment
+                        alt_x = alt_geom['x'] + s * math.cos(alt_geom['hdg'])
+                        alt_y = alt_geom['y'] + s * math.sin(alt_geom['hdg'])
+                        
+                        # Apply lane offset
+                        if lateral_offset != 0:
+                            alt_x += lateral_offset * math.cos(alt_geom['hdg'] + math.pi/2)
+                            alt_y += lateral_offset * math.sin(alt_geom['hdg'] + math.pi/2)
+                        
+                        # Check if this position matches relative position
+                        alt_dx, alt_dy = alt_x - ego_pos[0], alt_y - ego_pos[1]
+                        alt_forward = alt_dx * math.cos(ego_yaw) + alt_dy * math.sin(ego_yaw)
+                        alt_rel_pos = "ahead" if alt_forward > 0 else "behind"
+                        
+                        if alt_rel_pos == rel_pos:
+                            # Use this position instead
+                            x, y = alt_x, alt_y
+                            road_hdg = alt_geom['hdg']
+                            break
+            
+            if 'distance_to_ego' in crit:
+                actual_dist = math.hypot(x - ego_pos[0], y - ego_pos[1])
+                min_dist = crit['distance_to_ego'].get('min', 5)
+                max_dist = crit['distance_to_ego'].get('max', 100)
+                if not (min_dist <= actual_dist <= max_dist):
+                    # Adjust position along road to meet distance constraint
+                    # This is a simplified adjustment
+                    if actual_dist < min_dist:
+                        scale = min_dist / max(actual_dist, 0.1)
+                        x = ego_pos[0] + (x - ego_pos[0]) * scale
+                        y = ego_pos[1] + (y - ego_pos[1]) * scale
+                    elif actual_dist > max_dist:
+                        scale = max_dist / actual_dist
+                        x = ego_pos[0] + (x - ego_pos[0]) * scale
+                        y = ego_pos[1] + (y - ego_pos[1]) * scale
+        
+        self.logger.info(f"Generated spawn from road intelligence:")
+        self.logger.info(f"  Road {selected_road_id}, Lane {selected_lane_id} ({selected_lane.get('lane_type') if selected_lane else 'unknown'})")
+        self.logger.info(f"  Position: ({x:.1f}, {y:.1f}, {z:.1f})")
+        self.logger.info(f"  Heading: {math.degrees(road_hdg):.1f}°")
+        
+        return x, y, z, road_hdg
     
     def _legacy_choose_spawn(self, map_name: str, crit: Dict[str, Any],
                            ego_pos: Optional[Tuple[float, float, float, float]] = None,
@@ -1426,13 +1759,10 @@ class JsonToXoscConverter:
             self.logger.debug(f"Lane relationship filter: -> {len(candidates)} candidates")
         
         if 'lane_type' in crit:
-            type_filtered = []
-            valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
-            for pt in candidates:
-                if pt.get('lane_type') in valid_types:
-                    type_filtered.append(pt)
-            candidates = type_filtered
-            self.logger.debug(f"Lane type filter: -> {len(candidates)} candidates")
+            # Use intelligent lane type filtering with fallbacks
+            road_context = self._get_road_context_from_criteria(crit, ego_lane, map_name)
+            candidates = self._filter_by_lane_type_with_fallbacks(candidates, crit, road_context)
+            self.logger.debug(f"Lane type filter (with fallbacks): -> {len(candidates)} candidates")
         
         if 'distance_to_ego' in crit and ego_pos:
             distance_filtered = []
@@ -1487,7 +1817,24 @@ class JsonToXoscConverter:
         self._last_pick = pick
         self._log_spawn_decision(pick, ego_pos, ego_lane, crit)
         
-        return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+        # Apply lateral offset if this was a fallback lane type
+        x, y, z, yaw = pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+        
+        if 'lateral_offset_fallback' in pick:
+            offset = pick['lateral_offset_fallback']
+            # Apply offset perpendicular to the heading direction
+            x += offset * math.cos(yaw + math.pi/2)
+            y += offset * math.sin(yaw + math.pi/2)
+            self.logger.info(f"Applied lateral offset of {offset}m to position due to lane type fallback")
+        
+        # Also check if there's an explicit lateral_offset in criteria
+        if 'lateral_offset' in crit:
+            extra_offset = crit['lateral_offset']
+            x += extra_offset * math.cos(yaw + math.pi/2)
+            y += extra_offset * math.sin(yaw + math.pi/2)
+            self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria")
+        
+        return x, y, z, yaw
     
     def _get_scenario_type_from_criteria(self, crit: Dict[str, Any]) -> str:
         """Detect scenario type from spawn criteria"""
@@ -1499,6 +1846,169 @@ class JsonToXoscConverter:
             return 'intersection'
         else:
             return 'general'
+    
+    def _get_road_context_from_criteria(self, crit: Dict[str, Any], ego_lane: Optional[Tuple[int, int]], map_name: str) -> str:
+        """Determine road context from criteria and available data"""
+        # Check explicit road_context in criteria
+        if 'road_context' in crit:
+            return crit['road_context']
+        
+        # Infer from speed limits if present
+        if 'speed_limit' in crit:
+            speed_limit = crit['speed_limit']
+            if isinstance(speed_limit, dict):
+                max_speed = speed_limit.get('max', 0)
+                if max_speed >= 80:
+                    return 'highway'
+                elif max_speed <= 30:
+                    return 'urban'
+                else:
+                    return 'suburban'
+        
+        # Check road intelligence data if available
+        if ego_lane and map_name in self.road_intelligence:
+            road_id = ego_lane[0]
+            road_data = self.road_intelligence[map_name].get('roads', {}).get(str(road_id), {})
+            if 'context' in road_data:
+                return road_data['context']
+        
+        # Default based on common patterns
+        return 'urban'  # Safe default
+    
+    def _get_context_aware_fallbacks(self, lane_type: str, road_context: str) -> List[str]:
+        """Get context-aware fallback lane types based on road context"""
+        fallback_map = {
+            'highway': {
+                'Shoulder': ['Emergency', 'Exit', 'Entry', 'Driving'],
+                'Emergency': ['Shoulder', 'Exit', 'Entry', 'Driving'],
+                'Exit': ['Entry', 'Shoulder', 'Emergency', 'Driving'],
+                'Entry': ['Exit', 'Shoulder', 'Emergency', 'Driving'],
+                'Parking': ['Shoulder', 'Emergency', 'Driving'],  # Parking rare on highways
+                'Driving': ['Driving'],  # No fallback needed
+                'Sidewalk': ['Shoulder', 'Emergency', 'Driving']  # Pedestrians on highway shoulder
+            },
+            'urban': {
+                'Shoulder': ['Parking', 'Biking', 'Driving'],
+                'Emergency': ['Parking', 'Shoulder', 'Driving'],
+                'Parking': ['Shoulder', 'Biking', 'Driving'],
+                'Biking': ['Parking', 'Shoulder', 'Driving'],
+                'Driving': ['Driving'],
+                'Sidewalk': ['Sidewalk'],  # Keep pedestrians on sidewalk in urban
+                'Exit': ['Entry', 'Driving'],
+                'Entry': ['Exit', 'Driving']
+            },
+            'suburban': {
+                'Shoulder': ['Parking', 'Driving'],
+                'Emergency': ['Shoulder', 'Parking', 'Driving'],
+                'Parking': ['Shoulder', 'Driving'],
+                'Biking': ['Shoulder', 'Parking', 'Driving'],
+                'Driving': ['Driving'],
+                'Sidewalk': ['Sidewalk', 'Shoulder'],  # Some flexibility for pedestrians
+                'Exit': ['Entry', 'Driving'],
+                'Entry': ['Exit', 'Driving']
+            },
+            'rural': {
+                'Shoulder': ['Driving'],  # Rural roads often lack shoulders
+                'Emergency': ['Shoulder', 'Driving'],
+                'Parking': ['Shoulder', 'Driving'],
+                'Driving': ['Driving'],
+                'Sidewalk': ['Shoulder', 'Driving'],  # Rural areas often lack sidewalks
+                'Biking': ['Shoulder', 'Driving']
+            },
+            'construction': {
+                'Shoulder': ['Driving'],  # Construction zones have limited shoulders
+                'Emergency': ['Driving'],
+                'Parking': ['Driving'],
+                'Driving': ['Driving'],
+                'Sidewalk': ['Shoulder', 'Driving'],
+                'Biking': ['Driving']
+            },
+            'parking': {
+                'Parking': ['Parking', 'Driving'],
+                'Shoulder': ['Parking', 'Driving'],
+                'Driving': ['Driving'],
+                'Sidewalk': ['Sidewalk', 'Parking']
+            }
+        }
+        
+        # Get fallbacks for the specific context and lane type
+        context_fallbacks = fallback_map.get(road_context, fallback_map['urban'])
+        return context_fallbacks.get(lane_type, ['Driving'])  # Default to Driving if not found
+    
+    def _filter_by_lane_type_with_fallbacks(self, candidates: List[Dict], crit: Dict[str, Any], road_context: str) -> List[Dict]:
+        """Filter by lane type with intelligent context-aware fallbacks"""
+        requested_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
+        
+        # First try exact matches
+        exact_matches = []
+        for pt in candidates:
+            if pt.get('lane_type') in requested_types:
+                exact_matches.append(pt)
+        
+        if exact_matches:
+            self.logger.info(f"Found {len(exact_matches)} exact matches for lane types: {requested_types}")
+            return exact_matches
+        
+        # No exact matches, use context-aware fallbacks
+        self.logger.warning(f"No exact matches for lane types {requested_types} in {road_context} context, trying fallbacks")
+        
+        fallback_candidates = []
+        fallback_types_used = set()
+        lateral_offset_needed = 0.0
+        
+        for requested_type in requested_types:
+            fallback_types = self._get_context_aware_fallbacks(requested_type, road_context)
+            
+            for fallback_type in fallback_types:
+                for pt in candidates:
+                    if pt.get('lane_type') == fallback_type and pt not in fallback_candidates:
+                        # Calculate lateral offset needed when using fallback
+                        if fallback_type != requested_type:
+                            lateral_offset_needed = self._calculate_lateral_offset_for_fallback(
+                                requested_type, fallback_type, road_context
+                            )
+                            if lateral_offset_needed != 0:
+                                # Store offset info in the point for later use
+                                pt = pt.copy()  # Don't modify original
+                                pt['lateral_offset_fallback'] = lateral_offset_needed
+                                pt['original_lane_type'] = requested_type
+                                pt['fallback_lane_type'] = fallback_type
+                        
+                        fallback_candidates.append(pt)
+                        fallback_types_used.add(fallback_type)
+                
+                if fallback_candidates:
+                    break  # Found fallback candidates, stop searching
+            
+            if fallback_candidates:
+                break  # Found fallback candidates for this requested type
+        
+        if fallback_candidates:
+            self.logger.warning(f"Using fallback lane types {fallback_types_used} instead of {requested_types} in {road_context} context")
+            if lateral_offset_needed != 0:
+                self.logger.info(f"Will apply lateral offset of {lateral_offset_needed}m to simulate {requested_types[0]} lane")
+        else:
+            self.logger.error(f"No fallback lanes found for {requested_types} in {road_context} context")
+        
+        return fallback_candidates
+    
+    def _calculate_lateral_offset_for_fallback(self, requested_type: str, fallback_type: str, road_context: str) -> float:
+        """Calculate lateral offset needed when using a fallback lane type"""
+        # Define typical lane widths and positions
+        lane_offsets = {
+            ('Shoulder', 'Driving', 'highway'): 3.5,  # Shoulder is ~3.5m to the right on highways
+            ('Shoulder', 'Driving', 'urban'): 2.5,    # Narrower in urban areas
+            ('Shoulder', 'Driving', 'suburban'): 3.0,
+            ('Parking', 'Driving', 'urban'): 2.5,      # Parking lane offset
+            ('Parking', 'Driving', 'suburban'): 2.5,
+            ('Emergency', 'Driving', 'highway'): 3.5,
+            ('Biking', 'Driving', 'urban'): 1.5,       # Bike lane is narrower
+            ('Sidewalk', 'Driving', 'urban'): 4.0,     # Sidewalk offset from driving lane
+            ('Sidewalk', 'Shoulder', 'highway'): 1.5,  # From shoulder to edge
+        }
+        
+        key = (requested_type, fallback_type, road_context)
+        return lane_offsets.get(key, 0.0)  # Return 0 if no specific offset defined
 
     def _filter_unsuitable_roads(self, candidates: List[Dict], scenario_type: str, map_name: str, crit: Dict[str, Any]) -> List[Dict]:
         """Filter out roads that can't support the scenario requirements and suggest alternatives"""
@@ -1616,12 +2126,22 @@ class JsonToXoscConverter:
         # Step 1: Get enhanced spawn candidates with road context
         candidates = self._get_enhanced_spawn_candidates(pts, road_data)
         
-        # Step 1.5: Filter out unsuitable roads and find alternatives
+        # Step 1.5: Apply lane type filter EARLY with fallbacks to preserve special lanes
+        if 'lane_type' in crit:
+            road_context = self._get_road_context_from_criteria(crit, ego_lane, map_name)
+            lane_filtered = self._filter_by_lane_type_with_fallbacks(candidates, crit, road_context)
+            if lane_filtered:
+                candidates = lane_filtered
+                self.logger.debug(f"Lane type filter (early): -> {len(candidates)} candidates")
+            else:
+                self.logger.warning("No lanes matched requested type even with fallbacks, keeping all candidates")
+        
+        # Step 2: Filter out unsuitable roads and find alternatives
         scenario_type = self._get_scenario_type_from_criteria(crit)
         candidates = self._filter_unsuitable_roads(candidates, scenario_type, map_name, crit)
         self.logger.debug(f"Road suitability filter: -> {len(candidates)} candidates")
         
-        # Step 2: Apply road intelligence filters in priority order
+        # Step 3: Apply road intelligence filters in priority order
         candidates = self._filter_by_road_context(candidates, crit, map_name)
         self.logger.debug(f"Road context filter: -> {len(candidates)} candidates")
         
@@ -1634,11 +2154,14 @@ class JsonToXoscConverter:
         candidates = self._filter_by_geometry(candidates, crit, road_data)
         self.logger.debug(f"Geometry filter: -> {len(candidates)} candidates")
         
-        # Step 3: Apply existing constraint filters
-        candidates = self._apply_legacy_filters(candidates, crit, ego_pos, ego_lane)
+        # Step 4: Apply remaining constraint filters (excluding lane_type since we did it early)
+        filtered_crit = crit.copy()
+        if 'lane_type' in filtered_crit:
+            del filtered_crit['lane_type']  # Remove to avoid double-filtering
+        candidates = self._apply_legacy_filters(candidates, filtered_crit, ego_pos, ego_lane)
         self.logger.debug(f"Legacy filters: -> {len(candidates)} candidates")
         
-        # Step 4: Score and select best candidate
+        # Step 5: Score and select best candidate
         return self._score_and_select_spawn(candidates, crit, ego_pos, ego_lane, road_data, pts)
     
     def _choose_strategic_ego_spawn(self, data: Dict[str, Any], map_name: str, ego_criteria: Dict[str, Any]) -> Tuple[float, float, float, float]:
@@ -1939,7 +2462,24 @@ class JsonToXoscConverter:
         self._last_pick = pick
         self._log_enhanced_spawn_decision(pick, ego_pos, ego_lane, crit, road_data)
         
-        return pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+        # Apply lateral offset if this was a fallback lane type
+        x, y, z, yaw = pick['x'], pick['y'], pick['z'], math.radians(pick['yaw'])
+        
+        if 'lateral_offset_fallback' in pick:
+            offset = pick['lateral_offset_fallback']
+            # Apply offset perpendicular to the heading direction
+            x += offset * math.cos(yaw + math.pi/2)
+            y += offset * math.sin(yaw + math.pi/2)
+            self.logger.info(f"Applied lateral offset of {offset}m to position due to lane type fallback")
+        
+        # Also check if there's an explicit lateral_offset in criteria
+        if 'lateral_offset' in crit:
+            extra_offset = crit['lateral_offset']
+            x += extra_offset * math.cos(yaw + math.pi/2)
+            y += extra_offset * math.sin(yaw + math.pi/2)
+            self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria")
+        
+        return x, y, z, yaw
     
     def _enhanced_score_spawn_point(self, pt: Dict, crit: Dict[str, Any],
                                   ego_pos: Optional[Tuple[float, float, float, float]] = None,
@@ -2272,34 +2812,59 @@ class JsonToXoscConverter:
                 self.logger.info(f"Fallback 4 (relaxed intersection): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
-        # Fallback 5: Only as last resort, relax road relationship
+        # Fallback 5: For Shoulder lanes with same_road, try relaxing road constraint first
+        # (Shoulder lanes are rare and might not exist on the same road)
+        if 'lane_type' in crit and 'Shoulder' in str(crit['lane_type']) and crit.get('road_relationship') == 'same_road':
+            relaxed_crit = crit.copy()
+            # Remove the same_road constraint for Shoulder lanes
+            if 'road_relationship' in relaxed_crit:
+                del relaxed_crit['road_relationship']
+            
+            fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+            if fallback_candidates:
+                self.logger.info(f"Fallback 5 (Shoulder lane without road constraint): found {len(fallback_candidates)} candidates")
+                return fallback_candidates
+        
+        # Fallback 6: Only as last resort, relax road relationship for other cases
         if 'road_relationship' in crit and crit['road_relationship'] in ['same_road', 'different_road']:
             relaxed_crit = crit.copy()
             relaxed_crit['road_relationship'] = 'any_road'
             
             fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
             if fallback_candidates:
-                self.logger.warning(f"Fallback 5 (LAST RESORT - road_relationship -> any_road): found {len(fallback_candidates)} candidates")
+                self.logger.warning(f"Fallback 6 (LAST RESORT - road_relationship -> any_road): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
-        # Final fallback: Any valid spawn point with basic safety constraints
-        if all_points and ego_pos:
-            self.logger.warning("Using final fallback: any valid spawn point with distance constraints")
-            # Apply at least a basic distance filter for safety
-            safe_fallback = []
-            for pt in all_points[:100]:  # Check first 100 points for performance
-                d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
-                # For pedestrians, cap at 50m; for others, cap at 200m
-                max_dist = 50 if 'pedestrian' in str(crit).lower() else 200
-                if 5 <= d <= max_dist:  # Between 5m and max_dist
-                    safe_fallback.append(pt)
-                if len(safe_fallback) >= 10:  # Limit to 10 candidates
-                    break
-            if safe_fallback:
-                return safe_fallback
-        elif all_points:
-            return all_points[:10]  # No ego position, return first 10
+        # NO FINAL FALLBACK - Instead, raise error to try next map
+        # This ensures we try other maps before compromising constraints
+        if hasattr(self, '_allow_final_fallback') and self._allow_final_fallback:
+            # Only use final fallback if explicitly allowed (last map attempt)
+            if all_points and ego_pos:
+                self.logger.warning("Using final fallback: any valid spawn point with distance constraints")
+                # Apply at least a basic distance filter for safety
+                safe_fallback = []
+                
+                # Try to respect original distance constraints if present
+                min_dist = crit.get('distance_to_ego', {}).get('min', 5)
+                max_dist = crit.get('distance_to_ego', {}).get('max', 100)
+                
+                # For final fallback, be more generous with distance
+                max_dist = max_dist * 2  # Double the max distance as last resort
+                
+                for pt in all_points[:500]:  # Check more points for better matches
+                    d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                    if min_dist <= d <= max_dist:
+                        safe_fallback.append(pt)
+                    if len(safe_fallback) >= 30:  # Get more candidates for better selection
+                        break
+                
+                if safe_fallback:
+                    self.logger.info(f"Final fallback found {len(safe_fallback)} candidates")
+                    return safe_fallback
+            elif all_points:
+                return all_points[:30]  # No ego position, return first 30
         
+        # Don't use final fallback - let it fail so we can try next map
         return []
     
     def _apply_relaxed_criteria(self, all_points: List[Dict], relaxed_crit: Dict[str, Any],
@@ -2316,12 +2881,9 @@ class JsonToXoscConverter:
             candidates = self._filter_by_lane_relationship(candidates, relaxed_crit, ego_lane)
         
         if 'lane_type' in relaxed_crit:
-            type_filtered = []
-            valid_types = relaxed_crit['lane_type'] if isinstance(relaxed_crit['lane_type'], list) else [relaxed_crit['lane_type']]
-            for pt in candidates:
-                if pt.get('lane_type') in valid_types:
-                    type_filtered.append(pt)
-            candidates = type_filtered
+            # Use intelligent lane type filtering with fallbacks for relaxed criteria too
+            road_context = self._get_road_context_from_criteria(relaxed_crit, ego_lane, 'unknown')
+            candidates = self._filter_by_lane_type_with_fallbacks(candidates, relaxed_crit, road_context)
         
         if 'distance_to_ego' in relaxed_crit and ego_pos:
             distance_filtered = []
@@ -2531,6 +3093,67 @@ class JsonToXoscConverter:
         # Validate first
         self.validate_json(json_data)
         
+        # If map is explicitly specified, use it directly
+        if 'map_name' in json_data:
+            return self._convert_with_map(json_data, json_data['map_name'])
+        
+        # Otherwise, try maps in order of suitability until one works
+        maps_to_try = self._get_maps_by_priority(json_data)
+        
+        last_error = None
+        for i, map_name in enumerate(maps_to_try):
+            try:
+                # Only allow final fallback on the last map
+                self._allow_final_fallback = (i == len(maps_to_try) - 1)
+                
+                self.logger.info(f"Attempting conversion with map {map_name}...")
+                self._selected_map = map_name
+                result = self._convert_with_map(json_data, map_name)
+                self.logger.info(f"✓ Successfully converted with map {map_name}")
+                return result
+            except RuntimeError as e:
+                if "No valid spawn points found" in str(e):
+                    if i < len(maps_to_try) - 1:
+                        self.logger.info(f"✗ Map {map_name} couldn't satisfy spawn constraints, trying next map...")
+                    else:
+                        self.logger.warning(f"✗ Map {map_name} (last option) couldn't satisfy spawn constraints")
+                    last_error = e
+                    continue
+                else:
+                    raise  # Re-raise non-spawn related errors
+        
+        # If no map worked, raise the last error
+        if last_error:
+            raise RuntimeError(f"No map could satisfy all spawn constraints. Last error: {last_error}")
+        
+        # Fallback (shouldn't reach here)
+        return self._convert_with_map(json_data, 'Town01')
+    
+    def _get_maps_by_priority(self, data: Dict[str, Any]) -> List[str]:
+        """Get list of maps sorted by priority for this scenario"""
+        scenario_type = self._detect_scenario_type(data)
+        
+        # Collect spawn criteria
+        spawn_criteria = []
+        if 'ego_spawn' in data:
+            spawn_criteria.append(data['ego_spawn'].get('criteria', {}))
+        for actor in data.get('actors', []):
+            if 'spawn' in actor:
+                spawn_criteria.append(actor['spawn'].get('criteria', {}))
+        
+        # Score available maps
+        available_maps = list(set(self.spawn_meta.keys()) | set(self.waypoint_meta.keys()))
+        map_scores = {}
+        for map_name in available_maps:
+            score = self._calculate_map_suitability_score(map_name, scenario_type, spawn_criteria)
+            map_scores[map_name] = score
+        
+        # Sort by score
+        sorted_maps = sorted(map_scores.items(), key=lambda x: x[1], reverse=True)
+        return [map_name for map_name, score in sorted_maps if score > 0]
+    
+    def _convert_with_map(self, json_data: Dict[str, Any], map_name: str) -> str:
+        """Convert with a specific map"""
         # Create root element
         root = ET.Element('OpenSCENARIO')
         
@@ -2542,14 +3165,13 @@ class JsonToXoscConverter:
         # RoadNetwork
         road_network = ET.SubElement(root, 'RoadNetwork')
         logic_file = ET.SubElement(road_network, 'LogicFile')
-        selected_map = self._selected_map or json_data.get('map_name', 'Town01')
-        logic_file.set('filepath', selected_map)
+        logic_file.set('filepath', map_name)
         ET.SubElement(road_network, 'SceneGraphFile').set('filepath', '')
         
         # Entities
         root.append(self.create_entities(json_data))
         
-        # Storyboard
+        # Storyboard (this is where spawn selection happens and may fail)
         root.append(self.create_storyboard(json_data))
         
         # Pretty print

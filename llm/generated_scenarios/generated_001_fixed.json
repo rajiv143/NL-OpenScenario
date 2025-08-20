@@ -1,0 +1,43 @@
+{
+  "scenario_name": "generated_001_fixed",
+  "description": "Vehicle at parking spot - using validated spawn points",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving"
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "parked_car",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 50
+          }
+        }
+      },
+      "color": "50,100,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parked_car",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 45,
+  "collision_allowed": false
+}
