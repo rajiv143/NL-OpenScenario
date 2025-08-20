@@ -93,6 +93,10 @@ class JsonToXoscConverter:
         self.road_intelligence: Dict[str, Dict] = {}
         self._load_road_intelligence()
         
+        # Extract spawn points from road intelligence
+        self.road_intelligence_spawns: Dict[str, List[Dict]] = {}
+        self._extract_spawns_from_road_intelligence()
+        
         self._ego_pos: Optional[Tuple[float, float, float, float]] = None
         self._ego_lane: Optional[Tuple[int, int]] = None # road_id, lane_id)
         self._selected_map: Optional[str] = None
@@ -101,12 +105,29 @@ class JsonToXoscConverter:
         """Load spawn and waypoint data for all available maps"""
         base_dir = os.path.dirname(__file__)
         
-        # Load spawn data - ONLY use enhanced_TownX.json files
+        # First try to load merged spawn files (enhanced coordinates + XODR lane types)
+        for town in ['Town01', 'Town02', 'Town03', 'Town04', 'Town05']:
+            merged_file = f"{town}_merged_spawns.json"
+            if os.path.exists(merged_file):
+                try:
+                    with open(merged_file) as f:
+                        data = json.load(f)
+                        spawn_points = data.get('spawn_points', [])
+                        self.spawn_meta[town] = spawn_points
+                        self.logger.info(f"Loaded {len(spawn_points)} spawn points for {town} from merged file (includes {data.get('statistics', {}).get('Shoulder', 0)} shoulder spawns)")
+                except Exception as e:
+                    self.logger.warning(f"Could not load merged spawn data from {merged_file}: {e}")
+        
+        # Load enhanced spawn files for maps without merged data
         spawns_dir = os.path.join(base_dir, "spawns")
         for path in glob.glob(os.path.join(spawns_dir, "enhanced_Town*.json")):
             # Extract town name from enhanced_TownX.json -> TownX
             filename = os.path.basename(path)
             town = filename.replace("enhanced_", "").replace(".json", "")
+            
+            # Skip if already loaded from XODR
+            if town in self.spawn_meta:
+                continue
             
             try:
                 with open(path) as f:
@@ -160,6 +181,131 @@ class JsonToXoscConverter:
                 self.logger.info(f"Loaded road intelligence for {town} ({data.get('header', {}).get('total_roads', 0)} roads)")
             except Exception as e:
                 self.logger.warning(f"Could not load road intelligence from {path}: {e}")
+    
+    def _extract_spawns_from_road_intelligence(self):
+        """Extract spawn points from road intelligence geometry for all maps"""
+        for town, road_data in self.road_intelligence.items():
+            spawns = self._extract_lane_spawn_points(road_data, sample_interval=10.0)
+            self.road_intelligence_spawns[town] = spawns
+            
+            # Count by lane type for logging
+            lane_type_counts = {}
+            for sp in spawns:
+                lt = sp.get('lane_type', 'unknown')
+                lane_type_counts[lt] = lane_type_counts.get(lt, 0) + 1
+            
+            self.logger.info(f"Extracted {len(spawns)} spawn points from {town} road intelligence: {lane_type_counts}")
+    
+    def _extract_lane_spawn_points(self, road_intelligence: Dict, sample_interval: float = 10.0) -> List[Dict]:
+        """Extract spawn points for all lane types from road intelligence data"""
+        spawn_points = []
+        roads = road_intelligence.get('roads', {})
+        
+        for road_id, road_info in roads.items():
+            geometry = road_info.get('geometry', [])
+            if not geometry:
+                continue
+                
+            lanes = road_info.get('lanes', {})
+            if not lanes:
+                continue
+            
+            # Process each geometry segment
+            for geom_segment in geometry:
+                segment_length = geom_segment.get('length', 0)
+                if segment_length <= 0:
+                    continue
+                    
+                start_x = geom_segment.get('x', 0)
+                start_y = geom_segment.get('y', 0)
+                heading = geom_segment.get('hdg', 0)  # in radians
+                geom_type = geom_segment.get('geometry_type', 'line')
+                
+                # Sample points along the segment
+                num_samples = max(1, int(segment_length / sample_interval))
+                for i in range(num_samples + 1):
+                    t = i / num_samples if num_samples > 0 else 0.5
+                    s = t * segment_length
+                    
+                    # Calculate position along road centerline
+                    if geom_type == 'line':
+                        center_x = start_x + s * math.cos(heading)
+                        center_y = start_y + s * math.sin(heading)
+                        point_heading = heading
+                    elif geom_type == 'arc':
+                        # Simplified arc calculation
+                        center_x = start_x + s * math.cos(heading)
+                        center_y = start_y + s * math.sin(heading)
+                        point_heading = heading
+                    else:
+                        center_x = start_x + s * math.cos(heading)
+                        center_y = start_y + s * math.sin(heading)
+                        point_heading = heading
+                    
+                    # Calculate position for each lane
+                    for lane_id_str, lane_info in lanes.items():
+                        lane_type = lane_info.get('lane_type', 'unknown').lower()
+                        if lane_type == 'none':
+                            continue  # Skip centerline
+                            
+                        lane_id = int(lane_id_str)
+                        lane_width = lane_info.get('width', 3.5)
+                        
+                        # Calculate lateral offset from centerline to lane center
+                        lateral_offset = self._calculate_lane_offset(lanes, lane_id)
+                        
+                        # Apply lateral offset
+                        lane_x = center_x + lateral_offset * math.cos(point_heading + math.pi/2)
+                        lane_y = center_y + lateral_offset * math.sin(point_heading + math.pi/2)
+                        
+                        # Create spawn point - capitalize lane_type to match existing convention
+                        spawn_point = {
+                            'x': round(lane_x, 3),
+                            'y': round(lane_y, 3),
+                            'z': 0.5,
+                            'yaw': round(math.degrees(point_heading), 3),
+                            'lane_type': lane_info.get('lane_type', 'unknown').capitalize(),  # Capitalize to match convention
+                            'road_id': int(road_id),
+                            'lane_id': lane_id,
+                            'lane_width': lane_width,
+                            'is_intersection': road_info.get('junction_id', -1) != -1,
+                            'road_type': road_info.get('road_type', 'unknown'),
+                            'speed_limit': road_info.get('speed_limit', 0)
+                        }
+                        
+                        spawn_points.append(spawn_point)
+        
+        return spawn_points
+    
+    def _calculate_lane_offset(self, lanes: Dict, target_lane_id: int) -> float:
+        """Calculate the lateral offset from road centerline to a specific lane center"""
+        offset = 0.0
+        
+        if target_lane_id == 0:
+            return 0.0  # Centerline
+        
+        if target_lane_id > 0:
+            # Left side - sum widths from lane 1 to target
+            for lane_id in range(1, target_lane_id + 1):
+                lane = lanes.get(str(lane_id))
+                if lane:
+                    width = lane.get('width', 3.5)
+                    if lane_id == target_lane_id:
+                        offset += width / 2  # Go to center of target lane
+                    else:
+                        offset += width  # Add full width of intermediate lanes
+        else:
+            # Right side (negative lane IDs) 
+            for lane_id in range(-1, target_lane_id - 1, -1):
+                lane = lanes.get(str(lane_id))
+                if lane:
+                    width = lane.get('width', 3.5)
+                    if lane_id == target_lane_id:
+                        offset -= width / 2  # Go to center of target lane
+                    else:
+                        offset -= width  # Add full width of intermediate lanes
+        
+        return offset
     
     def _detect_scenario_type(self, data: Dict[str, Any]) -> str:
         """Detect scenario type based on scenario content"""
@@ -397,11 +543,20 @@ class JsonToXoscConverter:
             return False
     
     def _get_spawn_points_for_map(self, map_name: str) -> List[Dict]:
-        """Get spawn points for a given map from enhanced spawn files only"""
+        """Get spawn points for a map - prefer accurate CARLA extracts"""
         points = []
         
-        # Only use enhanced spawn data
+        # First try accurate CARLA spawns (with correct lane types)
+        carla_spawn_file = f"carla_accurate_spawns/{map_name}_spawns.json"
+        if os.path.exists(carla_spawn_file):
+            self.logger.info(f"Using accurate CARLA spawns from {carla_spawn_file}")
+            with open(carla_spawn_file, 'r') as f:
+                data = json.load(f)
+                return data.get('spawn_points', [])
+        
+        # Fallback to enhanced spawn data
         if map_name in self.spawn_meta:
+            self.logger.info(f"Using enhanced spawns for {map_name}")
             points.extend(self.spawn_meta[map_name])
         
         return points
@@ -1042,6 +1197,14 @@ class JsonToXoscConverter:
         env_action = ET.SubElement(global_action, 'EnvironmentAction')
         env_action.append(self.create_environment(data.get('weather', 'clear')))
         
+        # Decide whether to position actors first (for special lanes) or ego first
+        actors_first = self._should_position_actors_first(data)
+        
+        if actors_first:
+            self.logger.info("Using actor-first spawn strategy for special lane types")
+            return self._create_init_actors_first(init, actions, data)
+        
+        # Standard ego-first positioning
         # Ego vehicle position
         ego_private = ET.SubElement(actions, 'Private')
         ego_private.set('entityRef', 'hero')
@@ -1155,6 +1318,209 @@ class JsonToXoscConverter:
                 'lane_id': ego_spawn_info.get('lane_id')
             }
             self.log_spawn_details(ego_spawn, actor_spawns)
+        
+        return init
+    
+    def _should_position_actors_first(self, data: Dict[str, Any]) -> bool:
+        """Determine if we should position actors before ego for better special lane utilization"""
+        # Check if any actor needs special lanes (shoulder, parking, sidewalk, etc.)
+        special_lane_types = ['Shoulder', 'Parking', 'Sidewalk', 'Biking', 'Emergency']
+        
+        for actor in data.get('actors', []):
+            if 'spawn' in actor:
+                criteria = actor['spawn'].get('criteria', {})
+                lane_type = criteria.get('lane_type')
+                if lane_type:
+                    # Check if it's a special lane type
+                    if isinstance(lane_type, list):
+                        if any(lt in special_lane_types for lt in lane_type):
+                            return True
+                    elif lane_type in special_lane_types:
+                        return True
+        
+        return False
+    
+    def _create_init_actors_first(self, init: ET.Element, actions: ET.Element, data: Dict[str, Any]) -> ET.Element:
+        """Create init with actors positioned first, then ego relative to them"""
+        map_name = self._selected_map or data.get('map_name', 'Town01')
+        
+        # First, position actors with special lane requirements
+        actor_positions = {}
+        special_actor = None
+        
+        for actor in data.get('actors', []):
+            if 'spawn' in actor and not special_actor:
+                criteria = actor['spawn'].get('criteria', {})
+                lane_type = criteria.get('lane_type')
+                special_lane_types = ['Shoulder', 'Parking', 'Sidewalk', 'Biking', 'Emergency']
+                
+                is_special = False
+                if lane_type:
+                    if isinstance(lane_type, list):
+                        is_special = any(lt in special_lane_types for lt in lane_type)
+                    else:
+                        is_special = lane_type in special_lane_types
+                
+                if is_special:
+                    # Position this actor first
+                    special_actor = actor
+                    # Remove distance_to_ego constraint since ego isn't positioned yet
+                    clean_criteria = criteria.copy()
+                    clean_criteria.pop('distance_to_ego', None)
+                    clean_criteria.pop('relative_position', None)
+                    clean_criteria.pop('road_relationship', None)
+                    
+                    ax, ay, az, ayaw = self._choose_spawn(map_name, clean_criteria)
+                    actor_positions[actor['id']] = (ax, ay, az, ayaw)
+                    
+                    # Store actor spawn info
+                    self._actor_spawn_info = self._last_pick
+                    actor_road = self._last_pick.get('road_id') if self._last_pick else None
+                    actor_lane = self._last_pick.get('lane_id') if self._last_pick else None
+                    
+                    self.logger.info(f"Positioned {actor['id']} first on {lane_type} lane at ({ax:.1f}, {ay:.1f})")
+                    break
+        
+        # Now position ego relative to the special actor
+        if special_actor and special_actor['id'] in actor_positions:
+            actor_pos = actor_positions[special_actor['id']]
+            ego_criteria = data.get('ego_spawn', {}).get('criteria', {})
+            
+            # Modify ego criteria to be relative to actor
+            if 'spawn' in special_actor:
+                actor_spawn_criteria = special_actor['spawn'].get('criteria', {})
+                desired_distance = actor_spawn_criteria.get('distance_to_ego', {})
+                
+                # Find ego position near the actor
+                ego_criteria_modified = ego_criteria.copy()
+                # Remove constraints that might conflict
+                ego_criteria_modified.pop('is_intersection', None)
+                
+                # Try to position ego at desired distance from actor
+                if desired_distance:
+                    min_dist = desired_distance.get('min', 10)
+                    max_dist = desired_distance.get('max', 50)
+                    target_dist = (min_dist + max_dist) / 2
+                    
+                    # Find driving lanes near the actor
+                    all_spawns = self._get_spawn_points_for_map(map_name)
+                    driving_spawns = [s for s in all_spawns if s.get('lane_type') == 'Driving']
+                    
+                    # Filter by distance to actor
+                    import math
+                    suitable_ego_spawns = []
+                    for spawn in driving_spawns:
+                        dist = math.hypot(spawn['x'] - actor_pos[0], spawn['y'] - actor_pos[1])
+                        if min_dist <= dist <= max_dist * 1.5:  # Allow some flexibility
+                            suitable_ego_spawns.append((dist, spawn))
+                    
+                    if suitable_ego_spawns:
+                        # Sort by distance and pick one close to target
+                        suitable_ego_spawns.sort(key=lambda x: abs(x[0] - target_dist))
+                        best_spawn = suitable_ego_spawns[0][1]
+                        
+                        x, y, z = best_spawn['x'], best_spawn['y'], best_spawn.get('z', 0.5)
+                        yaw = math.radians(best_spawn.get('yaw', 0))
+                        
+                        self._ego_pos = (x, y, z, yaw)
+                        self._ego_lane = (best_spawn.get('road_id'), best_spawn.get('lane_id'))
+                        self.logger.info(f"Positioned ego at ({x:.1f}, {y:.1f}) relative to actor")
+                    else:
+                        # Fallback to standard ego positioning
+                        x, y, z, yaw = self._choose_strategic_ego_spawn(data, map_name, ego_criteria)
+                        self._ego_pos = (x, y, z, yaw)
+                else:
+                    x, y, z, yaw = self._choose_strategic_ego_spawn(data, map_name, ego_criteria)
+                    self._ego_pos = (x, y, z, yaw)
+            else:
+                x, y, z, yaw = self._choose_strategic_ego_spawn(data, map_name, ego_criteria)
+                self._ego_pos = (x, y, z, yaw)
+        else:
+            # No special actors, use standard positioning
+            if 'ego_spawn' in data:
+                crit = data['ego_spawn'].get('criteria', {})
+                x, y, z, yaw = self._choose_strategic_ego_spawn(data, map_name, crit)
+                self._ego_pos = (x, y, z, yaw)
+            else:
+                x, y, z, yaw = self.parse_position(data['ego_start_position'], map_name)
+                self._ego_pos = (x, y, z, yaw)
+        
+        # Create ego position element
+        ego_private = ET.SubElement(actions, 'Private')
+        ego_private.set('entityRef', 'hero')
+        ego_action = ET.SubElement(ego_private, 'PrivateAction')
+        teleport = ET.SubElement(ego_action, 'TeleportAction')
+        position = ET.SubElement(teleport, 'Position')
+        world_pos = ET.SubElement(position, 'WorldPosition')
+        world_pos.set('x', str(self._ego_pos[0]))
+        world_pos.set('y', str(self._ego_pos[1]))
+        world_pos.set('z', str(self._ego_pos[2]))
+        world_pos.set('h', str(self._ego_pos[3]))
+        
+        # Add ego controller and speed
+        ctrl_action = ET.SubElement(ego_private, 'PrivateAction')
+        ctrl = ET.SubElement(ctrl_action, 'ControllerAction')
+        assign = ET.SubElement(ctrl, 'AssignControllerAction')
+        controller = ET.SubElement(assign, 'Controller')
+        controller.set('name', 'HeroAgent')
+        ctrl_props = ET.SubElement(controller, 'Properties')
+        ctrl_prop = ET.SubElement(ctrl_props, 'Property')
+        ctrl_prop.set('name', 'module')
+        ctrl_prop.set('value', 'external_control')
+        
+        override = ET.SubElement(ctrl, 'OverrideControllerValueAction')
+        for control in ['Throttle', 'Brake', 'Clutch', 'ParkingBrake', 'SteeringWheel', 'Gear']:
+            elem = ET.SubElement(override, control)
+            if control == 'Gear':
+                elem.set('number', '0')
+            else:
+                elem.set('value', '0')
+            elem.set('active', 'false')
+        
+        # Add initial speed for ego
+        ego_start_speed = data.get('ego_start_speed', 0)
+        if ego_start_speed > 0:
+            speed_action = ET.SubElement(ego_private, 'PrivateAction')
+            long_action = ET.SubElement(speed_action, 'LongitudinalAction')
+            speed_elem = ET.SubElement(long_action, 'SpeedAction')
+            dynamics = ET.SubElement(speed_elem, 'SpeedActionDynamics')
+            dynamics.set('dynamicsDimension', 'time')
+            dynamics.set('dynamicsShape', 'step')
+            dynamics.set('value', '1.0')
+            target = ET.SubElement(speed_elem, 'SpeedActionTarget')
+            ET.SubElement(target, 'AbsoluteTargetSpeed', {'value': str(ego_start_speed)})
+        
+        # Position remaining actors
+        for actor in data.get('actors', []):
+            if actor['id'] in actor_positions:
+                # Already positioned
+                ax, ay, az, ayaw = actor_positions[actor['id']]
+            else:
+                # Position relative to ego
+                if 'spawn' in actor:
+                    crit = actor['spawn'].get('criteria', {})
+                    crit = self._fix_spawn_criteria(crit, actor, data)
+                    ax, ay, az, ayaw = self._choose_spawn(
+                        map_name, crit,
+                        ego_pos=self._ego_pos,
+                        ego_lane=self._ego_lane
+                    )
+                else:
+                    ax, ay, az, ayaw = self.parse_position(actor['start_position'], map_name)
+                
+                actor_positions[actor['id']] = (ax, ay, az, ayaw)
+            
+            # Create actor position element
+            private = ET.SubElement(actions, 'Private')
+            private.set('entityRef', actor['id'])
+            action = ET.SubElement(private, 'PrivateAction')
+            teleport = ET.SubElement(action, 'TeleportAction')
+            position = ET.SubElement(teleport, 'Position')
+            world_pos = ET.SubElement(position, 'WorldPosition')
+            world_pos.set('x', str(ax))
+            world_pos.set('y', str(ay))
+            world_pos.set('z', str(az))
+            world_pos.set('h', str(ayaw))
         
         return init
     
@@ -1442,13 +1808,14 @@ class JsonToXoscConverter:
     def _choose_spawn(self, map_name: str, crit: Dict[str, Any],
                     ego_pos: Optional[Tuple[float, float, float, float]] = None,
                     ego_lane: Optional[Tuple[int, int]] = None) -> Tuple[float, float, float, float]:
-        """Return a spawn (x,y,z,yaw) that meets the criteria - ALWAYS use pre-validated spawn points"""
-        # ALWAYS use the enhanced spawn files which contain pre-validated spawn points
-        # These are guaranteed to be on valid roads, not in water or off-road
+        """Return a spawn (x,y,z,yaw) that meets the criteria - use validated enhanced spawn points"""
+        # Use enhanced spawn files which have been validated to be on actual roads
         pts = self._get_spawn_points_for_map(map_name)
         if not pts:
             self.logger.error(f"No enhanced spawn data available for map {map_name}")
-            raise ValidationError(f"No enhanced spawn points available for map {map_name}. Please ensure enhanced_{map_name}.json exists in spawns/ directory.")
+            raise ValidationError(f"No spawn points available for map {map_name}.")
+        
+        self.logger.info(f"Using spawn points for {map_name} ({len(pts)} points)")
         
         # Use the legacy spawn selection which picks from actual spawn points
         return self._legacy_choose_spawn(map_name, crit, ego_pos, ego_lane, pts)
@@ -1827,12 +2194,22 @@ class JsonToXoscConverter:
             y += offset * math.sin(yaw + math.pi/2)
             self.logger.info(f"Applied lateral offset of {offset}m to position due to lane type fallback")
         
-        # Also check if there's an explicit lateral_offset in criteria
+        # Only apply explicit lateral_offset if we didn't get the exact lane type requested
+        # (i.e., if we're using a fallback or want fine-tuning within the same lane)
         if 'lateral_offset' in crit:
-            extra_offset = crit['lateral_offset']
-            x += extra_offset * math.cos(yaw + math.pi/2)
-            y += extra_offset * math.sin(yaw + math.pi/2)
-            self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria")
+            # Check if we got the exact lane type requested
+            requested_lane_type = crit.get('lane_type')
+            actual_lane_type = pick.get('lane_type')
+            
+            # Only apply offset if it's a different lane type or explicitly a fallback
+            if 'lateral_offset_fallback' in pick or (requested_lane_type and actual_lane_type and 
+                                                      requested_lane_type.lower() != actual_lane_type.lower()):
+                extra_offset = crit['lateral_offset']
+                x += extra_offset * math.cos(yaw + math.pi/2)
+                y += extra_offset * math.sin(yaw + math.pi/2)
+                self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria (lane type mismatch)")
+            else:
+                self.logger.info(f"Skipping lateral_offset from criteria - already on correct {actual_lane_type} lane")
         
         return x, y, z, yaw
     
@@ -1939,10 +2316,12 @@ class JsonToXoscConverter:
         """Filter by lane type with intelligent context-aware fallbacks"""
         requested_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
         
-        # First try exact matches
+        # First try exact matches (case-insensitive)
         exact_matches = []
+        requested_types_lower = [rt.lower() if isinstance(rt, str) else rt for rt in requested_types]
         for pt in candidates:
-            if pt.get('lane_type') in requested_types:
+            pt_lane_type = pt.get('lane_type', '')
+            if isinstance(pt_lane_type, str) and pt_lane_type.lower() in requested_types_lower:
                 exact_matches.append(pt)
         
         if exact_matches:
@@ -1961,7 +2340,8 @@ class JsonToXoscConverter:
             
             for fallback_type in fallback_types:
                 for pt in candidates:
-                    if pt.get('lane_type') == fallback_type and pt not in fallback_candidates:
+                    pt_lane_type = pt.get('lane_type', '')
+                    if isinstance(pt_lane_type, str) and pt_lane_type.lower() == fallback_type.lower() and pt not in fallback_candidates:
                         # Calculate lateral offset needed when using fallback
                         if fallback_type != requested_type:
                             lateral_offset_needed = self._calculate_lateral_offset_for_fallback(
@@ -2472,12 +2852,22 @@ class JsonToXoscConverter:
             y += offset * math.sin(yaw + math.pi/2)
             self.logger.info(f"Applied lateral offset of {offset}m to position due to lane type fallback")
         
-        # Also check if there's an explicit lateral_offset in criteria
+        # Only apply explicit lateral_offset if we didn't get the exact lane type requested
+        # (i.e., if we're using a fallback or want fine-tuning within the same lane)
         if 'lateral_offset' in crit:
-            extra_offset = crit['lateral_offset']
-            x += extra_offset * math.cos(yaw + math.pi/2)
-            y += extra_offset * math.sin(yaw + math.pi/2)
-            self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria")
+            # Check if we got the exact lane type requested
+            requested_lane_type = crit.get('lane_type')
+            actual_lane_type = pick.get('lane_type')
+            
+            # Only apply offset if it's a different lane type or explicitly a fallback
+            if 'lateral_offset_fallback' in pick or (requested_lane_type and actual_lane_type and 
+                                                      requested_lane_type.lower() != actual_lane_type.lower()):
+                extra_offset = crit['lateral_offset']
+                x += extra_offset * math.cos(yaw + math.pi/2)
+                y += extra_offset * math.sin(yaw + math.pi/2)
+                self.logger.info(f"Applied additional lateral offset of {extra_offset}m from criteria (lane type mismatch)")
+            else:
+                self.logger.info(f"Skipping lateral_offset from criteria - already on correct {actual_lane_type} lane")
         
         return x, y, z, yaw
     
@@ -2570,10 +2960,12 @@ class JsonToXoscConverter:
             elif lid not in ['same_as_ego', 'adjacent'] and pt.get('lane_id') != lid:
                 return False
         
-        # Lane type filtering
+        # Lane type filtering (case-insensitive)
         if 'lane_type' in crit:
             valid_types = crit['lane_type'] if isinstance(crit['lane_type'], list) else [crit['lane_type']]
-            if pt.get('lane_type') not in valid_types:
+            valid_types_lower = [vt.lower() if isinstance(vt, str) else vt for vt in valid_types]
+            pt_lane_type = pt.get('lane_type', '')
+            if isinstance(pt_lane_type, str) and pt_lane_type.lower() not in valid_types_lower:
                 return False
         
         # Lane relationship filtering (critical for cut-in scenarios)
@@ -2597,9 +2989,11 @@ class JsonToXoscConverter:
             # 'any_lane' has no filtering
         
         # Intersection filtering with default to avoid intersections
-        intersection_filter = crit.get('is_intersection', False)  # Default to false (avoid intersections)
-        if pt.get('is_intersection') != intersection_filter:
-            return False
+        if 'is_intersection' in crit:
+            intersection_filter = crit['is_intersection']
+            pt_is_intersection = pt.get('is_intersection', False)  # Default spawn to non-intersection if not specified
+            if pt_is_intersection != intersection_filter:
+                return False
         
         # Heading tolerance
         if 'heading_tol' in crit and ego_pos:

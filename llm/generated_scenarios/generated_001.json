@@ -1,6 +1,7 @@
 {
   "scenario_name": "generated_001",
   "description": "Vehicle behind ego at parking spot",
+  "map_name": "Town04",
   "weather": "clear_noon",
   "ego_vehicle_model": "vehicle.tesla.model3",
   "ego_spawn": {
@@ -21,10 +22,9 @@
           "lane_type": "Shoulder",
           "distance_to_ego": {
             "min": 18,
-            "max": 25
+            "max": 35
           },
           "relative_position": "ahead",
-          "road_relationship": "same_road",
           "lateral_offset": 2.0
         }
       },
