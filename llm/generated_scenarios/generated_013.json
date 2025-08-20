@@ -1,0 +1,86 @@
+{
+  "scenario_name": "generated_013",
+  "description": "Ambulance approaches from behind while vehicle ahead",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "ambulance",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,100,0"
+    },
+    {
+      "id": "mercedes_coupe",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "200,50,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ambulance",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "mercedes_coupe",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "ambulance",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 70,
+  "collision_allowed": false
+}

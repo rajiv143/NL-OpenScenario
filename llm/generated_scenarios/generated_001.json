@@ -1,0 +1,48 @@
+{
+  "scenario_name": "generated_001",
+  "description": "Vehicle behind ego at parking spot",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "parked_car",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {
+            "min": 18,
+            "max": 25
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.0
+        }
+      },
+      "color": "50,100,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parked_car",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 45,
+  "collision_allowed": false
+}

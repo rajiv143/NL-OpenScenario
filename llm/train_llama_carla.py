@@ -132,7 +132,7 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             task_type=TaskType.CAUSAL_LM,
             r=self.lora_r,
             lora_alpha=self.lora_alpha,
-            lora_dropout=0.1,
+            lora_dropout=0.2,  # INCREASED from 0.1 to combat overfitting
             target_modules=self._get_target_modules(),
             bias="none"
         )
@@ -295,7 +295,7 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
         print(f"Tokenized {len(self.val_dataset)} validation examples")
     
     def get_training_args(self, num_epochs: int = 3, batch_size: int = 2,
-                     learning_rate: float = 2e-4, use_wandb: bool = False):
+                    learning_rate: float = 2e-4, use_wandb: bool = False):
         """Get training arguments with version compatibility"""
         effective_batch_size = 8
         gradient_accumulation_steps = max(1, effective_batch_size // batch_size)
@@ -311,13 +311,21 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             learning_rate=learning_rate,
             fp16=True,
             logging_steps=10,
-            save_steps=100,
-            eval_steps=50,
+            save_steps=50,  # CHANGED from 100 to save more frequently
+            eval_steps=25,   # CHANGED from 50 to evaluate more often
             eval_strategy="steps",
-            warmup_steps=50,
+            warmup_steps=20,  # REDUCED from 50 for faster warmup
+            weight_decay=0.05,  # ADDED for regularization
+            load_best_model_at_end=True,  # ADDED to get best checkpoint
+            metric_for_best_model="eval_loss",  # ADDED
+            greater_is_better=False,  # ADDED
+            save_total_limit=3,  # ADDED to limit checkpoints
             remove_unused_columns=False,
             logging_dir=str(self.output_dir / "logs"),
             report_to="wandb" if use_wandb else "none",
+            max_grad_norm=1.0,
+            lr_scheduler_type="cosine",  # ADDED cosine scheduler
+            gradient_checkpointing=True # Memory Efficiency
         )
         return training_args
     
@@ -372,7 +380,7 @@ You are an expert CARLA simulator scenario designer. Generate valid JSON scenari
             eval_dataset=self.val_dataset,
             tokenizer=self.tokenizer,
             data_collator=data_collator,
-            #callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
+            callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
         )
         
         # Train

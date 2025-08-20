@@ -1,0 +1,521 @@
+[
+  {
+    "test": "A blue sedan is parked 20 meters ahead in heavy rain",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "heavy_rain_parked_car",
+      "description": "A blue sedan is parked 20 meters ahead in heavy rain",
+      "weather": "hard_rain",
+      "ego_vehicle_model": "vehicle.nissan.micra",
+      "ego_spawn": {
+        "lane_type": "Driving",
+        "road_context": "town",
+        "spawnCriteria": {
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "parked_car",
+          "type": "vehicle",
+          "model": "vehicle.carlamotors.chevrolet.impala",
+          "color": "blue",
+          "spawn": {
+            "lane_type": "Shoulder",
+            "road_context": "town",
+            "spawnCriteria": {
+              "distance_to_ego": {
+                "min": 18,
+                "max": 22
+              },
+              "relative_position": "ahead",
+              "road_relationship": "same_road"
+            }
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "parked_car",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 1.5,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.5
+        }
+      ],
+      "success_distance": 50,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Night time scenario with dense fog and limited visibility",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "night_fog_ambush",
+      "description": "Nighttime driving through dense fog with multiple vehicles and pedestrians ahead, requiring careful navigation.",
+      "weather": "fog",
+      "ego_vehicle_model": "vehicle.audi.etron.s4",
+      "ego_spawn": {
+        "lane_type": "Driving",
+        "road_context": "town",
+        "spawncriteria": {
+          "distance_to_ego": {
+            "min": 40,
+            "max": 60
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      },
+      "ego_start_speed": 5.0,
+      "actors": [
+        {
+          "id": "fog_vehicle",
+          "type": "vehicle",
+          "model": "vehicle.mercedes.coupe_s",
+          "spawn": {
+            "lane_type": "Driving",
+            "road_context": "town",
+            "spawn_criteria": {
+              "distance_to_ego": {
+                "min": 30,
+                "max": 50
+              },
+              "relative_position": "ahead",
+              "road_relationship": "same_road"
+            }
+          },
+          "color": "255,100,100"
+        },
+        {
+          "id": "pedestrian_1",
+          "type": "pedestrian",
+          "model": "walker.pedestrian",
+          "spawn": {
+            "lane_type": "Sidewalk",
+            "road_context": "town",
+            "spawn_criteria": {
+              "distance_to_ego": {
+                "min": 20,
+                "max": 35
+              },
+              "relative_position": "right",
+              "lateral_offset": 2.5
+            }
+          }
+        },
+        {
+          "id": "pedestrian_2",
+          "type": "pedestrian",
+          "model": "walker.pedestrian",
+          "spawn": {
+            "lane_type": "Sidewalk",
+            "road_context": "town",
+            "spawn_criteria": {
+              "distance_to_ego": {
+                "min": 25,
+                "max": 40
+              },
+              "relative_position": "left",
+              "lateral_offset": -3.0
+            }
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "fog_vehicle",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 6.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.5
+        },
+        {
+          "actor_id": "pedestrian_1",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 1.8,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "linear",
+          "dynamics_value": 2.0
+        },
+        {
+          "actor_id": "pedestrian_2",
+          "action_type": "stop",
+          "trigger_type": "time",
+          "trigger_value": 3.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.1
+        }
+      ],
+      "success_distance": 80,
+      "timeout": 70,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Sunny afternoon highway merge scenario",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "highway_merge_sunny",
+      "description": "A sunny afternoon highway scenario where vehicles are merging from adjacent lanes to join the main highway traffic.",
+      "weather": "clear_sunset",
+      "ego_vehicle_model": "vehicle.audi.etron.s4",
+      "ego_spawn": {
+        "lane_type": "Driving",
+        "road_context": "highway",
+        "spawnCriteria": {
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "right",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "ego_start_speed": 22,
+      "actors": [
+        {
+          "id": "merging_car",
+          "type": "vehicle",
+          "model": "vehicle.mercedes.coupe",
+          "spawn": {
+            "lane_type": "Driving",
+            "road_context": "highway",
+            "spawnCriteria": {
+              "distance_to_ego": {
+                "min": 80,
+                "max": 100
+              },
+              "relative_position": "right",
+              "lane_relationship": "adjacent_lane"
+            }
+          },
+          "color": "255,0,0"
+        },
+        {
+          "id": "following_car",
+          "type": "vehicle",
+          "model": "vehicle.nissan.patrol",
+          "spawn": {
+            "lane_type": "Driving",
+            "road_context": "highway",
+            "spawnCriteria": {
+              "distance_to_ego": {
+                "min": 40,
+                "max": 60
+              },
+              "relative_position": "ahead",
+              "lane_relationship": "same_lane"
+            }
+          },
+          "color": "0,200,0"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "merging_car",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 15.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 1.5
+        },
+        {
+          "actor_id": "following_car",
+          "action_type": "brake",
+          "trigger_type": "time",
+          "trigger_value": 3.0,
+          "brake_force": 0.6,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "linear",
+          "dynamics_value": 1.8
+        }
+      ],
+      "success_distance": 250,
+      "timeout": 90,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Wet road conditions with a truck ahead",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "wet_road_truck_ahead",
+      "description": "A wet road with a large truck ahead that needs to stop before I can proceed",
+      "weather": "wet_cloudy",
+      "ego_vehicle_model": "vehicle.audi.etron.s3",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "town",
+          "speed_limit": {
+            "min": 25,
+            "max": 35
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 6,
+      "actors": [
+        {
+          "id": "truck",
+          "type": "vehicle",
+          "model": "vehicle.carlamotors.truck.cargo",
+          "spawn": {
+            "criteria": {
+              "lane_type": "Driving",
+              "road_context": "town",
+              "distance_to_ego": {
+                "min": 40,
+                "max": 60
+              },
+              "relative_position": "ahead",
+              "road_relationship": "same_road"
+            }
+          },
+          "color": "255,0,0"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "truck",
+          "action_type": "brake",
+          "trigger_type": "time",
+          "trigger_value": 2.5,
+          "brake_force": 1.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.5
+        }
+      ],
+      "success_distance": 70,
+      "timeout": 55,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle ahead starts moving at 8 m/s when ego gets within 15 meters",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "vehicle_early_mover",
+      "description": "A vehicle ahead starts moving at 8 m/s when ego gets within 15 meters",
+      "weather": "clear_noon",
+      "ego_vehicle_model": "vehicle.toyota.prius",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "town"
+        },
+        "distance": 50,
+        "road_id": "town_001",
+        "spawnCriteria": {
+          "lane_type": "Driving",
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "ahead_vehicle",
+          "type": "vehicle",
+          "model": "vehicle.mazda3",
+          "spawn": {
+            "criteria": {
+              "lane_type": "Driving",
+              "road_context": "town"
+            },
+            "distance": 25,
+            "relative_position": "ahead",
+            "road_id": "town_001"
+          },
+          "color": "255,0,0"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "ahead_vehicle",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 8.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.1
+        }
+      ],
+      "success_distance": 60,
+      "timeout": 40,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "Two cars ahead: one moving slowly at 5 m/s, another overtaking at 15 m/s",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "two_cars_overtake",
+      "description": "Two vehicles ahead of ego vehicle: one slow-moving car at 5 m/s and another overtaking car at 15 m/s",
+      "weather": "cloudy",
+      "ego_vehicle_model": "vehicle.audi.etron.s3",
+      "ego_spawn": {
+        "lane_type": "Driving",
+        "road_context": "town",
+        "spawnCriteria": {
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      },
+      "ego_start_speed": 10,
+      "actors": [
+        {
+          "id": "slow_car",
+          "type": "vehicle",
+          "model": "vehicle.mercedes.coupe",
+          "spawn": {
+            "lane_type": "Driving",
+            "road_context": "town",
+            "spawnCriteria": {
+              "distance_to_ego": {
+                "min": 30,
+                "max": 45
+              },
+              "relative_position": "ahead",
+              "road_relationship": "same_road"
+            }
+          },
+          "color": "0,200,0"
+        },
+        {
+          "id": "overtaker",
+          "type": "vehicle",
+          "model": "vehicle.ford.mustang",
+          "spawn": {
+            "lane_type": "Driving",
+            "road_context": "town",
+            "spawnCriteria": {
+              "distance_to_ego": {
+                "min": 40,
+                "max": 55
+              },
+              "relative_position": "ahead",
+              "road_relationship": "same_road"
+            }
+          },
+          "color": "255,0,0"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "slow_car",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 4.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.1
+        },
+        {
+          "actor_id": "overtaker",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 3.0,
+          "speed_value": 18.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "linear",
+          "dynamics_value": 2.0
+        }
+      ],
+      "success_distance": 80,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "test": "A vehicle cuts in from the adjacent lane when ego approaches",
+    "status": "success",
+    "scenario": {
+      "scenario_name": "lane_cutting_scenario",
+      "description": "A vehicle cuts in from the adjacent lane when ego approaches",
+      "weather": "clear_noon",
+      "ego_vehicle_model": "vehicle.audi.etron.s3",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "town",
+          "speed_limit": {
+            "min": 25,
+            "max": 35
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 10.0,
+      "actors": [
+        {
+          "id": "cutting_vehicle",
+          "type": "vehicle",
+          "model": "vehicle.toyota.corolla",
+          "spawn": {
+            "criteria": {
+              "lane_type": "Driving",
+              "road_context": "town",
+              "distance_to_ego": {
+                "min": 40,
+                "max": 60
+              },
+              "relative_position": "perpendicular",
+              "road_relationship": "same_road"
+            }
+          }
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "cutting_vehicle",
+          "action_type": "speed",
+          "trigger_type": "time",
+          "trigger_value": 2.0,
+          "speed_value": 15.0,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "step",
+          "dynamics_value": 0.1
+        },
+        {
+          "actor_id": "cutting_vehicle",
+          "action_type": "lane_change",
+          "trigger_type": "time",
+          "trigger_value": 4.5,
+          "dynamics_dimension": "time",
+          "dynamics_shape": "cubic",
+          "dynamics_value": 1.0,
+          "target_lane": -1
+        }
+      ],
+      "success_distance": 80,
+      "timeout": 55,
+      "collision_allowed": false
+    }
+  }
+]

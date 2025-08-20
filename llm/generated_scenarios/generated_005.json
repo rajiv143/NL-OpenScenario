@@ -1,0 +1,59 @@
+{
+  "scenario_name": "generated_005",
+  "description": "Vehicle moves slowly in heavy rain",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.ford.mustang",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "slow_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "slow_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "slow_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "brake_force": 0.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 60,
+  "collision_allowed": false
+}

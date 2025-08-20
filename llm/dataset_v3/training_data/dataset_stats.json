@@ -1,0 +1,11 @@
+{
+  "total_examples": 294,
+  "train_examples": 205,
+  "val_examples": 44,
+  "test_examples": 45,
+  "unique_scenarios": 200,
+  "scenario_distribution": {
+    "other": 226,
+    "051-100": 68
+  }
+}

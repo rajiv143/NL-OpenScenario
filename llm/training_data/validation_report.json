@@ -1,0 +1,13 @@
+{
+  "total_examples": 531,
+  "train_examples": 371,
+  "val_examples": 80,
+  "test_examples": 80,
+  "improvements_applied": {
+    "start_tokens_added": true,
+    "vehicle_models_validated": true,
+    "spawn_criteria_standardized": true,
+    "action_fields_fixed": true
+  },
+  "example_with_tokens": "<<<JSON_START>>>\n{\n  \"scenario_name\": \"icy_road_sliding_331\",\n  \"description\": \"Vehicle loses control on icy road surface\",\n  \"weather\": \"mid_rain\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_sp"
+}

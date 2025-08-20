@@ -1,0 +1,92 @@
+{
+  "scenario_name": "generated_014",
+  "description": "Pedestrian starts crossing then stops and another pedestrian crosses",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "jaywalker_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0012",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "jaywalker_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0044",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "left",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "jaywalker_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "jaywalker_1",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "trigger_value": 2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "jaywalker_2",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "trigger_value": 0.5,
+      "wait_duration": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.01
+    },
+    {
+      "actor_id": "jaywalker_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 3.5,
+      "speed_value": 2.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 50,
+  "collision_allowed": false
+}

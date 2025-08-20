@@ -1,0 +1,1 @@
+11. "Car ahead brakes when distance is less than 30m AND ego speed is above 15 m/s"

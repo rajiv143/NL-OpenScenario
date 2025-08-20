@@ -1,0 +1,58 @@
+{
+  "scenario_name": "generated_010",
+  "description": "Vehicle changes lanes to avoid collision when ego is too close",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.tt",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 21,
+  "actors": [
+    {
+      "id": "cutting_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cutting_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cutting_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.5,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 130,
+  "timeout": 70,
+  "collision_allowed": false
+}

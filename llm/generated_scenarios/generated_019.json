@@ -1,0 +1,120 @@
+{
+  "scenario_name": "generated_019",
+  "description": "High-risk scenario with multiple hazards",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 25,
+  "actors": [
+    {
+      "id": "close_object",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 15,
+            "max": 20
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,50,50"
+    },
+    {
+      "id": "lateral_hazard",
+      "type": "bicycle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "left",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,150,0"
+    },
+    {
+      "id": "cross_traffic",
+      "type": "motorcycle",
+      "model": "vehicle.harley-davidson.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road",
+          "intersection": true
+        }
+      },
+      "color": "100,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "close_object",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lateral_hazard",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cross_traffic",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.8,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "close_object",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 10.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5,
+      "target_lane": 1
+    }
+  ],
+  "success_distance": 160,
+  "timeout": 80,
+  "collision_allowed": false
+}

@@ -1,58 +1,48 @@
 {
-  "scenario_name": "wet_slip_075",
-  "description": "Vehicle slips on wet road",
-  "weather": "wet",
-  "ego_vehicle_model": "vehicle.ford.crown",
+  "scenario_name": "generated_scenario",
+  "description": "Generated CARLA scenario",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.etron.s3",
   "ego_spawn": {
     "criteria": {
       "lane_type": "Driving",
       "is_intersection": false
     }
   },
-  "ego_start_speed": 12,
+  "ego_start_speed": 5,
   "actors": [
     {
-      "id": "slipping_car",
+      "id": "slow_vehicle",
       "type": "vehicle",
-      "model": "vehicle.dodge.charger_police",
+      "model": "vehicle.mercedes.coupe",
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
-          "road_context": "urban",
+          "road_context": "town",
           "distance_to_ego": {
-            "min": 40,
-            "max": 55
+            "min": 30,
+            "max": 40
           },
           "relative_position": "ahead",
-          "road_relationship": "same_road",
-          "lane_relationship": "adjacent_lane"
+          "road_relationship": "same_road"
         }
       },
-      "color": "255,150,0"
+      "color": "255,0,0"
     }
   ],
   "actions": [
     {
-      "actor_id": "slipping_car",
+      "actor_id": "slow_vehicle",
       "action_type": "speed",
       "trigger_type": "time",
-      "trigger_value": 2.5,
-      "speed_value": 8.0,
+      "trigger_value": 2.0,
+      "speed_value": 4.0,
       "dynamics_dimension": "time",
-      "dynamics_shape": "cubic",
-      "dynamics_value": 3.0
-    },
-    {
-      "actor_id": "slipping_car",
-      "action_type": "brake",
-      "trigger_type": "after_previous",
-      "brake_force": 0.4,
-      "dynamics_dimension": "time",
-      "dynamics_shape": "linear",
-      "dynamics_value": 1.5
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
     }
   ],
-  "success_distance": 100,
-  "timeout": 60,
+  "success_distance": 60,
+  "timeout": 50,
   "collision_allowed": false
 }

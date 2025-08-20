@@ -1,0 +1,88 @@
+{
+  "scenario_name": "generated_008",
+  "description": "Two cars ahead of me: one in my lane at moderate speed and another in adjacent lane trying to overtake",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "ahead_left",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,200,200"
+    },
+    {
+      "id": "ahead_right",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "my_lane"
+        }
+      },
+      "color": "100,150,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ahead_right",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "ahead_left",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "ahead_right",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 140,
+  "timeout": 70,
+  "collision_allowed": false
+}
