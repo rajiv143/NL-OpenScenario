@@ -1,0 +1,400 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-21T20:50:14" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="Town04"/>
+    <SceneGraphFile filepath=""/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="hero">
+      <Vehicle name="vehicle.ford.crown" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="ego_vehicle"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="static_front">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation"/>
+          <Property name="color" value="255,200,100"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="moving_back">
+      <Vehicle name="vehicle.bmw.grandtourer" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation"/>
+          <Property name="color" value="150,50,50"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="crossing_traffic">
+      <Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions height="1.8" length="4.5" width="2.1"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+        </Axles>
+        <Properties>
+          <Property name="type" value="simulation"/>
+          <Property name="color" value="0,0,255"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun azimuth="0" elevation="1.31" intensity="1.0"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation intensity="0.0" precipitationType="dry"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="hero">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-4.603040651290472" x="59.4620361328125" y="-213.4052734375" z="0.333660888671875"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <ControllerAction>
+              <AssignControllerAction>
+                <Controller name="HeroAgent">
+                  <Properties>
+                    <Property name="module" value="external_control"/>
+                  </Properties>
+                </Controller>
+              </AssignControllerAction>
+              <OverrideControllerValueAction>
+                <Throttle active="false" value="0"/>
+                <Brake active="false" value="0"/>
+                <Clutch active="false" value="0"/>
+                <ParkingBrake active="false" value="0"/>
+                <SteeringWheel active="false" value="0"/>
+                <Gear active="false" number="0"/>
+              </OverrideControllerValueAction>
+            </ControllerAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3.0"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="10"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="static_front">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-1.1628051078008284" x="71.5034408569336" y="-245.383056640625" z="0.333660888671875"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="moving_back">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-4.169939285326374" x="75.42176818847656" y="-260.6305236816406" z="0.333660888671875"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="crossing_traffic">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="-4.7062173708745405" x="58.65558624267578" y="-182.69332885742188" z="0.333660888671875"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="MyStory">
+      <Act name="Behavior">
+        <ManeuverGroup maximumExecutionCount="1" name="static_frontManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="static_front"/>
+          </Actors>
+          <Maneuver name="static_frontManeuver">
+            <Event name="static_frontEvent0" priority="overwrite">
+              <Action name="static_frontAction0">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="4.0"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="1.5"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="static_frontEvent1" priority="overwrite">
+              <Action name="static_frontAction1">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="56.4"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="1.6"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="moving_backManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="moving_back"/>
+          </Actors>
+          <Maneuver name="moving_backManeuver">
+            <Event name="moving_backEvent0" priority="overwrite">
+              <Action name="moving_backAction0">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.5"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="15.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="2.0"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="moving_backEvent1" priority="overwrite">
+              <Action name="moving_backAction1">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="cubic" value="1.5"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="2.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="hero"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="moving_back" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="15.0"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="moving_backEvent2" priority="overwrite">
+              <Action name="moving_backAction2">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="53.4"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="15.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition2">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="4.6"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="crossing_trafficManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="crossing_traffic"/>
+          </Actors>
+          <Maneuver name="crossing_trafficManeuver">
+            <Event name="crossing_trafficEvent0" priority="overwrite">
+              <Action name="crossing_trafficAction0">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.5"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="3.0"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="crossing_trafficEvent1" priority="overwrite">
+              <Action name="crossing_trafficAction1">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="54.4"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="3.6"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="rising" delay="0.5" name="OverallStartCondition">
+              <ByEntityCondition>
+                <TriggeringEntities triggeringEntitiesRule="any">
+                  <EntityRef entityRef="hero"/>
+                </TriggeringEntities>
+                <EntityCondition>
+                  <SpeedCondition rule="greaterThan" value="1.0"/>
+                </EntityCondition>
+              </ByEntityCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="rising" delay="0" name="TimeLimit">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="60"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StopTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="70"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">
+          <ByValueCondition>
+            <ParameterCondition parameterRef="collision_count" rule="greaterThan" value="0"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition conditionEdge="rising" delay="0" name="criteria_Timeout">
+          <ByValueCondition>
+            <SimulationTimeCondition rule="greaterThan" value="60"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

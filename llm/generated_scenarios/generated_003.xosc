@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-21T13:15:41" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-21T13:00:10" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
-    <LogicFile filepath="Town04"/>
+    <LogicFile filepath="Town05"/>
     <SceneGraphFile filepath=""/>
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+      <Vehicle name="vehicle.nissan.patrol" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
@@ -25,8 +25,8 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="stationary_truck">
-      <Vehicle name="vehicle.carlamotors.european_hgv" vehicleCategory="car">
+    <ScenarioObject name="leader_vehicle">
+      <Vehicle name="vehicle.audi.tt" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
@@ -39,7 +39,7 @@
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="128,128,128"/>
+          <Property name="color" value="0,100,200"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -64,7 +64,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1351624511377967" x="-411.8336486816406" y="5.86876106262207" z="0.3"/>
+                <WorldPosition h="3.1391585243534608" x="-7.9326171875" y="-8.316396713256836" z="0.5"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -90,19 +90,19 @@
           <PrivateAction>
             <LongitudinalAction>
               <SpeedAction>
-                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3.0"/>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="1.0"/>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="20"/>
+                  <AbsoluteTargetSpeed value="10"/>
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="stationary_truck">
+        <Private entityRef="leader_vehicle">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1351624511377967" x="-359.86474609375" y="9.034666061401367" z="0.3010404345812276"/>
+                <WorldPosition h="3.1391585243534608" x="-35.972896575927734" y="-0.8631235957145691" z="0.5"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -111,19 +111,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="stationary_truckManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="leader_vehicleManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="stationary_truck"/>
+            <EntityRef entityRef="leader_vehicle"/>
           </Actors>
-          <Maneuver name="stationary_truckManeuver">
-            <Event name="stationary_truckEvent0" priority="overwrite">
-              <Action name="stationary_truckAction0">
+          <Maneuver name="leader_vehicleManeuver">
+            <Event name="leader_vehicleEvent0" priority="overwrite">
+              <Action name="leader_vehicleAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.5"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="1.5"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0.0"/>
+                        <AbsoluteTargetSpeed value="7.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -133,7 +133,7 @@
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="StartCondition0">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="0.1"/>
+                      <SimulationTimeCondition rule="greaterThan" value="2.0"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -163,7 +163,7 @@
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <TraveledDistanceCondition value="250"/>
+                  <TraveledDistanceCondition value="95"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -175,7 +175,7 @@
       <ConditionGroup>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="250"/>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="95"/>
           </ByValueCondition>
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">

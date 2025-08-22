@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-21T13:15:41" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader author="JSON2XOSC Converter" date="2025-08-21T14:53:03" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -9,7 +9,7 @@
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+      <Vehicle name="vehicle.nissan.patrol" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
@@ -25,23 +25,17 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="stationary_truck">
-      <Vehicle name="vehicle.carlamotors.european_hgv" vehicleCategory="car">
+    <ScenarioObject name="pedestrian">
+      <Pedestrian mass="90.0" model="walker.pedestrian.0015" name="walker.pedestrian.0015" pedestrianCategory="pedestrian">
         <ParameterDeclarations/>
-        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
         <BoundingBox>
           <Center x="1.5" y="0.0" z="0.9"/>
           <Dimensions height="1.8" length="4.5" width="2.1"/>
         </BoundingBox>
-        <Axles>
-          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
-          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
-        </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="128,128,128"/>
         </Properties>
-      </Vehicle>
+      </Pedestrian>
     </ScenarioObject>
   </Entities>
   <Storyboard>
@@ -52,7 +46,7 @@
             <Environment name="Environment1">
               <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
               <Weather cloudState="free">
-                <Sun azimuth="0" elevation="1.31" intensity="1.0"/>
+                <Sun azimuth="0" elevation="1.31" intensity="0.85"/>
                 <Fog visualRange="100000.0"/>
                 <Precipitation intensity="0.0" precipitationType="dry"/>
               </Weather>
@@ -64,7 +58,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1351624511377967" x="-411.8336486816406" y="5.86876106262207" z="0.3"/>
+                <WorldPosition h="4.718560057262621" x="62.174278259277344" y="-185.71165466308594" z="0.033660888671875"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -92,17 +86,17 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3.0"/>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="20"/>
+                  <AbsoluteTargetSpeed value="8"/>
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="stationary_truck">
+        <Private entityRef="pedestrian">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="3.1351624511377967" x="-359.86474609375" y="9.034666061401367" z="0.3010404345812276"/>
+                <WorldPosition h="-4.603040651290472" x="53.6121826171875" y="-214.04750061035156" z="0.333660888671875"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -111,19 +105,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="stationary_truckManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="pedestrianManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="stationary_truck"/>
+            <EntityRef entityRef="pedestrian"/>
           </Actors>
-          <Maneuver name="stationary_truckManeuver">
-            <Event name="stationary_truckEvent0" priority="overwrite">
-              <Action name="stationary_truckAction0">
+          <Maneuver name="pedestrianManeuver">
+            <Event name="pedestrianEvent0" priority="overwrite">
+              <Action name="pedestrianAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
                       <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.5"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0.0"/>
+                        <AbsoluteTargetSpeed value="1.2"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -133,7 +127,30 @@
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="StartCondition0">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="0.1"/>
+                      <SimulationTimeCondition rule="greaterThan" value="2.0"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="pedestrianEvent1" priority="overwrite">
+              <Action name="pedestrianAction1">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.1"/>
+                      <SpeedActionTarget>
+                        <RelativeTargetSpeed continuous="true" entityRef="pedestrian" speedTargetValueType="delta" value="0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="7.3"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -157,15 +174,10 @@
         </StartTrigger>
         <StopTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0" name="EndCondition">
-              <ByEntityCondition>
-                <TriggeringEntities triggeringEntitiesRule="any">
-                  <EntityRef entityRef="hero"/>
-                </TriggeringEntities>
-                <EntityCondition>
-                  <TraveledDistanceCondition value="250"/>
-                </EntityCondition>
-              </ByEntityCondition>
+            <Condition conditionEdge="rising" delay="0" name="TimeLimit">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="60"/>
+              </ByValueCondition>
             </Condition>
           </ConditionGroup>
         </StopTrigger>
@@ -175,12 +187,17 @@
       <ConditionGroup>
         <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="250"/>
+            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="100"/>
           </ByValueCondition>
         </Condition>
         <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">
           <ByValueCondition>
             <ParameterCondition parameterRef="collision_count" rule="greaterThan" value="0"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition conditionEdge="rising" delay="0" name="criteria_Timeout">
+          <ByValueCondition>
+            <SimulationTimeCondition rule="greaterThan" value="60"/>
           </ByValueCondition>
         </Condition>
       </ConditionGroup>
