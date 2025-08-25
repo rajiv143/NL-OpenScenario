@@ -1,1 +1,0 @@
-Create a construction zone scenario with temporary traffic signals controlling flow through a single lane where road work has closed one side of the street.

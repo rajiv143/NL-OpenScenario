@@ -1,1 +1,0 @@
-Navigate a busy roundabout where a vehicle must slow down, yield to circulating traffic, enter, navigate around other vehicles, signal and exit with multiple speed and steering adjustments.

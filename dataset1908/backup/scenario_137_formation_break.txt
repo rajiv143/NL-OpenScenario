@@ -1,1 +1,0 @@
-Create a formation breakup scenario in light rain where three vehicles traveling in formation in the adjacent lane suddenly split up, with vehicles changing lanes in different directions, testing the ego vehicle's ability to predict and react to multiple simultaneous lane changes.

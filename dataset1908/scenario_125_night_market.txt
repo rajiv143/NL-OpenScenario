@@ -1,1 +1,0 @@
-Create a night market scenario at dusk with a vendor truck blocking the road and multiple pedestrians crossing unpredictably between market stalls, testing the vehicle's ability to navigate through dense pedestrian areas with limited visibility.

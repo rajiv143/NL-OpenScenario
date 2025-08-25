@@ -1,1 +1,0 @@
-Test vehicle stability control and path planning during extreme rainfall where multiple vehicles experience hydroplaning and loss of control. The scenario should challenge traction estimation and emergency trajectory planning when surrounding vehicles exhibit unpredictable lateral movements due to standing water.

@@ -1,1 +1,0 @@
-Urban intersection stress test - cross traffic from right, oncoming left-turner, plus pedestrian at crosswalk all needing to coordinate. Like downtown at 5pm. Everyone has somewhere to be. Tests complex multi-agent negotiation and priority assessment.

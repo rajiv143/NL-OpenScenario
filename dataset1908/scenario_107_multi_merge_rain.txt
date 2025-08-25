@@ -1,1 +1,0 @@
-Set up a highway scenario in moderate rain where three vehicles at different distances are all attempting to merge into my lane at different times and speeds, testing the autonomous system's ability to predict multiple merging patterns in reduced visibility conditions.

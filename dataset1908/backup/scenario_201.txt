@@ -1,1 +1,0 @@
-Set up an intersection scenario where a blue Ford Mustang approaches from the right road while a pedestrian prepares to cross ahead. The crossing vehicle should maintain 8 m/s initially, then brake hard when getting close to the ego vehicle at the intersection. Include a pedestrian who starts walking after 3 seconds.

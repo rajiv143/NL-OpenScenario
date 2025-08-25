@@ -1,1 +1,0 @@
-Design a complex night urban scenario testing multi-object tracking with mixed traffic including a jaywalking pedestrian, a cyclist sharing the lane, an aggressive delivery motorcycle, a turning bus at an intersection, and a parked car with potential door opening hazard, all under streetlight illumination with shadows and dark spots.

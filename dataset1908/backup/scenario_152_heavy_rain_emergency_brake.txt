@@ -1,1 +1,0 @@
-Design an edge case scenario testing emergency braking performance in heavy rain conditions where multiple vehicles ahead perform cascading emergency stops on wet road surfaces. I need to evaluate ABS and traction control response with reduced grip and visibility.

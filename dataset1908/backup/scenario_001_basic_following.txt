@@ -1,1 +1,0 @@
-I need to simulate a basic car-following scenario for my autonomous vehicle testing. There should be a lead vehicle maintaining a constant speed approximately 30-40 meters ahead in the same lane. Weather should be clear for baseline performance testing.

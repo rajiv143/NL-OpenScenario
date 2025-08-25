@@ -1,1 +1,0 @@
-Test autonomous emergency braking when driving directly into sunset glare at high speed and vehicles ahead suddenly brake due to sun blindness. Include a fast-approaching motorcycle from behind that weaves through traffic, challenging both forward collision warning and blind spot monitoring in extreme lighting conditions.

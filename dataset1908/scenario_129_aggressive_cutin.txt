@@ -1,1 +1,0 @@
-I need to test lane change decision algorithms with an aggressive cut-in scenario where two vehicles from the adjacent lane cut in front of me at different distances while a vehicle behind me pressures closely, requiring quick reaction and gap management.

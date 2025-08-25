@@ -1,1 +1,0 @@
-Set up a complex 4-way stop scenario in light rain where multiple vehicles arrive at different times, everyone is uncertain about right-of-way, and a confused pedestrian starts and stops crossing, testing negotiation and communication behaviors.

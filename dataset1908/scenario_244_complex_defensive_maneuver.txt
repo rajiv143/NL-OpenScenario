@@ -1,1 +1,0 @@
-A defensive driving scenario where a vehicle detects a hazard, reduces speed, changes lanes, brakes again for another obstacle, waits, then carefully proceeds with multiple speed adjustments.

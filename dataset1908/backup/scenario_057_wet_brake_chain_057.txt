@@ -1,1 +1,0 @@
-I need a scenario where the vehicle ahead performs multiple braking maneuvers on wet roads, creating a chain reaction. Start with it about 45 meters in front.

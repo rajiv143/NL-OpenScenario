@@ -1,1 +1,0 @@
-Navigate a night construction zone with temporary lighting creating glare and shadows, workers in high-visibility gear, pilot car leading through work area, and heavy equipment operating. Test low-light object detection and navigation with artificial lighting interference and worker safety.

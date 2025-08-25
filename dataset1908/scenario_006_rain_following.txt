@@ -1,1 +1,0 @@
-Rainy day following distance test. Need the lead vehicle to react to my proximity - when I close to under 25m, they should reduce speed like a cautious driver would in wet conditions. Medium intensity rain please.

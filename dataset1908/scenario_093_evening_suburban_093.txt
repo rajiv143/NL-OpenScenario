@@ -1,1 +1,0 @@
-Can you make a scenario with sunset in suburbs where a child darts out at 20m while a vehicle at 55m changes lanes? Include waiting behavior.

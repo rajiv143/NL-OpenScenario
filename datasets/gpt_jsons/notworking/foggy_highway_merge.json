@@ -1,0 +1,79 @@
+{
+  "scenario_name": "FoggyMerge_Town04",
+  "description": "Merge onto highway in fog with limited visibility",
+  "map_name": "Town04",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {"min": 1, "max": 3},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "highway_traffic1",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {"min": 1, "max": 5},
+          "distance_to_ego": {"min": 20, "max": 40},
+          "relative_position": "ahead"
+        }
+      }
+    },
+    {
+      "id": "highway_traffic2",
+      "type": "vehicle",
+      "model": "vehicle.lincoln.mkz_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {"min": 1, "max": 5},
+          "distance_to_ego": {"min": 30, "max": 50},
+          "relative_position": "behind"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "highway_traffic1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "highway_traffic2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "highway_traffic1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": "<",
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 75,
+  "collision_allowed": false
+}

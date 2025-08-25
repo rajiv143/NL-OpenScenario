@@ -1,1 +1,0 @@
-Night visibility test: the car in front should maintain distance from me - if I approach closer than 20m, they accelerate away (typical nervous night driver behavior). Tests our night vision and distance keeping algorithms.

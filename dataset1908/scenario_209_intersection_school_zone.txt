@@ -1,1 +1,0 @@
-Create a school zone intersection scenario with children crossing, a school bus stopping, and reduced speed requirements during school hours.

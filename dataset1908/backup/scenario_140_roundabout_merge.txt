@@ -1,1 +1,0 @@
-Design a complex roundabout scenario on wet roads with vehicles circulating at different speeds, one vehicle waiting to enter, and a truck exiting, testing the ego vehicle's ability to merge safely and navigate circular traffic patterns.

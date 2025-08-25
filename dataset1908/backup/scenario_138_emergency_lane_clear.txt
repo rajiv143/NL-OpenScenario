@@ -1,1 +1,0 @@
-Design an emergency response scenario where an ambulance approaches rapidly from behind, causing multiple vehicles including mine to perform coordinated lane changes to clear a path, testing cooperative behavior and emergency vehicle awareness.

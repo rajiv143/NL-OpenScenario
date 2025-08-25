@@ -1,1 +1,0 @@
-Urban scenario with multiple pedestrians crossing at different points while vehicles navigate around them, including a delivery van stopping, cars yielding, and a motorcycle passing through.

@@ -1,1 +1,0 @@
-Generate a sudden swerve scenario in moderate rain where the vehicle ahead suddenly swerves into the adjacent lane to avoid an obstacle and then returns, causing chain reactions in surrounding traffic and testing rapid response to unexpected maneuvers.

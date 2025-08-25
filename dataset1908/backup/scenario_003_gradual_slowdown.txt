@@ -1,1 +1,0 @@
-Set up scenario: vehicle in front decelerates smoothly from highway speed to city speed. Make it gradual, like approaching congestion. Overcast conditions preferred.

@@ -1,1 +1,0 @@
-Create a confusing construction detour scenario with vehicle ahead navigating detour, confused driver at intersection, wrong-way vehicle backing up, blocked primary route, and worker directing traffic. Test navigation through ambiguous construction routing with multiple decision points and conflicting vehicle behaviors in rain.

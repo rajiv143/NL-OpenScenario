@@ -1,1 +1,0 @@
-Night intersection with poor lighting - vehicle at stop sign, headlights visible, pauses to judge my distance/speed in darkness, then proceeds through intersection. Street lights might be out or insufficient. Tests night intersection judgment.

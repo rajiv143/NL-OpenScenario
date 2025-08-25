@@ -1,1 +1,0 @@
-Generate a test case for heavy rain with a cautious vehicle at 35m that brakes hard and a pedestrian at 50m moving slowly.

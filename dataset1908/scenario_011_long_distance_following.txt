@@ -1,1 +1,0 @@
-Long-range sensor validation on highway. Maintain generous following distance (60-80 meters) behind another vehicle. This tests detection and tracking at extended ranges during sustained highway driving.

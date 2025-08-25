@@ -1,1 +1,0 @@
-I need to test emergency braking systems in a cascade scenario where multiple vehicles ahead perform emergency braking in sequence on a wet highway, with the closest vehicle also performing an evasive lane change after braking.

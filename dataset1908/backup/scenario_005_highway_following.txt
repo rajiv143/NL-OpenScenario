@@ -1,1 +1,0 @@
-Highway cruise test during golden hour - want to evaluate sensor performance. Another car should be traveling at typical highway speeds roughly 50-70m ahead. Sunset lighting conditions are important for camera/lidar testing.

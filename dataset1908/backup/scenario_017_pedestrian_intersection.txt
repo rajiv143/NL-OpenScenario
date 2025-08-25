@@ -1,1 +1,0 @@
-Legal crosswalk scenario: pedestrian using marked crossing at intersection. They have right of way. Overcast conditions might affect visual detection. Need to test proper yielding behavior at intersections.

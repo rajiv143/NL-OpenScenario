@@ -1,1 +1,0 @@
-Generate a test case for moderate rain on a highway where a vehicle cuts in front then slows down after multiple actions. Start them about 70 meters ahead in the next lane.

@@ -1,1 +1,0 @@
-Design a challenging roundabout scenario on wet roads with a large bus already circulating, a heavy truck entering from the left, a cyclist maintaining the outer edge, and an aggressive motorcycle approaching from behind. Test multi-vehicle coordination and gap assessment with varying vehicle sizes and speeds.

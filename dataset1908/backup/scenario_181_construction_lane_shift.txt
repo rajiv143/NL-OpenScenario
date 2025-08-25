@@ -1,1 +1,0 @@
-Navigate through a complex construction zone with blocked shoulder lanes, construction workers moving near traffic, forced lane merges, and heavy equipment. Test path planning through temporary lane configurations with reduced speeds and worker safety protocols while managing following traffic pressure.

@@ -1,1 +1,0 @@
-Set up a school zone scenario where a school bus stops ahead, a parent's car pulls over, and multiple students cross the street at different times and speeds, testing the autonomous vehicle's ability to navigate safely around vulnerable road users.

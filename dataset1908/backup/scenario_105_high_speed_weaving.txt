@@ -1,1 +1,0 @@
-Design a high-speed highway scenario on wet roads where an aggressive driver is weaving through traffic, with multiple vehicles changing lanes rapidly. I need to test how the autonomous system handles unpredictable lane changes and maintains safe distances in challenging conditions.

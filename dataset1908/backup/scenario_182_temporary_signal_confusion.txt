@@ -1,1 +1,0 @@
-Create a construction zone scenario with human traffic control where a flagger directs alternating one-way traffic through a work zone. Test recognition of human traffic directions, temporary signal compliance, and yielding to oncoming traffic in a single-lane construction bottleneck with waiting vehicles.

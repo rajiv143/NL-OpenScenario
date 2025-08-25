@@ -1,1 +1,0 @@
-Create a challenging highway scenario in heavy rain where multiple vehicles need to perform emergency braking in a cascade effect. Include a tailgating vehicle behind me and a truck in the adjacent lane, testing sensor fusion capabilities in poor weather conditions with limited visibility.

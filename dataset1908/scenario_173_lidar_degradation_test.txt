@@ -1,1 +1,0 @@
-Test lidar performance degradation in fog with challenging surfaces - a matte black vehicle absorbing laser light, a glass-windowed van creating specular reflections, a low-profile scooter with minimal vertical extent, and a pedestrian in dark clothing. Evaluate point cloud quality and object detection with reduced lidar returns.

@@ -1,1 +1,0 @@
-Create a perception-challenging night scenario in fog conditions where I encounter a convoy of motorcycles performing complex formation changes around my vehicle. I need to test how sensor fusion handles multiple small, fast-moving targets with limited visibility while they execute coordinated lane changes and speed variations.

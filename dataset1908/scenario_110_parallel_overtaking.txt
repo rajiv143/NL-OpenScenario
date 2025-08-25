@@ -1,1 +1,0 @@
-Generate a complex highway scenario where two vehicles are overtaking from different adjacent lanes simultaneously while I'm stuck behind a slow-moving vehicle, with an additional vehicle far ahead that suddenly brakes, testing multi-directional awareness and decision-making.

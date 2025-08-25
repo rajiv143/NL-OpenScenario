@@ -1,1 +1,0 @@
-Jaywalking pedestrian test - someone steps off the curb without warning when I'm really close (around 15m). Urban setting with typical city distractions. Tests emergency pedestrian detection and avoidance.

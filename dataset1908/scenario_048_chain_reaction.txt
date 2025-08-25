@@ -1,1 +1,0 @@
-Multi-car pileup prevention test - three vehicles ahead in same lane, something causes front car to brake hard, then middle car panics and brakes harder, then third car... Classic highway chain reaction on wet road. Can the system prevent becoming car #4?

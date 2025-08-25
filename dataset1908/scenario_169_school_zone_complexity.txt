@@ -1,1 +1,0 @@
-Create a complex school zone scenario with a stopping school bus, child on bicycle, multiple students crossing at different points, a parent vehicle pulling out, and an impatient motorcycle trying to pass. Test ultra-cautious driving behavior around vulnerable young pedestrians and cyclists with unpredictable movements.

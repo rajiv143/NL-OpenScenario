@@ -1,1 +1,0 @@
-Create a tire blowout emergency scenario on wet highway where vehicle loses control and swerves between lanes, causing debris that others avoid, with panic braking ahead and tailgating motorcycle behind. Test emergency response to sudden vehicle instability and cascading hazard avoidance.

@@ -1,1 +1,0 @@
-Test sensor robustness against electromagnetic interference with electric bus generating fields, police car with active radar, metallic motorcycle creating reflections, ambulance with communication equipment, and construction vehicle with warning strobes. Evaluate signal processing and noise rejection in electromagnetically noisy urban environment.

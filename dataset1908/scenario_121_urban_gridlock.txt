@@ -1,1 +1,0 @@
-Set up an urban gridlock scenario in moderate rain where vehicles block the front and side lanes, an impatient driver approaches from behind, and a pedestrian crosses through the congestion, testing navigation in extremely confined spaces.

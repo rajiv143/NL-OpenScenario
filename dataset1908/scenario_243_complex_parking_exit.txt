@@ -1,1 +1,0 @@
-A vehicle exiting a parallel parking spot performs a complex sequence: reverse slowly, stop, turn wheel and move forward, brake for passing traffic, then accelerate into the lane.

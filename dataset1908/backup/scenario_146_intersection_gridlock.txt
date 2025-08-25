@@ -1,1 +1,0 @@
-Design a gridlocked intersection scenario on wet roads where vehicles are blocking the intersection box, others are trapped, and an impatient driver behind me is pushing forward, testing patience and navigation through congested intersections without blocking traffic flow.

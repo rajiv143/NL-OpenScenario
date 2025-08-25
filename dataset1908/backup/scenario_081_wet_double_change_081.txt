@@ -1,1 +1,0 @@
-I need a scenario where a vehicle performs a double lane change on wet highway roads. Position them about 60 meters ahead in the adjacent lane.

@@ -1,1 +1,0 @@
-Generate a test case for wet and cloudy urban conditions where the car ahead comes to a stop and waits. Place it about 35 meters ahead of my position.

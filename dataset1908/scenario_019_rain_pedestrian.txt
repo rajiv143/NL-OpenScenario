@@ -1,1 +1,0 @@
-Pedestrian in rain with umbrella - reduced visibility scenario. Person waits briefly then crosses cautiously on wet pavement. The rain and potential umbrella obstruction tests detection robustness in poor weather.

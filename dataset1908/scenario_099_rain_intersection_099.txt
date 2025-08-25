@@ -1,1 +1,0 @@
-Generate a test case for light rain at a suburban intersection where perpendicular traffic slows and stops. Position them about 45m away.

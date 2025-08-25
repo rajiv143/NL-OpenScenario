@@ -1,9 +1,0 @@
-Scenario Logic Validation Report
-==================================================
-
-
-
-Summary:
-Total files checked: 352
-Remaining issues: 0
-✅ All scenarios pass logic validation!

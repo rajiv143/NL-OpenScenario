@@ -1,1 +1,0 @@
-Simulate an uncertain/distracted driver on wet pavement. They keep tapping their brakes randomly - speeding up, slowing down, braking again. Like someone looking for an address or checking their phone. Really erratic behavior.

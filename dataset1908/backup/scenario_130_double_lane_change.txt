@@ -1,1 +1,0 @@
-Create a complex scenario where a vehicle performs a double lane change, moving across two lanes rapidly to overtake slower traffic, while other vehicles react to this aggressive maneuver, testing multi-lane awareness and trajectory prediction.

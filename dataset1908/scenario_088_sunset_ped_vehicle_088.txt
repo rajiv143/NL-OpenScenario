@@ -1,1 +1,0 @@
-For testing at sunset, create a suburban scenario with a pedestrian at 30m and vehicle at 50m ahead, where the vehicle stops and pedestrian waits.

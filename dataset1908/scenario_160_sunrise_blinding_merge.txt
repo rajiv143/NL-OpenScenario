@@ -1,1 +1,0 @@
-Test merge assistance and lane change decision-making during intense morning sun glare when a heavy truck merges from the right while traffic blocks the left lane and a sports car approaches at extreme speed from behind, with a slow-moving vehicle ahead creating a complex multi-constraint scenario.

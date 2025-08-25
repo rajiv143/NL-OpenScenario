@@ -1,1 +1,0 @@
-I need a scenario where on a wet highway, a fast car overtakes from behind while a slow vehicle ahead brakes. Position them 20m behind and 65m ahead.

@@ -1,1 +1,0 @@
-Highway merge scenario - vehicle in next lane signals and moves into my lane when I'm approaching. Standard lane change maneuver but they cut it close. Need to test appropriate response to normal but assertive merging behavior.

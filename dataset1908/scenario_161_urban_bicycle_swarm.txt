@@ -1,1 +1,0 @@
-Generate a complex urban scenario with multiple bicycles and e-scooters exhibiting unpredictable behavior around an emergency vehicle. Test vulnerable road user detection and prediction with cyclists in the lane, alongside, crossing perpendicular, and a weaving delivery scooter, all while navigating around a stopping bus.

@@ -1,1 +1,0 @@
-Vulnerable road user test: elderly/disabled pedestrian moving very slowly across road. Sunset glare conditions. System must recognize slow-moving VRU and provide adequate clearance time. Critical for inclusive safety.

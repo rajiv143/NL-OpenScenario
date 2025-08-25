@@ -1,1 +1,0 @@
-Set up a rideshare pickup zone scenario where multiple vehicles stop suddenly to pick up passengers, with pedestrians crossing between stopped cars to reach their rides, testing navigation through unpredictable stopping patterns.

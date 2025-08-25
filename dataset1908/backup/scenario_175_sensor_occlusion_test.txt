@@ -1,1 +1,0 @@
-Test sensor fusion and prediction with multiple occlusions - a tall bus hiding pedestrian and cyclist on the right, large truck blocking left view, and motorcycle emerging from blind intersection. Evaluate the system's ability to track partially visible objects and predict hidden actor movements in rain conditions.

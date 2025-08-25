@@ -1,1 +1,0 @@
-Create an intersection navigation challenge in dense fog where multiple vehicles attempt conflicting maneuvers simultaneously, including a left-turning vehicle, a right-turner from cross traffic, a motorcycle running a red light, and a confused pedestrian starting then stopping mid-crossing, all with visibility under 30 meters.

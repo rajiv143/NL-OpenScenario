@@ -1,1 +1,0 @@
-Navigate highway cargo spill scenario with truck losing load ahead, multiple vehicles swerving to avoid debris in different directions, and motorcycle performing emergency avoidance maneuver. Test rapid path planning through dynamic obstacle field with multiple vehicles reacting unpredictably to road hazards.

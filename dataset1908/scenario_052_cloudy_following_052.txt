@@ -1,1 +1,0 @@
-Set up a situation with a vehicle I need to follow on a cloudy day. The car should accelerate initially then slow down when I get close, starting about 30 meters ahead.

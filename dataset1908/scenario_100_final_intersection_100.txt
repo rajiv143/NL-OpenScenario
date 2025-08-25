@@ -1,1 +1,0 @@
-For testing complex intersection behavior, create a scenario with moderate rain where a vehicle from the left performs multiple speed changes and stops. Start them 55m away.

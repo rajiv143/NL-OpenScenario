@@ -1,1 +1,0 @@
-Create the ultimate edge case scenario on wet roads where an ambulance approaches from behind, a vehicle suddenly stops ahead, a child runs into the street, and a cyclist swerves into my path, all happening simultaneously, testing complex emergency prioritization and multi-threat response.

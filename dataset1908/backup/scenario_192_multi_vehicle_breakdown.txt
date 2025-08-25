@@ -1,1 +1,0 @@
-Test response to multiple vehicle breakdowns on highway with car losing power in lane, vehicle stranded on shoulder, pedestrian outside broken vehicle, approaching emergency vehicle, and traffic avoiding hazards. Evaluate emergency situation assessment and safe navigation around multiple stopped vehicles.

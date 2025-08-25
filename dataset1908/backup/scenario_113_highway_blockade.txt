@@ -1,1 +1,0 @@
-Set up a highway scenario where a vehicle has stopped in my lane ahead, causing multiple vehicles between us to perform emergency evasive maneuvers in different directions, testing rapid decision-making and path planning capabilities.

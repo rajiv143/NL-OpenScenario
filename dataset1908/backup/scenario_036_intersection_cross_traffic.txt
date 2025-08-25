@@ -1,1 +1,0 @@
-T-intersection with cross traffic - vehicle approaching from side street, crossing through intersection perpendicular to my path. Tests gap assessment and intersection navigation. Who has right of way matters here.

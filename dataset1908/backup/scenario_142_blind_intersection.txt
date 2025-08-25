@@ -1,1 +1,0 @@
-Create a blind intersection scenario in heavy rain where a large truck blocks visibility, vehicles emerge from hidden positions, and a pedestrian runs across, testing cautious navigation with severely limited sight lines.

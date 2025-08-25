@@ -1,0 +1,77 @@
+{
+  "scenario_name": "MotorcycleSplitting_Town03",
+  "description": "Motorcycle splits lanes between slow traffic",
+  "map_name": "Town03",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {"min": 2, "max": 10},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "motorcycle",
+      "type": "vehicle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "road_id": "same_as_ego",
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 50},
+          "relative_position": "behind"
+        }
+      }
+    },
+    {
+      "id": "left_traffic",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 10, "max": 20},
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "left_traffic",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 8,
+      "trigger_comparison": "<",
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 50,
+  "collision_allowed": false
+}

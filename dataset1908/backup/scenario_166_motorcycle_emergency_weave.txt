@@ -1,1 +1,0 @@
-Generate a complex emergency response scenario where an ambulance approaches from behind while multiple motorcycles weave through traffic, with a stopped vehicle ahead and cars merging to make way. Test emergency vehicle detection and appropriate yielding behavior while tracking multiple fast-moving motorcycles.

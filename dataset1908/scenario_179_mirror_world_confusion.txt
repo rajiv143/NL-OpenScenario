@@ -1,1 +1,0 @@
-Create a sensor confusion scenario with wet reflective roads and multiple mirrored surfaces - glass-paneled delivery truck, chrome motorcycle, wet road creating reflections, puddles showing false images, and mirror-sided truck. Test the system's ability to distinguish real objects from reflections and ghost images in all sensor modalities.

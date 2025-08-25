@@ -1,1 +1,0 @@
-During sunset in the city, generate a test case for a pedestrian who starts crossing then stops and waits midway. Position them about 24 meters ahead.

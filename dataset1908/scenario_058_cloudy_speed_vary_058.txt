@@ -1,1 +1,0 @@
-Can you make a scenario with cloudy weather where I follow a vehicle that varies its speed multiple times? Start it around 40 meters ahead on a medium-speed road.
