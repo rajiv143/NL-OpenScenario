@@ -1,0 +1,67 @@
+[
+  {
+    "scenario_id": "test_001",
+    "category": "vehicle_following",
+    "complexity": "simple",
+    "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard",
+    "output_preview": "{\n  \"scenario_name\": \"red_sedan_brake_334\",\n  \"description\": \"Red sedan braking after blue SUV stops\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urb...",
+    "full_output": "{\n  \"scenario_name\": \"red_sedan_brake_334\",\n  \"description\": \"Red sedan braking after blue SUV stops\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 31,\n  \"actors\": [\n    {\n      \"id\": \"stopping_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.nissan.patrol\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\",\n          \"road_context\": \"urban\"\n        }\n      },\n      \"color\": \"100,100,255\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"stopping_car\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"brake_force\": 0.8,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.7\n    }\n  ],\n  \"success_distance\": 95,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+    "json_valid": true,
+    "error": null,
+    "generation_time": 22.06,
+    "output_length": 1185,
+    "model": "Fine-tuned v5"
+  },
+  {
+    "scenario_id": "test_002",
+    "category": "lane_change",
+    "complexity": "simple",
+    "prompt": "A white truck signals and changes lanes to the right on a highway",
+    "output_preview": "{\n  \"scenario_name\": \"truck_lane_change_305\",\n  \"description\": \"Vehicle changing lanes with large truck\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_...",
+    "full_output": "{\n  \"scenario_name\": \"truck_lane_change_305\",\n  \"description\": \"Vehicle changing lanes with large truck\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n        \"min\": 110,\n        \"max\": 140\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 24,\n  \"actors\": [\n    {\n      \"id\": \"laning_truck\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.carlamotors.european_hgv\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 45,\n            \"max\": 60\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"255,255,255\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"laning_truck\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 2.0,\n      \"target_lane\": 0\n    }\n  ],\n  \"success_distance\": 130,\n  \"timeout\": 55,\n  \"collision_allowed\": false\n}",
+    "json_valid": true,
+    "error": null,
+    "generation_time": 23.36,
+    "output_length": 1255,
+    "model": "Fine-tuned v5"
+  },
+  {
+    "scenario_id": "test_003",
+    "category": "pedestrian",
+    "complexity": "simple",
+    "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach",
+    "output_preview": "{\n  \"scenario_name\": \"crossing_pedestrian_277\",\n  \"description\": \"Pedestrian crosses from side street to main road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_...",
+    "full_output": "{\n  \"scenario_name\": \"crossing_pedestrian_277\",\n  \"description\": \"Pedestrian crosses from side street to main road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 10,\n  \"actors\": [\n    {\n      \"id\": \"crossing_walker\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0015\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"ahead\",\n          \"lateral_offset\": 2.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"crossing_walker\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 2.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"crossing_walker\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 2.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 60,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
+    "json_valid": true,
+    "error": null,
+    "generation_time": 26.44,
+    "output_length": 1335,
+    "model": "Fine-tuned v5"
+  },
+  {
+    "scenario_id": "test_004",
+    "category": "vehicle_following",
+    "complexity": "simple",
+    "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone",
+    "output_preview": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintaining constant speed through school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\"...",
+    "full_output": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintaining constant speed through school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\",\n      \"speed_limit\": {\n        \"min\": 20,\n        \"max\": 30\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 18,\n  \"actors\": [\n    {\n      \"id\": \"constant_speed_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.toyota.prius\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 50,\n            \"max\": 70\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"255,200,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"constant_speed_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 25.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    }\n  ],\n  \"success_distance\": 120,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+    "json_valid": true,
+    "error": null,
+    "generation_time": 23.36,
+    "output_length": 1259,
+    "model": "Fine-tuned v5"
+  },
+  {
+    "scenario_id": "test_005",
+    "category": "lane_change",
+    "complexity": "simple",
+    "prompt": "A motorcycle merges into your lane from an on-ramp",
+    "output_preview": "{\n  \"scenario_name\": \"motorcycle_merge_294\",\n  \"description\": \"Motorcycle merging into traffic flow\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n   ...",
+    "full_output": "{\n  \"scenario_name\": \"motorcycle_merge_294\",\n  \"description\": \"Motorcycle merging into traffic flow\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n        \"min\": 70,\n        \"max\": 95\n      }\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [\n    {\n      \"id\": \"merge_motorcycle\",\n      \"type\": \"motorcycle\",\n      \"model\": \"vehicle.yamaha.yzf\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"same_road\",\n          \"road_context\": \"highway\"\n        }\n      },\n      \"color\": \"255,140,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"merge_motorcycle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 28.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"merge_motorcycle\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 15.0,\n      \"trigger_comparison\": \"<\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 2.5,\n      \"target_lane\": 1\n    }\n  ],\n  \"success_distance\": 110,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+    "json_valid": true,
+    "error": null,
+    "generation_time": 29.33,
+    "output_length": 1507,
+    "model": "Fine-tuned v5"
+  }
+]

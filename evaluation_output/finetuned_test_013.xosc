@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader author="JSON2XOSC Converter" date="2025-08-22T16:52:58" description="CARLA:GeneratedFromJSON" revMajor="1" revMinor="0"/>
+  <FileHeader revMajor="1" revMinor="0" date="2025-08-24T22:16:30" description="CARLA:GeneratedFromJSON" author="JSON2XOSC Converter"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -9,55 +9,55 @@
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.mercedes.coupe_2020" vehicleCategory="car">
+      <Vehicle name="vehicle.dodge.charger_2020" vehicleCategory="car">
         <ParameterDeclarations/>
-        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
         <BoundingBox>
           <Center x="1.5" y="0.0" z="0.9"/>
-          <Dimensions height="1.8" length="4.5" width="2.1"/>
+          <Dimensions width="2.1" length="4.5" height="1.8"/>
         </BoundingBox>
         <Axles>
-          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
-          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
         </Axles>
         <Properties>
           <Property name="type" value="ego_vehicle"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="ahead_left">
+    <ScenarioObject name="side_merger_left">
       <Vehicle name="vehicle.toyota.prius" vehicleCategory="car">
         <ParameterDeclarations/>
-        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
         <BoundingBox>
           <Center x="1.5" y="0.0" z="0.9"/>
-          <Dimensions height="1.8" length="4.5" width="2.1"/>
+          <Dimensions width="2.1" length="4.5" height="1.8"/>
         </BoundingBox>
         <Axles>
-          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
-          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="200,200,200"/>
+          <Property name="color" value="100,200,100"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="ahead_right">
-      <Vehicle name="vehicle.audi.a2" vehicleCategory="car">
+    <ScenarioObject name="side_merger_right">
+      <Vehicle name="vehicle.nissan.patrol" vehicleCategory="car">
         <ParameterDeclarations/>
-        <Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+        <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
         <BoundingBox>
           <Center x="1.5" y="0.0" z="0.9"/>
-          <Dimensions height="1.8" length="4.5" width="2.1"/>
+          <Dimensions width="2.1" length="4.5" height="1.8"/>
         </BoundingBox>
         <Axles>
-          <FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
-          <RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="100,150,100"/>
+          <Property name="color" value="150,150,150"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -70,9 +70,9 @@
             <Environment name="Environment1">
               <TimeOfDay animation="false" dateTime="2020-01-01T12:00:00"/>
               <Weather cloudState="free">
-                <Sun azimuth="0" elevation="1.31" intensity="1.0"/>
+                <Sun intensity="1.0" azimuth="0" elevation="1.31"/>
                 <Fog visualRange="100000.0"/>
-                <Precipitation intensity="0.0" precipitationType="dry"/>
+                <Precipitation precipitationType="dry" intensity="0.0"/>
               </Weather>
               <RoadCondition frictionScaleFactor="1.0"/>
             </Environment>
@@ -82,7 +82,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="1.6010683457477728" x="-514.7447509765625" y="206.94601440429688" z="0.3"/>
+                <WorldPosition x="-451.00372314453125" y="13.873943328857422" z="0.3" h="-3.4628377916611464"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -96,12 +96,12 @@
                 </Controller>
               </AssignControllerAction>
               <OverrideControllerValueAction>
-                <Throttle active="false" value="0"/>
-                <Brake active="false" value="0"/>
-                <Clutch active="false" value="0"/>
-                <ParkingBrake active="false" value="0"/>
-                <SteeringWheel active="false" value="0"/>
-                <Gear active="false" number="0"/>
+                <Throttle value="0" active="false"/>
+                <Brake value="0" active="false"/>
+                <Clutch value="0" active="false"/>
+                <ParkingBrake value="0" active="false"/>
+                <SteeringWheel value="0" active="false"/>
+                <Gear number="0" active="false"/>
               </OverrideControllerValueAction>
             </ControllerAction>
           </PrivateAction>
@@ -110,26 +110,26 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3.0"/>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="15"/>
+                  <AbsoluteTargetSpeed value="22"/>
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="ahead_left">
+        <Private entityRef="side_merger_left">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="1.5684627318897146" x="-511.75213623046875" y="240.01356506347656" z="0.3"/>
+                <WorldPosition x="-486.1161193847656" y="41.23979568481445" z="0.3" h="-3.992519493505295"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="ahead_right">
+        <Private entityRef="side_merger_right">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition h="1.5684627318897146" x="-515.2521362304688" y="240.021728515625" z="0.3"/>
+                <WorldPosition x="-489.62030029296875" y="45.515228271484375" z="0.3" h="-4.0591014502344755"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -138,19 +138,19 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="ahead_rightManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="side_merger_leftManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="ahead_right"/>
+            <EntityRef entityRef="side_merger_left"/>
           </Actors>
-          <Maneuver name="ahead_rightManeuver">
-            <Event name="ahead_rightEvent0" priority="overwrite">
-              <Action name="ahead_rightAction0">
+          <Maneuver name="side_merger_leftManeuver">
+            <Event name="side_merger_leftEvent0" priority="overwrite">
+              <Action name="side_merger_leftAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0.5"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="20.0"/>
+                        <AbsoluteTargetSpeed value="18.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -158,22 +158,22 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                  <Condition name="StartCondition0" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="1.5"/>
+                      <SimulationTimeCondition value="1.5" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="ahead_rightEvent1" priority="overwrite">
-              <Action name="ahead_rightAction1">
+            <Event name="side_merger_leftEvent1" priority="overwrite">
+              <Action name="side_merger_leftAction1">
                 <PrivateAction>
                   <LateralAction>
                     <LaneChangeAction>
                       <LaneChangeActionDynamics dynamicsDimension="distance" dynamicsShape="sinusoidal" value="15.0"/>
                       <LaneChangeTarget>
-                        <RelativeTargetLane entityRef="ahead_right" value="-1"/>
+                        <RelativeTargetLane entityRef="hero" value="1"/>
                       </LaneChangeTarget>
                     </LaneChangeAction>
                   </LateralAction>
@@ -181,27 +181,22 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
-                    <ByEntityCondition>
-                      <TriggeringEntities triggeringEntitiesRule="any">
-                        <EntityRef entityRef="hero"/>
-                      </TriggeringEntities>
-                      <EntityCondition>
-                        <RelativeDistanceCondition entityRef="ahead_right" freespace="false" relativeDistanceType="longitudinal" rule="lessThan" value="25.0"/>
-                      </EntityCondition>
-                    </ByEntityCondition>
+                  <Condition name="StartCondition1" delay="0.2" conditionEdge="rising">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="side_merger_leftAction0" state="completeState"/>
+                    </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="ahead_rightEvent2" priority="overwrite">
-              <Action name="ahead_rightAction2">
+            <Event name="side_merger_leftEvent2" priority="overwrite">
+              <Action name="side_merger_leftAction2">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="65.9"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="64.4"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="20.0"/>
+                        <AbsoluteTargetSpeed value="18.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -209,9 +204,9 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition2">
+                  <Condition name="StartCondition2" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="2.1"/>
+                      <SimulationTimeCondition value="3.6" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -219,19 +214,19 @@
             </Event>
           </Maneuver>
         </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ahead_leftManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="side_merger_rightManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="ahead_left"/>
+            <EntityRef entityRef="side_merger_right"/>
           </Actors>
-          <Maneuver name="ahead_leftManeuver">
-            <Event name="ahead_leftEvent0" priority="overwrite">
-              <Action name="ahead_leftAction0">
+          <Maneuver name="side_merger_rightManeuver">
+            <Event name="side_merger_rightEvent0" priority="overwrite">
+              <Action name="side_merger_rightAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="1.5"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="2.0"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="2.0"/>
+                        <AbsoluteTargetSpeed value="19.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -239,22 +234,45 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition0">
+                  <Condition name="StartCondition0" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="4.0"/>
+                      <SimulationTimeCondition value="1.5" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="ahead_leftEvent1" priority="overwrite">
-              <Action name="ahead_leftAction1">
+            <Event name="side_merger_rightEvent1" priority="overwrite">
+              <Action name="side_merger_rightAction1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsDimension="distance" dynamicsShape="cubic" value="15.0"/>
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="hero" value="1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartCondition1" delay="0.2" conditionEdge="rising">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="side_merger_rightAction0" state="completeState"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="side_merger_rightEvent2" priority="overwrite">
+              <Action name="side_merger_rightAction2">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="63.900000000000006"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="64.4"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0"/>
+                        <AbsoluteTargetSpeed value="19.0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -262,9 +280,9 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="StartCondition1">
+                  <Condition name="StartCondition2" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="4.1"/>
+                      <SimulationTimeCondition value="3.6" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -274,13 +292,13 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0.5" name="OverallStartCondition">
+            <Condition name="OverallStartCondition" delay="0.5" conditionEdge="rising">
               <ByEntityCondition>
                 <TriggeringEntities triggeringEntitiesRule="any">
                   <EntityRef entityRef="hero"/>
                 </TriggeringEntities>
                 <EntityCondition>
-                  <SpeedCondition rule="greaterThan" value="1.0"/>
+                  <SpeedCondition value="1.0" rule="greaterThan"/>
                 </EntityCondition>
               </ByEntityCondition>
             </Condition>
@@ -288,9 +306,9 @@
         </StartTrigger>
         <StopTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="rising" delay="0" name="TimeLimit">
+            <Condition name="TimeLimit" delay="0" conditionEdge="rising">
               <ByValueCondition>
-                <SimulationTimeCondition rule="greaterThan" value="70"/>
+                <SimulationTimeCondition value="70" rule="greaterThan"/>
               </ByValueCondition>
             </Condition>
           </ConditionGroup>
@@ -299,19 +317,19 @@
     </Story>
     <StopTrigger>
       <ConditionGroup>
-        <Condition conditionEdge="rising" delay="0" name="criteria_DrivenDistanceTest">
+        <Condition name="criteria_DrivenDistanceTest" delay="0" conditionEdge="rising">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" rule="greaterThan" value="140"/>
+            <ParameterCondition parameterRef="distance_success" value="130" rule="greaterThan"/>
           </ByValueCondition>
         </Condition>
-        <Condition conditionEdge="rising" delay="0" name="criteria_CollisionTest">
+        <Condition name="criteria_CollisionTest" delay="0" conditionEdge="rising">
           <ByValueCondition>
-            <ParameterCondition parameterRef="collision_count" rule="greaterThan" value="0"/>
+            <ParameterCondition parameterRef="collision_count" value="0" rule="greaterThan"/>
           </ByValueCondition>
         </Condition>
-        <Condition conditionEdge="rising" delay="0" name="criteria_Timeout">
+        <Condition name="criteria_Timeout" delay="0" conditionEdge="rising">
           <ByValueCondition>
-            <SimulationTimeCondition rule="greaterThan" value="70"/>
+            <SimulationTimeCondition value="70" rule="greaterThan"/>
           </ByValueCondition>
         </Condition>
       </ConditionGroup>

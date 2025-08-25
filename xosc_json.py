@@ -15,7 +15,6 @@ import os
 import math
 import argparse
 import copy
-import carla
 import glob
 import random
 import logging
@@ -1141,7 +1140,15 @@ class JsonToXoscConverter:
         print(f"EGO Position:")
         print(f"  Road: {ego_spawn.get('road_id', 'unknown')}, Lane: {ego_spawn.get('lane_id', 'unknown')}")
         print(f"  Coordinates: x={ego_spawn.get('x', 0):.2f}, y={ego_spawn.get('y', 0):.2f}")
-        print(f"  Heading: {ego_spawn.get('yaw', 0):.2f} rad ({math.degrees(ego_spawn.get('yaw', 0)):.1f}°)")
+        
+        # Normalize heading to -180 to 180 degrees
+        ego_yaw_rad = ego_spawn.get('yaw', 0)
+        ego_yaw_deg = math.degrees(ego_yaw_rad)
+        while ego_yaw_deg > 180:
+            ego_yaw_deg -= 360
+        while ego_yaw_deg < -180:
+            ego_yaw_deg += 360
+        print(f"  Heading: {ego_yaw_rad:.2f} rad ({ego_yaw_deg:.1f}°)")
         
         for actor_spawn in actor_spawns:
             actor_name = actor_spawn.get('actor_name', 'unknown')
@@ -1156,18 +1163,43 @@ class JsonToXoscConverter:
             distance = math.sqrt((actor_x - ego_x)**2 + (actor_y - ego_y)**2)
             print(f"  Distance from ego: {distance:.1f}m")
             
-            # Determine relative position
+            # Determine relative position more accurately
             relative_pos = "unknown"
             if distance > 0:
-                # Simple ahead/behind calculation based on ego heading
                 ego_yaw = ego_spawn.get('yaw', 0)
                 dx, dy = actor_x - ego_x, actor_y - ego_y
-                # Project onto ego's forward direction
-                forward_dist = dx * math.cos(ego_yaw) + dy * math.sin(ego_yaw)
-                relative_pos = "ahead" if forward_dist > 0 else "behind"
+                
+                # Calculate angle from ego to actor
+                angle_to_actor = math.atan2(dy, dx)
+                
+                # Calculate relative angle (normalized to -pi to pi)
+                relative_angle = angle_to_actor - ego_yaw
+                while relative_angle > math.pi:
+                    relative_angle -= 2 * math.pi
+                while relative_angle < -math.pi:
+                    relative_angle += 2 * math.pi
+                
+                # Determine position based on relative angle
+                relative_angle_deg = math.degrees(relative_angle)
+                if -45 <= relative_angle_deg <= 45:
+                    relative_pos = "ahead"
+                elif 135 <= abs(relative_angle_deg) <= 180:
+                    relative_pos = "behind"
+                elif 45 < relative_angle_deg < 135:
+                    relative_pos = "right"
+                elif -135 < relative_angle_deg < -45:
+                    relative_pos = "left"
             
             print(f"  Relative position: {relative_pos}")
-            print(f"  Heading: {spawn.get('yaw', 0):.2f} rad ({math.degrees(spawn.get('yaw', 0)):.1f}°)")
+            
+            # Normalize actor heading
+            actor_yaw_rad = spawn.get('yaw', 0)
+            actor_yaw_deg = math.degrees(actor_yaw_rad)
+            while actor_yaw_deg > 180:
+                actor_yaw_deg -= 360
+            while actor_yaw_deg < -180:
+                actor_yaw_deg += 360
+            print(f"  Heading: {actor_yaw_rad:.2f} rad ({actor_yaw_deg:.1f}°)")
             
             # Check for issues
             issues = []
@@ -1175,8 +1207,19 @@ class JsonToXoscConverter:
                 issues.append("Too far from ego (>100m)")
             if distance < 5:
                 issues.append("Too close to ego (<5m)")
-            if spawn.get('road_id') == ego_spawn.get('road_id') and spawn.get('lane_id') == ego_spawn.get('lane_id'):
+                
+            # Check if actually in same lane (considering direction)
+            ego_road = ego_spawn.get('road_id')
+            ego_lane = ego_spawn.get('lane_id')
+            actor_road = spawn.get('road_id')
+            actor_lane = spawn.get('lane_id')
+            
+            if ego_road == actor_road and ego_lane == actor_lane:
                 issues.append("Same lane as ego")
+            elif ego_road == actor_road and ego_lane and actor_lane:
+                # Check if lanes are going in opposite directions
+                if (ego_lane > 0) != (actor_lane > 0):
+                    issues.append("Opposite direction lane (collision risk!)")
             
             if issues:
                 print(f"  Issues: {', '.join(issues)}")
@@ -1261,6 +1304,11 @@ class JsonToXoscConverter:
         fixed_criteria = criteria.copy()
         scenario_name = scenario_data.get('scenario_name', '').lower()
         actor_type = actor.get('type', '')
+        
+        # Normalize lane_relationship: "my_lane" -> "same_lane"
+        if fixed_criteria.get('lane_relationship') == 'my_lane':
+            fixed_criteria['lane_relationship'] = 'same_lane'
+            self.logger.debug(f"Normalized 'my_lane' to 'same_lane' for actor {actor.get('id', 'unknown')}")
         
         # Detect scenario type and enforce minimum distances
         scenario_type = self._detect_scenario_type_from_name(scenario_name)
@@ -1379,10 +1427,14 @@ class JsonToXoscConverter:
             actors_count = len(data.get('actors', []))
             has_lane_change = any(action.get('action_type') == 'lane_change' for action in data.get('actions', []))
             
-            # Force highway road context for multi-actor lane change scenarios
+            # For multi-actor scenarios with lane changes, enforce multiple lanes in same direction
             if actors_count > 1 and has_lane_change:
-                self.logger.info(f"Forcing highway road context for multi-actor lane change scenario")
-                crit['road_context'] = 'highway'
+                if 'min_lanes_same_direction' not in crit:
+                    crit['min_lanes_same_direction'] = 2  # Require at least 2 lanes in same direction
+                    self.logger.info(f"Multi-actor lane change scenario: requiring minimum 2 lanes in same direction")
+            
+            # No longer forcing highway road context - cut-in scenarios can work on any road type
+            # Allow the scenario to use whatever road_context is specified in the JSON
             
             x,y,z,yaw = self._choose_strategic_ego_spawn(data, map_name, crit)
             meta = self._last_pick
@@ -1610,10 +1662,14 @@ class JsonToXoscConverter:
             actors_count = len(data.get('actors', []))
             has_lane_change = any(action.get('action_type') == 'lane_change' for action in data.get('actions', []))
             
-            # Force highway road context for multi-actor lane change scenarios
+            # For multi-actor scenarios with lane changes, enforce multiple lanes in same direction
             if actors_count > 1 and has_lane_change:
-                self.logger.info(f"Forcing highway road context for multi-actor lane change scenario (actors-first)")
-                ego_criteria['road_context'] = 'highway'
+                if 'min_lanes_same_direction' not in crit:
+                    crit['min_lanes_same_direction'] = 2  # Require at least 2 lanes in same direction
+                    self.logger.info(f"Multi-actor lane change scenario: requiring minimum 2 lanes in same direction")
+            
+            # No longer forcing highway road context - cut-in scenarios can work on any road type
+            # Allow the scenario to use whatever road_context is specified in the JSON
             
             # Modify ego criteria to be relative to actor
             if 'spawn' in special_actor:
@@ -1673,10 +1729,8 @@ class JsonToXoscConverter:
                 actors_count = len(data.get('actors', []))
                 has_lane_change = any(action.get('action_type') == 'lane_change' for action in data.get('actions', []))
                 
-                # Force highway road context for multi-actor lane change scenarios
-                if actors_count > 1 and has_lane_change:
-                    self.logger.info(f"Forcing highway road context for multi-actor lane change scenario (no special actors)")
-                    crit['road_context'] = 'highway'
+                # No longer forcing highway road context - cut-in scenarios can work on any road type
+                # Allow the scenario to use whatever road_context is specified in the JSON
                 
                 x, y, z, yaw = self._choose_strategic_ego_spawn(data, map_name, crit)
                 self._ego_pos = (x, y, z, yaw)
@@ -1980,16 +2034,14 @@ class JsonToXoscConverter:
                     la = ET.SubElement(pa, 'LateralAction')
                     lc = ET.SubElement(la, 'LaneChangeAction')
                     
-                    # Ensure minimum duration for lane changes
-                    dynamics_value = action.get('dynamics_value', 2.5)
-                    dynamics_dimension = action.get('dynamics_dimension', 'time')
+                    # Use distance-based dynamics for lane changes instead of time
+                    dynamics_value = action.get('dynamics_value', 20.0)  # Default 20 meters
+                    dynamics_dimension = 'distance'  # Always use distance
                     dynamics_shape = action.get('dynamics_shape', 'linear')
                     
-                    # Apply minimum durations for lane changes
-                    if dynamics_dimension == 'time' and dynamics_value < 1.0:
-                        dynamics_value = 1.0  # Minimum 1 second for lane change
-                    elif dynamics_dimension == 'distance' and dynamics_value < 10.0:
-                        dynamics_value = 10.0  # Minimum 10 meters for lane change
+                    # Apply minimum distance for safe lane changes
+                    if dynamics_value < 15.0:
+                        dynamics_value = 15.0  # Minimum 15 meters for lane change
                     
                     ET.SubElement(lc, 'LaneChangeActionDynamics', {
                         'dynamicsDimension': dynamics_dimension,
@@ -2682,6 +2734,50 @@ class JsonToXoscConverter:
             candidates = self._filter_by_lane_relationship(candidates, crit, ego_lane)
             self.logger.debug(f"Lane relationship filter: -> {len(candidates)} candidates")
         
+        # Filter for roads with multiple lanes in same direction if required
+        if 'min_lanes_same_direction' in crit:
+            min_lanes = crit['min_lanes_same_direction']
+            multi_lane_candidates = []
+            
+            # Group candidates by road and lane direction (sign of lane_id)
+            # In CARLA/OpenDRIVE: negative lanes go one way, positive lanes go the other way
+            road_direction_lanes = {}
+            for pt in candidates:
+                road_id = pt.get('road_id')
+                lane_id = pt.get('lane_id')
+                lane_type = pt.get('lane_type', '').lower()
+                
+                # Only count Driving lanes for multi-lane requirement
+                if road_id and lane_id is not None and lane_type == 'driving':
+                    # Group by road and lane sign (direction)
+                    direction = 'positive' if lane_id > 0 else 'negative'
+                    key = (road_id, direction)
+                    if key not in road_direction_lanes:
+                        road_direction_lanes[key] = set()
+                    road_direction_lanes[key].add(lane_id)
+            
+            # Find road/direction combinations with enough driving lanes
+            valid_road_directions = set()
+            for (road_id, direction), lane_set in road_direction_lanes.items():
+                if len(lane_set) >= min_lanes:
+                    valid_road_directions.add((road_id, direction))
+                    self.logger.debug(f"Road {road_id} {direction} direction has {len(lane_set)} driving lanes: {sorted(lane_set)}")
+            
+            # Filter candidates to only those on valid road/direction combinations
+            for pt in candidates:
+                road_id = pt.get('road_id')
+                lane_id = pt.get('lane_id')
+                if road_id and lane_id is not None:
+                    direction = 'positive' if lane_id > 0 else 'negative'
+                    if (road_id, direction) in valid_road_directions:
+                        multi_lane_candidates.append(pt)
+            
+            if multi_lane_candidates:
+                candidates = multi_lane_candidates
+                self.logger.info(f"Filtered to {len(candidates)} spawn points on road sections with {min_lanes}+ driving lanes in same direction")
+            else:
+                self.logger.warning(f"No road sections found with {min_lanes}+ driving lanes in same direction, keeping all candidates")
+        
         if 'lane_type' in crit:
             # Use intelligent lane type filtering with fallbacks
             road_context = self._get_road_context_from_criteria(crit, ego_lane, map_name)
@@ -2836,8 +2932,8 @@ class JsonToXoscConverter:
                 if ego_pos:
                     error_msg += f"All candidate spawns were too close to ego (< 5m). "
                 error_msg += f"Criteria: {crit}. "
-            error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
-            raise RuntimeError(error_msg)
+                error_msg += "Try: 1) Increasing distance range, 2) Relaxing lane constraints, 3) Using a different map, or 4) Checking spawn data availability."
+                raise RuntimeError(error_msg)
         
         if len(final_candidates) == 1:
             pick = final_candidates[0]
@@ -3257,6 +3353,49 @@ class JsonToXoscConverter:
         # Get all potential ego spawn points
         spawn_points = self._get_spawn_points_for_map(map_name)
         candidates = spawn_points  # Start with all points
+        
+        # Apply min_lanes_same_direction filter EARLY if specified
+        if 'min_lanes_same_direction' in ego_criteria:
+            min_lanes = ego_criteria['min_lanes_same_direction']
+            self.logger.info(f"Filtering for roads with {min_lanes}+ driving lanes in same direction")
+            
+            # Group candidates by road and lane direction
+            road_direction_lanes = {}
+            for pt in candidates:
+                road_id = pt.get('road_id')
+                lane_id = pt.get('lane_id')
+                lane_type = pt.get('lane_type', '').lower()
+                
+                # Only count Driving lanes
+                if road_id and lane_id is not None and lane_type == 'driving':
+                    direction = 'positive' if lane_id > 0 else 'negative'
+                    key = (road_id, direction)
+                    if key not in road_direction_lanes:
+                        road_direction_lanes[key] = set()
+                    road_direction_lanes[key].add(lane_id)
+            
+            # Find road/direction combinations with enough driving lanes
+            valid_road_directions = set()
+            for (road_id, direction), lane_set in road_direction_lanes.items():
+                if len(lane_set) >= min_lanes:
+                    valid_road_directions.add((road_id, direction))
+                    self.logger.debug(f"Road {road_id} {direction} direction: {len(lane_set)} lanes {sorted(lane_set)}")
+            
+            # Filter candidates to only valid road/direction combinations
+            multi_lane_candidates = []
+            for pt in candidates:
+                road_id = pt.get('road_id')
+                lane_id = pt.get('lane_id')
+                if road_id and lane_id is not None:
+                    direction = 'positive' if lane_id > 0 else 'negative'
+                    if (road_id, direction) in valid_road_directions:
+                        multi_lane_candidates.append(pt)
+            
+            if multi_lane_candidates:
+                candidates = multi_lane_candidates
+                self.logger.info(f"Filtered to {len(candidates)} points on roads with {min_lanes}+ lanes")
+            else:
+                self.logger.warning(f"No roads with {min_lanes}+ lanes in same direction found!")
         
         # For intersection scenarios, prefer spawns near 4-way junctions
         if ego_criteria.get('is_intersection'):
@@ -4102,14 +4241,55 @@ class JsonToXoscConverter:
                 self.logger.info(f"Fallback 1 (same_lane -> adjacent_lane): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
-        # Fallback 2: Relax lane_relationship further
+        # Fallback 2: For adjacent_lane, try relaxing distance FIRST before changing lanes
+        if 'lane_relationship' in crit and crit['lane_relationship'] == 'adjacent_lane' and 'distance_to_ego' in crit and ego_pos:
+            relaxed_crit = crit.copy()
+            # Keep adjacent_lane but dramatically relax distance
+            original_min = crit['distance_to_ego'].get('min', 0)
+            original_max = crit['distance_to_ego'].get('max', 1000)
+            
+            # Try progressively larger distance ranges
+            distance_expansions = [
+                (0.5, 1.5),   # 50% reduction, 50% expansion
+                (0.25, 2.0),  # 75% reduction, 100% expansion
+                (0.1, 3.0),   # 90% reduction, 200% expansion
+            ]
+            
+            for min_factor, max_factor in distance_expansions:
+                relaxed_crit['distance_to_ego'] = {
+                    'min': max(5, original_min * min_factor),
+                    'max': min(200, original_max * max_factor)  # Cap at 200m
+                }
+                
+                fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
+                if fallback_candidates:
+                    # Sort by distance to prefer closer to original range
+                    def distance_score(pt):
+                        d = math.hypot(pt.get('x', 0) - ego_pos[0], pt.get('y', 0) - ego_pos[1])
+                        if original_min <= d <= original_max:
+                            return 0  # Perfect
+                        else:
+                            # Distance from the original range
+                            if d < original_min:
+                                return (original_min - d) / original_min
+                            else:
+                                return (d - original_max) / original_max
+                    
+                    fallback_candidates.sort(key=distance_score)
+                    actual_dist = math.hypot(fallback_candidates[0].get('x', 0) - ego_pos[0], 
+                                           fallback_candidates[0].get('y', 0) - ego_pos[1])
+                    self.logger.info(f"Fallback 2 (adjacent_lane with relaxed distance {relaxed_crit['distance_to_ego']['min']:.0f}-{relaxed_crit['distance_to_ego']['max']:.0f}m): "
+                                   f"found {len(fallback_candidates)} candidates, best at {actual_dist:.1f}m")
+                    return fallback_candidates[:5]  # Return top 5 candidates
+            
+        # Fallback 2b: Relax lane_relationship further (only if not adjacent_lane or distance relaxation failed)
         if 'lane_relationship' in crit and crit['lane_relationship'] in ['same_lane', 'adjacent_lane']:
             relaxed_crit = crit.copy()
             relaxed_crit['lane_relationship'] = 'any_lane'
             
             fallback_candidates = self._apply_relaxed_criteria(all_points, relaxed_crit, ego_pos, ego_lane)
             if fallback_candidates:
-                self.logger.info(f"Fallback 2 (lane_relationship -> any_lane): found {len(fallback_candidates)} candidates")
+                self.logger.info(f"Fallback 2b (lane_relationship -> any_lane): found {len(fallback_candidates)} candidates")
                 return fallback_candidates
         
         # Skip relaxing road_relationship - it's critical for spawn safety

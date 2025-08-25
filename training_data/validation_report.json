@@ -1,13 +1,13 @@
 {
-  "total_examples": 531,
-  "train_examples": 371,
+  "total_examples": 534,
+  "train_examples": 373,
   "val_examples": 80,
-  "test_examples": 80,
+  "test_examples": 81,
   "improvements_applied": {
     "start_tokens_added": true,
     "vehicle_models_validated": true,
     "spawn_criteria_standardized": true,
     "action_fields_fixed": true
   },
-  "example_with_tokens": "<<<JSON_START>>>\n{\n  \"scenario_name\": \"icy_road_sliding_331\",\n  \"description\": \"Vehicle loses control on icy road surface\",\n  \"weather\": \"mid_rain\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_sp"
+  "example_with_tokens": "<<<JSON_START>>>\n{\n  \"scenario_name\": \"sudden_brake_ahead\",\n  \"description\": \"Lead vehicle performs sudden braking\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_sp"
 }
