@@ -1,0 +1,54 @@
+{
+  "scenario_name": "hard_rain_lane_080",
+  "description": "Lane change in heavy rain",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "rain_changer",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "rain_changer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 7.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "rain_changer",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "lane_direction": "left",
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 25.0
+    }
+  ],
+  "success_distance": 85,
+  "timeout": 55,
+  "collision_allowed": false
+}

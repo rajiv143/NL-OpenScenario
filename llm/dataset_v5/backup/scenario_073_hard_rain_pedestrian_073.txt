@@ -1,0 +1,1 @@
+I need a scenario where a pedestrian walks slowly in heavy rain and stops when I get close. Position them about 20 meters ahead in a suburban area.

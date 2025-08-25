@@ -1,0 +1,90 @@
+{
+  "scenario_name": "two_actor_vehicle_ped_086",
+  "description": "Vehicle and pedestrian scenario",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.ford.mustang",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.chevrolet.impala",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,200"
+    },
+    {
+      "id": "crossing_ped",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0012",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 11.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "crossing_ped",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "crossing_ped",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 55,
+  "collision_allowed": false
+}

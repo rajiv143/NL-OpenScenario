@@ -1,0 +1,78 @@
+{
+  "scenario_name": "variable_speed_following_269",
+  "description": "Following with multiple speed variations and distance adjustments",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 24,
+  "actors": [
+    {
+      "id": "variable_leader",
+      "type": "vehicle",
+      "model": "vehicle.tesla.model3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "200,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "variable_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 28.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "variable_leader",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "variable_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 8.0,
+      "speed_value": 26.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "variable_leader",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 60.0,
+      "trigger_comparison": ">",
+      "brake_force": 0.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 75,
+  "collision_allowed": false
+}

@@ -1,0 +1,93 @@
+{
+  "scenario_name": "market_street_25",
+  "description": "Busy street with mixed traffic",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 41,
+            "max": 71
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 51,
+            "max": 81
+          },
+          "relative_position": "ahead"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_1",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 92,
+  "timeout": 146,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

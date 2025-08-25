@@ -1,0 +1,1 @@
+City bus stops while pedestrians cross and cars navigate around. A blue city bus in the adjacent lane brakes with 0.7 force at 2 seconds for a bus stop. Two pedestrians start crossing at 3.5 seconds, moving at 1.2 and 1.0 m/s. A red Mustang behind the ego changes lanes when ego speed drops below 8 m/s to pass the stopped traffic, showing typical urban bus stop dynamics.

@@ -1,0 +1,1 @@
+I need a scenario where during sunset at an intersection, a vehicle approaches from the right, brakes, then waits. Start them about 40m away.

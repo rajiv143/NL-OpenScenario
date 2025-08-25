@@ -1,0 +1,1 @@
+Test overtaking decision-making when encountering a group of three cyclists ahead on a narrow suburban road with an oncoming large truck. Evaluate the system's ability to assess safe passing gaps and maintain appropriate safety margins with vulnerable road users while avoiding head-on collision risk.

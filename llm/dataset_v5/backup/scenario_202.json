@@ -1,0 +1,82 @@
+{
+  "scenario_name": "traffic_light_compliance_202",
+  "map": "Town05",
+  "weather": "cloudy",
+  "ego_vehicle": {
+    "model": "vehicle.tesla.model3",
+    "initial_speed": 12
+  },
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "vehicle_attributes": {
+        "vehicle_model": "vehicle.toyota.prius",
+        "color": "128,255,128"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "intersection"
+        }
+      },
+      "actions": [
+        {
+          "type": "stop",
+          "trigger": {
+            "type": "time",
+            "value": 2.0
+          }
+        },
+        {
+          "type": "change_speed",
+          "target_speed": 10,
+          "dynamics_type": "linear",
+          "dynamics_value": 2.5,
+          "trigger": {
+            "type": "time",
+            "value": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cross_traffic",
+      "type": "vehicle",
+      "vehicle_attributes": {
+        "vehicle_model": "vehicle.audi.tt",
+        "color": "255,255,0"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "left",
+          "road_relationship": "different_road",
+          "road_context": "intersection"
+        }
+      },
+      "actions": [
+        {
+          "type": "change_speed",
+          "target_speed": 12,
+          "dynamics_type": "linear",
+          "dynamics_value": 2.0,
+          "trigger": {
+            "type": "time",
+            "value": 5.0
+          }
+        }
+      ]
+    }
+  ],
+  "success_criteria": {
+    "collision_free": true,
+    "min_distance": 120,
+    "max_time": 70
+  }
+}

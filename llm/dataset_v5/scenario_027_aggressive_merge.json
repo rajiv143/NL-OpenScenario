@@ -1,0 +1,59 @@
+{
+  "scenario_name": "aggressive_lane_merge",
+  "description": "Aggressive merge from adjacent lane",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 25,
+  "actors": [
+    {
+      "id": "aggressive_merger",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "aggressive_merger",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 28,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "aggressive_merger",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 60,
+  "collision_allowed": false
+}

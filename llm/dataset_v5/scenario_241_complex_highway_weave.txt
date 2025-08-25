@@ -1,0 +1,1 @@
+Create a complex highway scenario where a speeding vehicle weaves through traffic, triggering a cascade of reactions - accelerating, lane changing multiple times, braking, then accelerating again to pass slower vehicles.

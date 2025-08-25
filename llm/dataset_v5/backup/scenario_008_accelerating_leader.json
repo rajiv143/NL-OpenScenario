@@ -1,0 +1,54 @@
+{
+  "scenario_name": "leader_acceleration",
+  "description": "Lead vehicle accelerates away",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "accelerating_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "accelerating_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "accelerating_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2,
+      "speed_value": 20,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 60,
+  "collision_allowed": false
+}

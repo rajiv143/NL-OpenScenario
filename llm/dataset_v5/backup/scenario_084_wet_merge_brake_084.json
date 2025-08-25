@@ -1,0 +1,55 @@
+{
+  "scenario_name": "wet_merge_brake_084",
+  "description": "Merge then brake on wet road",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.dodge.charger_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "merge_braker",
+      "type": "vehicle",
+      "model": "vehicle.mini.cooper_s_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,150,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "merge_braker",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "lane_direction": "right",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "merge_braker",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 55,
+  "collision_allowed": false
+}

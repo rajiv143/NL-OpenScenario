@@ -1,0 +1,116 @@
+{
+  "scenario_name": "suburban_ice_cream_truck_315",
+  "description": "Ice cream truck stopped with children approaching from multiple directions",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.volkswagen.t2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 35}
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "ice_cream_truck",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      },
+      "color": "255,182,193"
+    },
+    {
+      "id": "child_left",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0031",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "left",
+          "lateral_offset": -4.0
+        }
+      }
+    },
+    {
+      "id": "child_right",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0032",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 38, "max": 48},
+          "relative_position": "right",
+          "lateral_offset": 4.0
+        }
+      }
+    },
+    {
+      "id": "parent",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 45, "max": 60},
+          "relative_position": "right",
+          "lateral_offset": 5.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ice_cream_truck",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "child_left",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "child_right",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "parent",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

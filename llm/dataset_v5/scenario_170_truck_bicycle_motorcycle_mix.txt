@@ -1,0 +1,1 @@
+Test navigation through a construction zone with parked emergency vehicle, slowly moving cyclist avoiding obstacles, impatient delivery scooter attempting to pass, oncoming dump truck, and construction worker near the roadway. Evaluate multi-modal vehicle handling in constrained space with mixed vehicle sizes.

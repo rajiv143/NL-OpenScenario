@@ -1,0 +1,97 @@
+{
+  "scenario_name": "police_pursuit_passing_212",
+  "description": "Police chase passing at high speed",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "suspect_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "50,50,50"
+    },
+    {
+      "id": "police_car",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_police",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 130,
+            "max": 150
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "suspect_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 35.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "suspect_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "police_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 38.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "police_car",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 1.8,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 80,
+  "collision_allowed": false
+}

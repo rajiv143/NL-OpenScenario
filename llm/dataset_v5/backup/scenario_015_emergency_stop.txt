@@ -1,0 +1,1 @@
+CRITICAL SAFETY TEST: Full emergency braking scenario. Vehicle ahead executes maximum braking force to complete stop (deer in road, accident ahead, etc). Light rain makes it more challenging. Tests AEB system limits.

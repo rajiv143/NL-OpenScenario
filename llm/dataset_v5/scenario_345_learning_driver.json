@@ -1,0 +1,78 @@
+{
+  "scenario_name": "learning_driver_345",
+  "description": "Student driver vehicle making unpredictable movements",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 40}
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "student_driver",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "student_driver",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "student_driver",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "student_driver",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "student_driver",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 6.0,
+      "brake_force": 0.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

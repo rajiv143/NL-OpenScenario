@@ -1,0 +1,124 @@
+{
+  "scenario_name": "convoy_cascade_braking_283",
+  "description": "Five-vehicle convoy demonstrates cascading brake reaction",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "convoy_leader",
+      "type": "vehicle",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 80, "max": 95},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "200,100,0"
+    },
+    {
+      "id": "convoy_second",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 60, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "convoy_third",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "0,100,200"
+    },
+    {
+      "id": "convoy_fourth",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "100,255,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "convoy_leader",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "convoy_second",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.8,
+      "brake_force": 0.45,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "convoy_third",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3.4,
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "convoy_fourth",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "brake_force": 0.55,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.2
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 75,
+  "collision_allowed": false
+}

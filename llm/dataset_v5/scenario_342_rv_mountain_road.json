@@ -1,0 +1,107 @@
+{
+  "scenario_name": "rv_mountain_road_342",
+  "description": "Large RV struggling on mountain grade with traffic backing up",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 35, "max": 55}
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "struggling_rv",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "impatient_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "oncoming_motorcycle",
+      "type": "vehicle",
+      "model": "vehicle.harley-davidson.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 70, "max": 90},
+          "relative_position": "ahead",
+          "road_relationship": "opposite_road",
+          "lane_relationship": "opposite_lane",
+          "road_context": "town"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "struggling_rv",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "struggling_rv",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "impatient_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "oncoming_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 80,
+  "collision_allowed": false
+}

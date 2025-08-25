@@ -1,0 +1,1 @@
+Test response to vehicle engine failure ahead causing rapid deceleration from highway speeds to near stop, with fast traffic approaching from behind, truck passing on left blocking escape route, and motorcycle on shoulder. Evaluate emergency hazard recognition and collision avoidance with limited options.

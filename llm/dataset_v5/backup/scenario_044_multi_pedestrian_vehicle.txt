@@ -1,0 +1,1 @@
+Chain reaction pedestrian event - lead vehicle suddenly brakes hard because pedestrian stepped out. I need to react to both the braking vehicle AND potentially visible pedestrian. Double threat requiring split-second decision making.

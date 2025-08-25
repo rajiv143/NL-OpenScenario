@@ -1,0 +1,805 @@
+{
+  "timestamp": "2025-08-24T21:35:49.909669",
+  "scenarios": [
+    {
+      "scenario": {
+        "id": "test_001",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard"
+      },
+      "base_model": {
+        "scenario_id": "test_001",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard",
+        "output_preview": "{\n  \"scenarioName\": \"SuddenBrake\",\n  \"description\": \"A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard\",\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"sedan\",\n      \"class_name\": \"C1\",\n      \"color\": \"red\",\n      \"speed\": 30.0,\n      \"position\": {\n        \"x...",
+        "full_output": "{\n  \"scenarioName\": \"SuddenBrake\",\n  \"description\": \"A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard\",\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"sedan\",\n      \"class_name\": \"C1\",\n      \"color\": \"red\",\n      \"speed\": 30.0,\n      \"position\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"mass\": 1500.0,\n      \"class_name\": \"C1\"\n    },\n    {\n      \"type\": \"Vehicle\",\n      \"name\": \"suv\",\n      \"class_name\": \"C3\",\n      \"color\": \"blue\",\n      \"speed\": 0.0,\n      \"position\": {\n        \"x\": 10.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"mass\": 2000.0,\n      \"class_name\": \"C3\",\n      \"spawn_criteria\": {\n        \"speed\": {\n          \"min\": 20.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Brake\",\n      \"actor\": \"suv\",\n      \"time\": 5.0\n    }\n  ],\n  \"spawn_criteria\": {\n    \"time\": {\n      \"min\": 0.0\n    }\n  },\n  \"triggers\": [\n    {\n      \"type\": \"Collision\",\n      \"actor\": \"suv\",\n      \"other_actor\": \"sedan\",\n      \"distance\": 5.0,\n      \"normal\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 1.0\n      },\n      \"normalized\": true\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.92,
+        "output_length": 1335
+      },
+      "finetuned_model": {
+        "scenario_id": "test_001",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_002",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A white truck signals and changes lanes to the right on a highway"
+      },
+      "base_model": {
+        "scenario_id": "test_002",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A white truck signals and changes lanes to the right on a highway",
+        "output_preview": "{\n  \"name\": \"TruckLaneChange\",\n  \"description\": \"A white truck signals and changes lanes to the right on a highway\",\n  \"world_config\": {\n    \"weather\": {\n      \"weather_conditions\": \"clear\"\n    },\n    \"time_of_day\": {\n      \"day\": \"day\",\n      \"hour\": 12\n    }\n  },\n  \"actors\": [\n    {\n      \"type\": ...",
+        "full_output": "{\n  \"name\": \"TruckLaneChange\",\n  \"description\": \"A white truck signals and changes lanes to the right on a highway\",\n  \"world_config\": {\n    \"weather\": {\n      \"weather_conditions\": \"clear\"\n    },\n    \"time_of_day\": {\n      \"day\": \"day\",\n      \"hour\": 12\n    }\n  },\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"class\": \"walker\"\n    },\n    {\n      \"type\": \"Vehicle\",\n      \"class\": \"vehicle.truck\",\n      \"attributes\": {\n        \"color\": \"white\",\n        \"speed\": 50,\n        \"lane\": 1\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action\",\n      \"action\": \"lane_change_right\",\n      \"spawn_criteria\": {\n        \" lane\": 1\n      },\n      \"trigger\": {\n        \"time\": 10,\n        \"condition\": \"actor_attr('vehicle.truck','speed', 40)\"\n      }\n    }\n  ],\n  \"spawn_criteria\": {\n    \"spawn_interval\": 10\n  },\n  \"triggers\": [\n    {\n      \"type\": \"Trigger\",\n      \"condition\": \"actor_attr('vehicle.truck','speed', 40)\"\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 10.68,
+        "output_length": 942
+      },
+      "finetuned_model": {
+        "scenario_id": "test_002",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A white truck signals and changes lanes to the right on a highway",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_003",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach"
+      },
+      "base_model": {
+        "scenario_id": "test_003",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach",
+        "output_preview": "{\n  \"name\": \"Crosswalk Pedestrian\",\n  \"type\": \"static\",\n  \"description\": \"A pedestrian starts crossing at a marked crosswalk as the agent approaches.\",\n  \"actors\": [\n    {\n      \"type\": \"pedestrian\",\n      \"actor_id\": 0,\n      \"start_type\": \"static\",\n      \"start_location\": {\n        \"x\": 0.0,\n     ...",
+        "full_output": "{\n  \"name\": \"Crosswalk Pedestrian\",\n  \"type\": \"static\",\n  \"description\": \"A pedestrian starts crossing at a marked crosswalk as the agent approaches.\",\n  \"actors\": [\n    {\n      \"type\": \"pedestrian\",\n      \"actor_id\": 0,\n      \"start_type\": \"static\",\n      \"start_location\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"heading\": 90.0,\n      \"speed\": 0.0,\n      \"spawn_criteria\": {\n        \"condition\": \"always\"\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"move_forward\",\n      \"spawn_criteria\": {\n        \"condition\": \"distance_to_actors(pedestrian, 10.0)\"\n      },\n      \"start_time\": 10.0,\n      \"end_time\": 30.0\n    }\n  ],\n  \"spawn_criteria\": {\n    \"condition\": \"always\"\n  },\n  \"triggers\": [\n    {\n      \"type\": \"waypoint\",\n      \"waypoint_id\": 0,\n      \"location\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      }\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 17.25,
+        "output_length": 880
+      },
+      "finetuned_model": {
+        "scenario_id": "test_003",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_004",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone"
+      },
+      "base_model": {
+        "scenario_id": "test_004",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone",
+        "output_preview": "{\n  \"scenarioName\": \"school_zone_speed_limit\",\n  \"description\": \"A vehicle in front maintains a constant speed of 25 mph in a school zone\",\n  \"actors\": [\n    {\n      \"type\": \"DynamicActor\",\n      \"type_id\": 1,\n      \"class_name\": \"Veicle\",\n      \"attributes\": {\n        \"speed\": 25.0\n      },\n      \"...",
+        "full_output": "{\n  \"scenarioName\": \"school_zone_speed_limit\",\n  \"description\": \"A vehicle in front maintains a constant speed of 25 mph in a school zone\",\n  \"actors\": [\n    {\n      \"type\": \"DynamicActor\",\n      \"type_id\": 1,\n      \"class_name\": \"Veicle\",\n      \"attributes\": {\n        \"speed\": 25.0\n      },\n      \"spawn_criteria\": {\n        \"spawn_mode\": \"static\",\n        \"pose\": {\n          \"x\": 50.0,\n          \"y\": 0.0,\n          \"z\": 0.0,\n          \"pitch\": 0.0,\n          \"roll\": 0.0,\n          \"yaw\": 0.0\n        },\n        \"spawn_radius\": 10.0\n      },\n      \"actions\": [\n        {\n          \"action_type\": \"set_speed\",\n          \"target_speed\": 25.0\n        }\n      ]\n    }\n  ],\n  \"spawn_criteria\": {\n    \"spawn_mode\": \"static\",\n    \"pose\": {\n      \"x\": 50.0,\n      \"y\": 0.0,\n      \"z\": 0.0,\n      \"pitch\": 0.0,\n      \"roll\": 0.0,\n      \"yaw\": 0.0\n    },\n    \"spawn_radius\": 10.0\n  },\n  \"triggers\": [\n    {\n      \"type\": \"VehicleSpeedLimitTrigger\",\n      \"speed_limit\": 25.0,\n      \"speed_limit_type\": \"fixed\"\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 12.55,
+        "output_length": 1016
+      },
+      "finetuned_model": {
+        "scenario_id": "test_004",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_005",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A motorcycle merges into your lane from an on-ramp"
+      },
+      "base_model": {
+        "scenario_id": "test_005",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A motorcycle merges into your lane from an on-ramp",
+        "output_preview": "{\n  \"name\": \"motorcycle_on_ramp_merge\",\n  \"description\": \"A motorcycle emerges from an on-ramp and merges into the lane.\",\n  \"world_type\": \"city\",\n  \"world_size\": {\n    \"width\": 80,\n    \"length\": 200,\n    \"height\": 10\n  },\n  \"actors\": [\n    {\n      \"type\": \"motorcycle\",\n      \"class_name\": \"bmw\",\n  ...",
+        "full_output": "{\n  \"name\": \"motorcycle_on_ramp_merge\",\n  \"description\": \"A motorcycle emerges from an on-ramp and merges into the lane.\",\n  \"world_type\": \"city\",\n  \"world_size\": {\n    \"width\": 80,\n    \"length\": 200,\n    \"height\": 10\n  },\n  \"actors\": [\n    {\n      \"type\": \"motorcycle\",\n      \"class_name\": \"bmw\",\n      \"position\": {\n        \"x\": 20,\n        \"y\": 50,\n        \"z\": -20\n      },\n      \"velocity\": {\n        \"x\": 0,\n        \"y\": 0,\n        \"z\": 0\n      },\n      \"rotation\": {\n        \"roll\": 0,\n        \"pitch\": 0,\n        \"yaw\": 0\n      },\n      \"spawn_type\": \"on_ramp\",\n      \"spawn_criteria\": {\n        \"distance\": 10,\n        \"position\": {\n          \"x\": 30,\n          \"y\": 20,\n          \"z\": -30\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"merge\",\n      \"trigger\": {\n        \"distance\": 10,\n        \"position\": {\n          \"x\": 40,\n          \"y\": 60,\n          \"z\": -20\n        },\n        \"velocity\": {\n          \"x\": 0,\n          \"y\": 0,\n          \"z\": 5\n        }\n      },\n      \"collision\": {\n        \"type\": \"actor\",\n        \"actor\": {\n          \"type\": \"vehicle\",\n          \"class_name\": \"bmw\"\n        }\n      }\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"spawn\",\n      \"spawn_criteria\": {\n        \"distance\": 10,\n        \"position\": {\n          \"x\": 30,\n          \"y\": 20,\n          \"z\": -30\n        }\n      }\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 17.74,
+        "output_length": 1355
+      },
+      "finetuned_model": {
+        "scenario_id": "test_005",
+        "category": "lane_change",
+        "complexity": "simple",
+        "prompt": "A motorcycle merges into your lane from an on-ramp",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street"
+      },
+      "base_model": {
+        "scenario_id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street",
+        "output_preview": "Here is a CARLA scenario JSON based on the provided description:\n```json\n{\n  \"name\": \"Elderly_Person_Crossing\",\n  \"description\": \"An elderly person with a walker slowly crosses the street.\",\n  \"description_long\": \"\",\n  \"weather\": {\n    \"rain\": false,\n    \"snow\": false,\n    \"clouds\": 10,\n    \"sun\": 0...",
+        "full_output": "Here is a CARLA scenario JSON based on the provided description:\n```json\n{\n  \"name\": \"Elderly_Person_Crossing\",\n  \"description\": \"An elderly person with a walker slowly crosses the street.\",\n  \"description_long\": \"\",\n  \"weather\": {\n    \"rain\": false,\n    \"snow\": false,\n    \"clouds\": 10,\n    \"sun\": 0,\n    \"day\": 0,\n    \"night\": 0\n  },\n  \"time_of_day\": 0,\n  \"weather_flags\": [],\n  \"light_conditions\": {\n    \"day\": {\n      \"dawn\": false,\n      \"dusk\": false,\n      \"twilight\": false\n    },\n    \"night\": {\n      \"dawn\": false,\n      \"dusk\": false,\n      \"twilight\": false\n    }\n  },\n  \"actor_list\": [\n    {\n      \"actor_id\": 0,\n      \"type\": \"Pedestrian\",\n      \"role\": \"agent\",\n      \"color\": [255, 0, 0], // red\n      \"type_id\": 3,\n      \"class\": \"Elderly_Person\",\n      \"pedestrian_type\": 0,\n      \"pedestrian_subtype\": 0,\n      \"pedestrian_subtype\": 0,\n      \"pedestrian_subtype_id\": 0,\n      \"pedestrian_subtype_name\": \"\",\n      \"pedestrian_subtype_id_name\": \"\",\n      \"is_ignored\": false,\n      \"is_static\": false,\n      \"is_invincible\": false,\n      \"is_killed\": false,\n      \"is_fixed\": false,\n      \"is_invulnerable\": false,\n      \"is_dynamic\": true,\n      \"is_on_road\": true,\n      \"is_on_sidewalk\": false,\n      \"is_in_road_work\": false,\n      \"is_in_vehicle\": false,\n      \"is_on_bicycle\": false,\n      \"is_on_moped\": false,\n      \"is_on_truck\": false,\n      \"is_on_bus\": false,\n      \"is_on_train\": false,\n      \"is_on_airplane\": false,\n      \"is_on_helicopter\": false,\n      \"is_on_boat\": false,\n      \"is_in_water\": false,\n      \"is_in_vehicle_type\": 0,\n      \"is_in_vehicle_type_id\": 0,\n      \"is_in_vehicle_type_name\": \"\",\n      \"is_on_vehicle\": false,\n      \"is_on_vehicle_type_name\": \"\",\n      \"vehicle_type_id\": 0,\n      \"vehicle_type_name\": \"\",\n      \"vehicle_subtype_id\": 0,\n      \"vehicle_subtype_name\": \"\",\n      \"vehicle_subtype_id_name\": \"\",\n      \"rotation\": 0,\n      \"translation\": [0, 0, 0],\n      \"velocity\": [0.0, 0.0, 0.0],\n      \"acceleration\": [0.0, 0.0, 0.0],\n      \"max_speed\": 0.0,\n      \"max_acceleration\": 0.0,\n      \"max_deceleration\": 0.0,\n      \"mass\": 0.0,\n      \"inertia\": 0.0,\n      \"collision_matrix\": [\n        1.0,\n        0.0,\n        0.0,\n        0.0,\n        0.0,\n        0.0,\n        0.0,\n        0.0,\n        0.0\n      ],\n      \"bbox\": [0, 0, 0, 0],\n      \"bbox_size\": [0, 0, 0]\n    }\n  ],\n  \"action_list\": [\n    {\n      \"action_id\": 0,\n      \"type\": \"Wait\",\n      \"probability\": 1.0,\n      \"duration\": 0,\n      \"repeat\": 1,\n      \"condition\": \"\",\n      \"condition_type\": \"\",\n      \"condition_param\": \"\"\n    },\n    {\n      \"action_id\": 1,\n      \"type\": \"MoveTo\",\n      \"probability\": 1.0,\n      \"duration\": 1.0,\n      \"repeat\": 1,\n      \"condition\": \"\",\n      \"condition_type\": \"\",\n      \"condition_param\": \"0,0,0,0.5,0.5,0,0,0,0,0,0\"\n    },\n    {\n      \"action_id\": 2,\n      \"type\": \"Turn\",\n      \"probability\": 1.0,\n      \"duration\": 0.5,\n      \"repeat\": 1,\n      \"condition\": \"\",\n      \"condition_type\": \"\",\n      \"condition_param\": \"0,0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+        "json_valid": false,
+        "error": "Expecting value: line 1 column 1 (char 0)",
+        "generation_time": 22.77,
+        "output_length": 3029
+      },
+      "finetuned_model": {
+        "scenario_id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign"
+      },
+      "base_model": {
+        "scenario_id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign",
+        "output_preview": "{\n  \"name\": \"Accelerating Car\",\n  \"description\": \"A car accelerates from a stop sign.\",\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class_name\": \"Civic\",\n      \"position\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"rx\": 0.0,\n        \"ry\": 0.0...",
+        "full_output": "{\n  \"name\": \"Accelerating Car\",\n  \"description\": \"A car accelerates from a stop sign.\",\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class_name\": \"Civic\",\n      \"position\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"rx\": 0.0,\n        \"ry\": 0.0,\n        \"rz\": 0.0\n      },\n      \"velocity\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"acceleration\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"accelerate\",\n      \"duration\": 5.0\n    }\n  ],\n  \"spawn_criteria\": {\n    \"type\": \"static\",\n    \"location\": {\n      \"x\": 0.0,\n      \"y\": 0.0,\n      \"z\": 0.0\n    },\n    \"rotation\": {\n      \"rx\": 0.0,\n      \"ry\": 0.0,\n      \"rz\": 0.0\n    }\n  },\n  \"triggers\": [\n    {\n      \"type\": \"trigger\",\n      \"condition\": \"is_at_stop_sign\",\n      \"duration\": 1.0\n    }\n  ],\n  \"is_static\": true,\n  \"reset_on_reset\": true,\n  \"use_fixed_camera\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 13.17,
+        "output_length": 978
+      },
+      "finetuned_model": {
+        "scenario_id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions"
+      },
+      "base_model": {
+        "scenario_id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions",
+        "output_preview": "{\n  \"name\": \"FourWayStop\",\n  \"description\": \"A four-way stop with two vehicles arriving at the same time from perpendicular directions\",\n  \"version\": 1,\n  \"world\": {\n    \"type\": \"Simple\"\n  },\n  \"actors\": [\n    {\n      \"type\": \"Vehicle\",\n      \"name\": \"Vehicle1\",\n      \"x\": 10.0,\n      \"y\": 10.0,\n   ...",
+        "full_output": "{\n  \"name\": \"FourWayStop\",\n  \"description\": \"A four-way stop with two vehicles arriving at the same time from perpendicular directions\",\n  \"version\": 1,\n  \"world\": {\n    \"type\": \"Simple\"\n  },\n  \"actors\": [\n    {\n      \"type\": \"Vehicle\",\n      \"name\": \"Vehicle1\",\n      \"x\": 10.0,\n      \"y\": 10.0,\n      \"z\": 0.0,\n      \"type_id\": \"vehicle.toyotavii\",\n      \"role\": \"agent\",\n      \"heading\": 0.0,\n      \"speed\": 10.0\n    },\n    {\n      \"type\": \"Vehicle\",\n      \"name\": \"Vehicle2\",\n      \"x\": -10.0,\n      \"y\": 10.0,\n      \"z\": 0.0,\n      \"type_id\": \"vehicle.toyotavii\",\n      \"role\": \"agent\",\n      \"heading\": 180.0,\n      \"speed\": 10.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Stop\",\n      \"x\": 10.0,\n      \"y\": 10.0,\n      \"z\": 0.0,\n      \"duration\": 5.0\n    },\n    {\n      \"type\": \"MoveForward\",\n      \"x\": 0.0,\n      \"y\": 10.0,\n      \"z\": 0.0,\n      \"duration\": 5.0\n    }\n  ],\n  \"spawn_criteria\": [\n    {\n      \"type\": \"WaitUntil\",\n      \"condition\": \"time > 0.0\"\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"Event\",\n      \"name\": \"Arrival\",\n      \"x\": 10.0,\n      \"y\": 10.0,\n      \"z\": 0.0\n    },\n    {\n      \"type\": \"Event\",\n      \"name\": \"Intersection\",\n      \"x\": 0.0,\n      \"y\": 10.0,\n      \"z\": 0.0\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 15.13,
+        "output_length": 1228
+      },
+      "finetuned_model": {
+        "scenario_id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on"
+      },
+      "base_model": {
+        "scenario_id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on",
+        "output_preview": "{\n  \"name\": \"HeavyRainNoTaillights\",\n  \"description\": \"A rainy day with reduced visibility and a vehicle with no taillights driving in the opposite direction.\",\n  \"weather\": {\n    \"type\": \"rain\",\n    \"intensity\": 3\n  },\n  \"static_objects\": [\n    {\n      \"type\": \"road\",\n      \"x\": 0,\n      \"y\": 0,\n  ...",
+        "full_output": "{\n  \"name\": \"HeavyRainNoTaillights\",\n  \"description\": \"A rainy day with reduced visibility and a vehicle with no taillights driving in the opposite direction.\",\n  \"weather\": {\n    \"type\": \"rain\",\n    \"intensity\": 3\n  },\n  \"static_objects\": [\n    {\n      \"type\": \"road\",\n      \"x\": 0,\n      \"y\": 0,\n      \"z\": 0,\n      \"rotation_x\": 0,\n      \"rotation_y\": 0,\n      \"rotation_z\": 0,\n      \"scale\": 1,\n      \"color\": [1, 1, 1],\n      \"spawn_group\": \"\"\n    },\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"Toyota_Camry\",\n      \"x\": 50,\n      \"y\": 0,\n      \"z\": 0,\n      \"rotation_x\": 0,\n      \"rotation_y\": 0,\n      \"rotation_z\": 0,\n      \"scale\": 1,\n      \"color\": [0.5, 0.5, 0.5],\n      \"speed\": 30,\n      \"direction\": 180,\n      \"spawn_group\": \"\"\n    }\n  ],\n  \"actors\": [\n    {\n      \"type\": \"actor\",\n      \"name\": \"carla::StaticObject\",\n      \"x\": 0,\n      \"y\": 0,\n      \"z\": 0,\n      \"rotation_x\": 0,\n      \"rotation_y\": 0,\n      \"rotation_z\": 0,\n      \"scale\": 1,\n      \"color\": [1, 1, 1],\n      \"spawn_group\": \"\",\n      \"spawn_conditions\": [\n        {\n          \"type\": \"is_distance_from_waypoint\",\n          \"waypoint\": {\n            \"x\": 0,\n            \"y\": 0,\n            \"z\": 0\n          },\n          \"distance\": 10\n        }\n      ]\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"event\",\n      \"name\": \"heavy_rain\",\n      \"trigger\": \"weather\",\n      \"condition\": \"weather.intensity >= 3\"\n    },\n    {\n      \"type\": \"event\",\n      \"name\": \"no_tail_lights\",\n      \"trigger\": \"vehicle\",\n      \"condition\": \"vehicle.color.r <= 0.4\"\n    },\n    {\n      \"type\": \"event\",\n      \"name\": \"vehicle_in_sight\",\n      \"trigger\": \"vehicle\",\n      \"condition\": \"vehicle.is_visible\"\n    }\n  ],\n  \"actors\": [\n    {\n      \"type\": \"actor\",\n      \"name\": \"carla::Vehicle\",\n      \"x\": 0,\n      \"y\": 0,\n      \"z\": 0,\n      \"rotation_x\": 0,\n      \"rotation_y\": 0,\n      \"rotation_z\": 0,\n      \"scale\": 1,\n      \"color\": [0.5, 0.5, 0.5],\n      \"speed\": 30,\n      \"direction\": 180,\n      \"spawn_group\": \"\"\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.79,
+        "output_length": 2001
+      },
+      "finetuned_model": {
+        "scenario_id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion"
+      },
+      "base_model": {
+        "scenario_id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion",
+        "output_preview": "Here is a CARLA scenario JSON based on the given description:\n```json\n{\n  \"scenarioName\": \"traffic_congestion\",\n  \"description\": \"Three cars ahead of you suddenly slow down due to traffic congestion\",\n  \"startTime\": 0,\n  \"duration\": 10,\n  \"actors\": [\n    {\n      \"type\": \"actor\",\n      \"class\": \"walk...",
+        "full_output": "Here is a CARLA scenario JSON based on the given description:\n```json\n{\n  \"scenarioName\": \"traffic_congestion\",\n  \"description\": \"Three cars ahead of you suddenly slow down due to traffic congestion\",\n  \"startTime\": 0,\n  \"duration\": 10,\n  \"actors\": [\n    {\n      \"type\": \"actor\",\n      \"class\": \"walker pedestrian\",\n      \"name\": \"pedestrian1\",\n      \"position\": {\n        \"x\": 10.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"velocity\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"color\": {\n        \"type\": \"color\",\n        \"r\": 1.0,\n        \"g\": 0.0,\n        \"b\": 0.0\n      },\n      \"actorClass\": \"walker_peds\",\n      \"spawnCriteria\": {\n        \"type\": \"spawn_points\",\n        \"points\": [\n          {\n            \"x\": 10.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          {\n            \"x\": 11.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          {\n            \"x\": 12.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"actor\",\n      \"class\": \"car\",\n      \"name\": \"car1\",\n      \"position\": {\n        \"x\": 20.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"velocity\": {\n        \"x\": 5.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"color\": {\n        \"type\": \"color\",\n        \"r\": 0.0,\n        \"g\": 0.0,\n        \"b\": 0.0\n      },\n      \"actorClass\": \"vehicle_aud\",\n      \"spawnCriteria\": {\n        \"type\": \"spawn_points\",\n        \"points\": [\n          {\n            \"x\": 20.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"actor\",\n      \"class\": \"car\",\n      \"name\": \"car2\",\n      \"position\": {\n        \"x\": 30.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"velocity\": {\n        \"x\": 5.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"color\": {\n        \"type\": \"color\",\n        \"r\": 0.0,\n        \"g\": 0.0,\n        \"b\": 0.0\n      },\n      \"actorClass\": \"vehicle_aud\",\n      \"spawnCriteria\": {\n        \"type\": \"spawn_points\",\n        \"points\": [\n          {\n            \"x\": 30.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"actor\",\n      \"class\": \"car\",\n      \"name\": \"car3\",\n      \"position\": {\n        \"x\": 40.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"velocity\": {\n        \"x\": 5.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"color\": {\n        \"type\": \"color\",\n        \"r\": 0.0,\n        \"g\": 0.0,\n        \"b\": 0.0\n      },\n      \"actorClass\": \"vehicle_aud\",\n      \"spawnCriteria\": {\n        \"type\": \"spawn_points\",\n        \"points\":",
+        "json_valid": false,
+        "error": "Expecting value: line 1 column 1 (char 0)",
+        "generation_time": 22.72,
+        "output_length": 2976
+      },
+      "finetuned_model": {
+        "scenario_id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph"
+      },
+      "base_model": {
+        "scenario_id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph",
+        "output_preview": "{\n  \"version\": 1,\n  \"name\": \"YellowLightRedApproach\",\n  \"description\": \"A yellow traffic light turns red as the agent approaches at 35 mph\",\n  \"weather\": {\n    \"type\": \"Sunny\"\n  },\n  \"time_of_day\": {\n    \"sun_position\": {\n      \"sun_elevation\": 10,\n      \"sun_azimuth\": 270\n    }\n  },\n  \"road_type\": ...",
+        "full_output": "{\n  \"version\": 1,\n  \"name\": \"YellowLightRedApproach\",\n  \"description\": \"A yellow traffic light turns red as the agent approaches at 35 mph\",\n  \"weather\": {\n    \"type\": \"Sunny\"\n  },\n  \"time_of_day\": {\n    \"sun_position\": {\n      \"sun_elevation\": 10,\n      \"sun_azimuth\": 270\n    }\n  },\n  \"road_type\": {\n    \"lane_type\": \" straight\",\n    \"lane_width\": 3.5,\n    \"lane_number\": 1\n  },\n  \"actors\": [\n    {\n      \"type\": \"DynamicActor\",\n      \"actor_id\": 1,\n      \"actor_type\": \"agent\",\n      \"type_id\": 1,\n      \"class_name\": \"Cyclist\",\n      \"start_pos\": {\n        \"x\": -35.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"cmd\": {\n        \"cmd_type\": \"move_forward\",\n        \"speed\": 35.0,\n        \"acceleration\": 1.0,\n        \"braking\": 0.5\n      }\n    },\n    {\n      \"type\": \"StaticActor\",\n      \"actor_id\": 2,\n      \"actor_type\": \"StaticActor\",\n      \"type_id\": 3,\n      \"class_name\": \"TrafficLight\",\n      \"start_pos\": {\n        \"x\": -25.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"spawn_criteria\": {\n        \"condition\": \"when approaching agent (within 10 meters)\"\n      },\n      \"events\": [\n        {\n          \"event_type\": \"change_color\",\n          \"color\": \"red\"\n        }\n      ]\n    }\n  ],\n  \"triggers\": [\n    {\n      \"trigger_type\": \"agent\",\n      \"agent_id\": 1,\n      \"condition\": \"speed < 35.0\"\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 12.53,
+        "output_length": 1331
+      },
+      "finetuned_model": {
+        "scenario_id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road"
+      },
+      "base_model": {
+        "scenario_id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road",
+        "output_preview": "{\n  \"name\": \"Foggy Road\",\n  \"description\": \"A winding road with dense fog limiting visibility to 20 meters.\",\n  \"weather\": {\n    \"condition\": \"Fog\"\n  },\n  \" fog\": {\n    \"distance\": 20\n  },\n  \"road_type\": \"winding\",\n  \"road_surface\": \"asphalt\",\n  \"spawn_points\": [\n    {\n      \"type\": \"waypoint\",\n    ...",
+        "full_output": "{\n  \"name\": \"Foggy Road\",\n  \"description\": \"A winding road with dense fog limiting visibility to 20 meters.\",\n  \"weather\": {\n    \"condition\": \"Fog\"\n  },\n  \" fog\": {\n    \"distance\": 20\n  },\n  \"road_type\": \"winding\",\n  \"road_surface\": \"asphalt\",\n  \"spawn_points\": [\n    {\n      \"type\": \"waypoint\",\n      \"location\": {\n        \"x\": -30.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"heading\": 0.0,\n      \"distance\": 0.0\n    },\n    {\n      \"type\": \"waypoint\",\n      \"location\": {\n        \"x\": -20.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"heading\": 90.0,\n      \"distance\": 100.0\n    },\n    {\n      \"type\": \"waypoint\",\n      \"location\": {\n        \"x\": -10.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"heading\": 180.0,\n      \"distance\": 200.0\n    }\n  ],\n  \"actions\": [],\n  \"triggers\": [\n    {\n      \"type\": \"on_start\",\n      \"conditions\": [],\n      \"actions\": []\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 12.51,
+        "output_length": 896
+      },
+      "finetuned_model": {
+        "scenario_id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides"
+      },
+      "base_model": {
+        "scenario_id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides",
+        "output_preview": "{\n  \"name\": \"merge_collision\",\n  \"description\": \"Two vehicles simultaneously attempt to merge into your lane from both sides\",\n  \"description_ref\": \"merge_collision\",\n  \"world_type\": \"custom\",\n  \"world_size\": \"2.5m x 10m x 2.5m\",\n  \"time\": 60,\n  \"randomness\": 0.5,\n  \"reset_sync\": true,\n  \"actions\": ...",
+        "full_output": "{\n  \"name\": \"merge_collision\",\n  \"description\": \"Two vehicles simultaneously attempt to merge into your lane from both sides\",\n  \"description_ref\": \"merge_collision\",\n  \"world_type\": \"custom\",\n  \"world_size\": \"2.5m x 10m x 2.5m\",\n  \"time\": 60,\n  \"randomness\": 0.5,\n  \"reset_sync\": true,\n  \"actions\": [\n    {\n      \"type\": \"spawn\",\n      \"actor\": {\n        \"type\": \"vehicle\",\n        \"class_name\": \"bmw_3\",\n        \"spawn_type\": \"spawn_type_on_lane\",\n        \"spawn_points\": [\n          {\"lat\": 0.5, \"lon\": 0.5, \"z\": 0.5}\n        ],\n        \"spawn_speed\": 0.0\n      },\n      \"spawn_criteria\": {\n        \"time\": 10,\n        \"time_from_start\": true\n      }\n    },\n    {\n      \"type\": \"spawn\",\n      \"actor\": {\n        \"type\": \"vehicle\",\n        \"class_name\": \"toyota_camry\",\n        \"spawn_type\": \"spawn_type_on_lane\",\n        \"spawn_points\": [\n          {\"lat\": -0.5, \"lon\": 0.5, \"z\": 0.5}\n        ],\n        \"spawn_speed\": 0.0\n      },\n      \"spawn_criteria\": {\n        \"time\": 10,\n        \"time_from_start\": true\n      }\n    }\n  ],\n  \"spawn_settings\": {\n    \"vehicle_speeds\": [\n      {\"speed\": 0.0, \"accel\": 0.0, \"decel\": 0.0}\n    ]\n  },\n  \"triggers\": [\n    {\n      \"type\": \"vehicle\",\n      \"actor\": {\n        \"type\": \"vehicle\",\n        \"class_name\": \"bmw_3\",\n        \"spawn_type\": \"spawn_type_on_lane\",\n        \"spawn_points\": [\n          {\"lat\": 0.5, \"lon\": 0.5, \"z\": 0.5}\n        ],\n        \"spawn_speed\": 0.0\n      },\n      \"trigger_type\": \"merge\",\n      \"merge_speed\": 5.0,\n      \"merge_points\": [\n        {\"lat\": 0.4, \"lon\": 0.4, \"z\": 0.5}\n      ],\n      \"merge_time\": 5,\n      \"distance_from_start\": 5\n    },\n    {\n      \"type\": \"vehicle\",\n      \"actor\": {\n        \"type\": \"vehicle\",\n        \"class_name\": \"toyota_camry\",\n        \"spawn_type\": \"spawn_type_on_lane\",\n        \"spawn_points\": [\n          {\"lat\": -0.5, \"lon\": 0.5, \"z\": 0.5}\n        ],\n        \"spawn_speed\": 0.0\n      },\n      \"trigger_type\": \"merge\",\n      \"merge_speed\": 5.0,\n      \"merge_points\": [\n        {\"lat\": -0.6, \"lon\": 0.5, \"z\": 0.5}\n      ],\n      \"merge_time\": 5,\n      \"distance_from_start\": 5\n    }\n  ],\n  \"reset\": {\n    \"reset_type\": \"reset_all\"\n  }\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.71,
+        "output_length": 2139
+      },
+      "finetuned_model": {
+        "scenario_id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross"
+      },
+      "base_model": {
+        "scenario_id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross",
+        "output_preview": "{\n  \"name\": \"jogger_crossing\",\n  \"description\": \"A jogger runs along the road edge then turns to cross\",\n  \"version\": 1,\n  \"actors\": [\n    {\n      \"type\": \"static\",\n      \"actor\": {\n        \"type\": \"walker\",\n        \"position\": {\n          \"x\": -30.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        }...",
+        "full_output": "{\n  \"name\": \"jogger_crossing\",\n  \"description\": \"A jogger runs along the road edge then turns to cross\",\n  \"version\": 1,\n  \"actors\": [\n    {\n      \"type\": \"static\",\n      \"actor\": {\n        \"type\": \"walker\",\n        \"position\": {\n          \"x\": -30.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        },\n        \"orientation\": {\n          \"pitch\": 0.0,\n          \"yaw\": 0.0,\n          \"roll\": 0.0\n        },\n        \"speed\": 0.0,\n        \"is_kinematic\": false\n      },\n      \"spawn_criteria\": {\n        \"time\": 0.0,\n        \"count\": 1\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"move_to\",\n      \"actor\": {\n        \"type\": \"walker\",\n        \"id\": \"jogger\"\n      },\n      \"target\": {\n        \"position\": {\n          \"x\": -20.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        },\n        \"orientation\": {\n          \"pitch\": 0.0,\n          \"yaw\": 0.0,\n          \"roll\": 0.0\n        },\n        \"speed\": 2.0\n      },\n      \"transition\": {\n        \"duration\": 10.0\n      }\n    },\n    {\n      \"type\": \"turn\",\n      \"actor\": {\n        \"type\": \"walker\",\n        \"id\": \"jogger\"\n      },\n      \"target\": {\n        \"position\": {\n          \"x\": -10.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        },\n        \"orientation\": {\n          \"pitch\": 0.0,\n          \"yaw\": 180.0,\n          \"roll\": 0.0\n        },\n        \"speed\": 0.0\n      },\n      \"transition\": {\n        \"duration\": 5.0\n      }\n    },\n    {\n      \"type\": \"move_to\",\n      \"actor\": {\n        \"type\": \"walker\",\n        \"id\": \"jogger\"\n      },\n      \"target\": {\n        \"position\": {\n          \"x\": -20.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        },\n        \"orientation\": {\n          \"pitch\": 0.0,\n          \"yaw\": 0.0,\n          \"roll\": 0.0\n        },\n        \"speed\": 2.0\n      },\n      \"transition\": {\n        \"duration\": 10.0\n      }\n    }\n  ],\n  \"spawn_criteria\": {\n    \"time\": 0.0,\n    \"count\": 1\n  },\n  \"triggers\": [\n    {\n      \"type\": \"timer\",\n      \"time\": 10.0\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 17.48,
+        "output_length": 1945
+      },
+      "finetuned_model": {
+        "scenario_id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic"
+      },
+      "base_model": {
+        "scenario_id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic",
+        "output_preview": "{\n  \"scenario\": {\n    \"name\": \"ambulance_approach\",\n    \"description\": \"An ambulance with sirens approaches from behind while you're in heavy traffic\",\n    \"description_id\": 0,\n    \"description_id_path\": \"/scenarios/descriptions/ambulance_approach.xml\",\n    \"version\": 0,\n    \"version_path\": \"/scenar...",
+        "full_output": "{\n  \"scenario\": {\n    \"name\": \"ambulance_approach\",\n    \"description\": \"An ambulance with sirens approaches from behind while you're in heavy traffic\",\n    \"description_id\": 0,\n    \"description_id_path\": \"/scenarios/descriptions/ambulance_approach.xml\",\n    \"version\": 0,\n    \"version_path\": \"/scenarios/versions/ambulance_approach.xml\",\n    \"attributes\": {\n      \"weather\": {\n        \"weather_type\": \"overcast\",\n        \"time_of_day\": \"08:00\"\n      },\n      \"traffic_volume\": \"heavy\"\n    },\n    \"actors\": [\n      {\n        \"name\": \"agent\",\n        \"type\": \"vehicle\",\n        \"class_name\": \"EgoVehicle\",\n        \"role\": \"agent\",\n        \"type_id\": 0,\n        \"spawn_criteria\": {\n          \"type\": \"fixed\",\n          \"x\": 40.0,\n          \"y\": 20.0,\n          \"z\": 0.0,\n          \"heading\": 0.0,\n          \"speed\": 0.0,\n          \"spawn_interval\": 0.0\n        },\n        \"actions\": [\n          {\n            \"type\": \"steer\",\n            \"target\": {\n              \"x\": 50.0,\n              \"y\": 30.0,\n              \"z\": 0.0\n            },\n            \"speed\": 0.0,\n            \"steering_mode\": \"manual\"\n          },\n          {\n            \"type\": \"accelerate\",\n            \"speed\": 0.0\n          },\n          {\n            \"type\": \"brake\",\n            \"speed\": 50.0\n          }\n        ]\n      },\n      {\n        \"name\": \"ambulance\",\n        \"type\": \"vehicle\",\n        \"class_name\": \"ambulance\",\n        \"role\": \"static\",\n        \"type_id\": 1,\n        \"spawn_criteria\": {\n          \"type\": \"fixed\",\n          \"x\": 60.0,\n          \"y\": 35.0,\n          \"z\": 0.0,\n          \"heading\": 0.0,\n          \"speed\": 0.0,\n          \"spawn_interval\": 5.0\n        },\n        \"actions\": []\n      }\n    ],\n    \"triggers\": [\n      {\n        \"name\": \"ambulance_approach\",\n        \"type\": \"custom\",\n        \"conditions\": [\n          {\n            \"type\": \"distance\",\n            \"target\": {\n              \"x\": 60.0,\n              \"y\": 35.0,\n              \"z\": 0.0\n            },\n            \"distance\": 10.0\n          }\n        ],\n        \"actions\": [\n          {\n            \"type\": \"play_sound\",\n            \"sound\": \"ambulance_sirens\",\n            \"volume\": 0.5\n          }\n        ]\n      }\n    ]\n  }\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.34,
+        "output_length": 2185
+      },
+      "finetuned_model": {
+        "scenario_id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane"
+      },
+      "base_model": {
+        "scenario_id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane",
+        "output_preview": "{\n  \"version\": 2.0,\n  \"name\": \"construction_zone\",\n  \"description\": \"A construction zone with a flagman directing alternating traffic through one lane\",\n  \"world_settings\": {\n    \"weather\": {\n      \"weather_type\": \"overcast\",\n      \"weather_conditions\": {\n        \"rain\": false,\n        \"fog\": false,...",
+        "full_output": "{\n  \"version\": 2.0,\n  \"name\": \"construction_zone\",\n  \"description\": \"A construction zone with a flagman directing alternating traffic through one lane\",\n  \"world_settings\": {\n    \"weather\": {\n      \"weather_type\": \"overcast\",\n      \"weather_conditions\": {\n        \"rain\": false,\n        \"fog\": false,\n        \"night\": false\n      }\n    },\n    \"time_of_day\": {\n      \"day\": true\n    }\n  },\n  \"actors\": [\n    {\n      \"type\": \"StaticMeshActor\",\n      \"actor_type\": \"cone\",\n      \"actor_name\": \"construction_cone\",\n      \"color\": {\n        \"r\": 1.0,\n        \"g\": 0.0,\n        \"b\": 0.0\n      },\n      \"actor_position\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      }\n    },\n    {\n      \"type\": \"StaticMeshActor\",\n      \"actor_type\": \"flagman\",\n      \"actor_name\": \"flagman\",\n      \"color\": {\n        \"r\": 0.0,\n        \"g\": 1.0,\n        \"b\": 0.0\n      },\n      \"actor_position\": {\n        \"x\": 0.0,\n        \"y\": 2.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"actions\": [\n        {\n          \"actor_id\": \"flagman\",\n          \"action_type\": \"turn_left\",\n          \"duration\": 10.0\n        },\n        {\n          \"actor_id\": \"flagman\",\n          \"action_type\": \"turn_right\",\n          \"duration\": 10.0\n        }\n      ],\n      \"spawn_criteria\": {\n        \"spawn_interval\": 5.0\n      }\n    }\n  ],\n  \"spawning_settings\": {\n    \"spawn_actors\": [\n      {\n        \"actor\": {\n          \"type\": \"StaticMeshActor\",\n          \"actor_type\": \"car\",\n          \"actor_name\": \"car\",\n          \"color\": {\n            \"r\": 1.0,\n            \"g\": 0.0,\n            \"b\": 0.0\n          },\n          \"actor_position\": {\n            \"x\": 10.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"rotation\": {\n            \"pitch\": 0.0,\n            \"yaw\": 0.0,\n            \"roll\": 0.0\n          }\n        },\n        \"spawn_criteria\": {\n          \"spawn_interval\": 2.0\n        }\n      }\n    ]\n  }\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.76,
+        "output_length": 2066
+      },
+      "finetuned_model": {
+        "scenario_id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic"
+      },
+      "base_model": {
+        "scenario_id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic",
+        "output_preview": "{\n  \"version\": 1,\n  \"name\": \"School Crossing\",\n  \"description\": \"A group of school children are crossing the street while their crossing guard stops traffic.\",\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"SchoolChildren\",\n      \"spawn_criteria\": {\n        \"type\": \"PointSpawner\",\n  ...",
+        "full_output": "{\n  \"version\": 1,\n  \"name\": \"School Crossing\",\n  \"description\": \"A group of school children are crossing the street while their crossing guard stops traffic.\",\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"SchoolChildren\",\n      \"spawn_criteria\": {\n        \"type\": \"PointSpawner\",\n        \"spawn_count\": 5,\n        \"spawn_interval\": 2.0,\n        \"spawn_positions\": {\n          \"x\": [10.0, 15.0, 20.0, 25.0, 30.0],\n          \"y\": [0.0, 0.0, 0.0, 0.0, 0.0],\n          \"z\": [0.0, 0.0, 0.0, 0.0, 0.0]\n        },\n        \"spawn_class\": \"WalkerPed\"\n      },\n      \"actions\": {\n        \"type\": \"Static\",\n        \"duration\": 10.0\n      }\n    },\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"CrossingGuard\",\n      \"spawn_criteria\": {\n        \"type\": \"PointSpawner\",\n        \"spawn_count\": 1,\n        \"spawn_interval\": 0.0,\n        \"spawn_positions\": {\n          \"x\": [25.0, 25.0, 25.0],\n          \"y\": [0.0, 0.0, 0.0],\n          \"z\": [0.0, 0.0, 0.0]\n        },\n        \"spawn_class\": \"WalkerPed\"\n      },\n      \"actions\": {\n        \"type\": \"Static\",\n        \"duration\": 60.0\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Light\",\n      \"name\": \"StopLight\",\n      \"spawn_criteria\": {\n        \"type\": \"PointSpawner\",\n        \"spawn_count\": 1,\n        \"spawn_interval\": 0.0,\n        \"spawn_positions\": {\n          \"x\": [30.0, 30.0, 30.0],\n          \"y\": [0.0, 0.0, 0.0],\n          \"z\": [0.0, 0.0, 0.0]\n        },\n        \"spawn_class\": \"StaticLight\"\n      },\n      \"actions\": {\n        \"type\": \"Static\",\n        \"duration\": 30.0\n      }\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"Static\",\n      \"name\": \"StopLightTrigger\",\n      \"spawn_criteria\": {\n        \"type\": \"Box\",\n        \"x\": [25.0, 25.0, 25.0],\n        \"y\": [-1.0, 1.0, -1.0],\n        \"z\": [0.0, 0.0, 0.0]\n      },\n      \"actions\": {\n        \"type\": \"StopLightAction\",\n        \"duration\": 10.0\n      }\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 18.45,
+        "output_length": 1894
+      },
+      "finetuned_model": {
+        "scenario_id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane"
+      },
+      "base_model": {
+        "scenario_id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane",
+        "output_preview": "{\n  \"name\": \"RoundaboutScenario\",\n  \"description\": \"A complex roundabout scenario with multiple vehicles entering and exiting while a cyclist navigates the outer lane\",\n  \"version\": 1,\n  \"world\": {\n    \"type\": \"SimpleWorld\",\n    \"spawn_criteria\": {\n      \"vehicle_classes\": [\n        \"pedestrian\",\n  ...",
+        "full_output": "{\n  \"name\": \"RoundaboutScenario\",\n  \"description\": \"A complex roundabout scenario with multiple vehicles entering and exiting while a cyclist navigates the outer lane\",\n  \"version\": 1,\n  \"world\": {\n    \"type\": \"SimpleWorld\",\n    \"spawn_criteria\": {\n      \"vehicle_classes\": [\n        \"pedestrian\",\n        \"car\",\n        \"bus\",\n        \"motorcycle\"\n      ],\n      \"spawn_interval\": 1.0,\n      \"spawn_min_count\": 10,\n      \"spawn_max_count\": 20,\n      \"spawn_spawn_points\": [\n        {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": -30.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 0.0\n        },\n        {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": 30.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 180.0\n        }\n      ]\n    },\n    \"road_network\": {\n      \"type\": \"DefaultRoadNetwork\"\n    },\n    \"lanes\": [\n      {\n        \"type\": \"SimpleLane\",\n        \"lane_type\": \"outer\",\n        \"lane_number\": 1,\n        \"speed_limit\": 50.0\n      }\n    ],\n    \"actors\": [\n      {\n        \"type\": \"Actor\",\n        \"type_id\": \" pedestrian\",\n        \"spawn_point\": {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 90.0\n        },\n        \"spawn_criteria\": {\n          \"spawn_interval\": 2.0,\n          \"spawn_min_count\": 1,\n          \"spawn_max_count\": 5\n        }\n      },\n      {\n        \"type\": \"Actor\",\n        \"type_id\": \"car\",\n        \"spawn_point\": {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": 20.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 0.0\n        },\n        \"spawn_criteria\": {\n          \"spawn_interval\": 1.0,\n          \"spawn_min_count\": 5,\n          \"spawn_max_count\": 10\n        }\n      },\n      {\n        \"type\": \"Actor\",\n        \"type_id\": \"bus\",\n        \"spawn_point\": {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": 40.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 180.0\n        },\n        \"spawn_criteria\": {\n          \"spawn_interval\": 2.0,\n          \"spawn_min_count\": 1,\n          \"spawn_max_count\": 3\n        }\n      },\n      {\n        \"type\": \"Actor\",\n        \"type_id\": \"motorcycle\",\n        \"spawn_point\": {\n          \"type\": \"Waypoint\",\n          \"location\": {\n            \"x\": -10.0,\n            \"y\": 0.0,\n            \"z\": 0.0\n          },\n          \"heading\": 270.0\n        },\n        \"spawn_criteria\": {\n          \"spawn_interval\": 1.5,\n          \"spawn_min_count\": 2,\n          \"spawn_max_count\": 5\n        }\n      }\n    ]\n  },\n  \"triggers\": [\n    {\n      \"type\": \"Trigger\",\n      \"condition\": \"IsActorInLane\",\n      \"lane_id\": 1,\n      \"actors\": [\n        \"pedestrian\",\n        \"car\",\n        \"bus\",\n        \"motorcycle\"\n      ]\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 21.0,
+        "output_length": 2910
+      },
+      "finetuned_model": {
+        "scenario_id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk"
+      },
+      "base_model": {
+        "scenario_id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk",
+        "output_preview": "{\n  \"name\": \"deer_on_road\",\n  \"description\": \"A deer jumps onto the road from the forest at dusk\",\n  \"weather\": {\n    \"day\": 0,\n    \"hour\": 17,\n    \"minute\": 0,\n    \"cloudiness\": 50,\n    \"rain\": false,\n    \"fog\": false,\n    \"sun_position\": {\n      \"x\": 0.5,\n      \"y\": 0.5,\n      \"z\": 0.5\n    },\n    ...",
+        "full_output": "{\n  \"name\": \"deer_on_road\",\n  \"description\": \"A deer jumps onto the road from the forest at dusk\",\n  \"weather\": {\n    \"day\": 0,\n    \"hour\": 17,\n    \"minute\": 0,\n    \"cloudiness\": 50,\n    \"rain\": false,\n    \"fog\": false,\n    \"sun_position\": {\n      \"x\": 0.5,\n      \"y\": 0.5,\n      \"z\": 0.5\n    },\n    \"light\": 1\n  },\n  \"time_of_day\": 17,\n  \"camera_settings\": {\n    \"camera_type\": \"Orthographic\",\n    \"field_of_view\": 90,\n    \"near clipping_distance\": 20,\n    \"far clipping_distance\": 100\n  },\n  \"actors\": [\n    {\n      \"type\": \"StaticActor\",\n      \"actor_type\": \"deer\",\n      \"position\": {\n        \"x\": 1.5,\n        \"y\": 0.5,\n        \"z\": 0.5\n      },\n      \"rotation\": {\n        \"pitch\": 0,\n        \"yaw\": 0,\n        \"roll\": 0\n      },\n      \"color\": [0.8, 0.6, 0.4],\n      \"speed\": 0,\n      \"spawn_radius\": 5,\n      \"spawn_min_radius\": 1,\n      \"spawn_max_radius\": 10,\n      \"spawn_min_height\": -1,\n      \"spawn_max_height\": 1\n    }\n  ],\n  \"actions\": {\n    \"steer\": {\n      \"type\": \"PointToTarget\",\n      \"target\": {\n        \"x\": 2.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"speed\": 0.1\n    }\n  },\n  \"spawn_criteria\": {\n    \"time\": 0,\n    \"wait_time\": 10,\n    \"spawn_radius\": 10,\n    \"spawn_min_distance\": 10\n  },\n  \"triggers\": [\n    {\n      \"type\": \"TriggerBox\",\n      \"position\": {\n        \"x\": 2.0,\n        \"y\": 0.0,\n        \"z\": 0.0,\n        \"radius\": 1.0\n      },\n      \"spawn\": true\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 17.39,
+        "output_length": 1412
+      },
+      "finetuned_model": {
+        "scenario_id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you"
+      },
+      "base_model": {
+        "scenario_id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you",
+        "output_preview": "{\n  \"name\": \"Police Car Pull Over\",\n  \"description\": \"A police car with flashing lights pulls over another vehicle ahead\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"weather_conditions\": \"clear\"\n  },\n  \"traffic_rules\": [],\n  \"road_network\": {\n    \"lanes\": [\n      {\n        \"lane_type\": \"ma...",
+        "full_output": "{\n  \"name\": \"Police Car Pull Over\",\n  \"description\": \"A police car with flashing lights pulls over another vehicle ahead\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"weather_conditions\": \"clear\"\n  },\n  \"traffic_rules\": [],\n  \"road_network\": {\n    \"lanes\": [\n      {\n        \"lane_type\": \"main\",\n        \"lane_width\": 3.5,\n        \"num_lanes\": 3\n      }\n    ]\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"police_car\",\n      \"position\": {\n        \"x\": -25.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 0.0\n      },\n      \"speed\": 30.0,\n      \"channel\": \"red\",\n      \"lights\": [\n        {\n          \"type\": \"light\",\n          \"color\": \"red\",\n          \"position\": {\n            \"x\": 0.5,\n            \"y\": 0.5,\n            \"z\": 0.5\n          },\n          \"state\": \"on\"\n        }\n      ],\n      \"spawn_criteria\": {\n        \"condition\": \"none\",\n        \"timeout\": 0.0\n      }\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \" Sedan\",\n      \"position\": {\n        \"x\": 10.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 0.0\n      },\n      \"speed\": 50.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"vehicle\",\n      \"actor\": \"police_car\",\n      \"action\": \"stop\",\n      \"trigger\": \"time\",\n      \"time\": 10.0\n    },\n    {\n      \"type\": \"vehicle\",\n      \"actor\": \"Sedan\",\n      \"action\": \"pull_over\",\n      \"trigger\": \"distance\",\n      \"distance\": 2.0\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"vehicle\",\n      \"actor\": \"police_car\",\n      \"condition\": \"distance\",\n      \"distance\": 10.0\n    },\n    {\n      \"type\": \"vehicle\",\n      \"actor\": \"Sedan\",\n      \"condition\": \"speed\",\n      \"speed\": 30.0\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 17.0,
+        "output_length": 1795
+      },
+      "finetuned_model": {
+        "scenario_id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot"
+      },
+      "base_model": {
+        "scenario_id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot",
+        "output_preview": "{\n  \"name\": \"ShoppingCartInStreet\",\n  \"description\": \"A shopping cart rolls into the street from a parking lot.\",\n  \"world_info\": {\n    \"weather\": {\n      \"weather_conditions\": \"overcast\"\n    },\n    \"time_of_day\": \"day\"\n  },\n  \"actors\": [\n    {\n      \"type\": \"static\",\n      \"actor\": {\n        \"type\"...",
+        "full_output": "{\n  \"name\": \"ShoppingCartInStreet\",\n  \"description\": \"A shopping cart rolls into the street from a parking lot.\",\n  \"world_info\": {\n    \"weather\": {\n      \"weather_conditions\": \"overcast\"\n    },\n    \"time_of_day\": \"day\"\n  },\n  \"actors\": [\n    {\n      \"type\": \"static\",\n      \"actor\": {\n        \"type\": \"shopping_cart\",\n        \"position\": {\n          \"x\": 100.0,\n          \"y\": 50.0,\n          \"z\": 0.0\n        },\n        \"rotation\": {\n          \"x\": 0.0,\n          \"y\": 0.0,\n          \"z\": 0.0\n        },\n        \"scale\": {\n          \"x\": 1.0,\n          \"y\": 1.0,\n          \"z\": 1.0\n        },\n        \"color\": {\n          \"r\": 0.1,\n          \"g\": 0.5,\n          \"b\": 0.2\n        }\n      },\n      \"spawn_criteria\": {\n        \"spawn_type\": \"static\",\n        \"spawn_condition\": \"always\"\n      }\n    }\n  ],\n  \"actions\": [],\n  \"triggers\": [\n    {\n      \"name\": \"spawn_cart\",\n      \"condition\": \"time > 0.0\"\n    }\n  ],\n  \"spawn_conditions\": [\n    {\n      \"spawn_type\": \"spawners\",\n      \"spawn_criteria\": {\n        \"spawn_condition\": \"always\"\n      },\n      \"spawn_area\": {\n        \"x\": 50.0,\n        \"y\": 100.0,\n        \"z\": 0.0,\n        \"radius\": 10.0\n      }\n    }\n  ],\n  \"spawn_places\": [\n    {\n      \"name\": \"parking_lot\",\n      \"position\": {\n        \"x\": 100.0,\n        \"y\": 50.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"scale\": {\n        \"x\": 1.0,\n        \"y\": 1.0,\n        \"z\": 1.0\n      }\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 15.48,
+        "output_length": 1480
+      },
+      "finetuned_model": {
+        "scenario_id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily"
+      },
+      "base_model": {
+        "scenario_id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily",
+        "output_preview": "{\n  \"name\": \"Black Ice and Snowy Conditions\",\n  \"description\": \"A vehicle is driving on a road with black ice, causing it to skid sideways while it's snowing heavily.\",\n  \"weather\": {\n    \"time_of_day\": 0,\n    \"weather_conditions\": \"rain\",\n    \"wind\": {\n      \"speed\": 0.0,\n      \"direction\": 0.0\n   ...",
+        "full_output": "{\n  \"name\": \"Black Ice and Snowy Conditions\",\n  \"description\": \"A vehicle is driving on a road with black ice, causing it to skid sideways while it's snowing heavily.\",\n  \"weather\": {\n    \"time_of_day\": 0,\n    \"weather_conditions\": \"rain\",\n    \"wind\": {\n      \"speed\": 0.0,\n      \"direction\": 0.0\n    },\n    \"rain_intensity\": 0.1,\n    \"snow_intensity\": 0.8,\n    \"fog\": false\n  },\n  \"road_conditions\": {\n    \"road_type\": \"dirt\",\n    \"surface_type\": \"asphalt\",\n    \"ice\": {\n      \"amount\": 0.5,\n      \"location\": {\n        \"x\": -30.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"orientation\": \"horizontal\",\n      \"duration\": 10\n    },\n    \"rain\": {\n      \"amount\": 0.2,\n      \"location\": {\n        \"x\": -30.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"duration\": 10\n    },\n    \"snow\": {\n      \"amount\": 0.8,\n      \"location\": {\n        \"x\": -30.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"duration\": 10\n    }\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class_name\": \"default\",\n      \"attributes\": {\n        \"vehicle_type\": \"car\",\n        \"color\": \"white\",\n        \"speed\": 30.0,\n        \"direction\": 270.0\n      },\n      \"position\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"kinematics\": {\n        \"steering_angle\": 0.0,\n        \"acceleration\": 0.0,\n        \"braking\": 0.0,\n        \"max_speed\": 50.0\n      },\n      \"damage\": {\n        \"damage_type\": \"skin\",\n        \"damage_amount\": 0.0\n      },\n      \"triggers\": [\n        {\n          \"event\": \"on_start\",\n          \"condition\": \"vehicle.is_alive\"\n        },\n        {\n          \"event\": \"on_step\",\n          \"condition\": \"vehicle.speed > 20.0\"\n        }\n      ]\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"spawn_vehicle\",\n      \"attributes\": {\n        \"vehicle_type\": \"car\"\n      },\n      \"position\": {\n        \"x\": -40.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"rotation\": {\n        \"pitch\": 0.0,\n        \"yaw\": 0.0,\n        \"roll\": 0.0\n      },\n      \"spawn_type\": \"spawn_at_start\"\n    }\n  ],\n  \"triggers\": [\n    {\n      \"event\": \"on_start\",\n      \"condition\": \"weather.snow_intensity > 0.5\"\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.01,
+        "output_length": 2228
+      },
+      "finetuned_model": {
+        "scenario_id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve"
+      },
+      "base_model": {
+        "scenario_id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve",
+        "output_preview": "{\n  \"name\": \"DroneCollision\",\n  \"description\": \"A drone flies low across the road, causing the driver ahead to swerve.\",\n  \"world_type\": \"town\",\n  \"weather\": {\n    \"weather_type\": \"overcast\",\n    \"rain\": false,\n    \"snow\": false\n  },\n  \"time_of_day\": 0,\n  \"lighting\": {\n    \"day\": true\n  },\n  \"actors...",
+        "full_output": "{\n  \"name\": \"DroneCollision\",\n  \"description\": \"A drone flies low across the road, causing the driver ahead to swerve.\",\n  \"world_type\": \"town\",\n  \"weather\": {\n    \"weather_type\": \"overcast\",\n    \"rain\": false,\n    \"snow\": false\n  },\n  \"time_of_day\": 0,\n  \"lighting\": {\n    \"day\": true\n  },\n  \"actors\": [\n    {\n      \"type\": \"actor\",\n      \"actor_type\": \"vehicle\",\n      \"attributes\": {\n        \"class\": \"sedan\"\n      },\n      \"spawn\": {\n        \"location\": {\n          \"x\": 50.0,\n          \"y\": 0.0,\n          \"z\": 0.0,\n          \"pitch\": 0.0,\n          \"roll\": 0.0,\n          \"yaw\": 0.0\n        },\n        \"rotation\": {\n          \"pitch\": 0.0,\n          \"roll\": 0.0,\n          \"yaw\": 0.0\n        },\n        \"spawn_point\": \"spawn_points/center\"\n      },\n      \"spawn_point\": \"spawn_points/center\"\n    },\n    {\n      \"type\": \"actor\",\n      \"actor_type\": \"vehicle\",\n      \"attributes\": {\n        \"class\": \"drone\"\n      },\n      \"spawn\": {\n        \"location\": {\n          \"x\": 60.0,\n          \"y\": 0.5,\n          \"z\": 0.0,\n          \"pitch\": 0.0,\n          \"roll\": 0.0,\n          \"yaw\": 45.0\n        },\n        \"rotation\": {\n          \"pitch\": 0.0,\n          \"roll\": 0.0,\n          \"yaw\": 45.0\n        },\n        \"spawn_point\": \"spawn_points/drone\"\n      },\n      \"spawn_point\": \"spawn_points/drone\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor\": 1,\n      \"action_type\": \"move\",\n      \"destination\": {\n        \"x\": 70.0,\n        \"y\": 0.5,\n        \"z\": 0.0\n      },\n      \"speed\": 5.0\n    },\n    {\n      \"actor\": 0,\n      \"action_type\": \"steer\",\n      \"angle\": 30.0\n    }\n  ],\n  \"spawn_criteria\": {\n    \"spawn_interval\": 10.0,\n    \"spawn_count\": 1\n  },\n  \"triggers\": [\n    {\n      \"actor\": 0,\n      \"condition\": \"is_on_collision\",\n      \"threshold\": 1.0\n    },\n    {\n      \"actor\": 1,\n      \"condition\": \"is_above_road\",\n      \"threshold\": 0.5\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 19.47,
+        "output_length": 1852
+      },
+      "finetuned_model": {
+        "scenario_id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars"
+      },
+      "base_model": {
+        "scenario_id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars",
+        "output_preview": "{\n  \"name\": \"rush_hour\",\n  \"description\": \"A bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars\",\n  \"description_text\": \"Bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars\",\n  \"world_type\": ...",
+        "full_output": "{\n  \"name\": \"rush_hour\",\n  \"description\": \"A bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars\",\n  \"description_text\": \"Bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars\",\n  \"world_type\": \"city\",\n  \"weather\": {\n    \"weather_conditions\": \"day\",\n    \"sun_altitude\": 0.0,\n    \"fog\": false,\n    \"fog_density\": 0.0,\n    \"weather_intensity\": 0.0\n  },\n  \"time_of_day\": {\n    \"day_of_week\": 1,\n    \"hour\": 8,\n    \"minute\": 0\n  },\n  \"actor_settings\": [\n    {\n      \"actor\": \"bus\",\n      \"spawn_type\": \"static\",\n      \"spawn_location\": {\n        \"x\": 30.0,\n        \"y\": 20.0,\n        \"z\": 0.0\n      },\n      \"spawn_rotation\": {\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 0.0\n      },\n      \"speed\": 10.0,\n      \"direction\": 270.0\n    },\n    {\n      \"actor\": \"cyclist\",\n      \"spawn_type\": \"dynamic\",\n      \"spawn_location\": {\n        \"x\": 45.0,\n        \"y\": 30.0,\n        \"z\": 0.0\n      },\n      \"spawn_rotation\": {\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 90.0\n      },\n      \"speed\": 15.0,\n      \"direction\": 0.0\n    },\n    {\n      \"actor\": \"pedestrian\",\n      \"spawn_type\": \"dynamic\",\n      \"spawn_location\": {\n        \"x\": 55.0,\n        \"y\": 25.0,\n        \"z\": 0.0\n      },\n      \"spawn_rotation\": {\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 180.0\n      },\n      \"speed\": 5.0,\n      \"direction\": 90.0\n    }\n  ],\n  \"action_settings\": [\n    {\n      \"action\": \"bus_stop\",\n      \"start_time\": 10.0\n    }\n  ],\n  \"spawn_criteria\": [\n    {\n      \"actor\": \"bus\",\n      \"spawn_location\": {\n        \"x\": 30.0,\n        \"y\": 20.0,\n        \"z\": 0.0\n      }\n    },\n    {\n      \"actor\": \"cyclist\",\n      \"spawn_location\": {\n        \"x\": 45.0,\n        \"y\": 30.0,\n        \"z\": 0.0\n      }\n    },\n    {\n      \"actor\": \"pedestrian\",\n      \"spawn_location\": {\n        \"x\": 55.0,\n        \"y\": 25.0,\n        \"z\": 0.0\n      }\n    }\n  ],\n  \"triggers\": [\n    {\n      \"actor\": \"bus\",\n      \"event\": \"stop\",\n      \"location\": {\n        \"x\": 30.0,\n        \"y\": 20.0,\n        \"z\": 0.0\n      },\n      \"time\": 10.0\n    },\n    {\n      \"actor\": \"cyclist\",\n      \"event\": \"move\",\n      \"location\": {\n        \"x\": 45.0,\n        \"y\": 30.0,\n        \"z\": 0.0\n      },\n      \"time\": 15.0\n    },\n    {\n      \"actor\": \"pedestrian\",\n      \"event\": \"move\",\n      \"location\": {\n        \"x\": 55.0,\n        \"y\": 25.0,\n        \"z\": 0.0\n      },\n      \"time\": 20.0\n    }\n  ]\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 20.06,
+        "output_length": 2482
+      },
+      "finetuned_model": {
+        "scenario_id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph"
+      },
+      "base_model": {
+        "scenario_id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph",
+        "output_preview": "{\n  \"name\": \"MattressFall\",\n  \"description\": \"A mattress falls off a truck on the highway at 65 mph\",\n  \"mode\": \"static\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 0\n  },\n  \"traffic_rules\": [\n    {\n      \"name\": \"highway_traffic\",\n      \"spawn_criteria\": {\n        \"type\": \"static\",\n        \"spawn_...",
+        "full_output": "{\n  \"name\": \"MattressFall\",\n  \"description\": \"A mattress falls off a truck on the highway at 65 mph\",\n  \"mode\": \"static\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 0\n  },\n  \"traffic_rules\": [\n    {\n      \"name\": \"highway_traffic\",\n      \"spawn_criteria\": {\n        \"type\": \"static\",\n        \"spawn_mode\": \"spawn_multiple\",\n        \"count\": 1,\n        \"actor\": {\n          \"type\": \"vehicle\",\n          \"class_name\": \"truck\",\n          \"attributes\": {\n            \"speed\": 65,\n            \"position\": {\n              \"x\": 100,\n              \"y\": 0,\n              \"z\": 5,\n              \"rotation_x\": 0,\n              \"rotation_y\": 0,\n              \"rotation_z\": 0\n            },\n            \"direction\": {\n              \"x\": 1,\n              \"y\": 0,\n              \"z\": 0\n            }\n          }\n        }\n      },\n      \"spawn_trigger\": {\n        \"type\": \"event\",\n        \"event\": \"truck_arrive_at_destination\"\n      }\n    }\n  ],\n  \"action\": {\n    \"type\": \"static\",\n    \"actor\": {\n      \"type\": \"vehicle\",\n      \"class_name\": \"vehicle',\n      \"attributes\": {\n        \"type\": \"mattress\",\n        \"speed\": 0,\n        \"position\": {\n          \"x\": 100,\n          \"y\": 0,\n          \"z\": 5,\n          \"rotation_x\": 0,\n          \"rotation_y\": 0,\n          \"rotation_z\": 0\n        },\n        \"direction\": {\n          \"x\": 1,\n          \"y\": 0,\n          \"z\": 0\n        }\n      }\n    },\n    \"action_time\": 10\n  },\n  \"trigger\": {\n    \"type\": \"event\",\n    \"event\": \"truck_leave_destination\"\n  },\n  \"spawn_criteria\": {\n    \"type\": \"static\",\n    \"spawn_mode\": \"spawn_multiple\",\n    \"count\": 1\n  }\n}",
+        "json_valid": false,
+        "error": "Invalid control character at: line 47 column 31 (char 1037)",
+        "generation_time": 12.12,
+        "output_length": 1585
+      },
+      "finetuned_model": {
+        "scenario_id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "'CarlaScenarioGenerator' object has no attribute 'generate'",
+        "generation_time": 0,
+        "output_length": 0
+      }
+    }
+  ]
+}

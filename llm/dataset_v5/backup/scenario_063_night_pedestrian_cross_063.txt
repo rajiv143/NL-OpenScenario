@@ -1,0 +1,1 @@
+For testing pedestrian detection at dusk, create a scenario where a pedestrian starts crossing then stops when I approach. Place them about 30 meters ahead.

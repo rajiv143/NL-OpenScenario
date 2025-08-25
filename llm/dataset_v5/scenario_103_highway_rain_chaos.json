@@ -1,0 +1,162 @@
+{
+  "scenario_name": "highway_rain_chaos_103",
+  "description": "Multi-vehicle highway scenario in heavy rain with emergency braking cascade",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 80,
+        "max": 110
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "lead_sedan",
+      "type": "vehicle",
+      "model": "vehicle.citroen.c3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "200,200,0"
+    },
+    {
+      "id": "middle_van",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "tailgater",
+      "type": "vehicle",
+      "model": "vehicle.nissan.micra",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "50,50,200"
+    },
+    {
+      "id": "parallel_truck",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "left",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "middle_van",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "lead_sedan",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "tailgater",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 22.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "parallel_truck",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "tailgater",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "lead_sedan",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 4.5,
+      "target_lane": 1
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 85,
+  "collision_allowed": false
+}

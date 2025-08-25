@@ -1,0 +1,132 @@
+{
+  "scenario_name": "intersection_multi_actor_282",
+  "description": "Complex intersection scenario with four actors including pedestrian",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "cross_traffic",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      },
+      "color": "200,0,0"
+    },
+    {
+      "id": "pedestrian_crossing",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0025",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "lateral_offset": 3.0
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "turning_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
+          "relative_position": "left",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      },
+      "color": "255,200,0"
+    },
+    {
+      "id": "following_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian_crossing",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cross_traffic",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "turning_vehicle",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "following_vehicle",
+      "action_type": "brake",
+      "trigger_type": "ego_speed",
+      "trigger_value": 5.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 70,
+  "collision_allowed": false
+}

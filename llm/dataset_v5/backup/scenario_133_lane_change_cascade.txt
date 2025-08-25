@@ -1,0 +1,1 @@
+Set up a cascading lane change scenario at sunset where three vehicles in the adjacent lane sequentially merge into my lane, each reacting to the one ahead, creating a domino effect that tests prediction of multiple interdependent vehicle behaviors.

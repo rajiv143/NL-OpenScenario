@@ -1,0 +1,101 @@
+{
+  "scenario_name": "coordinated_lane_swap_275",
+  "description": "Two vehicles swap lanes in coordinated maneuver",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 21,
+  "actors": [
+    {
+      "id": "left_swapper",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "lane_offset": -1,
+          "road_context": "highway"
+        }
+      },
+      "color": "0,0,255"
+    },
+    {
+      "id": "right_swapper",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "lane_offset": 1,
+          "road_context": "highway"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "left_swapper",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 19.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "right_swapper",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "left_swapper",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "right_swapper",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 130,
+  "timeout": 65,
+  "collision_allowed": false
+}

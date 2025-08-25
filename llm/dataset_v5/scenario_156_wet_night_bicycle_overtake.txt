@@ -1,0 +1,1 @@
+For certification testing, create a scenario with multiple bicycles sharing the lane at night on wet roads, requiring careful overtaking with oncoming traffic and an impatient motorcycle behind. Test the system's ability to maintain safe passing distances from vulnerable road users in poor visibility and reduced traction conditions.

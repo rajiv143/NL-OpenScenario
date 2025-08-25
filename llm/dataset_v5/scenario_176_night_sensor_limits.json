@@ -1,0 +1,179 @@
+{
+  "scenario_name": "night_sensor_limits_176",
+  "description": "Night scenario pushing all sensor modalities to their limits",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.dodge.charger_police",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "suburban",
+      "speed_limit": {
+        "min": 60,
+        "max": 80
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "unlit_bicycle",
+      "type": "bicycle",
+      "model": "vehicle.gazelle.omafiets",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.8
+        }
+      },
+      "color": "20,20,20"
+    },
+    {
+      "id": "oncoming_highbeams",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "dark_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0047",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "wet_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "50,50,50"
+    },
+    {
+      "id": "stopped_dark_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.isetta",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "road_context": "suburban",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "10,10,10"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "unlit_bicycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "oncoming_highbeams",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "dark_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "wet_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 25.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 80.0
+    },
+    {
+      "actor_id": "wet_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "stopped_dark_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 160,
+  "timeout": 100,
+  "collision_allowed": false
+}

@@ -1,0 +1,77 @@
+{
+  "scenario_name": "intersection_unprotected_left_turn_203",
+  "description": "Vehicle makes unprotected left turn at busy intersection",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "left_turning_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "is_intersection": true
+        }
+      }
+    },
+    {
+      "id": "oncoming_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane",
+          "is_intersection": true
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "left_turning_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "oncoming_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 50,
+  "collision_allowed": false
+}

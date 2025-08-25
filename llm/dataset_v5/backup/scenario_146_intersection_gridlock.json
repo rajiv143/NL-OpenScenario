@@ -1,0 +1,153 @@
+{
+  "scenario_name": "intersection_gridlock_146",
+  "description": "Gridlocked intersection with vehicles blocking the box",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "is_intersection": true,
+      "speed_limit": {"min": 30, "max": 45}
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "box_blocker1",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "150,150,150"
+    },
+    {
+      "id": "box_blocker2",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "200,0,0"
+    },
+    {
+      "id": "trapped_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.citroen.c3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "left",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "100,200,255"
+    },
+    {
+      "id": "impatient_honker",
+      "type": "vehicle",
+      "model": "vehicle.seat.leon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "box_blocker1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "box_blocker1",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 2.5
+    },
+    {
+      "actor_id": "box_blocker2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "box_blocker2",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.0
+    },
+    {
+      "actor_id": "trapped_vehicle",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "wait_duration": 3.0
+    },
+    {
+      "actor_id": "impatient_honker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 11.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "impatient_honker",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 8.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.8
+    },
+    {
+      "actor_id": "box_blocker1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.5
+    }
+  ],
+  "success_distance": 85,
+  "timeout": 75,
+  "collision_allowed": false
+}

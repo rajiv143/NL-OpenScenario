@@ -1,0 +1,59 @@
+{
+  "scenario_name": "night_cutin_maneuver_254",
+  "description": "Vehicle performs cut-in maneuver at night with reduced visibility",
+  "weather": "clear_night",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "night_cutter",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "255,255,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "night_cutter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "night_cutter",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 130,
+  "timeout": 65,
+  "collision_allowed": false
+}

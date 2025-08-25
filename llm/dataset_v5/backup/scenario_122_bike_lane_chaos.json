@@ -1,0 +1,139 @@
+{
+  "scenario_name": "bike_lane_chaos_122",
+  "description": "Urban scenario with bike lane interactions and door zones",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.nissan.micra",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {"min": 30, "max": 40},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "parked_car1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "150,150,150"
+    },
+    {
+      "id": "overtaking_cyclist",
+      "type": "vehicle",
+      "model": "vehicle.seat.leon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "door_opener",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0041",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "lateral_offset": 1.0
+        }
+      }
+    },
+    {
+      "id": "oncoming_delivery",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 55, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "255,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "parked_car1",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 0.5
+    },
+    {
+      "actor_id": "overtaking_cyclist",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "door_opener",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "overtaking_cyclist",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "oncoming_delivery",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "oncoming_delivery",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.5
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 65,
+  "collision_allowed": false
+}

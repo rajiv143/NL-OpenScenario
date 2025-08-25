@@ -1,0 +1,141 @@
+{
+  "scenario_name": "emergency_lane_clear_138",
+  "description": "Multiple vehicles clearing lane for emergency vehicle",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.toyota.prius",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 23,
+  "actors": [
+    {
+      "id": "emergency_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 120,
+            "max": 140
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "clearing_car1",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,200"
+    },
+    {
+      "id": "clearing_car2",
+      "type": "vehicle",
+      "model": "vehicle.citroen.c3",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "200,200,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "emergency_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 35.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "clearing_car1",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "clearing_car2",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "clearing_car1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "clearing_car2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 17.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "emergency_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.5,
+      "target_lane": 1
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 80,
+  "collision_allowed": false
+}

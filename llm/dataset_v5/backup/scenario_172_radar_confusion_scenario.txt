@@ -1,0 +1,1 @@
+Design a radar-challenging scenario in heavy rain with multiple metallic surfaces creating reflections - an aluminum truck ahead, metal motorcycle alongside, large bus creating multipath, a small bicycle with minimal radar signature, and a pedestrian with metallic umbrella. Test radar discrimination and tracking in cluttered electromagnetic environment.

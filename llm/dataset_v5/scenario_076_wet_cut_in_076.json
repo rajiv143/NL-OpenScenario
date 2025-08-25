@@ -1,0 +1,58 @@
+{
+  "scenario_name": "wet_cut_in_076",
+  "description": "Vehicle cuts in on wet road",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "cutting_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.mustang",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,150,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cutting_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 14.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cutting_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

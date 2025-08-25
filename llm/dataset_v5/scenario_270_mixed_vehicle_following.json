@@ -1,0 +1,82 @@
+{
+  "scenario_name": "mixed_vehicle_following_270",
+  "description": "Following different vehicle types in sequence with varied behaviors",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.ford.mustang",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 16,
+  "actors": [
+    {
+      "id": "immediate_leader",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 20, "max": 28},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "suburban"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "far_leader",
+      "type": "motorcycle",
+      "model": "vehicle.vespa.zx125",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 60},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "suburban"
+        }
+      },
+      "color": "100,255,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "far_leader",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "immediate_leader",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "brake_force": 0.45,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "far_leader",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 6.0,
+      "speed_value": 14.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

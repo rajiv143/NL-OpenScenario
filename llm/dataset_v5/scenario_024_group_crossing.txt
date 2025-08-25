@@ -1,0 +1,1 @@
+Group of friends/family crossing together but not in sync - one starts walking, another follows a moment later. Like tourists or a family with kids. Cloudy day, multiple tracking targets. Tests multi-pedestrian tracking.

@@ -1,0 +1,90 @@
+{
+  "scenario_name": "residential_garbage_day_313",
+  "description": "Garbage truck making frequent stops on narrow residential street",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 25, "max": 35}
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "garbage_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      },
+      "color": "0,128,0"
+    },
+    {
+      "id": "worker_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "right",
+          "lateral_offset": 2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "garbage_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "garbage_truck",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "worker_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "garbage_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 8.0,
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 70,
+  "collision_allowed": false
+}

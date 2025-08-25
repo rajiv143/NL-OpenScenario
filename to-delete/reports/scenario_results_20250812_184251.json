@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "total_scenarios": 3,
+    "execution_time": 5.1849892139434814,
+    "success_rate": 0.0
+  },
+  "results": [
+    {
+      "scenario": "emergency_331",
+      "status": "ERROR",
+      "execution_time": 0,
+      "error": "[Errno 2] No such file or directory: '../scenario_runner': '../scenario_runner'"
+    },
+    {
+      "scenario": "emergency_332",
+      "status": "ERROR",
+      "execution_time": 0,
+      "error": "[Errno 2] No such file or directory: '../scenario_runner': '../scenario_runner'"
+    },
+    {
+      "scenario": "emergency_333",
+      "status": "ERROR",
+      "execution_time": 0,
+      "error": "[Errno 2] No such file or directory: '../scenario_runner': '../scenario_runner'"
+    }
+  ]
+}

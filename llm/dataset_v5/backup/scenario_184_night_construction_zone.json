@@ -1,0 +1,148 @@
+{
+  "scenario_name": "night_construction_zone_184",
+  "description": "Night construction with temporary lighting and moving equipment",
+  "weather": "night",
+  "ego_vehicle_model": "vehicle.suzuki.carlacola",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "speed_limit": {"min": 30, "max": 50},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "light_tower_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "night_worker_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0043",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "night_worker_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0040",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 55, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.5
+        }
+      }
+    },
+    {
+      "id": "construction_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 80, "max": 100},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "pilot_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 60, "max": 75},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,150,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "light_tower_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "night_worker_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "night_worker_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "construction_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "pilot_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 100,
+  "collision_allowed": false
+}

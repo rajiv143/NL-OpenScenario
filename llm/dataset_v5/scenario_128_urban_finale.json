@@ -1,0 +1,175 @@
+{
+  "scenario_name": "urban_finale_128",
+  "description": "Complex urban finale with all elements combined",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.nissan.micra",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {
+        "min": 30,
+        "max": 45
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 11,
+  "actors": [
+    {
+      "id": "bus_ahead",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,200,0"
+    },
+    {
+      "id": "taxi_swerve",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "pedestrian_rush1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0034",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "right",
+          "lateral_offset": 2.0
+        }
+      }
+    },
+    {
+      "id": "pedestrian_rush2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0035",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "left",
+          "lateral_offset": -2.5
+        }
+      }
+    },
+    {
+      "id": "delivery_stop",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 55,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "150,100,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "bus_ahead",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.0
+    },
+    {
+      "actor_id": "delivery_stop",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 1.5
+    },
+    {
+      "actor_id": "taxi_swerve",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "pedestrian_rush1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "taxi_swerve",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "pedestrian_rush2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "bus_ahead",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.5
+    }
+  ],
+  "success_distance": 110,
+  "timeout": 75,
+  "collision_allowed": false
+}

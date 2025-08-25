@@ -1,0 +1,61 @@
+{
+  "scenario_name": "dense_traffic_cutin_260",
+  "description": "Vehicle performs tight cut-in maneuver in dense highway traffic",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "dense_traffic_cutter",
+      "type": "vehicle",
+      "model": "vehicle.nissan.micra",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "200,100,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "dense_traffic_cutter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 19.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "dense_traffic_cutter",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 18.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 12.0,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Create a complex 4-way intersection scenario where multiple vehicles approach from different directions, one vehicle is turning left across my path, and a pedestrian is crossing, requiring careful timing and right-of-way negotiation.

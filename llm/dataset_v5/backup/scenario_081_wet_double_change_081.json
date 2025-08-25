@@ -1,0 +1,56 @@
+{
+  "scenario_name": "wet_double_change_081",
+  "description": "Double lane change on wet road",
+  "weather": "wet",
+  "ego_vehicle_model": "vehicle.ford.mustang",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 14,
+  "actors": [
+    {
+      "id": "double_changer",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 55, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,200,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "double_changer",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "double_changer",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "lane_direction": "left",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 70,
+  "collision_allowed": false
+}

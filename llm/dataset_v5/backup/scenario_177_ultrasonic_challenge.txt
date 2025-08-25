@@ -1,0 +1,1 @@
+Test close-proximity ultrasonic sensors with parallel parking vehicle inches away, tailgating car behind, cyclist passing closely on the side, oncoming truck creating tight squeeze, and pedestrian near the curb. Evaluate parking sensors and close-range object detection in light rain affecting ultrasonic propagation.

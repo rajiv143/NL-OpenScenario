@@ -1,0 +1,1 @@
+Create a scenario where three vehicles in the adjacent lane perform synchronized sequential merges while a vehicle behind me attempts to fill the gaps, testing the autonomous system's ability to handle coordinated multi-vehicle movements on wet roads.

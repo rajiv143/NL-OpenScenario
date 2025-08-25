@@ -1,0 +1,105 @@
+============================================================
+SPAWN POINT AVAILABILITY ANALYSIS REPORT
+============================================================
+
+📊 OVERVIEW:
+  Maps analyzed: 5
+  Total spawn points: 42,586
+  Critical issues found: 1803
+
+🗺️  MAP ANALYSIS:
+----------------------------------------
+
+TOWN02:
+  Spawn points: 1,562
+  Roads: 69
+  Lane types: {'Driving': 1505, 'Sidewalk': 53, 'Shoulder': 4}
+  ⚠️  Critical issues:
+    • Road 447: No adjacent lanes available for lane_change scenarios
+    • Road 447: Limited same-direction lane options
+    • Road 437: No adjacent lanes available for lane_change scenarios
+    • Road 437: Limited same-direction lane options
+    • Road 433: No adjacent lanes available for lane_change scenarios
+    • ... and 132 more
+
+TOWN04:
+  Spawn points: 17,289
+  Roads: 246
+  Lane types: {'Driving': 16919, 'Shoulder': 343, 'Sidewalk': 27}
+  ⚠️  Critical issues:
+    • Road 1602: Limited same-direction lane options
+    • Road 1595: No adjacent lanes available for lane_change scenarios
+    • Road 1595: Limited same-direction lane options
+    • Road 1594: No adjacent lanes available for lane_change scenarios
+    • Road 1594: Limited same-direction lane options
+    • ... and 431 more
+
+TOWN05:
+  Spawn points: 12,738
+  Roads: 296
+  Lane types: {'Driving': 12224, 'Sidewalk': 357, 'Shoulder': 145, 'Parking': 12}
+  ⚠️  Critical issues:
+    • Road 2358: No adjacent lanes available for lane_change scenarios
+    • Road 2358: Limited same-direction lane options
+    • Road 2324: No adjacent lanes available for lane_change scenarios
+    • Road 2324: Limited same-direction lane options
+    • Road 2307: Limited same-direction lane options
+    • ... and 479 more
+
+TOWN01:
+  Spawn points: 3,309
+  Roads: 102
+  Lane types: {'Driving': 3266, 'Sidewalk': 43}
+  ⚠️  Critical issues:
+    • Road 355: No adjacent lanes available for lane_change scenarios
+    • Road 355: Limited same-direction lane options
+    • Road 354: No adjacent lanes available for lane_change scenarios
+    • Road 354: Limited same-direction lane options
+    • Road 341: No adjacent lanes available for lane_change scenarios
+    • ... and 200 more
+
+TOWN03:
+  Spawn points: 7,688
+  Roads: 273
+  Lane types: {'Driving': 7092, 'Sidewalk': 161, 'Shoulder': 281, 'Parking': 64, 'Bidirectional': 81, 'Median': 9}
+  ⚠️  Critical issues:
+    • Road 1959: Lane -3 has very few spawn points (2)
+    • Road 1959: Limited same-direction lane options
+    • Road 1933: No adjacent lanes available for lane_change scenarios
+    • Road 1933: Limited same-direction lane options
+    • Road 1930: No adjacent lanes available for lane_change scenarios
+    • ... and 536 more
+
+🎯 SCENARIO CONSTRAINT DIAGNOSIS:
+----------------------------------------
+
+FOLLOWING scenarios:
+  Success probability: 100.0%
+  Constraints: {'road_relationship': 'same_road', 'lane_relationship': 'same_lane'}
+
+CUT_IN scenarios:
+  Success probability: 80.0%
+  Constraints: {'road_relationship': 'same_road', 'lane_relationship': 'adjacent_lane'}
+  Failing on: Town01
+  Common failures:
+    • No adjacent lanes available for adjacent_lane constraint
+
+INTERSECTION scenarios:
+  Success probability: 100.0%
+  Constraints: {'road_relationship': 'different_road', 'is_intersection': True}
+
+💡 RECOMMENDATIONS:
+----------------------------------------
+1. Increase spawn point density on driving lanes in Town03
+2. Add adjacent lane spawn points in Town04 for lane_change scenarios
+3. Increase spawn point density on driving lanes in Town04
+4. Add more spawn points to lanes in Town03 for same_lane scenarios
+5. Add more spawn points to lanes in Town01 for same_lane scenarios
+6. Add adjacent lane spawn points in Town01 for lane_change scenarios
+7. Add more spawn points to lanes in Town02 for same_lane scenarios
+8. Add more spawn points to lanes in Town05 for same_lane scenarios
+9. Increase spawn point density on driving lanes in Town05
+10. Add adjacent lane spawn points in Town05 for lane_change scenarios
+11. Add adjacent lane spawn points in Town02 for lane_change scenarios
+12. Add more spawn points to lanes in Town04 for same_lane scenarios
+13. Add adjacent lane spawn points in Town03 for lane_change scenarios

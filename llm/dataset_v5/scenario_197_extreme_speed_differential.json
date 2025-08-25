@@ -1,0 +1,152 @@
+{
+  "scenario_name": "extreme_speed_differential_197",
+  "description": "Extreme speed differences between vehicles creating dangerous situations",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.tesla.cybertruck",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 120,
+        "max": 150
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 25,
+  "actors": [
+    {
+      "id": "crawling_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.isetta",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 150,
+            "max": 180
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "hyperspeed_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 200,
+            "max": 250
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "medium_speed_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "150,150,150"
+    },
+    {
+      "id": "racing_sports_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 180,
+            "max": 220
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crawling_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "hyperspeed_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 35.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 150.0
+    },
+    {
+      "actor_id": "hyperspeed_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 70.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.2,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "medium_speed_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "racing_sports_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 34.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 130.0
+    }
+  ],
+  "success_distance": 250,
+  "timeout": 120,
+  "collision_allowed": false
+}

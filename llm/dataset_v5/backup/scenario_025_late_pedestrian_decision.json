@@ -1,0 +1,45 @@
+{
+  "scenario_name": "late_crossing_decision",
+  "description": "Pedestrian decides to cross late",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "late_decider",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0040",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 15, "max": 20},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.5
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "late_decider",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 10,
+      "trigger_comparison": "<",
+      "speed_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    }
+  ],
+  "success_distance": 50,
+  "timeout": 40,
+  "collision_allowed": false
+}

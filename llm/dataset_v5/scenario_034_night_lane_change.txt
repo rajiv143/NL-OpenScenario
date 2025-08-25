@@ -1,0 +1,1 @@
+Night highway navigation - car ahead taps brakes (checking GPS?), then realizes they need my lane for upcoming exit. Moves over deliberately but with reduced night visibility. Headlights and taillights are main visual cues.

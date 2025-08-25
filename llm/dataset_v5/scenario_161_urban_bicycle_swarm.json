@@ -1,0 +1,182 @@
+{
+  "scenario_name": "urban_bicycle_swarm_161",
+  "description": "Urban environment with multiple bicycles and e-scooters creating complex navigation challenge",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.ford.ambulance",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {
+        "min": 30,
+        "max": 50
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "lead_cyclist",
+      "type": "bicycle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.5
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "side_cyclist",
+      "type": "bicycle",
+      "model": "vehicle.gazelle.omafiets",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 15,
+            "max": 25
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "lateral_offset": 0.8
+        }
+      },
+      "color": "0,255,0"
+    },
+    {
+      "id": "weaving_scooter",
+      "type": "motorcycle",
+      "model": "vehicle.vespa.zx125",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "crossing_cyclist",
+      "type": "bicycle",
+      "model": "vehicle.diamondback.century",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "0,255,255"
+    },
+    {
+      "id": "bus_ahead",
+      "type": "vehicle",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 80
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_cyclist",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 5.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "side_cyclist",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "weaving_scooter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "weaving_scooter",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "crossing_cyclist",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "speed_value": 7.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "bus_ahead",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 95,
+  "collision_allowed": false
+}

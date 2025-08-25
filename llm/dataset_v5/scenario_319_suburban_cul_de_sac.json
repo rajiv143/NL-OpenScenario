@@ -1,0 +1,102 @@
+{
+  "scenario_name": "suburban_cul_de_sac_319",
+  "description": "Navigating cul-de-sac with children playing and cars backing out",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 15, "max": 25}
+    }
+  },
+  "ego_start_speed": 4,
+  "actors": [
+    {
+      "id": "backing_minivan",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "child_scooter",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0032",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "right",
+          "lateral_offset": 3.0
+        }
+      }
+    },
+    {
+      "id": "child_bike",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0033",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "left",
+          "lateral_offset": -3.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "backing_minivan",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": -1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "child_scooter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "child_bike",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "backing_minivan",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 60,
+  "collision_allowed": false
+}

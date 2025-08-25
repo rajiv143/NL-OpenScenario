@@ -1,0 +1,1 @@
+Navigate construction site with slow-moving bulldozer crossing between work areas, flagger stopping traffic, opposite traffic waiting, backing construction vehicle, and impatient driver behind. Test recognition of construction equipment movement patterns and compliance with human traffic control.

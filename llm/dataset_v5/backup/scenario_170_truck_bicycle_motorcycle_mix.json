@@ -1,0 +1,161 @@
+{
+  "scenario_name": "truck_bicycle_motorcycle_mix_170",
+  "description": "Complex mix of large trucks, bicycles, and motorcycles in construction area",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.suzuki.carlacola",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "speed_limit": {"min": 30, "max": 50},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "construction_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 45, "max": 65},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,100,0"
+    },
+    {
+      "id": "cyclist_navigating",
+      "type": "bicycle",
+      "model": "vehicle.gazelle.omafiets",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.5
+        }
+      },
+      "color": "0,255,100"
+    },
+    {
+      "id": "delivery_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.vespa.zx125",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 60, "max": 80},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,0"
+    },
+    {
+      "id": "dump_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "construction",
+          "distance_to_ego": {"min": 70, "max": 90},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "100,50,0"
+    },
+    {
+      "id": "worker_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0045",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "construction_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "cyclist_navigating",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "delivery_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "delivery_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "target_lane": -1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "dump_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "worker_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 100,
+  "collision_allowed": false
+}

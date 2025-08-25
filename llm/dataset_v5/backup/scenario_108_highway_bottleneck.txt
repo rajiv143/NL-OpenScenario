@@ -1,0 +1,1 @@
+Create a highway bottleneck scenario where a slow truck in the adjacent lane and a blocking van ahead create limited space, while an impatient driver behind me and another vehicle from the side all compete for the same gap, testing complex negotiation algorithms.

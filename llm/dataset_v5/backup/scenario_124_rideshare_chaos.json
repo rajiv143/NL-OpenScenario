@@ -1,0 +1,128 @@
+{
+  "scenario_name": "rideshare_chaos_124",
+  "description": "Rideshare pickup zone with multiple stopping vehicles",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.citroen.c3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {"min": 25, "max": 40},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 9,
+  "actors": [
+    {
+      "id": "uber1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,0,0"
+    },
+    {
+      "id": "uber2",
+      "type": "vehicle",
+      "model": "vehicle.nissan.micra",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "50,50,50"
+    },
+    {
+      "id": "passenger1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0044",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "lateral_offset": 2.0
+        }
+      }
+    },
+    {
+      "id": "passenger2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0045",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "left",
+          "lateral_offset": -2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "uber1",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.6
+    },
+    {
+      "actor_id": "uber1",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.0
+    },
+    {
+      "actor_id": "uber2",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "target_lane": 1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "passenger1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "uber2",
+      "action_type": "stop",
+      "trigger_type": "after_previous"
+    },
+    {
+      "actor_id": "passenger2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 60,
+  "collision_allowed": false
+}

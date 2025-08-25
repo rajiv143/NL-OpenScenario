@@ -1,0 +1,153 @@
+{
+  "scenario_name": "tunnel_transition_blindness_171",
+  "description": "Tunnel entry and exit with extreme lighting changes challenging sensors",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.tt",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 80,
+        "max": 100
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 22,
+  "actors": [
+    {
+      "id": "tunnel_vehicle_dark",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "20,20,20"
+    },
+    {
+      "id": "motorcycle_no_lights",
+      "type": "motorcycle",
+      "model": "vehicle.harley-davidson.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "50,50,50"
+    },
+    {
+      "id": "bright_vehicle_exit",
+      "type": "vehicle",
+      "model": "vehicle.tesla.cybertruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 120,
+            "max": 150
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "255,255,255"
+    },
+    {
+      "id": "shadow_lurker",
+      "type": "vehicle",
+      "model": "vehicle.bmw.isetta",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "80,80,80"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "tunnel_vehicle_dark",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "motorcycle_no_lights",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "motorcycle_no_lights",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "bright_vehicle_exit",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 25.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "shadow_lurker",
+      "action_type": "speed",
+      "trigger_type": "ego_speed",
+      "trigger_value": 20.0,
+      "trigger_comparison": ">",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 100,
+  "collision_allowed": false
+}

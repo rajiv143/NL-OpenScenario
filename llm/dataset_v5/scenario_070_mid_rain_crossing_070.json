@@ -1,0 +1,54 @@
+{
+  "scenario_name": "mid_rain_crossing_070",
+  "description": "Pedestrian crossing in moderate rain",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "rain_crosser",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0026",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "rain_crosser",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "rain_crosser",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 8,
+      "trigger_comparison": "<",
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 0.8
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 45,
+  "collision_allowed": false
+}

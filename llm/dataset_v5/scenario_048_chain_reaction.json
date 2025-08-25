@@ -1,0 +1,123 @@
+{
+  "scenario_name": "chain_reaction_braking",
+  "description": "Chain reaction of braking vehicles",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "lead_vehicle_1",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 60, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    },
+    {
+      "id": "lead_vehicle_2",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    },
+    {
+      "id": "lead_vehicle_3",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_vehicle_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 22,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 21,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle_3",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 20,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle_1",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3,
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle_2",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "trigger_value": 0.5,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lead_vehicle_3",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "trigger_value": 0.5,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 70,
+  "collision_allowed": false
+}

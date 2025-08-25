@@ -1,0 +1,111 @@
+{
+  "scenario_name": "icy_road_sliding_331",
+  "description": "Vehicle loses control on icy road surface",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.audi.tt",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 60,
+        "max": 90
+      }
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "sliding_car",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 65
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      }
+    },
+    {
+      "id": "cautious_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 90
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cautious_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 12.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 140,
+  "timeout": 70,
+  "collision_allowed": false
+}

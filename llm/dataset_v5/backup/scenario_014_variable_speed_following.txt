@@ -1,0 +1,1 @@
+need realistic traffic flow simulation - the lead car should speed up, slow down, speed up again, like dealing with congestion waves. wet + overcast weather adds complexity. multiple speed changes to test adaptation

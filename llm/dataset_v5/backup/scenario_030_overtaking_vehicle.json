@@ -1,0 +1,56 @@
+{
+  "scenario_name": "vehicle_overtaking",
+  "description": "Vehicle overtakes then cuts back",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "overtaking_car",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 15, "max": 25},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "overtaking_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 28,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    },
+    {
+      "actor_id": "overtaking_car",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15,
+      "trigger_comparison": ">",
+      "target_lane": "same_as_ego",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 60,
+  "collision_allowed": false
+}

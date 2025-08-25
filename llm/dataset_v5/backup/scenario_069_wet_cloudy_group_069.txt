@@ -1,0 +1,1 @@
+I need a scenario where pedestrians are walking as a group on wet cloudy streets, stopping to wait. Place them around 35 meters ahead.

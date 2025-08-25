@@ -1,0 +1,1 @@
+Need to test adaptive cruise control in heavy traffic. The car in front should come to a complete stop (like at a traffic light), wait a moment, then accelerate back to normal speed. This mimics real stop-and-go conditions.

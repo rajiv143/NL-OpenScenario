@@ -1,0 +1,76 @@
+{
+  "scenario_name": "final_intersection_100",
+  "description": "Final complex intersection scenario",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "complex_crosser",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "left",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      },
+      "color": "80,120,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "complex_crosser",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 11.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "complex_crosser",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "brake_force": 0.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "complex_crosser",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 25.0
+    },
+    {
+      "actor_id": "complex_crosser",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 12,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 105,
+  "timeout": 65,
+  "collision_allowed": false
+}

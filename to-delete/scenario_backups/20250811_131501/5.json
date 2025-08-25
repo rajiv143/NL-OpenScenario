@@ -1,0 +1,49 @@
+{
+    "scenario_name": "StraightCrossing_Town03",
+    "description": "Vehicle crosses at intersection",
+    "map_name": "Town03",
+    "weather": "clear",
+    "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+    "ego_start_position": "-75,-35,0.5,0",
+    "ego_start_speed": 10,
+    "actors": [
+        {
+            "id": "crossing_car",
+            "type": "vehicle",
+            "model": "vehicle.chevrolet.impala",
+            "start_position": "-65,-50,0.5,90"
+        },
+        {
+            "id": "ego",
+            "type": "vehicle",
+            "model": "vehicle.mercedes.coupe_2020",
+            "start_position": "-75,-35,-100,0"
+        }
+    ],
+    "actions": [
+        {
+            "actor_id": "ego",
+            "action_type": "speed",
+            "trigger_type": "time",
+            "trigger_value": 0,
+            "speed_value": 10.0,
+            "dynamics_dimension": "time",
+            "dynamics_shape": "step",
+            "dynamics_value": 0
+        },
+        {
+            "actor_id": "crossing_car",
+            "action_type": "speed",
+            "trigger_type": "distance_to_ego",
+            "trigger_value": 25,
+            "trigger_comparison": "<",
+            "speed_value": 10.0,
+            "dynamics_dimension": "time",
+            "dynamics_shape": "step",
+            "dynamics_value": 0
+        }
+    ],
+    "success_distance": 50,
+    "timeout": 30,
+    "collision_allowed": false
+}

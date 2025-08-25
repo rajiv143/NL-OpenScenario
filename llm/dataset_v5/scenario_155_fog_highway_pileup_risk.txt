@@ -1,0 +1,1 @@
+Generate a high-stress traffic scenario involving dense fog on a highway where a stopped vehicle creates a chain reaction of emergency maneuvers. Test collision avoidance with limited visibility while being tailgated by a truck and an emergency vehicle approaching from behind at high speed.

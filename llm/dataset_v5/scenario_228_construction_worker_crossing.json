@@ -1,0 +1,91 @@
+{
+  "scenario_name": "construction_workers_crossing_228",
+  "description": "Multiple construction workers crossing active traffic lane",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.ford.crown",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "construction",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 7,
+  "actors": [
+    {
+      "id": "crossing_worker_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0015",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 25, "max": 30},
+          "relative_position": "right",
+          "lateral_offset": 3.0
+        }
+      }
+    },
+    {
+      "id": "crossing_worker_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0047",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 28, "max": 33},
+          "relative_position": "right",
+          "lateral_offset": 3.5
+        }
+      }
+    },
+    {
+      "id": "parked_equipment",
+      "type": "vehicle",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Shoulder",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "255,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_worker_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 28.0,
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "crossing_worker_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "parked_equipment",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "wait_duration": 65.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 75,
+  "timeout": 65,
+  "collision_allowed": false
+}

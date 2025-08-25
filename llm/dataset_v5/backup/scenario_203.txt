@@ -1,0 +1,1 @@
+Create an intersection turning scenario during sunset. A dark gray Jeep Wrangler in the adjacent lane ahead should slow down to 5 m/s and then turn right after 4 seconds. Include a black BMW coming from the opposite direction at 10 m/s to add complexity to the turning maneuver.

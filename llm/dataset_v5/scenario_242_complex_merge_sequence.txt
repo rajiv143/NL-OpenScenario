@@ -1,0 +1,1 @@
+A vehicle attempting to merge onto a highway performs multiple actions: accelerate to match speed, signal and begin merging, brake when blocked, wait for gap, then accelerate and complete the merge.

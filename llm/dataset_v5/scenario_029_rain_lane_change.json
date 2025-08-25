@@ -1,0 +1,57 @@
+{
+  "scenario_name": "rainy_lane_change",
+  "description": "Lane change in wet conditions",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.jeep.wrangler_rubicon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "rain_changer",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "rain_changer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 12,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "rain_changer",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 4,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

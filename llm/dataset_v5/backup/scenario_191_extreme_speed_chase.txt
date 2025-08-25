@@ -1,0 +1,1 @@
+Create an extreme high-speed scenario testing performance limits with racing motorcycle approaching at 35 m/s, sports car accelerating from behind, truck blocking passing lane, and vehicle weaving between lanes. Evaluate high-speed decision making and control stability at maximum velocities.

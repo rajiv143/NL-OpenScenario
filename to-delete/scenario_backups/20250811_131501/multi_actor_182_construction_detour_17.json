@@ -1,0 +1,76 @@
+{
+  "scenario_name": "construction_detour_17",
+  "description": "Multiple vehicles navigating construction",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 34,
+            "max": 64
+          },
+          "relative_position": "ahead",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    },
+    {
+      "id": "actor_2",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 55,
+            "max": 85
+          },
+          "relative_position": "behind"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "actor_2",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 96,
+  "timeout": 94,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}

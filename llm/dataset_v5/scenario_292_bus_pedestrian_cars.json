@@ -1,0 +1,134 @@
+{
+  "scenario_name": "bus_pedestrian_cars_292",
+  "description": "City bus stops while pedestrians cross and cars navigate around",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 11,
+  "actors": [
+    {
+      "id": "city_bus",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "0,100,200",
+      "special_type": "bus"
+    },
+    {
+      "id": "bus_passenger_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0040",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "lateral_offset": 3.5
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "bus_passenger_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0041",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 22,
+            "max": 32
+          },
+          "relative_position": "ahead",
+          "lateral_offset": 4.0
+        }
+      },
+      "color": "0,0,255"
+    },
+    {
+      "id": "passing_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.mustang",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "city_bus",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "bus_passenger_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "bus_passenger_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "passing_car",
+      "action_type": "lane_change",
+      "trigger_type": "ego_speed",
+      "trigger_value": 8.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,97 @@
+{
+  "scenario_name": "final_two_actor_095",
+  "description": "Final complex two-actor scenario",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "aggressive_merger",
+      "type": "vehicle",
+      "model": "vehicle.chevrolet.impala",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,100,50"
+    },
+    {
+      "id": "lead_braker",
+      "type": "vehicle",
+      "model": "vehicle.lincoln.mkz_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 65,
+            "max": 80
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_braker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "aggressive_merger",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 17.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "aggressive_merger",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0,
+      "target_lane": 0
+    },
+    {
+      "actor_id": "lead_braker",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 4.5,
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 135,
+  "timeout": 75,
+  "collision_allowed": false
+}

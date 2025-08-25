@@ -1,0 +1,100 @@
+{
+  "scenario_name": "freezing_rain_hill_339",
+  "description": "Vehicles sliding backwards on icy hill during freezing rain",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.jeep.wrangler_rubicon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {
+        "min": 25,
+        "max": 40
+      }
+    }
+  },
+  "ego_start_speed": 3,
+  "actors": [
+    {
+      "id": "sliding_car",
+      "type": "vehicle",
+      "model": "vehicle.mini.cooper_s_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "town"
+        }
+      }
+    },
+    {
+      "id": "stuck_van",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "town"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "sliding_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": -2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "sliding_car",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "stuck_van",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 80,
+  "collision_allowed": false
+}

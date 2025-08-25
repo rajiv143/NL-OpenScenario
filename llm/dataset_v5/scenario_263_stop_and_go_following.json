@@ -1,0 +1,77 @@
+{
+  "scenario_name": "stop_and_go_following_263",
+  "description": "Stop-and-go traffic following pattern in urban congestion",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "lead_car",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 15, "max": 20},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "50,50,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "lead_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "lead_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 7.0,
+      "brake_force": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.8
+    },
+    {
+      "actor_id": "lead_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 10.0,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 55,
+  "collision_allowed": false
+}

@@ -1,0 +1,82 @@
+{
+  "scenario_name": "school_pickup_24",
+  "description": "Multiple vehicles and pedestrians at school",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {
+        "min": 1,
+        "max": 10
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "actor_1",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "distance_to_ego": {
+            "min": 42,
+            "max": 72
+          },
+          "relative_position": "ahead"
+        }
+      }
+    },
+    {
+      "id": "pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 26,
+            "max": 56
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "actor_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "trigger_comparison": "<",
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 50,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    },
+    {
+      "actor_id": "pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.4,
+      "dynamics_dimension": "time",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 97,
+  "timeout": 91,
+  "collision_allowed": false,
+  "map_name": "Town04"
+}
