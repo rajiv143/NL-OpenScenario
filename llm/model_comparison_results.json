@@ -1,6 +1,6 @@
 {
-  "timestamp": "2025-08-25 14:13:46",
-  "total_scenarios": 5,
+  "timestamp": "2025-08-25 14:32:15",
+  "total_scenarios": 25,
   "scenarios": [
     {
       "scenario": {
@@ -14,12 +14,12 @@
         "category": "vehicle_following",
         "complexity": "simple",
         "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard",
-        "output_preview": "{\n  \"scenario_name\": \"Sudden Braking Scenario\",\n  \"description\": \"A red sedan is driving at a constant speed of 30 mph on a straight road when a blue SUV suddenly brakes hard ahead, causing the sedan to slam on its brakes as well.\",\n  \"weather\": {\n    \"time_of_day\": \"day\",\n    \"cloudiness\": \"partly_...",
-        "full_output": "{\n  \"scenario_name\": \"Sudden Braking Scenario\",\n  \"description\": \"A red sedan is driving at a constant speed of 30 mph on a straight road when a blue SUV suddenly brakes hard ahead, causing the sedan to slam on its brakes as well.\",\n  \"weather\": {\n    \"time_of_day\": \"day\",\n    \"cloudiness\": \"partly_cloudy\",\n    \"rain\": false,\n    \"snow\": false,\n    \"fog\": false,\n    \"sun_position\": \"right\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"x\": -50.0,\n    \"y\": 0.0,\n    \"z\": 1.5,\n    \"heading\": 0.0,\n    \"roll_pitch_yaw\": [\n      0.0,\n      0.0,\n      0.0\n    ],\n    \"speed\": 30.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"models/00_car/sedan/model_01\",\n      \"color\": \"red\",\n      \"position\": {\n        \"x\": -40.0,\n        \"y\": 0.0,\n        \"z\": 0.0,\n        \"heading\": 0.0,\n        \"roll_pitch_yaw\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      },\n      \"velocity\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0,\n        \"roll_pitch_yaw\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      }\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"models/00_car/SUV/model_02\",\n      \"color\": \"blue\",\n      \"position\": {\n        \"x\": -60.0,\n        \"y\": 0.0,\n        \"z\": 2.0,\n        \"heading\": 0.0,\n        \"roll_pitch_yaw\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      },\n      \"velocity\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0,\n        \"roll_pitch_yaw\": [\n          0.0,\n          0.0,\n          0.0\n        ]\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"action_type\": \"steering_angle\",\n      \"target_steering_angle\": 0.5,\n      \"target_speed\": 20.0,\n      \"acceleration\": 0.5\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 100.0,\n  \"collision_allowed\": true\n}",
-        "json_valid": true,
-        "error": null,
-        "generation_time": 13.33,
-        "output_length": 1778,
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 4.76,
+        "output_length": 0,
         "model": "Base Model"
       },
       "finetuned_result": {
@@ -27,12 +27,12 @@
         "category": "vehicle_following",
         "complexity": "simple",
         "prompt": "A red sedan is driving 30 mph when the blue SUV ahead suddenly brakes hard",
-        "output_preview": "{\n  \"scenario_name\": \"red_sedan_brake_334\",\n  \"description\": \"Red sedan braking after blue SUV stops\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urb...",
-        "full_output": "{\n  \"scenario_name\": \"red_sedan_brake_334\",\n  \"description\": \"Red sedan braking after blue SUV stops\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 31,\n  \"actors\": [\n    {\n      \"id\": \"stopping_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.nissan.patrol\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\",\n          \"road_context\": \"urban\"\n        }\n      },\n      \"color\": \"100,100,255\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"stopping_car\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"brake_force\": 0.8,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.7\n    }\n  ],\n  \"success_distance\": 95,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"sudden_brake_062\",\n  \"description\": \"Sudden braking scenario with warning time\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_contex...",
+        "full_output": "{\n  \"scenario_name\": \"sudden_brake_062\",\n  \"description\": \"Sudden braking scenario with warning time\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"suburban\"\n    }\n  },\n  \"ego_start_speed\": 28,\n  \"actors\": [\n    {\n      \"id\": \"braking_vehicle\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.nissan.patrol\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 45,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\",\n          \"road_context\": \"suburban\"\n        }\n      },\n      \"color\": \"100,100,200\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"braking_vehicle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 30.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"braking_vehicle\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 3.5,\n      \"brake_force\": 1.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    }\n  ],\n  \"success_distance\": 150,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 22.06,
-        "output_length": 1185,
+        "generation_time": 29.33,
+        "output_length": 1469,
         "model": "Fine-tuned v5"
       }
     },
@@ -48,12 +48,12 @@
         "category": "lane_change",
         "complexity": "simple",
         "prompt": "A white truck signals and changes lanes to the right on a highway",
-        "output_preview": "",
-        "full_output": "",
-        "json_valid": false,
-        "error": "Failed to generate valid JSON",
-        "generation_time": 9.22,
-        "output_length": 0,
+        "output_preview": "{\n  \"scenario_name\": \"Truck Lane Change\",\n  \"description\": \"A white truck is driving on a highway and signals to change lanes to the right.\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"cloudiness\": 50,\n    \"rain\": false,\n    \"snow\": false,\n    \"fog\": false\n  },\n  \"ego_vehicle_model\": \"oxfo...",
+        "full_output": "{\n  \"scenario_name\": \"Truck Lane Change\",\n  \"description\": \"A white truck is driving on a highway and signals to change lanes to the right.\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"cloudiness\": 50,\n    \"rain\": false,\n    \"snow\": false,\n    \"fog\": false\n  },\n  \"ego_vehicle_model\": \"oxfordoxford6\",\n  \"ego_spawn\": [\n    {\n      \"x\": -30.0,\n      \"y\": 10.0,\n      \"z\": 1.8,\n      \"heading\": 0.0\n    }\n  ],\n  \"ego_spawn_speed\": 20.0,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"oxfordoxford6\",\n      \"color\": [\n        255,\n        255,\n        0\n      ],\n      \"position\": [\n        -40.0,\n        10.0,\n        2.5\n      ],\n      \"rotation\": [\n        0.0,\n        0.0,\n        0.0\n      ]\n    }\n  ],\n  \"actions\": [\n    {\n      \"action\": \"change_lane\",\n      \"target_lane\": 1\n    },\n    {\n      \"action\": \"signal\",\n      \"target_lane\": 1\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": true\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 8.86,
+        "output_length": 955,
         "model": "Base Model"
       },
       "finetuned_result": {
@@ -61,12 +61,12 @@
         "category": "lane_change",
         "complexity": "simple",
         "prompt": "A white truck signals and changes lanes to the right on a highway",
-        "output_preview": "{\n  \"scenario_name\": \"truck_lane_change_305\",\n  \"description\": \"Vehicle changing lanes with large truck\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_...",
-        "full_output": "{\n  \"scenario_name\": \"truck_lane_change_305\",\n  \"description\": \"Vehicle changing lanes with large truck\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n        \"min\": 110,\n        \"max\": 140\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 24,\n  \"actors\": [\n    {\n      \"id\": \"laning_truck\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.carlamotors.european_hgv\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 45,\n            \"max\": 60\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"255,255,255\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"laning_truck\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 2.0,\n      \"target_lane\": 0\n    }\n  ],\n  \"success_distance\": 130,\n  \"timeout\": 55,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"right_lane_change_134\",\n  \"description\": \"Vehicle changes into my lane on highway\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_cont...",
+        "full_output": "{\n  \"scenario_name\": \"right_lane_change_134\",\n  \"description\": \"Vehicle changes into my lane on highway\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"highway\"\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [\n    {\n      \"id\": \"changing_vehicle\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.carlamotors.european_hgv\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 50,\n            \"max\": 65\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"changing_vehicle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 25.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"changing_vehicle\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 3.0,\n      \"target_lane\": 0\n    }\n  ],\n  \"success_distance\": 120,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 23.36,
-        "output_length": 1255,
+        "generation_time": 27.52,
+        "output_length": 1433,
         "model": "Fine-tuned v5"
       }
     },
@@ -82,12 +82,12 @@
         "category": "pedestrian",
         "complexity": "simple",
         "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach",
-        "output_preview": "{\n  \"scenario_name\": \"Pedestrian Crossing\",\n  \"description\": \"A pedestrian starts crossing at a marked crosswalk as the ego vehicle approaches.\",\n  \"weather\": {\n    \"time_of_day\": \"day\",\n    \"cloudiness\": \"clear\",\n    \"visibility\": 1000,\n    \"rain\": false,\n    \"snow\": false,\n    \"wind\": false,\n    \"...",
-        "full_output": "{\n  \"scenario_name\": \"Pedestrian Crossing\",\n  \"description\": \"A pedestrian starts crossing at a marked crosswalk as the ego vehicle approaches.\",\n  \"weather\": {\n    \"time_of_day\": \"day\",\n    \"cloudiness\": \"clear\",\n    \"visibility\": 1000,\n    \"rain\": false,\n    \"snow\": false,\n    \"wind\": false,\n    \"lighting\": \"medium\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"position\": {\n      \"x\": -40.7128,\n      \"y\": -74.006,\n      \"z\": 0.0\n    },\n    \"heading\": 90.0\n  },\n  \"ego_start_speed\": 20.0,\n  \"actors\": [\n    {\n      \"type\": \"pedestrian\",\n      \"id\": 1,\n      \"position\": {\n        \"x\": -40.7135,\n        \"y\": -74.0055,\n        \"z\": 0.0\n      },\n      \" heading\": 270.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"action\": \"move_forward\",\n      \"duration\": 10.0\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": true\n}",
+        "output_preview": "{\n  \"scenario_name\": \"Pedestrian Crossing\",\n  \"description\": \"A pedestrian steps out of a crosswalk and onto the road ahead, forcing the ego vehicle to react.\",\n  \"weather\": {\n    \"day\": true,\n    \"time_of_day\": 9,\n    \"cloudiness\": 0.5,\n    \"rain\": false,\n    \"snow\": false\n  },\n  \"ego_vehicle_model...",
+        "full_output": "{\n  \"scenario_name\": \"Pedestrian Crossing\",\n  \"description\": \"A pedestrian steps out of a crosswalk and onto the road ahead, forcing the ego vehicle to react.\",\n  \"weather\": {\n    \"day\": true,\n    \"time_of_day\": 9,\n    \"cloudiness\": 0.5,\n    \"rain\": false,\n    \"snow\": false\n  },\n  \"ego_vehicle_model\": \"Toyota Corolla\",\n  \"ego_spawn\": [\n    {\n      \"x\": -30.0,\n      \"y\": 0.0,\n      \"z\": 2.4,\n      \"heading\": 90.0,\n      \"speed\": 20.0\n    }\n  ],\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"x\": -25.0,\n      \"y\": 0.5,\n      \"z\": 1.8,\n      \"heading\": 270.0,\n      \"speed\": 0.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"action_type\": \"DriveForward\"\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 120.0,\n  \"collision_allowed\": true\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 6.85,
-        "output_length": 862,
+        "generation_time": 6.0,
+        "output_length": 745,
         "model": "Base Model"
       },
       "finetuned_result": {
@@ -95,12 +95,12 @@
         "category": "pedestrian",
         "complexity": "simple",
         "prompt": "A pedestrian starts crossing at a marked crosswalk as you approach",
-        "output_preview": "{\n  \"scenario_name\": \"crossing_pedestrian_277\",\n  \"description\": \"Pedestrian crosses from side street to main road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_...",
-        "full_output": "{\n  \"scenario_name\": \"crossing_pedestrian_277\",\n  \"description\": \"Pedestrian crosses from side street to main road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 10,\n  \"actors\": [\n    {\n      \"id\": \"crossing_walker\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0015\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"ahead\",\n          \"lateral_offset\": 2.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"crossing_walker\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 2.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"crossing_walker\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 2.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 60,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"crossing_pedestrian_185\",\n  \"description\": \"Pedestrian crosses at crosswalk\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_police\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": ...",
+        "full_output": "{\n  \"scenario_name\": \"crossing_pedestrian_185\",\n  \"description\": \"Pedestrian crosses at crosswalk\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_police\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 8,\n  \"actors\": [\n    {\n      \"id\": \"crossing_pedestrian\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0015\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lateral_offset\": 3.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"crossing_pedestrian\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 1.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    }\n  ],\n  \"success_distance\": 70,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 26.44,
-        "output_length": 1335,
+        "generation_time": 22.49,
+        "output_length": 1131,
         "model": "Fine-tuned v5"
       }
     },
@@ -116,12 +116,12 @@
         "category": "vehicle_following",
         "complexity": "simple",
         "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone",
-        "output_preview": "{\n  \"scenario_name\": \"School Zone Obstacle\",\n  \"description\": \"A vehicle is driving at a constant speed of 25 mph through a school zone.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloudiness\": 0.2,\n    \"rain\": false,\n    \"snow\": false,\n    \"sun\": 1.0,\n    \"wind\": {\n      \"speed\": 0.0,\n      \"direction\":...",
-        "full_output": "{\n  \"scenario_name\": \"School Zone Obstacle\",\n  \"description\": \"A vehicle is driving at a constant speed of 25 mph through a school zone.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloudiness\": 0.2,\n    \"rain\": false,\n    \"snow\": false,\n    \"sun\": 1.0,\n    \"wind\": {\n      \"speed\": 0.0,\n      \"direction\": 0.0\n    }\n  },\n  \"ego_vehicle_model\": \"Tesla Model S\",\n  \"ego_spawn\": {\n    \"position\": {\n      \"x\": -43.6745,\n      \"y\": 37.7749,\n      \"z\": 0.0\n    },\n    \"heading\": 0.0,\n    \"pitch\": 0.0,\n    \"roll\": 0.0\n  },\n  \"ego_start_speed\": 25.0,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"Pedestrian\",\n      \"color\": [\n        255,\n        0,\n        0\n      ],\n      \"max_speed\": 2.8,\n      \"spawn_point\": {\n        \"x\": -43.6751,\n        \"y\": 37.7753,\n        \"z\": 0.0\n      },\n      \"pose\": {\n        \"x\": -43.6754,\n        \"y\": 37.7756,\n        \"z\": 0.0\n      }\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"Car\",\n      \"color\": [\n        0,\n        0,\n        255\n      ],\n      \"max_speed\": 30.0,\n      \"spawn_point\": {\n        \"x\": -43.6739,\n        \"y\": 37.7767,\n        \"z\": 0.0\n      },\n      \"pose\": {\n        \"x\": -43.6748,\n        \"y\": 37.7759,\n        \"z\": 0.0\n      },\n      \"speed\": 25.0\n    }\n  ],\n  \"actions\": [\n    \"steer_left\",\n    \"steer_right\",\n    \"accelerate\",\n    \"brake\"\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": true\n}",
+        "output_preview": "{\n  \"scenario_name\": \"School Zone Obstacle\",\n  \"description\": \"A vehicle is driving at a constant speed of 25 mph through a school zone.\",\n  \"weather\": {\n    \"rain\": false,\n    \"fog\": false,\n    \"day\": true,\n    \"night\": false,\n    \"clouds\": {\n      \"type\": \"clear\"\n    },\n    \"wind\": {\n      \"speed\"...",
+        "full_output": "{\n  \"scenario_name\": \"School Zone Obstacle\",\n  \"description\": \"A vehicle is driving at a constant speed of 25 mph through a school zone.\",\n  \"weather\": {\n    \"rain\": false,\n    \"fog\": false,\n    \"day\": true,\n    \"night\": false,\n    \"clouds\": {\n      \"type\": \"clear\"\n    },\n    \"wind\": {\n      \"speed\": 0.0,\n      \"direction\": 0.0\n    }\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    {\n      \"x\": -50.0,\n      \"y\": 0.0,\n      \"z\": 0.0,\n      \"pitch\": 0.0,\n      \"roll\": 0.0,\n      \"yaw\": 0.0\n    }\n  ],\n  \"ego_start_speed\": 25.0,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class_name\": \"model3\",\n      \"x\": -45.0,\n      \"y\": 0.0,\n      \"z\": 0.0,\n      \"pitch\": 0.0,\n      \"roll\": 0.0,\n      \"yaw\": 0.0,\n      \"speed\": 25.0,\n      \"channel\": []\n    }\n  ],\n  \"actions\": [\n    {\n      \"action_type\": \"set_speed\",\n      \"target_speed\": 25.0\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 100.0,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 11.12,
-        "output_length": 1398,
+        "generation_time": 7.81,
+        "output_length": 947,
         "model": "Base Model"
       },
       "finetuned_result": {
@@ -129,12 +129,12 @@
         "category": "vehicle_following",
         "complexity": "simple",
         "prompt": "The vehicle in front maintains constant speed of 25 mph in a school zone",
-        "output_preview": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintaining constant speed through school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\"...",
-        "full_output": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintaining constant speed through school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\",\n      \"speed_limit\": {\n        \"min\": 20,\n        \"max\": 30\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 18,\n  \"actors\": [\n    {\n      \"id\": \"constant_speed_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.toyota.prius\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 50,\n            \"max\": 70\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"255,200,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"constant_speed_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 25.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    }\n  ],\n  \"success_distance\": 120,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintains constant speed in school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"roa...",
+        "full_output": "{\n  \"scenario_name\": \"school_zone_constant_speed\",\n  \"description\": \"Vehicle maintains constant speed in school zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"town\",\n      \"speed_limit\": {\n        \"min\": 20,\n        \"max\": 30\n      }\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [\n    {\n      \"id\": \"constant_speed_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.audi.tt\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"constant_speed_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 25.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.1\n    }\n  ],\n  \"success_distance\": 100,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 23.36,
-        "output_length": 1259,
+        "generation_time": 23.15,
+        "output_length": 1210,
         "model": "Fine-tuned v5"
       }
     },
@@ -150,12 +150,12 @@
         "category": "lane_change",
         "complexity": "simple",
         "prompt": "A motorcycle merges into your lane from an on-ramp",
-        "output_preview": "{\n  \"scenario_name\": \"Motorcycle Merge\",\n  \"description\": \"A motorcycle emerges from an on-ramp and attempts to merge onto the main road.\",\n  \"weather\": {\n    \"day\": true,\n    \"weather_conditions\": [\n      {\n        \"name\": \"clear skies\",\n        \"visibility\": 1000\n      }\n    ]\n  },\n  \"ego_vehicle_...",
-        "full_output": "{\n  \"scenario_name\": \"Motorcycle Merge\",\n  \"description\": \"A motorcycle emerges from an on-ramp and attempts to merge onto the main road.\",\n  \"weather\": {\n    \"day\": true,\n    \"weather_conditions\": [\n      {\n        \"name\": \"clear skies\",\n        \"visibility\": 1000\n      }\n    ]\n  },\n  \"ego_vehicle_model\": \"bmw_r 320d\",\n  \"ego_spawn\": {\n    \"x\": -40.7128,\n    \"y\": 74.006,\n    \"z\": 0.5,\n    \"pitch\": 0,\n    \"roll\": 0,\n    \"yaw\": 0,\n    \"heading\": 90,\n    \"speed\": 20.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"motorcycle\",\n      \"model\": \"honda_cbr500r\",\n      \"color\": [\n        1,\n        0,\n        0\n      ],\n      \"spawn\": {\n        \"x\": -40.7132,\n        \"y\": 74.0058,\n        \"z\": 0.3,\n        \"pitch\": 10,\n        \"roll\": 0,\n        \"yaw\": 270,\n        \"speed\": 30.0\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"steer_left\",\n      \"timestamp\": 0.0\n    },\n    {\n      \"type\": \"accelerate\",\n      \"timestamp\": 2.0\n    }\n  ],\n  \"success_distance\": 50.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"Motorcycle Merging onto Main Lane\",\n  \"description\": \"A motorcycle enters the main road from an on-ramp, requiring the ego vehicle to react and adjust its speed.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloud_cover\": 0.5,\n    \"rain\": false,\n    \"snow\": false,\n    \"sleet\": false,\n...",
+        "full_output": "{\n  \"scenario_name\": \"Motorcycle Merging onto Main Lane\",\n  \"description\": \"A motorcycle enters the main road from an on-ramp, requiring the ego vehicle to react and adjust its speed.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloud_cover\": 0.5,\n    \"rain\": false,\n    \"snow\": false,\n    \"sleet\": false,\n    \"fog\": false,\n    \"dawn\": false,\n    \"dusk\": false\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"x\": -30.0,\n    \"y\": 0.0,\n    \"z\": 2.0,\n    \"pitch\": 0.0,\n    \"roll\": 0.0,\n    \"yaw\": 0.0,\n    \"heading_degrees\": 0.0,\n    \"speed\": 25.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"position\": {\n        \"x\": 20.0,\n        \"y\": 0.0,\n        \"z\": 0.0,\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 0.0,\n        \"heading_degrees\": 0.0\n      }\n    },\n    {\n      \"type\": \"Vehicle\",\n      \"class\": \"Motorcycle\",\n      \"position\": {\n        \"x\": 35.0,\n        \"y\": 10.0,\n        \"z\": 0.0,\n        \"pitch\": 0.0,\n        \"roll\": 0.0,\n        \"yaw\": 0.0,\n        \"heading_degrees\": 270.0\n      },\n      \"speed\": 40.0\n    }\n  ],\n  \"actions\": {\n    \"throttle\": [\n      1.0\n    ],\n    \"steering\": [\n      0.05\n    ],\n    \"brake\": [\n      0.0\n    ]\n  },\n  \"success_distance\": 50.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 7.62,
-        "output_length": 1045,
+        "generation_time": 10.16,
+        "output_length": 1260,
         "model": "Base Model"
       },
       "finetuned_result": {
@@ -163,12 +163,692 @@
         "category": "lane_change",
         "complexity": "simple",
         "prompt": "A motorcycle merges into your lane from an on-ramp",
-        "output_preview": "{\n  \"scenario_name\": \"motorcycle_merge_294\",\n  \"description\": \"Motorcycle merging into traffic flow\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n   ...",
-        "full_output": "{\n  \"scenario_name\": \"motorcycle_merge_294\",\n  \"description\": \"Motorcycle merging into traffic flow\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"speed_limit\": {\n        \"min\": 70,\n        \"max\": 95\n      }\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [\n    {\n      \"id\": \"merge_motorcycle\",\n      \"type\": \"motorcycle\",\n      \"model\": \"vehicle.yamaha.yzf\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"same_road\",\n          \"road_context\": \"highway\"\n        }\n      },\n      \"color\": \"255,140,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"merge_motorcycle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 28.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"merge_motorcycle\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 15.0,\n      \"trigger_comparison\": \"<\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 2.5,\n      \"target_lane\": 1\n    }\n  ],\n  \"success_distance\": 110,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "output_preview": "{\n  \"scenario_name\": \"motorcycle_merger_242\",\n  \"description\": \"Motorcycle merges from on-ramp into traffic\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"is_intersection\"...",
+        "full_output": "{\n  \"scenario_name\": \"motorcycle_merger_242\",\n  \"description\": \"Motorcycle merges from on-ramp into traffic\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\",\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [],\n  \"actions\": [\n    {\n      \"actor_id\": \"merging_motorcycle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 18.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.5\n    },\n    {\n      \"actor_id\": \"merging_motorcycle\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 4.0,\n      \"target_lane\": 0\n    },\n    {\n      \"actor_id\": \"following_car\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 10.0,\n      \"trigger_comparison\": \"<\",\n      \"brake_force\": 0.6,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 100,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
         "json_valid": true,
         "error": null,
-        "generation_time": 29.33,
-        "output_length": 1507,
+        "generation_time": 40.47,
+        "output_length": 1304,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street"
+      },
+      "base_result": {
+        "scenario_id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street",
+        "output_preview": "{\n  \"scenario_name\": \"Elderly Person Crossing\",\n  \"description\": \"An elderly person with a walker slowly crosses the street at a designated crosswalk.\",\n  \"weather\": {\n    \"condition\": \"clear_no_rain\",\n    \"sun\": {\n      \"intensity\": 0.5,\n      \"azimuth\": 270\n    },\n    \"clouds\": {\n      \"density\": ...",
+        "full_output": "{\n  \"scenario_name\": \"Elderly Person Crossing\",\n  \"description\": \"An elderly person with a walker slowly crosses the street at a designated crosswalk.\",\n  \"weather\": {\n    \"condition\": \"clear_no_rain\",\n    \"sun\": {\n      \"intensity\": 0.5,\n      \"azimuth\": 270\n    },\n    \"clouds\": {\n      \"density\": 0.1\n    }\n  },\n  \"ego_vehicle_model\": \"Toyota Prius\",\n  \"ego_spawn\": {\n    \"x\": -50,\n    \"y\": 0,\n    \"z\": 3,\n    \"pitch\": 0,\n    \"roll\": 0,\n    \"yaw\": 0,\n    \"heading\": 90,\n    \"speed\": 10\n  },\n  \"actors\": [\n    {\n      \"type\": \"Pedestrian\",\n      \"name\": \"elderly_person\",\n      \"spawn_point\": {\n        \"x\": -30,\n        \"y\": 5,\n        \"z\": 0.8,\n        \"pitch\": 0,\n        \"roll\": 0,\n        \"yaw\": 45,\n        \"heading\": 180\n      },\n      \"speed\": 0,\n      \"distance_to_ego\": 20,\n      \"walker\": true\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"MoveTo\",\n      \"target\": {\n        \"x\": -35,\n        \"y\": 0,\n        \"z\": 0\n      }\n    }\n  ],\n  \"success_distance\": 15,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 7.82,
+        "output_length": 1022,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_006",
+        "category": "pedestrian",
+        "complexity": "simple",
+        "prompt": "An elderly person with a walker slowly crosses the street",
+        "output_preview": "{\n  \"scenario_name\": \"elderly_crossing_094\",\n  \"description\": \"Elderly pedestrian crossing at night with limited visibility\",\n  \"weather\": \"clear_night\",\n  \"ego_vehicle_model\": \"vehicle.mini.cooper_s_2021\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": fal...",
+        "full_output": "{\n  \"scenario_name\": \"elderly_crossing_094\",\n  \"description\": \"Elderly pedestrian crossing at night with limited visibility\",\n  \"weather\": \"clear_night\",\n  \"ego_vehicle_model\": \"vehicle.mini.cooper_s_2021\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 6,\n  \"actors\": [\n    {\n      \"id\": \"elderly_walker\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0018\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"ahead\",\n          \"lateral_offset\": 2.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"elderly_walker\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 3.5,\n      \"speed_value\": 1.2,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    }\n  ],\n  \"success_distance\": 65,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 22.14,
+        "output_length": 1103,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign"
+      },
+      "base_result": {
+        "scenario_id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 6.69,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_007",
+        "category": "vehicle_following",
+        "complexity": "simple",
+        "prompt": "The car ahead accelerates from a stop sign",
+        "output_preview": "{\n  \"scenario_name\": \"stop_sign_acceleration\",\n  \"description\": \"Vehicle at stop sign accelerates\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.ford.mustang\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"...",
+        "full_output": "{\n  \"scenario_name\": \"stop_sign_acceleration\",\n  \"description\": \"Vehicle at stop sign accelerates\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.ford.mustang\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 5,\n  \"actors\": [\n    {\n      \"id\": \"stop_sign_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.audi.tt\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"255,150,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"stop_sign_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 10.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 2.0\n    }\n  ],\n  \"success_distance\": 80,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 22.3,
+        "output_length": 1141,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions"
+      },
+      "base_result": {
+        "scenario_id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 10.69,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_008",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "At a four-way stop, two vehicles arrive at the same time from perpendicular directions",
+        "output_preview": "{\n  \"scenario_name\": \"four_way_stop_185\",\n  \"description\": \"Four-way stop with vehicles arriving simultaneously from different directions\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.bmw.grandtourer\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_inters...",
+        "full_output": "{\n  \"scenario_name\": \"four_way_stop_185\",\n  \"description\": \"Four-way stop with vehicles arriving simultaneously from different directions\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.bmw.grandtourer\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 9,\n  \"actors\": [\n    {\n      \"id\": \"arriving_left\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.tesla.cybertruck\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"perpendicular\",\n          \"road_relationship\": \"different_road\",\n          \"is_intersection\": true\n        }\n      }\n    },\n    {\n      \"id\": \"arriving_right\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.audi.tt\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"perpendicular\",\n          \"road_relationship\": \"different_road\",\n          \"is_intersection\": true\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"arriving_left\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 12.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.5\n    },\n    {\n      \"actor_id\": \"arriving_right\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 11.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.8\n    }\n  ],\n  \"success_distance\": 60,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 35.18,
+        "output_length": 1843,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on"
+      },
+      "base_result": {
+        "scenario_id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on",
+        "output_preview": "{\n  \"scenario_name\": \"Heavy Rain Reduced Visibility\",\n  \"description\": \"A rainy day with heavy downpour reduces visibility, making it difficult to spot pedestrians or other vehicles. The ego vehicle is tasked with following another vehicle that has its tail lights turned off, adding to the challenge...",
+        "full_output": "{\n  \"scenario_name\": \"Heavy Rain Reduced Visibility\",\n  \"description\": \"A rainy day with heavy downpour reduces visibility, making it difficult to spot pedestrians or other vehicles. The ego vehicle is tasked with following another vehicle that has its tail lights turned off, adding to the challenge.\",\n  \"weather\": {\n    \"rain\": true,\n    \"visibility\": 20\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    0.5,\n    0,\n    2.5\n  ],\n  \"ego_start_speed\": 30,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"Tesla Model S\",\n      \"tail_lights\": false\n    },\n    {\n      \"type\": \"pedestrian\",\n      \"spawn_point\": [\n        1.0,\n        -2.5,\n        0\n      ],\n      \"behavior\": \"walk\"\n    }\n  ],\n  \"actions\": [\n    \"steering\",\n    \"acceleration\"\n  ],\n  \"success_distance\": 10,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 4.95,
+        "output_length": 846,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_009",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Heavy rain reduces visibility while following a vehicle with no tail lights on",
+        "output_preview": "{\n  \"scenario_name\": \"heavy_rain_following_no_lights_142\",\n  \"description\": \"Following a vehicle in heavy rain with no visible headlights\",\n  \"weather\": \"hard_rain\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_con...",
+        "full_output": "{\n  \"scenario_name\": \"heavy_rain_following_no_lights_142\",\n  \"description\": \"Following a vehicle in heavy rain with no visible headlights\",\n  \"weather\": \"hard_rain\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"suburban\",\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"no_headlights\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.tesla.model3\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 45,\n            \"max\": 60\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"100,100,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"no_headlights\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 15,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2\n    }\n  ],\n  \"success_distance\": 130,\n  \"timeout\": 80,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 22.78,
+        "output_length": 1195,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion"
+      },
+      "base_result": {
+        "scenario_id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion",
+        "output_preview": "{\n  \"scenario_name\": \"Traffic Congestion Ahead\",\n  \"description\": \"The road is clear until three cars ahead slow down due to unexpected traffic congestion.\",\n  \"weather\": {\n    \"type\": \"day\",\n    \"time_of_day\": \"morning\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    0.5,\n    0.8,\n    -...",
+        "full_output": "{\n  \"scenario_name\": \"Traffic Congestion Ahead\",\n  \"description\": \"The road is clear until three cars ahead slow down due to unexpected traffic congestion.\",\n  \"weather\": {\n    \"type\": \"day\",\n    \"time_of_day\": \"morning\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    0.5,\n    0.8,\n    -0.2\n  ],\n  \"ego_start_speed\": 20,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"default\",\n      \"role\": \"following_vehicle_1\",\n      \"speed\": 15\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"default\",\n      \"role\": \"following_vehicle_2\",\n      \"speed\": 12\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"default\",\n      \"role\": \"following_vehicle_3\",\n      \"speed\": 10\n    }\n  ],\n  \"actions\": [\n    {\n      \"action\": \"drive\",\n      \"distance\": 30\n    }\n  ],\n  \"success_distance\": 50,\n  \"timeout\": 300,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 5.21,
+        "output_length": 861,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_010",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Three cars ahead of you suddenly slow down due to traffic congestion",
+        "output_preview": "{\n  \"scenario_name\": \"traffic_congestion_response_294\",\n  \"description\": \"Cars ahead react to congestion\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\"...",
+        "full_output": "{\n  \"scenario_name\": \"traffic_congestion_response_294\",\n  \"description\": \"Cars ahead react to congestion\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"congested_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.volkswagen.t2\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"150,100,50\"\n    },\n    {\n      \"id\": \"blocking_vehicle\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.ford.crown\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 45\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"200,100,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"congested_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 10.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"congested_car\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 4.0,\n      \"brake_force\": 0.6,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.8\n    },\n    {\n      \"actor_id\": \"blocking_vehicle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 15.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.5\n    }\n  ],\n  \"success_distance\": 90,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 41.82,
+        "output_length": 2121,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph"
+      },
+      "base_result": {
+        "scenario_id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph",
+        "output_preview": "{\n  \"scenario_name\": \"Yellow Light Warning\",\n  \"description\": \"A yellow traffic light turns red as the ego vehicle approaches at 35 mph.\",\n  \"weather\": {\n    \"condition\": \"rainy\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    {\n      \"x\": -50.0,\n      \"y\": 20.0,\n      \"z\": 2.5,\n      \"r...",
+        "full_output": "{\n  \"scenario_name\": \"Yellow Light Warning\",\n  \"description\": \"A yellow traffic light turns red as the ego vehicle approaches at 35 mph.\",\n  \"weather\": {\n    \"condition\": \"rainy\"\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": [\n    {\n      \"x\": -50.0,\n      \"y\": 20.0,\n      \"z\": 2.5,\n      \"roll\": 0.0,\n      \"pitch\": 0.0,\n      \"yaw\": 0.0,\n      \"heading\": 0.0,\n      \"speed\": 35.0,\n      \"accel\": 0.1,\n      \"brake\": 0.0\n    }\n  ],\n  \"actors\": [\n    {\n      \"type\": \"light\",\n      \"position\": {\n        \"x\": -48.0,\n        \"y\": 18.0,\n        \"z\": 3.0\n      },\n      \"rotation\": {\n        \"x\": 0.0,\n        \"y\": 0.0,\n        \"z\": 0.0\n      },\n      \"color\": [\n        255,\n        165,\n        0\n      ]\n    }\n  ],\n  \"actions\": [\n    {\n      \"action_type\": \"steer\",\n      \"target_angle\": 45.0\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 30.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 7.27,
+        "output_length": 890,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_011",
+        "category": "intersection",
+        "complexity": "medium",
+        "prompt": "A yellow traffic light turns red as you approach at 35 mph",
+        "output_preview": "{\n  \"scenario_name\": \"red_light_turn_105\",\n  \"description\": \"Yellow light turns red ahead of me\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"u...",
+        "full_output": "{\n  \"scenario_name\": \"red_light_turn_105\",\n  \"description\": \"Yellow light turns red ahead of me\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 30,\n  \"actors\": [\n    {\n      \"id\": \"red_light\",\n      \"type\": \"traffic\",\n      \"model\": \"vehicle.mini.cooper_s_2021\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 45,\n            \"max\": 60\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\",\n          \"lateral_offset\": 3.5\n        }\n      },\n      \"color\": \"255,200,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"red_light\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": -8.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.0\n    },\n    {\n      \"actor_id\": \"red_light\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"after_previous\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    }\n  ],\n  \"success_distance\": 110,\n  \"timeout\": 55,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 28.13,
+        "output_length": 1397,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road"
+      },
+      "base_result": {
+        "scenario_id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 6.18,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_012",
+        "category": "weather",
+        "complexity": "medium",
+        "prompt": "Dense fog limits visibility to 20 meters on a winding road",
+        "output_preview": "{\n  \"scenario_name\": \"fog_limitation_098\",\n  \"description\": \"Vehicles following too close due to limited visibility\",\n  \"weather\": \"fog\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"town\",\n      \"speed_limit\": {\n  ...",
+        "full_output": "{\n  \"scenario_name\": \"fog_limitation_098\",\n  \"description\": \"Vehicles following too close due to limited visibility\",\n  \"weather\": \"fog\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"town\",\n      \"speed_limit\": {\n        \"min\": 30,\n        \"max\": 50\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 8,\n  \"actors\": [\n    {\n      \"id\": \"close_follower\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.seat.leon\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 15,\n            \"max\": 25\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"100,100,100\"\n    },\n    {\n      \"id\": \"distant_vehicle\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.mercedes.sprinter\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"behind\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"200,200,200\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"close_follower\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 10,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"distant_vehicle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 11,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"close_follower\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 12,\n      \"trigger_comparison\": \"<\",\n      \"brake_force\": 0.6,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    }\n  ],\n  \"success_distance\": 90,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 44.55,
+        "output_length": 2236,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides"
+      },
+      "base_result": {
+        "scenario_id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 10.08,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_013",
+        "category": "multi_vehicle",
+        "complexity": "medium",
+        "prompt": "Two vehicles simultaneously attempt to merge into your lane from both sides",
+        "output_preview": "{\n  \"scenario_name\": \"multi_lane_merge_283\",\n  \"description\": \"Multiple vehicles merging simultaneously from different directions\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\":...",
+        "full_output": "{\n  \"scenario_name\": \"multi_lane_merge_283\",\n  \"description\": \"Multiple vehicles merging simultaneously from different directions\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.dodge.charger_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"highway\"\n    }\n  },\n  \"ego_start_speed\": 22,\n  \"actors\": [\n    {\n      \"id\": \"left_merger\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.audi.tt\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 60,\n            \"max\": 75\n          },\n          \"relative_position\": \"left\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"150,100,50\"\n    },\n    {\n      \"id\": \"right_merger\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.tesla.model3\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 65,\n            \"max\": 80\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"50,200,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"left_merger\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.5,\n      \"speed_value\": 18.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"right_merger\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 19.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.5\n    },\n    {\n      \"actor_id\": \"left_merger\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 30.0,\n      \"trigger_comparison\": \"<\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 2.5,\n      \"target_lane\": -1\n    },\n    {\n      \"actor_id\": \"right_merger\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.5,\n      \"target_lane\": -1\n    }\n  ],\n  \"success_distance\": 140,\n  \"timeout\": 70,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 47.09,
+        "output_length": 2416,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross"
+      },
+      "base_result": {
+        "scenario_id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 7.55,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_014",
+        "category": "pedestrian",
+        "complexity": "medium",
+        "prompt": "A jogger runs along the road edge then suddenly turns to cross",
+        "output_preview": "{\n  \"scenario_name\": \"jogger_crosses_304\",\n  \"description\": \"Jogger crosses at unguarded intersection\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.toyota.prius\",\n  \"ego_spawn\": {\n    \"lane_type\": \"Driving\",\n    \"road_context\": \"urban\",\n    \"is_intersection\": true\n  },\n  \"ego_start_sp...",
+        "full_output": "{\n  \"scenario_name\": \"jogger_crosses_304\",\n  \"description\": \"Jogger crosses at unguarded intersection\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.toyota.prius\",\n  \"ego_spawn\": {\n    \"lane_type\": \"Driving\",\n    \"road_context\": \"urban\",\n    \"is_intersection\": true\n  },\n  \"ego_start_speed\": 8,\n  \"actors\": [\n    {\n      \"id\": \"jogger\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0014\",\n      \"spawn\": {\n        \"lane_type\": \"Sidewalk\",\n        \"distance_to_ego\": {\n          \"min\": 15,\n          \"max\": 20\n        },\n        \"relative_position\": \"ahead\",\n        \"road_relationship\": \"same_road\"\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"jogger\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"speed_value\": 3.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.2\n    },\n    {\n      \"actor_id\": \"jogger\",\n      \"action_type\": \"turn\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 1.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 1.0,\n      \"target_angle\": 90.0\n    },\n    {\n      \"actor_id\": \"jogger\",\n      \"action_type\": \"wait\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0.5,\n      \"wait_duration\": 1.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 60,\n  \"timeout\": 45,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 30.95,
+        "output_length": 1488,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic"
+      },
+      "base_result": {
+        "scenario_id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic",
+        "output_preview": "{\n  \"scenario_name\": \"Ambulance Approach\",\n  \"description\": \"An ambulance with sirens approaches from behind while you're in heavy traffic.\",\n  \"weather\": {\n    \"condition\": \"rainy\",\n    \"intensity\": 0.5,\n    \"sun_position\": [\n      0.5,\n      0.5,\n      1.0\n    ],\n    \"light_mode\": \"day\"\n  },\n  \"eg...",
+        "full_output": "{\n  \"scenario_name\": \"Ambulance Approach\",\n  \"description\": \"An ambulance with sirens approaches from behind while you're in heavy traffic.\",\n  \"weather\": {\n    \"condition\": \"rainy\",\n    \"intensity\": 0.5,\n    \"sun_position\": [\n      0.5,\n      0.5,\n      1.0\n    ],\n    \"light_mode\": \"day\"\n  },\n  \"ego_vehicle_model\": \"ambulance\",\n  \"ego_spawn\": {\n    \"position\": [\n      -30.0,\n      40.0,\n      -15.0\n    ],\n    \"rotation_y\": 0.0,\n    \"speed\": 20.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"ambulance\",\n      \"position\": [\n        -25.0,\n        35.0,\n        -10.0\n      ],\n      \"rotation_y\": 0.0,\n      \"speed\": 15.0,\n      \"is_siren_on\": true\n    }\n  ],\n  \"actions\": {\n    \"steer\": [\n      -0.5,\n      0.0,\n      0.0\n    ],\n    \"accelerate\": [\n      0.2,\n      0.0,\n      0.0\n    ]\n  },\n  \"success_distance\": 50.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 6.76,
+        "output_length": 894,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_015",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "An ambulance with sirens approaches from behind while you're in heavy traffic",
+        "output_preview": "{\n  \"scenario_name\": \"ambulance_close_062\",\n  \"description\": \"Ambulance close approach from behind\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.ford.crown\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n...",
+        "full_output": "{\n  \"scenario_name\": \"ambulance_close_062\",\n  \"description\": \"Ambulance close approach from behind\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.ford.crown\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"close_ambulance\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.mercedes.sprinter\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 60,\n            \"max\": 80\n          },\n          \"relative_position\": \"behind\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\",\n          \"road_context\": \"urban\"\n        }\n      },\n      \"color\": \"255,0,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"close_ambulance\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.0,\n      \"speed_value\": 15.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"close_ambulance\",\n      \"action_type\": \"sirens\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 3.0,\n      \"siren_level\": 1.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.0\n    }\n  ],\n  \"success_distance\": 100,\n  \"timeout\": 70,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 28.95,
+        "output_length": 1457,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane"
+      },
+      "base_result": {
+        "scenario_id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane",
+        "output_preview": "{\n  \"scenario_name\": \"Construction Zone\",\n  \"description\": \"A busy construction zone with a flagman directing alternating traffic through one lane.\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"clouds\": 0.5,\n    \"rain\": false,\n    \"snow\": false,\n    \"fog\": false\n  },\n  \"ego_vehicle_model\": ...",
+        "full_output": "{\n  \"scenario_name\": \"Construction Zone\",\n  \"description\": \"A busy construction zone with a flagman directing alternating traffic through one lane.\",\n  \"weather\": {\n    \"day\": true,\n    \"hour\": 12,\n    \"clouds\": 0.5,\n    \"rain\": false,\n    \"snow\": false,\n    \"fog\": false\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"x\": -30.0,\n    \"y\": 10.0,\n    \"z\": 0.0,\n    \"pitch\": 0.0,\n    \"roll\": 0.0,\n    \"yaw\": 0.0,\n    \"heading\": 0.0,\n    \"speed\": 20.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"walker\"\n    },\n    {\n      \"type\": \"pedestrian\",\n      \"x\": 15.0,\n      \"y\": 25.0,\n      \"z\": 0.0,\n      \"pitch\": 0.0,\n      \"roll\": 0.0,\n      \"yaw\": 0.0,\n      \"heading\": 0.0\n    },\n    {\n      \"type\": \"vehicle\",\n      \"class\": \"PedestrianBus\",\n      \"x\": 35.0,\n      \"y\": 50.0,\n      \"z\": 0.0,\n      \"pitch\": 0.0,\n      \"roll\": 0.0,\n      \"yaw\": 0.0,\n      \"heading\": 0.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"action\": \" steer_to_lane_change\",\n      \"target_x\": 40.0,\n      \"target_y\": 60.0,\n      \"target_z\": 0.0,\n      \"distance_threshold\": 1.0,\n      \"duration\": 3.0\n    },\n    {\n      \"action\": \" accelerate\",\n      \"acceleration\": 1.0,\n      \"duration\": 2.0\n    },\n    {\n      \"action\": \" brake\",\n      \"braking_force\": 0.8,\n      \"duration\": 2.0\n    }\n  ],\n  \"success_distance\": 30.0,\n  \"timeout\": 300.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 11.88,
+        "output_length": 1347,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_016",
+        "category": "construction",
+        "complexity": "complex",
+        "prompt": "A construction zone with a flagman directing alternating traffic through one lane",
+        "output_preview": "{\n  \"scenario_name\": \"construction_alternating_lane_161\",\n  \"description\": \"Alternating lane closure through construction zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.sprinter\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"cons...",
+        "full_output": "{\n  \"scenario_name\": \"construction_alternating_lane_161\",\n  \"description\": \"Alternating lane closure through construction zone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.sprinter\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"construction\",\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 6,\n  \"actors\": [\n    {\n      \"id\": \"flagman\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0010\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 20,\n            \"max\": 30\n          },\n          \"relative_position\": \"ahead\",\n          \"lateral_offset\": -3.0\n        }\n      }\n    },\n    {\n      \"id\": \"alternating_vehicle1\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.dodge.charger_2020\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"255,200,100\"\n    },\n    {\n      \"id\": \"alternating_vehicle2\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.toyota.prius\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 50\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"opposite_lane\"\n        }\n      },\n      \"color\": \"100,200,200\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"alternating_vehicle1\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 10.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.0\n    },\n    {\n      \"actor_id\": \"alternating_vehicle2\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 8.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.0\n    },\n    {\n      \"actor_id\": \"flagman\",\n      \"action_type\": \"wait\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"wait_duration\": 2.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 70,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 50.02,
+        "output_length": 2510,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic"
+      },
+      "base_result": {
+        "scenario_id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic",
+        "output_preview": "{\n  \"scenario_name\": \"School Crossing\",\n  \"description\": \"A group of school children is crossing the street while their crossing guard stops traffic.\",\n  \"weather\": {\n    \"day\": true,\n    \"time_of_day\": 12,\n    \"visibility\": 1000\n  },\n  \"ego_vehicle_model\": \"Pedestrian.Mikado\",\n  \"ego_spawn\": [\n    ...",
+        "full_output": "{\n  \"scenario_name\": \"School Crossing\",\n  \"description\": \"A group of school children is crossing the street while their crossing guard stops traffic.\",\n  \"weather\": {\n    \"day\": true,\n    \"time_of_day\": 12,\n    \"visibility\": 1000\n  },\n  \"ego_vehicle_model\": \"Pedestrian.Mikado\",\n  \"ego_spawn\": [\n    {\n      \"type\": \"Waypoint\",\n      \"location\": [\n        35.6895,\n        -105.9378,\n        0\n      ],\n      \"heading\": 0,\n      \"distance\": 200\n    }\n  ],\n  \"ego_start_speed\": 10,\n  \"actors\": [\n    {\n      \"type\": \"StaticActor\",\n      \"class\": \"Pedestrian.CrossingGuard\"\n    },\n    {\n      \"type\": \"DynamicActor\",\n      \"class\": \"Pedestrian.SchoolChild\",\n      \"spawn_point\": {\n        \"waypoints\": [\n          {\n            \"type\": \"Waypoint\",\n            \"location\": [\n              35.6896,\n              -105.938,\n              0\n            ],\n            \"heading\": 45\n          },\n          {\n            \"type\": \"Waypoint\",\n            \"location\": [\n              35.6897,\n              -105.9379,\n              0\n            ],\n            \"heading\": 90\n          },\n          {\n            \"type\": \"Waypoint\",\n            \"location\": [\n              35.6898,\n              -105.9378,\n              0\n            ],\n            \"heading\": 135\n          }\n        ]\n      },\n      \"num_children\": 5,\n      \"speed\": 1\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"StopVehicle\",\n      \"location\": [\n        35.6895,\n        -105.9378,\n        0\n      ]\n    },\n    {\n      \"type\": \"MoveToWaypoint\",\n      \"waypoint\": {\n        \"type\": \"Waypoint\",\n        \"location\": [\n          35.6894,\n          -105.9382,\n          0\n        ],\n        \"heading\": 180\n      }\n    }\n  ],\n  \"success_distance\": 50,\n  \"timeout\": 300,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 10.7,
+        "output_length": 1755,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_017",
+        "category": "complex_pedestrian",
+        "complexity": "complex",
+        "prompt": "A group of school children starts crossing while their crossing guard stops traffic",
+        "output_preview": "{\n  \"scenario_name\": \"school_children_crossing\",\n  \"description\": \"Children cross at school intersection\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": \"...",
+        "full_output": "{\n  \"scenario_name\": \"school_children_crossing\",\n  \"description\": \"Children cross at school intersection\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 8,\n  \"actors\": [\n    {\n      \"id\": \"crossing_guard\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0040\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"right\",\n          \"lateral_offset\": 4.0\n        }\n      }\n    },\n    {\n      \"id\": \"child_1\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0015\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"right\",\n          \"lateral_offset\": 2.5\n        }\n      }\n    },\n    {\n      \"id\": \"child_2\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0027\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"right\",\n          \"lateral_offset\": 3.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"crossing_guard\",\n      \"action_type\": \"wait\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 0,\n      \"wait_duration\": 2.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.1\n    },\n    {\n      \"actor_id\": \"child_1\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0,\n      \"speed_value\": 1.2,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    },\n    {\n      \"actor_id\": \"child_2\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0,\n      \"speed_value\": 1.1,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 1.2\n    }\n  ],\n  \"success_distance\": 60,\n  \"timeout\": 50,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 48.08,
+        "output_length": 2314,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane"
+      },
+      "base_result": {
+        "scenario_id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane",
+        "output_preview": "{\n  \"scenario_name\": \"RoundaboutComplexity\",\n  \"description\": \"A complex roundabout with multiple vehicles entering and exiting, requiring a cyclist to navigate the outer lane.\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 12,\n    \"weather_conditions\": [\n      {\n        \"name\": \"overcast\",\n        \"...",
+        "full_output": "{\n  \"scenario_name\": \"RoundaboutComplexity\",\n  \"description\": \"A complex roundabout with multiple vehicles entering and exiting, requiring a cyclist to navigate the outer lane.\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 12,\n    \"weather_conditions\": [\n      {\n        \"name\": \"overcast\",\n        \"cloudiness\": 0.5\n      }\n    ]\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"position\": [\n      23.74,\n      -45.52,\n      2.39\n    ],\n    \"heading\": 270,\n    \"speed\": 20.0\n  },\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"Tesla Model S\",\n      \"speed\": 30.0,\n      \"position\": [\n        22.35,\n        -46.17,\n        1.85\n      ]\n    },\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"BMW 3 Series\",\n      \"speed\": 25.0,\n      \"position\": [\n        24.11,\n        -44.98,\n        2.14\n      ]\n    },\n    {\n      \"type\": \"cyclist\",\n      \"model\": \"Honda Civic\",\n      \"speed\": 10.0,\n      \"position\": [\n        26.42,\n        -43.57,\n        1.95\n      ]\n    }\n  ],\n  \"actions\": {\n    \"steering_angle\": [\n      -30,\n      30\n    ],\n    \"acceleration\": [\n      0.0,\n      0.5,\n      1.0\n    ]\n  },\n  \"success_distance\": 50.0,\n  \"timeout\": 100.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 8.4,
+        "output_length": 1206,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_018",
+        "category": "complex_intersection",
+        "complexity": "complex",
+        "prompt": "At a complex roundabout, multiple vehicles enter and exit while a cyclist navigates the outer lane",
+        "output_preview": "{\n  \"scenario_name\": \"roundabout_multiple_vehicles\",\n  \"description\": \"Complex roundabout navigation with multiple entering/exit vehicles\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": t...",
+        "full_output": "{\n  \"scenario_name\": \"roundabout_multiple_vehicles\",\n  \"description\": \"Complex roundabout navigation with multiple entering/exit vehicles\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": true,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 10,\n  \"actors\": [\n    {\n      \"id\": \"entering_car1\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.seat.leon\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"different_road\",\n          \"lateral_offset\": 3.0\n        }\n      },\n      \"color\": \"255,200,100\"\n    },\n    {\n      \"id\": \"entering_car2\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.toyota.prius\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 50\n          },\n          \"relative_position\": \"opposite\",\n          \"road_relationship\": \"different_road\",\n          \"lateral_offset\": -4.0\n        }\n      },\n      \"color\": \"100,255,100\"\n    },\n    {\n      \"id\": \"exiting_car1\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.jeep.wrangler_rubicon\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"left\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"200,150,50\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"entering_car1\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 8.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.5\n    },\n    {\n      \"actor_id\": \"entering_car2\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 6.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 1.5\n    },\n    {\n      \"actor_id\": \"exiting_car1\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 3.0,\n      \"speed_value\": 12.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.5\n    },\n    {\n      \"actor_id\": \"exiting_car1\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.0,\n      \"target_lane\": 0\n    },\n    {\n      \"actor_id\": \"entering_car1\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 15.0,\n      \"trigger_comparison\": \"<\",\n      \"brake_force\": 0.7,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    }\n  ],\n  \"success_distance\": 85,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 58.52,
+        "output_length": 3134,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk"
+      },
+      "base_result": {
+        "scenario_id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk",
+        "output_preview": "{\n  \"scenario_name\": \"DeerOnRoadAtDusk\",\n  \"description\": \"A deer suddenly appears on the road as the sun sets in the forest, forcing the ego vehicle to react quickly.\",\n  \"weather\": {\n    \"time_of_day\": 16,\n    \"visibility\": 0.5,\n    \"rain\": false,\n    \"clouds\": 100,\n    \"sun_position\": [\n      0.5...",
+        "full_output": "{\n  \"scenario_name\": \"DeerOnRoadAtDusk\",\n  \"description\": \"A deer suddenly appears on the road as the sun sets in the forest, forcing the ego vehicle to react quickly.\",\n  \"weather\": {\n    \"time_of_day\": 16,\n    \"visibility\": 0.5,\n    \"rain\": false,\n    \"clouds\": 100,\n    \"sun_position\": [\n      0.5,\n      -0.7,\n      0.5\n    ],\n    \"day_night\": true\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"x\": -50.0,\n    \"y\": 10.0,\n    \"z\": 0.0,\n    \"pitch\": 0.0,\n    \"roll\": 0.0,\n    \"yaw\": 0.0\n  },\n  \"ego_start_speed\": 30.0,\n  \"actors\": [\n    {\n      \"type\": \"static\",\n      \"model\": \"deer\"\n    }\n  ],\n  \"actions\": {\n    \"start\": {\n      \"duration\": 60.0\n    }\n  },\n  \"success_distance\": 50.0,\n  \"timeout\": 120.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 6.45,
+        "output_length": 755,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_019",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A deer jumps onto the road from the forest at dusk",
+        "output_preview": "{\n  \"scenario_name\": \"deer_road_crossing_312\",\n  \"description\": \"Deer crosses road at dusk\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.nissan.patrol\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"town\"\n    ...",
+        "full_output": "{\n  \"scenario_name\": \"deer_road_crossing_312\",\n  \"description\": \"Deer crosses road at dusk\",\n  \"weather\": \"clear_sunset\",\n  \"ego_vehicle_model\": \"vehicle.nissan.patrol\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"town\"\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"deer\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0024\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Sidewalk\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 45\n          },\n          \"relative_position\": \"ahead\",\n          \"lateral_offset\": 3.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"deer\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 5.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"deer\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 1.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 70,\n  \"timeout\": 40,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 26.93,
+        "output_length": 1280,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you"
+      },
+      "base_result": {
+        "scenario_id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you",
+        "output_preview": "{\n  \"scenario_name\": \"Police Stop\",\n  \"description\": \"A police car with flashing lights pulls over another vehicle ahead of you.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloudiness\": 0.2,\n    \"rain\": false,\n    \"snow\": false,\n    \"wind\": 0.0,\n    \"wind_direction\": 90.0\n  },\n  \"ego_vehicle_model\": \"pol...",
+        "full_output": "{\n  \"scenario_name\": \"Police Stop\",\n  \"description\": \"A police car with flashing lights pulls over another vehicle ahead of you.\",\n  \"weather\": {\n    \"day\": true,\n    \"cloudiness\": 0.2,\n    \"rain\": false,\n    \"snow\": false,\n    \"wind\": 0.0,\n    \"wind_direction\": 90.0\n  },\n  \"ego_vehicle_model\": \"police_car\",\n  \"ego_spawn\": [\n    45.5236,\n    -122.675,\n    0.0\n  ],\n  \"ego_spawn_velocity\": [\n    0.0,\n    0.0,\n    0.0\n  ],\n  \"ego_spawn_angle\": 0.0,\n  \"actors\": [\n    {\n      \"type\": \"vehicle\",\n      \"model\": \"sedan\",\n      \"speed\": 60.0,\n      \"position\": [\n        45.5237,\n        -122.6749,\n        0.0\n      ]\n    }\n  ],\n  \"actions\": [\n    {\n      \"action\": \"stop\"\n    }\n  ],\n  \"success_distance\": 10.0,\n  \"timeout\": 300.0,\n  \"collision_allowed\": true\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 5.98,
+        "output_length": 759,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_020",
+        "category": "emergency",
+        "complexity": "complex",
+        "prompt": "A police car with lights flashing pulls over another vehicle ahead of you",
+        "output_preview": "{\n  \"scenario_name\": \"police_escalation_105\",\n  \"description\": \"Police car pulls over vehicle ahead, creating emergency situation\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection...",
+        "full_output": "{\n  \"scenario_name\": \"police_escalation_105\",\n  \"description\": \"Police car pulls over vehicle ahead, creating emergency situation\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.mercedes.coupe_2020\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"urban\"\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"lead_vehicle\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.jeep.wrangler_rubicon\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 30,\n            \"max\": 40\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"255,200,100\"\n    },\n    {\n      \"id\": \"emergency_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.dodge.charger_police\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 20,\n            \"max\": 30\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\"\n        }\n      },\n      \"color\": \"0,100,200\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"lead_vehicle\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 18.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 3.0\n    },\n    {\n      \"actor_id\": \"emergency_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 35.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.5\n    },\n    {\n      \"actor_id\": \"emergency_car\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 4.5,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"lead_vehicle\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"after_previous\",\n      \"brake_force\": 0.8,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.5\n    }\n  ],\n  \"success_distance\": 80,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 48.18,
+        "output_length": 2335,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot"
+      },
+      "base_result": {
+        "scenario_id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 9.15,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_021",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A shopping cart rolls into the street from a parking lot",
+        "output_preview": "{\n  \"scenario_name\": \"cart_rolling_into_road\",\n  \"description\": \"Shopping cart rolls onto road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"town\"\n    }\n  ...",
+        "full_output": "{\n  \"scenario_name\": \"cart_rolling_into_road\",\n  \"description\": \"Shopping cart rolls onto road\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"town\"\n    }\n  },\n  \"ego_start_speed\": 7,\n  \"actors\": [\n    {\n      \"id\": \"rolling_cart\",\n      \"type\": \"bicycle\",\n      \"model\": \"vehicle.nissan.micra\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 50\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"same_road\",\n          \"lateral_offset\": -2.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"rolling_cart\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 3.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    }\n  ],\n  \"success_distance\": 80,\n  \"timeout\": 55,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 22.42,
+        "output_length": 1097,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily"
+      },
+      "base_result": {
+        "scenario_id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 6.14,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_022",
+        "category": "complex_weather",
+        "complexity": "complex",
+        "prompt": "Black ice causes the vehicle ahead to skid sideways while it's snowing heavily",
+        "output_preview": "{\n  \"scenario_name\": \"black_ice_skid_283\",\n  \"description\": \"Vehicle loses control on black ice\",\n  \"weather\": \"hard_rain\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"highway\"\n...",
+        "full_output": "{\n  \"scenario_name\": \"black_ice_skid_283\",\n  \"description\": \"Vehicle loses control on black ice\",\n  \"weather\": \"hard_rain\",\n  \"ego_vehicle_model\": \"vehicle.tesla.model3\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"highway\"\n    }\n  },\n  \"ego_start_speed\": 14,\n  \"actors\": [\n    {\n      \"id\": \"skidding_car\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.ford.crown\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"0,50,100\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"skidding_car\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 12.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"skidding_car\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"after_previous\",\n      \"brake_force\": 0.8,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"skidding_car\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 3.5,\n      \"target_lane\": -1\n    }\n  ],\n  \"success_distance\": 80,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 33.57,
+        "output_length": 1632,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve"
+      },
+      "base_result": {
+        "scenario_id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve",
+        "output_preview": "{\n  \"scenario_name\": \"Drone Distraction\",\n  \"description\": \"A drone flies low across the road, distracting the driver of the vehicle ahead who has to swerve to avoid it.\",\n  \"weather\": {\n    \"day\": true,\n    \"visibility\": 1000.0,\n    \"weather_conditions\": [\n      {\n        \"type\": \"sunny\"\n      }\n  ...",
+        "full_output": "{\n  \"scenario_name\": \"Drone Distraction\",\n  \"description\": \"A drone flies low across the road, distracting the driver of the vehicle ahead who has to swerve to avoid it.\",\n  \"weather\": {\n    \"day\": true,\n    \"visibility\": 1000.0,\n    \"weather_conditions\": [\n      {\n        \"type\": \"sunny\"\n      }\n    ]\n  },\n  \"ego_vehicle_model\": \"Audi A4\",\n  \"ego_spawn\": {\n    \"location\": {\n      \"x\": -10.0,\n      \"y\": 0.0,\n      \"z\": 1.0\n    },\n    \"heading\": 0.0\n  },\n  \"ego_start_speed\": 30.0,\n  \"actors\": [\n    {\n      \"actor_type\": \"car\",\n      \"model\": \"Audi A6\",\n      \"speed\": 40.0,\n      \"location\": {\n        \"x\": -9.5,\n        \"y\": 0.2,\n        \"z\": 0.8\n      },\n      \"heading\": 180.0,\n      \"acceleration\": 1.5,\n      \"braking\": 3.0\n    },\n    {\n      \"actor_type\": \"drone\",\n      \"model\": \"mini_drone\",\n      \"location\": {\n        \"x\": -12.0,\n        \"y\": 0.5,\n        \"z\": 2.0\n      },\n      \"heading\": 270.0,\n      \"altitude\": 50.0\n    }\n  ],\n  \"actions\": [\n    {\n      \"action_type\": \"steer_left\",\n      \"duration\": 2.0\n    },\n    {\n      \"action_type\": \"accelerate\",\n      \"duration\": 0.5\n    }\n  ],\n  \"success_distance\": 20.0,\n  \"timeout\": 60.0,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 9.69,
+        "output_length": 1183,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_023",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A drone flies low across the road causing the driver ahead to swerve",
+        "output_preview": "{\n  \"scenario_name\": \"drone_crosses_road\",\n  \"description\": \"Vehicle reacts to low-flying drone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.bmw.grandtourer\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"speed_limit\": {\n     ...",
+        "full_output": "{\n  \"scenario_name\": \"drone_crosses_road\",\n  \"description\": \"Vehicle reacts to low-flying drone\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.bmw.grandtourer\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"speed_limit\": {\n        \"min\": 30,\n        \"max\": 50\n      }\n    }\n  },\n  \"ego_start_speed\": 12,\n  \"actors\": [\n    {\n      \"id\": \"crossing_drone\",\n      \"type\": \"bicycle\",\n      \"model\": \"vehicle.nissan.patrol\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Shoulder\",\n          \"distance_to_ego\": {\n            \"min\": 40,\n            \"max\": 55\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lateral_offset\": 2.0\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"crossing_drone\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 4.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.3\n    },\n    {\n      \"actor_id\": \"crossing_drone\",\n      \"action_type\": \"lane_change\",\n      \"trigger_type\": \"after_previous\",\n      \"trigger_value\": 0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"sinusoidal\",\n      \"dynamics_value\": 2.0,\n      \"target_lane\": -1\n    }\n  ],\n  \"success_distance\": 95,\n  \"timeout\": 60,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 28.22,
+        "output_length": 1428,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars"
+      },
+      "base_result": {
+        "scenario_id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars",
+        "output_preview": "{\n  \"scenario_name\": \"Rush Hour Chaos\",\n  \"description\": \"During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars.\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 12,\n    \"cloud_cover\": 0.5,\n    \"rain\": false,\n    \"wind\": 0,\n    \"hu...",
+        "full_output": "{\n  \"scenario_name\": \"Rush Hour Chaos\",\n  \"description\": \"During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars.\",\n  \"weather\": {\n    \"day\": true,\n    \"time\": 12,\n    \"cloud_cover\": 0.5,\n    \"rain\": false,\n    \"wind\": 0,\n    \"humidity\": 60,\n    \"temperature\": 22\n  },\n  \"ego_vehicle_model\": \"Civic\",\n  \"ego_spawn\": [\n    45.5236,\n    -122.675\n  ],\n  \"ego_spawn_speed\": 15,\n  \"actors\": [\n    {\n      \"type\": \"bus\",\n      \"color\": \"blue\"\n    },\n    {\n      \"type\": \"cyclist\",\n      \"position\": [\n        45.5237,\n        -122.6749\n      ],\n      \"heading\": 90\n    },\n    {\n      \"type\": \"pedestrian\",\n      \"position\": [\n        45.5238,\n        -122.6751\n      ],\n      \"heading\": 270\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"stop\",\n      \"vehicle\": \"bus\",\n      \"position\": [\n        45.5237,\n        -122.6749\n      ]\n    },\n    {\n      \"type\": \"passenger_out\",\n      \"vehicle\": \"bus\",\n      \"distance\": 10\n    },\n    {\n      \"type\": \"pass\",\n      \"vehicle\": \"cyclist\",\n      \"distance\": 5\n    },\n    {\n      \"type\": \"cross\",\n      \"vehicle\": \"pedestrian\",\n      \"distance\": 2\n    }\n  ],\n  \"success_distance\": 20,\n  \"timeout\": 100,\n  \"collision_allowed\": true\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 9.9,
+        "output_length": 1240,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_024",
+        "category": "complex_multi",
+        "complexity": "complex",
+        "prompt": "During rush hour, a bus stops to let passengers off while a cyclist passes on the right and a pedestrian crosses between cars",
+        "output_preview": "{\n  \"scenario_name\": \"bus_rush_hour_308\",\n  \"description\": \"Bus stopping during rush hour with multiple passing vehicles\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\",\n      \"speed...",
+        "full_output": "{\n  \"scenario_name\": \"bus_rush_hour_308\",\n  \"description\": \"Bus stopping during rush hour with multiple passing vehicles\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.tt\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"road_context\": \"urban\",\n      \"speed_limit\": {\n        \"min\": 40,\n        \"max\": 60\n      },\n      \"is_intersection\": false\n    }\n  },\n  \"ego_start_speed\": 8,\n  \"actors\": [\n    {\n      \"id\": \"bus_stopping\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.mitsubishi.fusorosa\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 35,\n            \"max\": 45\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      },\n      \"color\": \"255,150,0\"\n    },\n    {\n      \"id\": \"passing_cyclist\",\n      \"type\": \"bicycle\",\n      \"model\": \"vehicle.gazelle.omafiets\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 20,\n            \"max\": 30\n          },\n          \"relative_position\": \"right\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"adjacent_lane\"\n        }\n      }\n    },\n    {\n      \"id\": \"crossing_pedestrian\",\n      \"type\": \"pedestrian\",\n      \"model\": \"walker.pedestrian.0014\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 25,\n            \"max\": 35\n          },\n          \"relative_position\": \"perpendicular\",\n          \"road_relationship\": \"different_road\",\n          \"lateral_offset\": 3.5\n        }\n      }\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"bus_stopping\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0\n    },\n    {\n      \"actor_id\": \"passing_cyclist\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 1.5,\n      \"speed_value\": 9.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"cubic\",\n      \"dynamics_value\": 2.0\n    },\n    {\n      \"actor_id\": \"passing_cyclist\",\n      \"action_type\": \"brake\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 15.0,\n      \"trigger_comparison\": \"<\",\n      \"brake_force\": 0.6,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.5\n    },\n    {\n      \"actor_id\": \"crossing_pedestrian\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"distance_to_ego\",\n      \"trigger_value\": 18.0,\n      \"trigger_comparison\": \"<\",\n      \"speed_value\": 1.8,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"bus_stopping\",\n      \"action_type\": \"wait\",\n      \"trigger_type\": \"after_previous\",\n      \"wait_duration\": 3.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 100,\n  \"timeout\": 70,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 59.26,
+        "output_length": 3052,
+        "model": "Fine-tuned v5"
+      }
+    },
+    {
+      "scenario": {
+        "id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph"
+      },
+      "base_result": {
+        "scenario_id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph",
+        "output_preview": "",
+        "full_output": "",
+        "json_valid": false,
+        "error": "Failed to generate valid JSON",
+        "generation_time": 9.54,
+        "output_length": 0,
+        "model": "Base Model"
+      },
+      "finetuned_result": {
+        "scenario_id": "test_025",
+        "category": "edge_case",
+        "complexity": "complex",
+        "prompt": "A mattress falls off a truck ahead on the highway at 65 mph",
+        "output_preview": "{\n  \"scenario_name\": \"mattress_fall_213\",\n  \"description\": \"Mattress falls off moving truck\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.etron\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"highway\"\n    }...",
+        "full_output": "{\n  \"scenario_name\": \"mattress_fall_213\",\n  \"description\": \"Mattress falls off moving truck\",\n  \"weather\": \"clear_noon\",\n  \"ego_vehicle_model\": \"vehicle.audi.etron\",\n  \"ego_spawn\": {\n    \"criteria\": {\n      \"lane_type\": \"Driving\",\n      \"is_intersection\": false,\n      \"road_context\": \"highway\"\n    }\n  },\n  \"ego_start_speed\": 60,\n  \"actors\": [\n    {\n      \"id\": \"falling_mattress\",\n      \"type\": \"vehicle\",\n      \"model\": \"vehicle.mercedes.sprinter\",\n      \"spawn\": {\n        \"criteria\": {\n          \"lane_type\": \"Driving\",\n          \"distance_to_ego\": {\n            \"min\": 150,\n            \"max\": 180\n          },\n          \"relative_position\": \"ahead\",\n          \"road_relationship\": \"same_road\",\n          \"lane_relationship\": \"same_lane\"\n        }\n      },\n      \"color\": \"255,200,0\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"actor_id\": \"falling_mattress\",\n      \"action_type\": \"speed\",\n      \"trigger_type\": \"time\",\n      \"trigger_value\": 2.0,\n      \"speed_value\": 10.0,\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"step\",\n      \"dynamics_value\": 0.5\n    },\n    {\n      \"actor_id\": \"falling_mattress\",\n      \"action_type\": \"stop\",\n      \"trigger_type\": \"after_previous\",\n      \"dynamics_dimension\": \"time\",\n      \"dynamics_shape\": \"linear\",\n      \"dynamics_value\": 1.0\n    }\n  ],\n  \"success_distance\": 250,\n  \"timeout\": 80,\n  \"collision_allowed\": false\n}",
+        "json_valid": true,
+        "error": null,
+        "generation_time": 27.2,
+        "output_length": 1373,
         "model": "Fine-tuned v5"
       }
     }

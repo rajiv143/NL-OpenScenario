@@ -628,7 +628,7 @@ def run_test_cases(generator: CarlaScenarioGenerator):
 
 def main():
     parser = argparse.ArgumentParser(description="Generate CARLA scenarios using trained Llama model")
-    parser.add_argument("--model-path", type=str, default="./llama-carla-model/final_model",
+    parser.add_argument("--model-path", type=str, default="./exported_models/llama-carla-model-v5-improved/exported_model_adapters",
                        help="Path to trained model")
     parser.add_argument("--base-model", type=str, default=None,
                        help="Base model name (if not in adapter config)")
