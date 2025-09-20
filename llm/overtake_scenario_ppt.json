@@ -1,0 +1,53 @@
+{
+  "scenario_name": "lane_change_077",
+  "description": "Vehicle changes lane into my path",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.tt",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 24,
+  "actors": [
+    {
+      "id": "lane_changer",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_changer",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0,
+      "target_lane": 0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 60,
+  "collision_allowed": false
+}

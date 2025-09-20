@@ -1657,7 +1657,7 @@ class JsonToXoscConverter:
         if special_actor and special_actor['id'] in actor_positions:
             actor_pos = actor_positions[special_actor['id']]
             ego_criteria = data.get('ego_spawn', {}).get('criteria', {}).copy()
-            
+            crit = data.get('ego_spawn', {}).get('criteria', {}).copy()
             # Check if this is a multi-actor scenario with lane changes
             actors_count = len(data.get('actors', []))
             has_lane_change = any(action.get('action_type') == 'lane_change' for action in data.get('actions', []))
@@ -1900,36 +1900,51 @@ class JsonToXoscConverter:
         for actor_id, actions in actor_groups.items():
             # Add a final wait action to keep the scenario running if timeout is specified
             if 'timeout' in data and data['timeout'] > 0:
-                # Find the last action's trigger time and speed
+                # Find the last action's trigger time and speed (considering all trigger types)
                 last_trigger_time = 0
                 last_speed = 0
+                last_action_type = None
+                
                 for action in actions:
+                    # Calculate trigger time for any trigger type
                     if action.get('trigger_type') == 'time':
                         trigger_time = action.get('trigger_value', 0)
-                        # Add action duration if it's a speed action
-                        if action.get('action_type') in ['speed', 'stop']:
-                            trigger_time += action.get('dynamics_value', 2.0)
-                            # Track the last speed value
-                            if action.get('action_type') == 'speed':
-                                last_speed = action.get('speed_value', 0)
-                            elif action.get('action_type') == 'stop':
-                                last_speed = 0
-                        last_trigger_time = max(last_trigger_time, trigger_time)
+                    elif action.get('trigger_type') == 'after_previous':
+                        # For after_previous, estimate based on previous action + delay
+                        trigger_time = last_trigger_time + action.get('trigger_value', 0) + 1.0  # Add buffer
+                    else:
+                        # For other trigger types (distance_to_ego, etc.), estimate timing
+                        trigger_time = last_trigger_time + 1.0  # Default buffer
+                    
+                    # Add action duration if it's a speed action
+                    if action.get('action_type') in ['speed', 'stop']:
+                        trigger_time += action.get('dynamics_value', 2.0)
+                    elif action.get('action_type') == 'brake':
+                        trigger_time += action.get('dynamics_value', 2.0)
+                    
+                    # Track the last speed value for ALL actions
+                    if action.get('action_type') == 'speed':
+                        last_speed = action.get('speed_value', 0)
+                    elif action.get('action_type') in ['brake', 'stop']:
+                        last_speed = 0
+                    
+                    last_action_type = action.get('action_type')
+                    last_trigger_time = max(last_trigger_time, trigger_time)
                 
-                # Add a wait action that triggers immediately after the last action
-                # This keeps the actor at constant speed until timeout
-                wait_trigger_time = last_trigger_time + 0.1  # Start right after last action
-                if wait_trigger_time < data['timeout'] - 2:
-                    wait_action = {
-                        'actor_id': actor_id,
-                        'action_type': 'wait',
-                        'trigger_type': 'time',
-                        'trigger_value': wait_trigger_time,
-                        'wait_duration': data['timeout'] - wait_trigger_time - 2,  # Wait until almost timeout
-                        'maintain_speed': last_speed  # Store the speed to maintain
-                    }
-                    actions.append(wait_action)
-                    self.logger.info(f"Added wait action for {actor_id} at {wait_trigger_time}s to maintain speed {last_speed} m/s")
+            # Add a wait action that triggers immediately after the last action
+            # This keeps the actor at constant speed until timeout
+            wait_trigger_time = last_trigger_time + 0.1  # Start right after last action
+            if wait_trigger_time < data['timeout'] - 2:
+                wait_action = {
+                    'actor_id': actor_id,
+                    'action_type': 'wait',
+                    'trigger_type': 'time',
+                    'trigger_value': wait_trigger_time,
+                    'wait_duration': data['timeout'] - wait_trigger_time - 2,  # Wait until almost timeout
+                    'maintain_speed': last_speed  # Store the speed to maintain
+                }
+                actions.append(wait_action)
+                self.logger.info(f"Added wait action for {actor_id} at {wait_trigger_time}s to maintain speed {last_speed} m/s")
             
             mg = ET.SubElement(act, 'ManeuverGroup', {
                 'maximumExecutionCount': '1',

@@ -1,6 +1,6 @@
 {
-  "scenario_name": "sudden_stop_078",
-  "description": "Vehicle stops suddenly without warning",
+  "scenario_name": "sudden_brake_123",
+  "description": "Vehicle brakes without warning",
   "weather": "clear_noon",
   "ego_vehicle_model": "vehicle.tesla.model3",
   "ego_spawn": {
@@ -10,49 +10,50 @@
       "road_context": "urban"
     }
   },
-  "ego_start_speed": 30,
+  "ego_start_speed": 12,
   "actors": [
     {
-      "id": "braking_suv",
+      "id": "braking_car",
       "type": "vehicle",
-      "model": "vehicle.nissan.patrol",
+      "model": "vehicle.dodge.charger_2020",
       "spawn": {
         "criteria": {
           "lane_type": "Driving",
           "distance_to_ego": {
-            "min": 20,
-            "max": 30
+            "min": 30,
+            "max": 40
           },
           "relative_position": "ahead",
           "road_relationship": "same_road",
           "lane_relationship": "same_lane"
         }
       },
-      "color": "0,100,200"
+      "color": "255,100,100"
     }
   ],
   "actions": [
     {
-      "actor_id": "braking_suv",
+      "actor_id": "braking_car",
       "action_type": "speed",
       "trigger_type": "time",
       "trigger_value": 1.5,
-      "speed_value": 28.0,
+      "speed_value": 10.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "braking_car",
+      "action_type": "brake",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "brake_force": 0.8,
       "dynamics_dimension": "time",
       "dynamics_shape": "linear",
       "dynamics_value": 2.0
-    },
-    {
-      "actor_id": "braking_suv",
-      "action_type": "brake",
-      "trigger_type": "after_previous",
-      "brake_force": 0.8,
-      "dynamics_dimension": "time",
-      "dynamics_shape": "step",
-      "dynamics_value": 5.0
     }
   ],
-  "success_distance": 120,
-  "timeout": 60,
+  "success_distance": 80,
+  "timeout": 45,
   "collision_allowed": false
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-  <FileHeader revMajor="1" revMinor="0" date="2025-08-26T18:30:53" description="CARLA:GeneratedFromJSON" author="JSON2XOSC Converter"/>
+  <FileHeader revMajor="1" revMinor="0" date="2025-09-20T14:52:09" description="CARLA:GeneratedFromJSON" author="JSON2XOSC Converter"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
-    <LogicFile filepath="Town04"/>
+    <LogicFile filepath="Town03"/>
     <SceneGraphFile filepath=""/>
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+      <Vehicle name="vehicle.mini.cooper_s_2021" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
         <BoundingBox>
@@ -25,8 +25,8 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="braking_suv">
-      <Vehicle name="vehicle.nissan.patrol" vehicleCategory="car">
+    <ScenarioObject name="sudden_braker">
+      <Vehicle name="vehicle.toyota.prius" vehicleCategory="car">
         <ParameterDeclarations/>
         <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0"/>
         <BoundingBox>
@@ -39,7 +39,7 @@
         </Axles>
         <Properties>
           <Property name="type" value="simulation"/>
-          <Property name="color" value="0,100,200"/>
+          <Property name="color" value="100,100,255"/>
         </Properties>
       </Vehicle>
     </ScenarioObject>
@@ -64,7 +64,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="306.70526123046875" y="-290.28094482421875" z="0.3043487548828125" h="1.1450825696946783"/>
+                <WorldPosition x="-63.958709716796875" y="-206.99346923828125" z="0.3" h="-3.500428843079833"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -92,17 +92,17 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3.0"/>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="30"/>
+                  <AbsoluteTargetSpeed value="12"/>
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="braking_suv">
+        <Private entityRef="sudden_braker">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="311.84771728515625" y="-265.53570556640625" z="0.3043487548828125" h="1.5797137885469723"/>
+                <WorldPosition x="-86.69554138183594" y="-179.91470336914062" z="0.3" h="-4.527434040575341"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -111,36 +111,13 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="braking_suvManeuverGroup">
+        <ManeuverGroup maximumExecutionCount="1" name="sudden_brakerManeuverGroup">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="braking_suv"/>
+            <EntityRef entityRef="sudden_braker"/>
           </Actors>
-          <Maneuver name="braking_suvManeuver">
-            <Event name="braking_suvEvent0" priority="overwrite">
-              <Action name="braking_suvAction0">
-                <PrivateAction>
-                  <LongitudinalAction>
-                    <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2.0"/>
-                      <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="28.0"/>
-                      </SpeedActionTarget>
-                    </SpeedAction>
-                  </LongitudinalAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup>
-                  <Condition name="StartCondition0" delay="0" conditionEdge="rising">
-                    <ByValueCondition>
-                      <SimulationTimeCondition value="1.5" rule="greaterThan"/>
-                    </ByValueCondition>
-                  </Condition>
-                </ConditionGroup>
-              </StartTrigger>
-            </Event>
-            <Event name="braking_suvEvent1" priority="overwrite">
-              <Action name="braking_suvAction1">
+          <Maneuver name="sudden_brakerManeuver">
+            <Event name="sudden_brakerEvent0" priority="overwrite">
+              <Action name="sudden_brakerAction0">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
@@ -154,22 +131,22 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition name="StartCondition1" delay="0.2" conditionEdge="rising">
+                  <Condition name="StartCondition0" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="braking_suvAction0" state="completeState"/>
+                      <SimulationTimeCondition value="2.0" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
-            <Event name="braking_suvEvent2" priority="overwrite">
-              <Action name="braking_suvAction2">
+            <Event name="sudden_brakerEvent1" priority="overwrite">
+              <Action name="sudden_brakerAction1">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
-                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="54.4"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="55.4"/>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="28.0"/>
+                        <AbsoluteTargetSpeed value="0"/>
                       </SpeedActionTarget>
                     </SpeedAction>
                   </LongitudinalAction>
@@ -177,9 +154,9 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition name="StartCondition2" delay="0" conditionEdge="rising">
+                  <Condition name="StartCondition1" delay="0" conditionEdge="rising">
                     <ByValueCondition>
-                      <SimulationTimeCondition value="3.6" rule="greaterThan"/>
+                      <SimulationTimeCondition value="2.6" rule="greaterThan"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -216,7 +193,7 @@
       <ConditionGroup>
         <Condition name="criteria_DrivenDistanceTest" delay="0" conditionEdge="rising">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" value="120" rule="greaterThan"/>
+            <ParameterCondition parameterRef="distance_success" value="70" rule="greaterThan"/>
           </ByValueCondition>
         </Condition>
         <Condition name="criteria_CollisionTest" delay="0" conditionEdge="rising">

@@ -1,0 +1,48 @@
+{
+  "scenario_name": "emergency_brake_124",
+  "description": "Vehicle ahead brakes suddenly without warning",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "sudden_braker",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "sudden_braker",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}

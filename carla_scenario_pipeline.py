@@ -26,8 +26,8 @@ sys.path.append('/home/user/Desktop/Rajiv/llm')
 
 # Import components
 from xosc_json import JsonToXoscConverter
-from llm.inference_carla_model import CarlaScenarioGenerator
-from llm.run_model_comparison import BaseModelGenerator
+from inference_carla_model import CarlaScenarioGenerator
+from run_model_comparison import BaseModelGenerator
 
 
 class CarlaScenarioPipeline:
@@ -76,27 +76,27 @@ class CarlaScenarioPipeline:
     
     def _init_generator(self):
         """Initialize the LLM generator based on model type"""
-        print(f"🔄 Loading {self.model_type} model...")
+        print(f"Loading {self.model_type} model...")
         
         if self.model_type == "finetuned":
             self.generator = CarlaScenarioGenerator(
-                model_path="./llm/exported_models/llama-carla-model-v5-improved/exported_model_adapters",
+                model_path="./llm/models/llama-carla-model-v5-improved/final_model",
                 base_model_name="meta-llama/Llama-3.2-3B-Instruct",
-                use_4bit=True,
-                merge_lora=False
+                use_4bit=False,
+                merge_lora=True
             )
         elif self.model_type == "base":
             self.generator = BaseModelGenerator("meta-llama/Llama-3.2-3B-Instruct")
         else:
             raise ValueError(f"Unknown model type: {self.model_type}")
         
-        print(f"✅ {self.model_type.capitalize()} model loaded successfully\n")
+        print(f"{self.model_type.capitalize()} model loaded successfully\n")
     
     def _init_converter(self):
         """Initialize the JSON to XOSC converter"""
-        print("🔄 Initializing XOSC converter...")
+        print("Initializing XOSC converter...")
         self.converter = JsonToXoscConverter()
-        print("✅ XOSC converter ready\n")
+        print("XOSC converter ready\n")
     
     def process_scenario(self, 
                         description: str, 
@@ -136,7 +136,7 @@ class CarlaScenarioPipeline:
         print(f"{'='*60}")
         
         # Stage 1: LLM Generation
-        print("\n📝 Stage 1: LLM Generation")
+        print("\nStage 1: LLM Generation")
         start_time = time.time()
         
         try:
@@ -147,7 +147,7 @@ class CarlaScenarioPipeline:
                 result["stages"]["llm_generation"]["status"] = "success"
                 result["stages"]["llm_generation"]["time"] = round(generation_time, 2)
                 result["outputs"]["json"] = json_output
-                print(f"   ✅ Generated JSON in {generation_time:.2f}s")
+                print(f"   Generated JSON in {generation_time:.2f}s")
             else:
                 raise ValueError("LLM failed to generate valid JSON")
                 
@@ -155,11 +155,11 @@ class CarlaScenarioPipeline:
             result["stages"]["llm_generation"]["status"] = "failed"
             result["stages"]["llm_generation"]["error"] = str(e)
             result["errors"].append(f"LLM Generation: {str(e)}")
-            print(f"   ❌ Generation failed: {str(e)}")
+            print(f"   Generation failed: {str(e)}")
             return result
         
         # Stage 2: JSON Validation
-        print("\n🔍 Stage 2: JSON Validation")
+        print("\nStage 2: JSON Validation")
         
         try:
             # Validate JSON structure
@@ -177,7 +177,7 @@ class CarlaScenarioPipeline:
             
             result["stages"]["json_validation"]["status"] = "success"
             result["stages"]["json_validation"]["fields_present"] = list(json_data.keys())
-            print(f"   ✅ JSON structure valid")
+            print(f"    JSON structure valid")
             
             # Save JSON if requested
             if save_outputs:
@@ -185,23 +185,23 @@ class CarlaScenarioPipeline:
                 with open(json_path, 'w') as f:
                     json.dump(json_data, f, indent=2)
                 result["outputs"]["json_path"] = str(json_path)
-                print(f"   💾 Saved: {json_path}")
+                print(f"   Saved: {json_path}")
                 
         except Exception as e:
             result["stages"]["json_validation"]["status"] = "failed"
             result["stages"]["json_validation"]["error"] = str(e)
             result["errors"].append(f"JSON Validation: {str(e)}")
-            print(f"   ❌ Validation failed: {str(e)}")
+            print(f"   Validation failed: {str(e)}")
             return result
         
         # Stage 3: XOSC Conversion
-        print("\n🔄 Stage 3: XOSC Conversion")
+        print("\nStage 3: XOSC Conversion")
         
         try:
             xosc_output = self.converter.convert(json_data)
             result["stages"]["xosc_conversion"]["status"] = "success"
             result["outputs"]["xosc"] = xosc_output
-            print(f"   ✅ Converted to XOSC format")
+            print(f"   Converted to XOSC format")
             
             # Save XOSC if requested
             if save_outputs:
@@ -209,17 +209,17 @@ class CarlaScenarioPipeline:
                 with open(xosc_path, 'w') as f:
                     f.write(xosc_output)
                 result["outputs"]["xosc_path"] = str(xosc_path)
-                print(f"   💾 Saved: {xosc_path}")
+                print(f"   Saved: {xosc_path}")
                 
         except Exception as e:
             result["stages"]["xosc_conversion"]["status"] = "failed"
             result["stages"]["xosc_conversion"]["error"] = str(e)
             result["errors"].append(f"XOSC Conversion: {str(e)}")
-            print(f"   ❌ Conversion failed: {str(e)}")
+            print(f"   Conversion failed: {str(e)}")
             return result
         
         # Stage 4: XOSC Validation
-        print("\n✅ Stage 4: XOSC Validation")
+        print("\nStage 4: XOSC Validation")
         
         try:
             # Parse as XML
@@ -244,13 +244,13 @@ class CarlaScenarioPipeline:
             result["stages"]["xosc_validation"]["status"] = "success"
             result["stages"]["xosc_validation"]["valid_xml"] = True
             result["stages"]["xosc_validation"]["has_required_elements"] = True
-            print(f"   ✅ XOSC structure valid")
+            print(f"   XOSC structure valid")
             
         except Exception as e:
             result["stages"]["xosc_validation"]["status"] = "failed"
             result["stages"]["xosc_validation"]["error"] = str(e)
             result["errors"].append(f"XOSC Validation: {str(e)}")
-            print(f"   ❌ Validation failed: {str(e)}")
+            print(f"   Validation failed: {str(e)}")
         
         # Update statistics
         self.stats["total_processed"] += 1
@@ -266,9 +266,9 @@ class CarlaScenarioPipeline:
         result["success"] = success
         
         if success:
-            print(f"\n🎉 Pipeline completed successfully!")
+            print(f"\n Pipeline completed successfully!")
         else:
-            print(f"\n⚠️ Pipeline completed with errors")
+            print(f"\n Pipeline completed with errors")
         
         return result
     
@@ -313,7 +313,7 @@ class CarlaScenarioPipeline:
         checkpoint_path = self.logs_dir / f"checkpoint_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(checkpoint_path, 'w') as f:
             json.dump(results, f, indent=2)
-        print(f"\n💾 Checkpoint saved: {checkpoint_path}")
+        print(f"\n Checkpoint saved: {checkpoint_path}")
     
     def _save_batch_results(self, results: List[Dict]):
         """Save final batch processing results"""
@@ -329,7 +329,7 @@ class CarlaScenarioPipeline:
         with open(results_path, 'w') as f:
             json.dump(summary, f, indent=2)
         
-        print(f"\n💾 Results saved: {results_path}")
+        print(f"\n Results saved: {results_path}")
     
     def _print_statistics(self):
         """Print processing statistics"""
@@ -405,11 +405,11 @@ def main():
     
     # Handle different modes
     if args.mode == "interactive":
-        print("\n🎮 Interactive Mode")
+        print("\n Interactive Mode")
         print("Enter scenario descriptions (type 'quit' to exit)\n")
         
         while True:
-            description = input("\n📝 Scenario description: ").strip()
+            description = input("\n Scenario description: ").strip()
             
             if description.lower() in ['quit', 'exit', 'q']:
                 break
@@ -424,9 +424,9 @@ def main():
             )
             
             if result["success"]:
-                print(f"\n✅ Success! Files saved to {pipeline.output_dir}")
+                print(f"\n Success! Files saved to {pipeline.output_dir}")
             else:
-                print(f"\n❌ Errors encountered: {result['errors']}")
+                print(f"\n Errors encountered: {result['errors']}")
     
     elif args.mode == "single":
         if not args.description:
@@ -463,8 +463,8 @@ def main():
         
         results = pipeline.process_batch(scenarios)
         
-        print(f"\n✅ Batch processing complete!")
-        print(f"📊 Success rate: {pipeline.stats['xosc_success']}/{len(scenarios)}")
+        print(f"\n Batch processing complete!")
+        print(f" Success rate: {pipeline.stats['xosc_success']}/{len(scenarios)}")
     
     elif args.mode == "test":
         # Test with sample scenarios
@@ -483,15 +483,15 @@ def main():
             }
         ]
         
-        print("\n🧪 Test Mode - Running sample scenarios")
+        print("\n Test Mode - Running sample scenarios")
         results = pipeline.process_batch(test_scenarios)
         
-        print(f"\n✅ Test complete!")
-        print(f"📊 Success rate: {pipeline.stats['xosc_success']}/{len(test_scenarios)}")
+        print(f"\n Test complete!")
+        print(f" Success rate: {pipeline.stats['xosc_success']}/{len(test_scenarios)}")
     
     # Final statistics
     pipeline._print_statistics()
-    print(f"\n👋 Pipeline complete! Outputs saved to: {pipeline.output_dir}")
+    print(f"\n Pipeline complete! Outputs saved to: {pipeline.output_dir}")
 
 
 if __name__ == "__main__":
