@@ -1,0 +1,73 @@
+{
+  "scenario_name": "LeadVehicleSlowdown_Town04",
+  "description": "Lead vehicle gradually reduces speed on highway",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_start_position": "271,-235.5,0.5,0",
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2",
+      "start_position": "301,-235.5,0.5,0",
+      "spawn": {
+        "criteria": {
+          "distance_to_ego": {
+            "min": 30,
+            "max": 60
+          }
+        }
+      }
+    },
+    {
+      "id": "ego",
+      "type": "vehicle",
+      "model": "vehicle.audi.a2",
+      "start_position": "271,-235.5,-100,0",
+      "spawn": {
+        "criteria": {
+          "distance_to_ego": {
+            "min": 30,
+            "max": 60
+          }
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ego",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    },
+    {
+      "actor_id": "lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 90,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+I need a scenario where on a wet highway, one car cuts in aggressively from 30m while another ahead at 70m emergency brakes. Include complex dynamics.

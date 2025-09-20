@@ -1,0 +1,46 @@
+{
+  "scenario_name": "wet_cloudy_follow_054",
+  "description": "Following scenario in wet cloudy conditions",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "speed_limit": {"min": 30, "max": 60}
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "lead_sedan",
+      "type": "vehicle",
+      "model": "vehicle.dodge.charger_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 65, "max": 80},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "50,50,150"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_sedan",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 125,
+  "timeout": 70,
+  "collision_allowed": false
+}

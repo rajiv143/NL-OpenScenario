@@ -1,0 +1,137 @@
+{
+  "scenario_name": "generated_016",
+  "description": "Rush hour scenario: 4 vehicles in adjacent lanes all changing lanes at different trigger points with varying speeds in light rain",
+  "weather": "soft_rain",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 80,
+        "max": 100
+      }
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "lane_change_1",
+      "type": "vehicle",
+      "model": "vehicle.jeep.wrangler_rubicon",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "150,75,0"
+    },
+    {
+      "id": "lane_change_2",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 70,
+            "max": 85
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,200,0"
+    },
+    {
+      "id": "lane_change_3",
+      "type": "motorcycle",
+      "model": "vehicle.kawasaki.ninja",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 45
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "100,255,100"
+    },
+    {
+      "id": "lane_change_4",
+      "type": "bus",
+      "model": "vehicle.mitsubishi.fusorosa",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 90,
+            "max": 110
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,150,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lane_change_1",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "lane_change_2",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.8,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "lane_change_3",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 22.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "lane_change_4",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 180,
+  "timeout": 95,
+  "collision_allowed": false
+}

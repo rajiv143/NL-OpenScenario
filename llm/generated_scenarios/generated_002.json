@@ -1,0 +1,48 @@
+{
+  "scenario_name": "generated_002",
+  "description": "Vehicle following closely from far away",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "stationary_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 140
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "128,128,128"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stationary_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.1,
+      "speed_value": 0.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 250,
+  "timeout": 60,
+  "collision_allowed": false
+}

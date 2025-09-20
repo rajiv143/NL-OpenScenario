@@ -1,0 +1,152 @@
+{
+  "scenario_name": "busy_shopping_120",
+  "description": "Busy shopping district with pedestrians and double parking",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.seat.leon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {
+        "min": 25,
+        "max": 35
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "double_parked",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,200,200"
+    },
+    {
+      "id": "shopper1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0038",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "right",
+          "lateral_offset": 2.0
+        }
+      }
+    },
+    {
+      "id": "shopper2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0039",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 55
+          },
+          "relative_position": "left",
+          "lateral_offset": -2.5
+        }
+      }
+    },
+    {
+      "id": "oncoming_car",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "100,100,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "double_parked",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 0.5
+    },
+    {
+      "actor_id": "shopper1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "shopper2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "oncoming_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "shopper1",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 15.0,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "oncoming_car",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 60,
+  "collision_allowed": false
+}

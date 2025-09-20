@@ -1,0 +1,1 @@
+3. "A vehicle ahead starts moving at 8 m/s when ego gets within 15 meters"

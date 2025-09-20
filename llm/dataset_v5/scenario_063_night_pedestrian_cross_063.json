@@ -1,0 +1,54 @@
+{
+  "scenario_name": "night_pedestrian_cross_063",
+  "description": "Pedestrian crossing at night",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.mini.cooper_s_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "night_walker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0010",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 2.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "night_walker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "night_walker",
+      "action_type": "stop",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 10,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 75,
+  "timeout": 45,
+  "collision_allowed": false
+}

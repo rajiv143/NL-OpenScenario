@@ -1,0 +1,112 @@
+{
+  "scenario_name": "urban_complexity_134",
+  "description": "Complex urban scenario with multiple vehicles and pedestrians",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "aggressive_car",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "pedestrian_crossing",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0012",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "right",
+          "lateral_offset": 3.5
+        }
+      }
+    },
+    {
+      "id": "parked_car",
+      "type": "vehicle",
+      "model": "vehicle.ford.crown",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Parking",
+          "distance_to_ego": {
+            "min": 10,
+            "max": 15
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      },
+      "color": "100,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "aggressive_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 18.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "pedestrian_crossing",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 0.6
+    },
+    {
+      "actor_id": "aggressive_car",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "parked_car",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "wait_duration": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,95 @@
+{
+  "scenario_name": "cloudy_complex_090",
+  "description": "Complex two-actor scenario on cloudy day",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 13,
+  "actors": [
+    {
+      "id": "merging_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.ford.mustang",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,50,50"
+    },
+    {
+      "id": "jogger",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0024",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 55,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "merging_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "jogger",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0.5,
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "merging_vehicle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.5,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "jogger",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "linear",
+      "dynamics_value": 15.0
+    }
+  ],
+  "success_distance": 110,
+  "timeout": 65,
+  "collision_allowed": false
+}

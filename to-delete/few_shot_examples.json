@@ -1,0 +1,101 @@
+[
+  {
+    "description": "A stationary vehicle is parked 30 meters ahead of the ego vehicle.",
+    "scenario": {
+      "scenario_name": "example_static",
+      "description": "Static vehicle ahead",
+      "weather": "clear",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "static_vehicle",
+          "type": "vehicle",
+          "model": "vehicle.toyota.prius",
+          "spawn": {
+            "criteria": {
+              "lane_type": "Driving",
+              "distance_to_ego": {
+                "min": 25,
+                "max": 35
+              },
+              "relative_position": "ahead",
+              "lane_relationship": "same_lane"
+            }
+          },
+          "color": "255,0,0"
+        }
+      ],
+      "actions": [],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  },
+  {
+    "description": "A vehicle ahead starts moving at 10 m/s when ego approaches within 20 meters.",
+    "scenario": {
+      "scenario_name": "example_moving",
+      "description": "Vehicle starts moving when ego approaches",
+      "weather": "cloudy",
+      "ego_vehicle_model": "vehicle.audi.a2",
+      "ego_spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "lane_id": {
+            "min": 1,
+            "max": 4
+          },
+          "is_intersection": false
+        }
+      },
+      "ego_start_speed": 0,
+      "actors": [
+        {
+          "id": "moving_vehicle",
+          "type": "vehicle",
+          "model": "vehicle.bmw.grandtourer",
+          "spawn": {
+            "criteria": {
+              "lane_type": "Driving",
+              "distance_to_ego": {
+                "min": 30,
+                "max": 40
+              },
+              "relative_position": "ahead",
+              "lane_relationship": "same_lane"
+            }
+          },
+          "color": "0,255,0"
+        }
+      ],
+      "actions": [
+        {
+          "actor_id": "moving_vehicle",
+          "action_type": "speed",
+          "trigger_type": "distance_to_ego",
+          "trigger_value": 20,
+          "trigger_comparison": "<",
+          "speed_value": 10,
+          "dynamics_dimension": "time",
+          "dynamics_value": 2.0,
+          "dynamics_shape": "linear",
+          "delay": 0.2
+        }
+      ],
+      "success_distance": 100,
+      "timeout": 60,
+      "collision_allowed": false
+    }
+  }
+]

@@ -1,0 +1,1 @@
+I need to test autonomous vehicle behavior when multiple vehicles are overtaking a slow-moving truck on a highway. Set up a scenario with a truck ahead, a sports car approaching rapidly from behind, and an SUV already in the overtaking lane, testing complex multi-lane dynamics.

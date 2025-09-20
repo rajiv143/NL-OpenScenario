@@ -1,0 +1,49 @@
+{
+  "scenario_name": "generated_003",
+  "description": "Vehicle ahead starts moving when ego approaches",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "leader_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.audi.tt",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 18,
+            "max": 22
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "0,100,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "leader_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 7.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 50,
+  "collision_allowed": false
+}

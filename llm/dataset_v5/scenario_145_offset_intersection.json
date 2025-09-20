@@ -1,0 +1,140 @@
+{
+  "scenario_name": "offset_intersection_145",
+  "description": "Offset intersection with complex turning movements",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.nissan.micra",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "is_intersection": true,
+      "speed_limit": {
+        "min": 30,
+        "max": 45
+      }
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "diagonal_turner",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {
+            "min": 35,
+            "max": 45
+          },
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "0,100,255"
+    },
+    {
+      "id": "straight_through",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "200,200,200"
+    },
+    {
+      "id": "wide_turner",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "is_intersection": true,
+          "distance_to_ego": {
+            "min": 50,
+            "max": 65
+          },
+          "relative_position": "right",
+          "road_relationship": "different_road"
+        }
+      },
+      "color": "150,150,150"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "diagonal_turner",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 11.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "straight_through",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 13.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "wide_turner",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 7.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "diagonal_turner",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "straight_through",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 22.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "wide_turner",
+      "action_type": "stop",
+      "trigger_type": "after_previous"
+    }
+  ],
+  "success_distance": 90,
+  "timeout": 65,
+  "collision_allowed": false
+}

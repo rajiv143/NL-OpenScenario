@@ -1,0 +1,153 @@
+{
+  "scenario_name": "mixed_speed_convoy_168",
+  "description": "Highway convoy with trucks, cars, and motorcycles at varying speeds",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.tesla.cybertruck",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 100,
+        "max": 130
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 23,
+  "actors": [
+    {
+      "id": "lead_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 80
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "passing_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.harley-davidson.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 130
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,128,0"
+    },
+    {
+      "id": "middle_car",
+      "type": "vehicle",
+      "model": "vehicle.chevrolet.impala",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 55
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,50,50"
+    },
+    {
+      "id": "trailing_truck",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "150,150,200"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "lead_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "passing_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 30.0,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 100.0
+    },
+    {
+      "actor_id": "passing_motorcycle",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 35.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 2.0,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "middle_car",
+      "action_type": "lane_change",
+      "trigger_type": "ego_speed",
+      "trigger_value": 22.0,
+      "trigger_comparison": ">",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "trailing_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 24.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 200,
+  "timeout": 100,
+  "collision_allowed": false
+}

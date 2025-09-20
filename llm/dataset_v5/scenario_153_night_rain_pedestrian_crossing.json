@@ -1,0 +1,133 @@
+{
+  "scenario_name": "night_rain_pedestrian_crossing_153",
+  "description": "Night rain scenario with multiple pedestrians crossing at different times in low visibility",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.dodge.charger_police",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "speed_limit": {
+        "min": 40,
+        "max": 60
+      },
+      "is_intersection": true
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "pedestrian_early",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0015",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "pedestrian_late",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0028",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 40,
+            "max": 50
+          },
+          "relative_position": "left",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "hidden_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0042",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "blocking_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "urban",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
+          "relative_position": "left",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "50,50,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "pedestrian_early",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "pedestrian_late",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20.0,
+      "trigger_comparison": "<",
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "hidden_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "ego_speed",
+      "trigger_value": 8.0,
+      "trigger_comparison": "<",
+      "speed_value": 1.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    },
+    {
+      "actor_id": "blocking_vehicle",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 130,
+  "timeout": 100,
+  "collision_allowed": false
+}

@@ -1,0 +1,59 @@
+{
+  "scenario_name": "cut_in_red_069",
+  "description": "Vehicle cuts into my lane",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.mercedes.coupe",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "red_cutter",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 30,
+            "max": 40
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "red_cutter",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 22.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "red_cutter",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "target_lane": -1,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 25.0
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 55,
+  "collision_allowed": false
+}

@@ -1,0 +1,60 @@
+{
+  "scenario_name": "night_following_reduced_267",
+  "description": "Following at night with reduced visibility and conservative spacing",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "night_lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 25,
+            "max": 35
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "suburban"
+        }
+      },
+      "color": "50,50,50"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "night_lead_vehicle",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "brake_force": 0.35,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "night_lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 6.5,
+      "speed_value": 14.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 3.5
+    }
+  ],
+  "success_distance": 85,
+  "timeout": 55,
+  "collision_allowed": false
+}

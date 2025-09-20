@@ -1,0 +1,109 @@
+{
+  "scenario_name": "construction_mixed_traffic_291",
+  "description": "Construction vehicle interacts with cars and worker in work zone",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "construction_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "255,150,0",
+      "special_type": "construction"
+    },
+    {
+      "id": "construction_worker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0035",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 28},
+          "relative_position": "ahead",
+          "lateral_offset": 2.0
+        }
+      },
+      "special_type": "worker"
+    },
+    {
+      "id": "normal_car",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "100,200,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "construction_truck",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "construction_worker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "normal_car",
+      "action_type": "brake",
+      "trigger_type": "ego_speed",
+      "trigger_value": 6.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "construction_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 5.5,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Test navigation with extreme speed differentials - slow vehicle at 8 m/s, medium truck at 18 m/s, and racing vehicles approaching at 35 m/s. Evaluate gap assessment and lane change timing with vehicles moving at vastly different speeds creating complex overtaking scenarios.

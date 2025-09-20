@@ -1,0 +1,1 @@
+Set up an unprotected left turn scenario in moderate rain with multiple oncoming vehicles at different speeds, a pedestrian crossing, and a vehicle behind me applying pressure, testing gap judgment and turn timing decisions.

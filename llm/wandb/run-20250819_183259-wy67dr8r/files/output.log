@@ -1,0 +1,30 @@
+/home/user/Desktop/Rajiv/llm/train_llama_carla.py:368: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = Trainer(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+
+==================================================
+Starting training...
+==================================================
+[34m[1mwandb[0m: [33mWARNING[0m The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+  0%|                                                                                                                                                                                                                 | 0/104 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 104/104 [22:23<00:00, 12.91s/it]
+{'loss': 1.3634, 'grad_norm': 0.4990707039833069, 'learning_rate': 1.8e-05, 'epoch': 0.39}
+{'loss': 1.1279, 'grad_norm': 0.5262271165847778, 'learning_rate': 3.8e-05, 'epoch': 0.78}
+{'loss': 0.9054, 'grad_norm': 0.7204787731170654, 'learning_rate': 5.8e-05, 'epoch': 1.16}
+{'loss': 0.5072, 'grad_norm': 0.45201918482780457, 'learning_rate': 7.800000000000001e-05, 'epoch': 1.55}
+{'loss': 0.3988, 'grad_norm': 0.340300977230072, 'learning_rate': 9.8e-05, 'epoch': 1.94}
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:18<00:00,  2.37it/s]
+{'eval_loss': 0.37391364574432373, 'eval_runtime': 18.8943, 'eval_samples_per_second': 2.329, 'eval_steps_per_second': 2.329, 'epoch': 1.94}
+{'loss': 0.3318, 'grad_norm': 0.29770714044570923, 'learning_rate': 8.333333333333334e-05, 'epoch': 2.31}
+{'loss': 0.2981, 'grad_norm': 0.286349356174469, 'learning_rate': 6.481481481481482e-05, 'epoch': 2.7}
+{'loss': 0.2757, 'grad_norm': 0.35526683926582336, 'learning_rate': 4.62962962962963e-05, 'epoch': 3.08}
+{'loss': 0.2626, 'grad_norm': 0.29802557826042175, 'learning_rate': 2.777777777777778e-05, 'epoch': 3.47}
+{'loss': 0.2549, 'grad_norm': 0.33703282475471497, 'learning_rate': 9.259259259259259e-06, 'epoch': 3.86}
+{'eval_loss': 0.29575979709625244, 'eval_runtime': 18.8997, 'eval_samples_per_second': 2.328, 'eval_steps_per_second': 2.328, 'epoch': 3.86}
+{'train_runtime': 1343.1135, 'train_samples_per_second': 0.611, 'train_steps_per_second': 0.077, 'train_loss': 0.5603490276978567, 'epoch': 4.0}
+
+Saving model...
+
+✓ Training complete! Model saved to models/llama-carla-model-v3/final_model
+Final validation loss: 0.2950

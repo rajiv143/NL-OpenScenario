@@ -1,0 +1,56 @@
+{
+  "scenario_name": "rainy_intersection_crossing",
+  "description": "Careful intersection crossing in rain",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.jeep.wrangler_rubicon",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "junction_proximity": {"min": 10, "max": 25}
+    }
+  },
+  "ego_start_speed": 5,
+  "actors": [
+    {
+      "id": "rain_crosser",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "is_intersection": true,
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "rain_crosser",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    },
+    {
+      "actor_id": "rain_crosser",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "speed_value": 8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}

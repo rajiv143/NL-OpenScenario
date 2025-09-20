@@ -1,0 +1,79 @@
+{
+  "scenario_name": "firetruck_intersection_priority_213",
+  "description": "Fire truck requires right of way at intersection",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.mercedes.coupe_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "emergency_firetruck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.firetruck",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "perpendicular",
+          "road_relationship": "different_road",
+          "is_intersection": true
+        }
+      },
+      "color": "255,0,0"
+    },
+    {
+      "id": "other_yielding_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane",
+          "is_intersection": true
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "emergency_firetruck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 20.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "other_yielding_vehicle",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "brake_force": 0.7,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "other_yielding_vehicle",
+      "action_type": "stop",
+      "trigger_type": "after_previous",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

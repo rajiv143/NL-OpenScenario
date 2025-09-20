@@ -1,0 +1,1 @@
+Kid chasing ball scenario - simulate child/jogger suddenly running across suburban street at full speed. Bright noon lighting, about 30m ahead. This is a classic residential hazard that systems must handle.

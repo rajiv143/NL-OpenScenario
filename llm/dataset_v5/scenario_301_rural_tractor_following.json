@@ -1,0 +1,59 @@
+{
+  "scenario_name": "rural_tractor_following_301",
+  "description": "Following slow-moving farm tractor on narrow rural road with limited passing opportunities",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 35, "max": 55}
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "farm_tractor",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.carlacola",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 60},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "service"
+        }
+      },
+      "color": "34,139,34"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "farm_tractor",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "farm_tractor",
+      "action_type": "speed",
+      "trigger_type": "ego_speed",
+      "trigger_value": 6.0,
+      "trigger_comparison": "<",
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 90,
+  "collision_allowed": false
+}

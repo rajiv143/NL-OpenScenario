@@ -1,0 +1,80 @@
+{
+  "name": "npc_cut_in",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 2
+  },
+  "actors": [
+    {
+      "name": "npc",
+      "type": "Rubicon",
+      "initial_speed": 50.0
+    }
+  ],
+  "duration": 20,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "ego_vehicle",
+      "speed": 40,
+      "lane": 2
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "npc_approach",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "npc",
+            "speed": 50,
+            "lane": 1,
+            "position": {
+              "distance": "30m",
+              "relative": "behind",
+              "target": "ego_vehicle",
+              "at": "start"
+            }
+          }
+        },
+        {
+          "name": "npc_overtake",
+          "type": "parallel",
+          "duration": 3,
+          "drive": {
+            "actor": "npc",
+            "speed": 55,
+            "position": {
+              "distance": "10m",
+              "relative": "ahead_of",
+              "target": "ego_vehicle",
+              "at": "end"
+            }
+          }
+        },
+        {
+          "name": "npc_cut_in",
+          "type": "parallel",
+          "duration": 3,
+          "drive": {
+            "actor": "npc",
+            "lane": {
+              "same_as": "ego_vehicle",
+              "at": "end"
+            }
+          }
+        },
+        {
+          "name": "npc_brake",
+          "type": "parallel",
+          "duration": 4,
+          "drive": {
+            "actor": "npc",
+            "speed": 25
+          }
+        }
+      ]
+    }
+  ]
+}

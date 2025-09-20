@@ -1,0 +1,57 @@
+{
+  "scenario_name": "emergency_following_distance_268",
+  "description": "Following vehicle that performs emergency braking maneuver",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 14,
+  "actors": [
+    {
+      "id": "emergency_braker",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 22, "max": 30},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "255,100,100"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "emergency_braker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "emergency_braker",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 5.0,
+      "brake_force": 0.95,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 45,
+  "collision_allowed": false
+}

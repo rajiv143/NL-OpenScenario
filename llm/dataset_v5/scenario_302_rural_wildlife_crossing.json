@@ -1,0 +1,69 @@
+{
+  "scenario_name": "rural_wildlife_crossing_302",
+  "description": "Deer suddenly crosses rural road at dusk requiring emergency response",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.toyota.prius",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town",
+      "speed_limit": {"min": 45, "max": 65}
+    }
+  },
+  "ego_start_speed": 15,
+  "actors": [
+    {
+      "id": "crossing_deer",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0048",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 50},
+          "relative_position": "right",
+          "lateral_offset": 6.0
+        }
+      }
+    },
+    {
+      "id": "second_deer",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0049",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 40, "max": 55},
+          "relative_position": "right",
+          "lateral_offset": 8.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_deer",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "speed_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.2
+    },
+    {
+      "actor_id": "second_deer",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Design a complex highway scenario where I'm driving at high speed and encounter a slow vehicle ahead while a faster vehicle is overtaking from behind and another vehicle is merging from a different lane. I need to test how autonomous systems handle multiple simultaneous lane changes in dense highway traffic.

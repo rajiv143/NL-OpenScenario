@@ -1,0 +1,1 @@
+Create a transit stop scenario where a city bus pulls over to pick up passengers while a cyclist passes on the left, pedestrians cross to board, and an oncoming scooter limits overtaking options. Test the system's ability to navigate around stopped transit vehicles while protecting vulnerable road users in light rain.

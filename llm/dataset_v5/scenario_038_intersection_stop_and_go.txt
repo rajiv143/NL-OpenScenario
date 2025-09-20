@@ -1,0 +1,1 @@
+Four-way stop behavior - cross traffic vehicle approaches their stop sign, comes to complete stop, checks for traffic (that's me), waits for safe gap, then proceeds. Wet roads mean longer stopping distances. Tests intersection protocol understanding.

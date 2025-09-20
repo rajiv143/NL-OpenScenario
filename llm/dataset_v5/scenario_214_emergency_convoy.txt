@@ -1,0 +1,1 @@
+Create a scenario with multiple emergency vehicles in convoy - an ambulance followed by two police cars - all requiring priority passage through heavy urban traffic.

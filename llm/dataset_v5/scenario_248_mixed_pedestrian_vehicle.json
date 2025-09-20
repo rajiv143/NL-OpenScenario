@@ -1,0 +1,148 @@
+{
+  "scenario_name": "mixed_pedestrian_vehicle_248",
+  "description": "Mixed pedestrians and vehicles in busy urban environment",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "urban",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "crossing_pedestrian_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0005",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 25},
+          "relative_position": "right",
+          "lateral_offset": 3.0
+        }
+      }
+    },
+    {
+      "id": "crossing_pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0033",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 35, "max": 40},
+          "relative_position": "left",
+          "lateral_offset": -3.5
+        }
+      }
+    },
+    {
+      "id": "delivery_van",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "139,90,43"
+    },
+    {
+      "id": "yielding_car",
+      "type": "vehicle",
+      "model": "vehicle.mini.cooper_s",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 55},
+          "relative_position": "opposite",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      }
+    },
+    {
+      "id": "passing_motorcycle",
+      "type": "motorcycle",
+      "model": "vehicle.harley-davidson.low_rider",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 40, "max": 50},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "crossing_pedestrian_1",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 22.0,
+      "speed_value": 1.3,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "crossing_pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.0,
+      "speed_value": 1.1,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "delivery_van",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "delivery_van",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "wait_duration": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    },
+    {
+      "actor_id": "yielding_car",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "passing_motorcycle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 65,
+  "collision_allowed": false
+}

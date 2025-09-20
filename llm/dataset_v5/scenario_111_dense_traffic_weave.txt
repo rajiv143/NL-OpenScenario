@@ -1,0 +1,1 @@
+Design a dense highway traffic scenario at sunset where multiple vehicles are weaving between lanes to get around a slow truck ahead, requiring the ego vehicle to navigate through constantly changing gaps and predict multiple vehicle trajectories simultaneously.

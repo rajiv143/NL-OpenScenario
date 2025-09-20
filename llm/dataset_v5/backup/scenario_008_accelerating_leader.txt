@@ -1,0 +1,1 @@
+I want to test how my vehicle handles when the car ahead speeds up, like when entering a highway onramp. They should start at city speeds then quickly accelerate to merge with fast traffic.

@@ -1,0 +1,1 @@
+Create a failed merge scenario where vehicle attempts high-speed highway entry but aborts due to blocking traffic, causing panic braking ahead and fast motorcycle approaching from behind. Test emergency response to merge failures with multiple high-speed vehicles in close proximity.

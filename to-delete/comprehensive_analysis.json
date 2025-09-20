@@ -1,0 +1,193 @@
+{
+  "timestamp": "2025-08-24T21:35:49.909188",
+  "total_scenarios": 25,
+  "base_model": {
+    "name": "Meta-Llama-3.2-3B-Instruct",
+    "valid_json_count": 22,
+    "invalid_json_count": 3,
+    "success_rate": 88.0,
+    "avg_generation_time": 17.32,
+    "avg_output_length": 1757.6,
+    "by_category": {
+      "complex_intersection": {
+        "count": 1,
+        "valid_json": 1,
+        "success_rate": 100.0
+      },
+      "complex_multi": {
+        "count": 1,
+        "valid_json": 1,
+        "success_rate": 100.0
+      },
+      "complex_pedestrian": {
+        "count": 1,
+        "valid_json": 1,
+        "success_rate": 100.0
+      },
+      "complex_weather": {
+        "count": 1,
+        "valid_json": 1,
+        "success_rate": 100.0
+      },
+      "construction": {
+        "count": 1,
+        "valid_json": 1,
+        "success_rate": 100.0
+      },
+      "edge_case": {
+        "count": 4,
+        "valid_json": 3,
+        "success_rate": 75.0
+      },
+      "emergency": {
+        "count": 2,
+        "valid_json": 2,
+        "success_rate": 100.0
+      },
+      "intersection": {
+        "count": 2,
+        "valid_json": 2,
+        "success_rate": 100.0
+      },
+      "lane_change": {
+        "count": 2,
+        "valid_json": 2,
+        "success_rate": 100.0
+      },
+      "multi_vehicle": {
+        "count": 2,
+        "valid_json": 1,
+        "success_rate": 50.0
+      },
+      "pedestrian": {
+        "count": 3,
+        "valid_json": 2,
+        "success_rate": 66.7
+      },
+      "vehicle_following": {
+        "count": 3,
+        "valid_json": 3,
+        "success_rate": 100.0
+      },
+      "weather": {
+        "count": 2,
+        "valid_json": 2,
+        "success_rate": 100.0
+      }
+    },
+    "by_complexity": {
+      "complex": {
+        "count": 11,
+        "valid_json": 10,
+        "success_rate": 90.9
+      },
+      "medium": {
+        "count": 7,
+        "valid_json": 6,
+        "success_rate": 85.7
+      },
+      "simple": {
+        "count": 7,
+        "valid_json": 6,
+        "success_rate": 85.7
+      }
+    }
+  },
+  "finetuned_model": {
+    "name": "llama3.2_3b_carla_v5",
+    "valid_json_count": 0,
+    "invalid_json_count": 25,
+    "success_rate": 0.0,
+    "avg_generation_time": 0.0,
+    "avg_output_length": 0.0,
+    "by_category": {
+      "complex_intersection": {
+        "count": 1,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "complex_multi": {
+        "count": 1,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "complex_pedestrian": {
+        "count": 1,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "complex_weather": {
+        "count": 1,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "construction": {
+        "count": 1,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "edge_case": {
+        "count": 4,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "emergency": {
+        "count": 2,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "intersection": {
+        "count": 2,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "lane_change": {
+        "count": 2,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "multi_vehicle": {
+        "count": 2,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "pedestrian": {
+        "count": 3,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "vehicle_following": {
+        "count": 3,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "weather": {
+        "count": 2,
+        "valid_json": 0,
+        "success_rate": 0.0
+      }
+    },
+    "by_complexity": {
+      "complex": {
+        "count": 11,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "medium": {
+        "count": 7,
+        "valid_json": 0,
+        "success_rate": 0.0
+      },
+      "simple": {
+        "count": 7,
+        "valid_json": 0,
+        "success_rate": 0.0
+      }
+    }
+  },
+  "improvements": {
+    "json_validity": -88.0,
+    "speed": 100.0,
+    "output_consistency": -100.0
+  }
+}

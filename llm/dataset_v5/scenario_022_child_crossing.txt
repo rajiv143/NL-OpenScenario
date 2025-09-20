@@ -1,0 +1,1 @@
+Small child near school zone - highly unpredictable movement pattern. Runs, stops, maybe turns back, then runs again. Suburban/school area context. This erratic behavior is typical of young children and extremely dangerous.

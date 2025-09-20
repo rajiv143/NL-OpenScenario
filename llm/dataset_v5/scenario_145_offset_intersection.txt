@@ -1,0 +1,1 @@
+Create an offset intersection scenario where roads don't align perfectly, with vehicles making diagonal turns, a truck making a wide turn, and through traffic, testing navigation through non-standard intersection geometry.

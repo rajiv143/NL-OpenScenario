@@ -1,0 +1,129 @@
+{
+  "scenario_name": "truck_bicycle_squeeze_165",
+  "description": "Narrow road with large truck and multiple bicycles creating passing dilemma",
+  "weather": "cloudy",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "suburban",
+      "speed_limit": {"min": 40, "max": 60},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 14,
+  "actors": [
+    {
+      "id": "large_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 50, "max": 70},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "opposite_lane"
+        }
+      },
+      "color": "80,80,80"
+    },
+    {
+      "id": "cyclist_group_1",
+      "type": "bicycle",
+      "model": "vehicle.gazelle.omafiets",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.8
+        }
+      },
+      "color": "255,100,0"
+    },
+    {
+      "id": "cyclist_group_2",
+      "type": "bicycle",
+      "model": "vehicle.diamondback.century",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 1.5
+        }
+      },
+      "color": "0,255,100"
+    },
+    {
+      "id": "cyclist_group_3",
+      "type": "bicycle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "suburban",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "lateral_offset": 2.0
+        }
+      },
+      "color": "100,0,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "large_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cyclist_group_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 5.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cyclist_group_2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 4.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "cyclist_group_3",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 150,
+  "timeout": 100,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+1. "A blue sedan is parked 20 meters ahead of the ego vehicle"

@@ -1,0 +1,68 @@
+{
+  "name": "following_scenario",
+  "map": {
+    "name": "Town10HD",
+    "min_lanes": 3
+  },
+  "actors": [
+    {
+      "name": "ego_vehicle",
+      "type": "Model3"
+    },
+    {
+      "name": "lead_vehicle",
+      "type": "Rubicon"
+    }
+  ],
+  "duration": 20,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "lead_vehicle",
+      "speed": 50,
+      "lane": 2
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "follow_start",
+          "type": "parallel",
+          "duration": 10,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 50,
+            "lane": {
+              "same_as": "lead_vehicle",
+              "at": "start"
+            },
+            "position": {
+              "distance": "15m",
+              "relative": "behind",
+              "target": "lead_vehicle",
+              "at": "start"
+            }
+          }
+        },
+        {
+          "name": "lead_brakes",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "lead_vehicle",
+            "speed": 30
+          }
+        },
+        {
+          "name": "ego_adjusts",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 30
+          }
+        }
+      ]
+    }
+  ]
+}

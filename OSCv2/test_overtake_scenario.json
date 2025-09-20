@@ -1,0 +1,85 @@
+{
+  "name": "overtake_scenario",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 2
+  },
+  "actors": [
+    {
+      "name": "ego_vehicle",
+      "type": "Model3",
+      "initial_speed": 30.0
+    },
+    {
+      "name": "npc",
+      "type": "Rubicon",
+      "initial_speed": 30.0
+    }
+  ],
+  "duration": 18,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "npc",
+      "speed": 30,
+      "lane": 1
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "get_ahead",
+          "type": "parallel",
+          "duration": 3,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 30,
+            "lane": {
+              "same_as": "npc",
+              "at": "start"
+            },
+            "position": {
+              "distance": "10m",
+              "relative": "behind",
+              "target": "npc",
+              "at": "start"
+            }
+          }
+        },
+        {
+          "name": "change_lane1",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "ego_vehicle",
+            "lane": {
+              "right_of": "npc",
+              "at": "end"
+            }
+          }
+        },
+        {
+          "name": "acceleration",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "ego_vehicle",
+            "speed": 45
+          }
+        },
+        {
+          "name": "change_lane2",
+          "type": "parallel",
+          "duration": 5,
+          "drive": {
+            "actor": "ego_vehicle",
+            "lane": {
+              "same_as": "npc",
+              "at": "end"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

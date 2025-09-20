@@ -1,0 +1,28 @@
+import basic.osc
+
+scenario following_scenario:
+    path: Path
+    path.set_map("Town10HD")
+    path.path_min_driving_lanes(3)
+
+    ego_vehicle: Model3 # ego car
+    lead_vehicle: Rubicon
+
+    event start
+    event end
+    do parallel(duration: 20s):
+        lead_vehicle.drive(path) with:
+            speed(50kph)
+            lane(2, at: start)
+        serial:
+            follow_start: parallel(duration: 10s):
+                ego_vehicle.drive(path) with:
+                    speed(50kph)
+                    lane(same_as: lead_vehicle, at: start)
+                    position(15m, behind: lead_vehicle, at: start)
+            lead_brakes: parallel(duration: 5s):
+                lead_vehicle.drive(path) with:
+                    speed(30kph)
+            ego_adjusts: parallel(duration: 5s):
+                ego_vehicle.drive(path) with:
+                    speed(30kph)

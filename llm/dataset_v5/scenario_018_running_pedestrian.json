@@ -1,0 +1,46 @@
+{
+  "scenario_name": "running_pedestrian_cross",
+  "description": "Pedestrian runs across road",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "running_person",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0008",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lateral_offset": 4.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "running_person",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 20,
+      "trigger_comparison": "<",
+      "speed_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.3
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 40,
+  "collision_allowed": false
+}

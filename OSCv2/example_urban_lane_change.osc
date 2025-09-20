@@ -1,0 +1,67 @@
+# OpenSCENARIO 2.0.0
+# Scenario: urban_lane_change
+# Description: Multiple vehicles performing lane changes
+import osc.standard
+import osc.helpers
+import osc.motioncontrol
+
+parameters:
+    ego_initial_speed: speed = [10mps..15mps]
+    vehicle1_initial_speed: speed = [8mps..12mps]
+    vehicle2_initial_speed: speed = [12mps..18mps]
+    num_lanes: int = [2..2]
+
+actor ego:
+    vehicle.car()
+    keep(vehicle.initial_speed == ego_initial_speed)
+
+actor vehicle1:
+    vehicle.truck()
+    keep(vehicle.initial_speed == vehicle1_initial_speed)
+
+actor vehicle2:
+    vehicle.car()
+    keep(vehicle.initial_speed == vehicle2_initial_speed)
+
+scenario urban_lane_change:
+    # Multiple vehicles performing lane changes
+    
+    # Define the map and path
+    path: path
+    path.set_map("maps/Town01.xodr")
+    path.path_min_driving_lanes(2)
+
+    # Spawn actors with constraints
+
+    spawn:
+        ego:
+                lane.lane_id in [1..2]
+    position.relative_lane_position(start: 0.0, end: 1.0)
+
+        vehicle1:
+            
+    position:
+        near(ego, radius: [20m..100m])
+
+        vehicle2:
+            
+    position:
+        near(vehicle1, radius: [20m..100m])
+
+    # Define scenario actions
+    do parallel:
+
+    action lane_change:
+        vehicle1.change_lane(offset: 1)
+        duration: [3s..5s]
+
+    action overtake:
+        serial:
+            vehicle2.change_lane(offset: -1)
+            vehicle2.position(ahead_of: ego, distance: [20m..30m])
+            vehicle2.change_lane(offset: 1)
+
+    # Scenario ending conditions
+    end when:
+        elapsed_time > 60s or
+        ego.distance_traveled > 1000m

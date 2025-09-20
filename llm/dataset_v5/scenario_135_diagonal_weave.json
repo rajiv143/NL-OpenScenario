@@ -1,0 +1,143 @@
+{
+  "scenario_name": "diagonal_weave_135",
+  "description": "Diagonal weaving pattern across multiple lanes",
+  "weather": "wet_cloudy",
+  "ego_vehicle_model": "vehicle.volkswagen.t2_2021",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "highway",
+      "speed_limit": {
+        "min": 90,
+        "max": 120
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 20,
+  "actors": [
+    {
+      "id": "diagonal_weaver",
+      "type": "vehicle",
+      "model": "vehicle.audi.etron",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 80,
+            "max": 100
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "200,0,0"
+    },
+    {
+      "id": "steady_truck",
+      "type": "vehicle",
+      "model": "vehicle.carlamotors.european_hgv",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 60,
+            "max": 75
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      },
+      "color": "100,100,100"
+    },
+    {
+      "id": "side_car",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "highway",
+          "distance_to_ego": {
+            "min": 45,
+            "max": 60
+          },
+          "relative_position": "right",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "0,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "diagonal_weaver",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 28.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "diagonal_weaver",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "distance",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 45.0,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "steady_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "speed_value": 17.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "diagonal_weaver",
+      "action_type": "lane_change",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40.0,
+      "trigger_comparison": "<",
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5,
+      "target_lane": -1
+    },
+    {
+      "actor_id": "side_car",
+      "action_type": "brake",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 30.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.5
+    },
+    {
+      "actor_id": "diagonal_weaver",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 25.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 160,
+  "timeout": 85,
+  "collision_allowed": false
+}

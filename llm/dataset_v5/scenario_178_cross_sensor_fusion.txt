@@ -1,0 +1,1 @@
+Design a sensor fusion stress test in fog where different objects are only detectable by specific sensors - distant vehicle by radar, stopped dark car by lidar, lane markings and bicycle by camera, close scooter by ultrasonics, and pedestrian by thermal imaging. Test the integration and prioritization of multi-modal sensor data.

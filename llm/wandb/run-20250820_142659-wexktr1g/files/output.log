@@ -1,0 +1,37 @@
+/home/user/Desktop/Rajiv/llm/train_llama_carla.py:376: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = Trainer(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+
+==================================================
+Starting training...
+==================================================
+[34m[1mwandb[0m: [33mWARNING[0m The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+  0%|                                                                                                                                                                                                                 | 0/141 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 141/141 [32:20<00:00, 13.76s/it]
+{'loss': 1.264, 'grad_norm': 0.5335910320281982, 'learning_rate': 9e-05, 'epoch': 0.22}
+{'loss': 0.7625, 'grad_norm': 0.5404946804046631, 'learning_rate': 0.00019, 'epoch': 0.43}
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 80/80 [00:35<00:00,  2.26it/s]
+{'eval_loss': 0.39794084429740906, 'eval_runtime': 34.3868, 'eval_samples_per_second': 2.326, 'eval_steps_per_second': 2.326, 'epoch': 0.54}
+{'loss': 0.3895, 'grad_norm': 0.32184603810310364, 'learning_rate': 0.00019728226572962473, 'epoch': 0.65}
+{'loss': 0.3269, 'grad_norm': 0.29934820532798767, 'learning_rate': 0.00018807712330634642, 'epoch': 0.86}
+{'loss': 0.2922, 'grad_norm': 0.2410927414894104, 'learning_rate': 0.000172967916579403, 'epoch': 1.06}
+{'eval_loss': 0.3052545189857483, 'eval_runtime': 34.3987, 'eval_samples_per_second': 2.326, 'eval_steps_per_second': 2.326, 'epoch': 1.06}
+{'loss': 0.2569, 'grad_norm': 0.20243215560913086, 'learning_rate': 0.00015296745937313987, 'epoch': 1.28}
+{'loss': 0.2493, 'grad_norm': 0.3201265037059784, 'learning_rate': 0.00012941644017754964, 'epoch': 1.5}
+{'eval_loss': 0.25942742824554443, 'eval_runtime': 34.4012, 'eval_samples_per_second': 2.325, 'eval_steps_per_second': 2.325, 'epoch': 1.6}
+{'loss': 0.2283, 'grad_norm': 0.3731254041194916, 'learning_rate': 0.00010389355192137377, 'epoch': 1.71}
+{'loss': 0.2242, 'grad_norm': 0.27663537859916687, 'learning_rate': 7.810966761934053e-05, 'epoch': 1.93}
+{'loss': 0.205, 'grad_norm': 0.2575729191303253, 'learning_rate': 5.3793155605960366e-05, 'epoch': 2.13}
+{'eval_loss': 0.2341817319393158, 'eval_runtime': 34.3834, 'eval_samples_per_second': 2.327, 'eval_steps_per_second': 2.327, 'epoch': 2.13}
+{'loss': 0.1852, 'grad_norm': 0.2884187698364258, 'learning_rate': 3.257402200743821e-05, 'epoch': 2.35}
+{'loss': 0.1817, 'grad_norm': 0.28505441546440125, 'learning_rate': 1.587464671688187e-05, 'epoch': 2.56}
+{'eval_loss': 0.22712421417236328, 'eval_runtime': 35.6997, 'eval_samples_per_second': 2.241, 'eval_steps_per_second': 2.241, 'epoch': 2.67}
+{'loss': 0.1763, 'grad_norm': 0.3454677164554596, 'learning_rate': 4.8144371563930476e-06, 'epoch': 2.78}
+{'loss': 0.1761, 'grad_norm': 0.33069008588790894, 'learning_rate': 1.3479116011769767e-07, 'epoch': 2.99}
+{'train_runtime': 1940.7738, 'train_samples_per_second': 0.573, 'train_steps_per_second': 0.073, 'train_loss': 0.35020325898278687, 'epoch': 3.0}
+
+Saving model...
+
+✓ Training complete! Model saved to models/llama-carla-model-v5-improved/final_model
+Final validation loss: 0.2342

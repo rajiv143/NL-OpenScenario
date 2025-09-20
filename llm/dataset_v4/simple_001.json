@@ -1,0 +1,52 @@
+{
+  "scenario_name": "generated_scenario",
+  "description": "Generated CARLA scenario",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.audi.etron.s3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "road_context": "town",
+      "speed_limit": {
+        "min": 25,
+        "max": 35
+      },
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 6,
+  "actors": [
+    {
+      "id": "ahead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.toyota.prius",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "town",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ahead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 50,
+  "collision_allowed": false
+}

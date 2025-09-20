@@ -1,0 +1,47 @@
+{
+  "scenario_name": "generated_scenario",
+  "description": "Generated CARLA scenario",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.a2",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "stationary_truck",
+      "type": "vehicle",
+      "model": "vehicle.carla.truck.mercedes_sprinter",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "road_context": "town",
+          "distance_to_ego": {
+            "min": 100,
+            "max": 120
+          },
+          "relative_position": "behind",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "stationary_truck",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 0,
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 50,
+  "collision_allowed": false
+}

@@ -1,0 +1,92 @@
+{
+  "name": "multi_npc_traffic",
+  "map": {
+    "name": "Town04",
+    "min_lanes": 3
+  },
+  "actors": [
+    {
+      "name": "npc1",
+      "type": "Rubicon",
+      "initial_speed": 45.0
+    },
+    {
+      "name": "npc2",
+      "type": "Model3",
+      "initial_speed": 35.0
+    }
+  ],
+  "duration": 25,
+  "actions": [
+    {
+      "type": "drive",
+      "actor": "ego_vehicle",
+      "speed": 40,
+      "lane": 2
+    },
+    {
+      "type": "drive",
+      "actor": "npc1",
+      "speed": 45,
+      "lane": 1,
+      "position": {
+        "distance": "15m",
+        "relative": "ahead_of",
+        "target": "ego_vehicle",
+        "at": "start"
+      }
+    },
+    {
+      "type": "drive",
+      "actor": "npc2",
+      "speed": 35,
+      "lane": 3,
+      "position": {
+        "distance": "10m",
+        "relative": "behind",
+        "target": "ego_vehicle",
+        "at": "start"
+      }
+    },
+    {
+      "type": "serial",
+      "actions": [
+        {
+          "name": "initial_cruise",
+          "type": "parallel",
+          "duration": 5
+        },
+        {
+          "name": "npc1_changes_lane",
+          "type": "parallel",
+          "duration": 4,
+          "drive": {
+            "actor": "npc1",
+            "lane": {
+              "same_as": "ego_vehicle",
+              "at": "end"
+            }
+          }
+        },
+        {
+          "name": "npc2_speeds_up",
+          "type": "parallel",
+          "duration": 4,
+          "drive": {
+            "actor": "npc2",
+            "speed": 50
+          }
+        },
+        {
+          "name": "npc1_brakes",
+          "type": "parallel",
+          "duration": 3,
+          "drive": {
+            "actor": "npc1",
+            "speed": 25
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+I need a scenario where both a vehicle ahead brakes and a pedestrian crosses on a cloudy urban street. Place the vehicle 30m and pedestrian 45m ahead.

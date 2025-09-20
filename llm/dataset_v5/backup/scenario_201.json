@@ -1,0 +1,77 @@
+{
+  "scenario_name": "intersection_cross_traffic_201",
+  "map": "Town03",
+  "weather": "clear_noon",
+  "ego_vehicle": {
+    "model": "vehicle.lincoln.mkz_2020",
+    "initial_speed": 10
+  },
+  "actors": [
+    {
+      "id": "crossing_vehicle",
+      "type": "vehicle",
+      "vehicle_attributes": {
+        "vehicle_model": "vehicle.ford.mustang",
+        "color": "0,0,255"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "right",
+          "road_relationship": "different_road",
+          "road_context": "intersection"
+        }
+      },
+      "actions": [
+        {
+          "type": "change_speed",
+          "target_speed": 8,
+          "dynamics_type": "linear",
+          "dynamics_value": 2.0,
+          "trigger": {
+            "type": "simulation_start"
+          }
+        },
+        {
+          "type": "brake",
+          "brake_force": 0.7,
+          "trigger": {
+            "type": "distance_to_ego",
+            "value": 15,
+            "comparison": "<"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pedestrian_crossing",
+      "type": "pedestrian",
+      "pedestrian_attributes": {
+        "model": "walker.pedestrian.0015"
+      },
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead"
+        }
+      },
+      "actions": [
+        {
+          "type": "change_speed",
+          "target_speed": 1.5,
+          "trigger": {
+            "type": "time",
+            "value": 3.0
+          }
+        }
+      ]
+    }
+  ],
+  "success_criteria": {
+    "collision_free": true,
+    "min_distance": 100,
+    "max_time": 60
+  }
+}

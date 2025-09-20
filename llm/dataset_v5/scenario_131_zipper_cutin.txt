@@ -1,0 +1,1 @@
+Design a zipper merge scenario on wet roads where vehicles alternately cut in from left and right lanes, creating a complex weaving pattern that tests the ego vehicle's ability to maintain safe gaps while navigating multiple simultaneous lane changes.

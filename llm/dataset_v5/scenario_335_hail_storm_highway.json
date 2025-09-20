@@ -1,0 +1,81 @@
+{
+  "scenario_name": "hail_storm_highway_335",
+  "description": "Sudden hailstorm causes vehicles to seek shelter under overpass",
+  "weather": "hard_rain",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway",
+      "speed_limit": {"min": 60, "max": 90}
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "sheltering_car_1",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe_2020",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 60},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      }
+    },
+    {
+      "id": "sheltering_car_2",
+      "type": "vehicle",
+      "model": "vehicle.mini.cooper_s_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 50, "max": 65},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane",
+          "road_context": "highway"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "sheltering_car_1",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "brake_force": 0.4,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.0
+    },
+    {
+      "actor_id": "sheltering_car_2",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "brake_force": 0.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "sheltering_car_1",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Highway scenario with vehicles traveling at vastly different speeds - a slow truck in the right lane, normal traffic in the middle, and a speeding sports car weaving through all lanes.

@@ -1,0 +1,69 @@
+{
+  "scenario_name": "generated_015",
+  "description": "Cyclist changes lane frequently due to reduced visibility and speed",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.nissan.patrol",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "town"
+    }
+  },
+  "ego_start_speed": 12,
+  "actors": [
+    {
+      "id": "cyclist",
+      "type": "bicycle",
+      "model": "vehicle.bh.crossbike",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {
+            "min": 35,
+            "max": 50
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "adjacent_lane"
+        }
+      },
+      "color": "255,200,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "cyclist",
+      "action_type": "lane_change",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "sinusoidal",
+      "dynamics_value": 1.8,
+      "target_lane": 1
+    },
+    {
+      "actor_id": "cyclist",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 1.0,
+      "speed_value": 6.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "cyclist",
+      "action_type": "lane_change",
+      "trigger_type": "after_previous",
+      "trigger_value": 4.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.0,
+      "target_lane": -1
+    }
+  ],
+  "success_distance": 100,
+  "timeout": 65,
+  "collision_allowed": false
+}

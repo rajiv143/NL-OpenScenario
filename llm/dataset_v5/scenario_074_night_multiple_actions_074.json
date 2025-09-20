@@ -1,0 +1,65 @@
+{
+  "scenario_name": "night_multiple_actions_074",
+  "description": "Pedestrian with multiple actions at night",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.lincoln.mkz_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 14,
+  "actors": [
+    {
+      "id": "complex_walker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0018",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 55,
+            "max": 70
+          },
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "complex_walker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 2.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "complex_walker",
+      "action_type": "wait",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "wait_duration": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "complex_walker",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "trigger_value": 0,
+      "speed_value": 3.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    }
+  ],
+  "success_distance": 110,
+  "timeout": 65,
+  "collision_allowed": false
+}

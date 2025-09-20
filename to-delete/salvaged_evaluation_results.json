@@ -1,0 +1,332 @@
+{
+  "timestamp": "2025-08-24T22:26:16.084572",
+  "direct_xosc_test": {
+    "results": [
+      {
+        "scenario_id": "test_001",
+        "direct_xosc_valid": false
+      },
+      {
+        "scenario_id": "test_002",
+        "direct_xosc_valid": true
+      },
+      {
+        "scenario_id": "test_003",
+        "direct_xosc_valid": true
+      }
+    ],
+    "metrics": {
+      "test": "Direct XOSC Generation",
+      "scenarios_tested": 3,
+      "successful": 2,
+      "success_rate": "66.7%"
+    }
+  },
+  "json_to_xosc_pipeline": {
+    "base_model": {
+      "results": [
+        {
+          "scenario_id": "test_001",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_002",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_003",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_004",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_005",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_006",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_007",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_008",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_009",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_010",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_011",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_012",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_013",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_014",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_015",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_016",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_017",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_018",
+          "json_valid": false,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_019",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_020",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_021",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_022",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_023",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_024",
+          "json_valid": true,
+          "xosc_converted": false
+        },
+        {
+          "scenario_id": "test_025",
+          "json_valid": false,
+          "xosc_converted": false
+        }
+      ],
+      "metrics": {
+        "model": "Base Model",
+        "total_scenarios": 25,
+        "json_valid": 18,
+        "json_valid_rate": "72.0%",
+        "xosc_converted": 0,
+        "xosc_conversion_rate": "0.0%",
+        "end_to_end_success": 0,
+        "end_to_end_rate": "0.0%"
+      }
+    },
+    "finetuned_model": {
+      "results": [
+        {
+          "scenario_id": "test_001",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_002",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_003",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_004",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_005",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_006",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_007",
+          "json_valid": true,
+          "xosc_converted": false,
+          "note": "No spawn points found"
+        },
+        {
+          "scenario_id": "test_008",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_009",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_010",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_011",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_012",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_013",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_014",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_015",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_016",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_017",
+          "json_valid": true,
+          "xosc_converted": false,
+          "note": "XOSC conversion failed"
+        },
+        {
+          "scenario_id": "test_018",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_019",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_020",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_021",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_022",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_023",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_024",
+          "json_valid": true,
+          "xosc_converted": true
+        },
+        {
+          "scenario_id": "test_025",
+          "json_valid": true,
+          "xosc_converted": true
+        }
+      ],
+      "metrics": {
+        "model": "Fine-tuned v5",
+        "total_scenarios": 25,
+        "json_valid": 25,
+        "json_valid_rate": "100.0%",
+        "xosc_converted": 23,
+        "xosc_conversion_rate": "92.0%",
+        "end_to_end_success": 23,
+        "end_to_end_rate": "92.0%"
+      }
+    }
+  },
+  "xosc_files_generated": [
+    "finetuned_test_001.xosc",
+    "finetuned_test_002.xosc",
+    "finetuned_test_003.xosc",
+    "finetuned_test_004.xosc",
+    "finetuned_test_005.xosc",
+    "finetuned_test_006.xosc",
+    "finetuned_test_008.xosc",
+    "finetuned_test_009.xosc",
+    "finetuned_test_010.xosc",
+    "finetuned_test_011.xosc",
+    "finetuned_test_012.xosc",
+    "finetuned_test_013.xosc",
+    "finetuned_test_014.xosc",
+    "finetuned_test_015.xosc",
+    "finetuned_test_016.xosc",
+    "finetuned_test_018.xosc",
+    "finetuned_test_019.xosc",
+    "finetuned_test_020.xosc",
+    "finetuned_test_021.xosc",
+    "finetuned_test_022.xosc",
+    "finetuned_test_023.xosc",
+    "finetuned_test_024.xosc",
+    "finetuned_test_025.xosc"
+  ]
+}

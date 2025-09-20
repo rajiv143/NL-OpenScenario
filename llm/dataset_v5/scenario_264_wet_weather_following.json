@@ -1,0 +1,57 @@
+{
+  "scenario_name": "wet_weather_following_264",
+  "description": "Cautious following behavior in wet conditions with increased spacing",
+  "weather": "mid_rain",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "highway"
+    }
+  },
+  "ego_start_speed": 18,
+  "actors": [
+    {
+      "id": "wet_lead_vehicle",
+      "type": "vehicle",
+      "model": "vehicle.bmw.grandtourer",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 35, "max": 45},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "highway"
+        }
+      },
+      "color": "150,150,150"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "wet_lead_vehicle",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "brake_force": 0.25,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 3.5
+    },
+    {
+      "actor_id": "wet_lead_vehicle",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 7.0,
+      "speed_value": 16.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 4.0
+    }
+  ],
+  "success_distance": 120,
+  "timeout": 65,
+  "collision_allowed": false
+}

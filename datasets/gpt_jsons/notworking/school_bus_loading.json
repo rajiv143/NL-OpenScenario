@@ -1,0 +1,96 @@
+{
+  "scenario_name": "SchoolBusLoading_Town01",
+  "description": "School bus stops to load children",
+  "map_name": "Town01",
+  "weather": "clear_noon",
+  "ego_vehicle_model": "vehicle.bmw.grandtourer",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {"min": 1, "max": 8},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "school_bus",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "road_id": "same_as_ego",
+          "lane_type": "Driving",
+          "heading_tol": 10,
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,216,0"
+    },
+    {
+      "id": "child1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0048",
+      "spawn": {
+        "criteria": {
+          "distance_to_ego": {"min": 20, "max": 30},
+          "relative_position": "ahead"
+        }
+      }
+    },
+    {
+      "id": "child2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0049",
+      "spawn": {
+        "criteria": {
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "school_bus",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25,
+      "trigger_comparison": "<",
+      "speed_value": 0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "child1",
+      "action_type": "wait",
+      "trigger_type": "time",
+      "trigger_value": 4,
+      "wait_duration": 1.0
+    },
+    {
+      "actor_id": "child1",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 1.2,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 4.0
+    },
+    {
+      "actor_id": "child2",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 6,
+      "speed_value": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 5.0
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Design a highway convoy scenario on wet roads with a slow-moving truck ahead, a faster motorcycle overtaking from behind, a car changing lanes based on ego speed, and a trailing van accelerating. Test multi-vehicle tracking and gap management with different vehicle types moving at varying speeds.

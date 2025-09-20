@@ -1,0 +1,47 @@
+{
+  "scenario_name": "EmergencyVehicleApproach_Town01",
+  "description": "Ambulance approaches from behind with sirens",
+  "map_name": "Town01",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.toyota.prius",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "lane_id": {"min": 1, "max": 10},
+      "is_intersection": false
+    }
+  },
+  "ego_start_speed": 0,
+  "actors": [
+    {
+      "id": "ambulance",
+      "type": "vehicle",
+      "model": "vehicle.ford.ambulance",
+      "spawn": {
+        "criteria": {
+          "road_id": "same_as_ego",
+          "lane_type": "Driving",
+          "heading_tol": 15,
+          "distance_to_ego": {"min": 40, "max": 60},
+          "relative_position": "behind"
+        }
+      },
+      "color": "255,255,255"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "ambulance",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2,
+      "speed_value": 25.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0
+    }
+  ],
+  "success_distance": 80,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,47 @@
+{
+  "scenario_name": "intersection_jaywalking_pedestrian_202",
+  "description": "Pedestrian crosses intersection outside of crosswalk",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.etron",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": true,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "jaywalking_pedestrian",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0028",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {
+            "min": 20,
+            "max": 30
+          },
+          "relative_position": "right",
+          "lateral_offset": 3.0
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "jaywalking_pedestrian",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 25.0,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    }
+  ],
+  "success_distance": 60,
+  "timeout": 40,
+  "collision_allowed": false
+}

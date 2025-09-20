@@ -1,0 +1,1 @@
+Generate a complex four-way intersection scenario where vehicles approach from all directions with staggered timing, requiring careful navigation through multiple crossing paths.

@@ -1,0 +1,1 @@
+For testing pedestrian behavior at dusk, create a scenario where a person walks, waits, then speeds up. Place them about 60 meters ahead.

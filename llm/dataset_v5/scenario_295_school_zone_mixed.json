@@ -1,0 +1,146 @@
+{
+  "scenario_name": "school_zone_mixed_295",
+  "description": "School bus, children, cars, and crossing guard interact in school zone",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.tesla.model3",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "urban"
+    }
+  },
+  "ego_start_speed": 8,
+  "actors": [
+    {
+      "id": "school_bus",
+      "type": "vehicle",
+      "model": "vehicle.volkswagen.t2_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 30, "max": 40},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "255,200,0",
+      "special_type": "school_bus"
+    },
+    {
+      "id": "child_pedestrian_1",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0045",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 18, "max": 25},
+          "relative_position": "ahead",
+          "lateral_offset": 3.0
+        }
+      },
+      "special_type": "child"
+    },
+    {
+      "id": "child_pedestrian_2",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0046",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 20, "max": 27},
+          "relative_position": "ahead",
+          "lateral_offset": 3.5
+        }
+      },
+      "special_type": "child"
+    },
+    {
+      "id": "parent_car",
+      "type": "vehicle",
+      "model": "vehicle.nissan.patrol",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "behind",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane",
+          "road_context": "urban"
+        }
+      },
+      "color": "100,100,200"
+    },
+    {
+      "id": "crossing_guard",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0047",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 22, "max": 30},
+          "relative_position": "ahead",
+          "lateral_offset": 1.0
+        }
+      },
+      "special_type": "crossing_guard"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "school_bus",
+      "action_type": "brake",
+      "trigger_type": "time",
+      "trigger_value": 1.5,
+      "brake_force": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "crossing_guard",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.5,
+      "speed_value": 0.8,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "child_pedestrian_1",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 3.5,
+      "speed_value": 1.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "child_pedestrian_2",
+      "action_type": "speed",
+      "trigger_type": "after_previous",
+      "speed_value": 0.9,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.5
+    },
+    {
+      "actor_id": "parent_car",
+      "action_type": "brake",
+      "trigger_type": "ego_speed",
+      "trigger_value": 5.0,
+      "trigger_comparison": "<",
+      "brake_force": 0.6,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    }
+  ],
+  "success_distance": 50,
+  "timeout": 70,
+  "collision_allowed": false
+}

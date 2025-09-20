@@ -1,0 +1,1 @@
+I need a scenario where I'm driving at moderate speed on a wet road and the vehicle ahead of me suddenly hits the brakes hard after initially matching my speed. Set this up about 40 meters ahead.

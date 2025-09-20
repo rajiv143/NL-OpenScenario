@@ -1,0 +1,1 @@
+Rush hour intersection chaos - multiple vehicles from different directions. Cross traffic yields appropriately, oncoming traffic present. Lunch hour congestion with everyone trying to navigate simultaneously. Tests multi-vehicle intersection coordination.

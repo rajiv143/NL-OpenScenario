@@ -1,0 +1,85 @@
+{
+  "scenario_name": "sunset_ped_vehicle_088",
+  "description": "Evening pedestrian and vehicle interaction",
+  "weather": "clear_sunset",
+  "ego_vehicle_model": "vehicle.dodge.charger_2020",
+  "ego_spawn": {
+    "criteria": {
+      "lane_type": "Driving",
+      "is_intersection": false,
+      "road_context": "suburban"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "evening_walker",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0023",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Sidewalk",
+          "distance_to_ego": {"min": 25, "max": 35},
+          "relative_position": "ahead",
+          "road_relationship": "same_road"
+        }
+      }
+    },
+    {
+      "id": "evening_car",
+      "type": "vehicle",
+      "model": "vehicle.mini.cooper_s_2021",
+      "spawn": {
+        "criteria": {
+          "lane_type": "Driving",
+          "distance_to_ego": {"min": 45, "max": 60},
+          "relative_position": "ahead",
+          "road_relationship": "same_road",
+          "lane_relationship": "same_lane"
+        }
+      }
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "evening_walker",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 1.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 1.0
+    },
+    {
+      "actor_id": "evening_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 1.0,
+      "speed_value": 8.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "cubic",
+      "dynamics_value": 2.5
+    },
+    {
+      "actor_id": "evening_car",
+      "action_type": "stop",
+      "trigger_type": "time",
+      "trigger_value": 4.5,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "linear",
+      "dynamics_value": 2.0
+    },
+    {
+      "actor_id": "evening_walker",
+      "action_type": "wait",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 10,
+      "trigger_comparison": "<",
+      "wait_duration": 2.0
+    }
+  ],
+  "success_distance": 95,
+  "timeout": 60,
+  "collision_allowed": false
+}

@@ -1,0 +1,1 @@
+Create an extreme camera challenge scenario at sunset with chrome motorcycle creating specular highlights, a vehicle silhouetted against bright sky, police car with strobing lights causing temporal artifacts, and reflective truck creating sun glare. Test camera auto-exposure, HDR processing, and glare suppression capabilities.

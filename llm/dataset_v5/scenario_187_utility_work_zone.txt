@@ -1,0 +1,1 @@
+Create a utility work zone with multiple bucket trucks performing overhead work, ground support workers, oncoming traffic in narrow passage, and impatient motorcycle behind. Test navigation around elevated work platforms and worker safety zones in light rain conditions affecting visibility.

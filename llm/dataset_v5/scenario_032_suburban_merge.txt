@@ -1,0 +1,1 @@
+Suburban road with parked car avoidance - vehicle ahead slows for obstacle (parked car, garbage truck, etc) then carefully merges into my lane to go around. Wet conditions make it extra cautious. Very common suburban scenario.

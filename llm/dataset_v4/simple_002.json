@@ -1,0 +1,48 @@
+{
+  "scenario_name": "generated_scenario",
+  "description": "Generated CARLA scenario",
+  "weather": "clear",
+  "ego_vehicle_model": "vehicle.audi.etron.e-tron",
+  "ego_spawn": {
+    "lane_type": "Driving",
+    "road_context": "town",
+    "spawn": {
+      "distance": 50,
+      "road_relationship": "same_road",
+      "relative_position": "behind"
+    }
+  },
+  "ego_start_speed": 10,
+  "actors": [
+    {
+      "id": "behind_car",
+      "type": "vehicle",
+      "model": "vehicle.mercedes.coupe",
+      "spawn": {
+        "lane_type": "Driving",
+        "road_context": "town",
+        "spawn": {
+          "distance": 40,
+          "road_relationship": "opposite_lane",
+          "relative_position": "ahead"
+        }
+      },
+      "color": "255,0,0"
+    }
+  ],
+  "actions": [
+    {
+      "actor_id": "behind_car",
+      "action_type": "speed",
+      "trigger_type": "time",
+      "trigger_value": 2.0,
+      "speed_value": 15.0,
+      "dynamics_dimension": "time",
+      "dynamics_shape": "step",
+      "dynamics_value": 0.1
+    }
+  ],
+  "success_distance": 70,
+  "timeout": 60,
+  "collision_allowed": false
+}
