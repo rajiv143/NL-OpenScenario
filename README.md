@@ -1,351 +1,229 @@
-# CARLA Scenario Generation Pipeline
+# Natural Language → CARLA Scenario Generation
 
-A comprehensive pipeline for generating CARLA simulation scenarios from natural language descriptions using fine-tuned Large Language Models (LLMs).
+A Python pipeline that turns natural-language driving descriptions into executable [CARLA](https://carla.org/) simulation scenarios via a fine-tuned LLM, intermediate JSON, and [OpenSCENARIO](https://www.asam.net/standards/detail/openscenario/) (XOSC).
 
-## Overview
+MSc Artificial Intelligence project, Loughborough University.
 
-This project provides an end-to-end pipeline that:
-1. Takes natural language descriptions of driving scenarios
-2. Generates structured JSON scenario definitions using LLM (base or fine-tuned)
-3. Converts JSON to OpenSCENARIO (XOSC) format for CARLA simulator
-4. Validates outputs at each stage
+---
+
+## Why this exists
+
+Autonomous vehicle developers need enormous scenario libraries to validate their stacks, but hand-authoring them doesn't scale.
+
+![The Testing Challenge](images/testing-challenge.jpg)
+
+Manual authoring tops out at 5–10 scenarios per engineer per day, while credible coverage targets sit in the hundreds of thousands. This project closes that gap by letting a domain expert (or anyone) describe a scenario in English and get back a valid, runnable XOSC file in seconds.
+
+![Technical Gap Analysis](images/gap-analysis.jpg)
+
+---
+
+## Pipeline
+
+The system is a four-stage pipeline. The repository in this folder implements stages 3 and 4; stage 2 is a fine-tuned Llama-3.2-3B-Instruct served separately.
+
+![Solution Architecture](images/architecture.jpg)
+
+1. **Natural language input** from the user ("Red sedan brakes suddenly at intersection")
+2. **LLM processing** — fine-tuned model emits a flat JSON scenario
+3. **JSON → OpenSCENARIO conversion** — `xosc_json.py` validates the JSON and renders an XOSC file
+4. **Execution in CARLA** via ScenarioRunner
+
+---
+
+## Repository structure
+
+```bash
+├── xosc_json.py                    # Main JSON → XOSC converter
+├── spawn_meta.py                   # CARLA spawn-point metadata extractor
+├── scenario_*.json                 # 200+ example scenario definitions
+├── scenario_*.txt                  # Natural-language prompts matched to each JSON
+├── enhanced_Town01.json            # Town01 spawn/road metadata
+├── OpenSCENARIO.xsd                # Schema for XOSC validation
+├── environment.yml                 # Conda environment (converter)
+├── llm310_environment.yml          # Conda environment (LLM fine-tuning, Python 3.10)
+├── scenario_runner_requirements.txt
+├── requirements.txt
+└── readme.md
+```
+
+The `scenario_*` files cover eight categories — car following, lane change, pedestrian crossing, weather/visibility, static obstacles, vulnerable road users, emergency priority, and multi-actor — each with a matched `.txt` prompt and `.json` target.
+
+---
 
 ## Features
 
-- **Natural Language Input**: Describe scenarios in plain English
-- **LLM-Powered Generation**: Uses Llama 3.2 models (base or fine-tuned)
-- **JSON to XOSC Conversion**: Automatic conversion to CARLA-compatible format
-- **Multiple Operation Modes**: Interactive, batch processing, testing, and benchmarking
-- **Validation Pipeline**: Ensures valid JSON structure and XOSC compliance
-- **Weather Recognition**: Automatically extracts and applies weather conditions from descriptions
+- **JSON → XOSC conversion** from a flat, LLM-friendly schema to fully compliant OpenSCENARIO XML
+- **Schema validation** against both the JSON schema and the official OpenSCENARIO XSD
+- **CARLA catalog support** for vehicles, pedestrians, weather presets, and map validation
+- **Action library**: `speed`, `stop`, `wait`, `lane_change`, and more
+- **Trigger library**: `time`, `distance_to_ego`, `after_previous`
+- **Tunable dynamics**: `dynamics_dimension`, `dynamics_shape`, `dynamics_value` for smooth transitions
+
+---
+
+## Tech stack
+
+![Technical Implementation](images/tech-stack.jpg)
+
+- **LLM**: Llama-3.2-3B-Instruct, LoRA fine-tuned in 4-bit via Hugging Face Transformers
+- **Backend**: Python 3.9+, JSON Schema validation, lxml
+- **Simulation**: CARLA 0.9.15, OpenSCENARIO, ScenarioRunner
+
+---
+
+## Results
+
+The fine-tuned model went from producing zero valid scenarios at baseline to 92% validity after 32 minutes of training on 534 examples (single RTX 3090). End-to-end generation takes ~11 seconds per scenario.
+
+![Results and Achievements](images/results.jpg)
+
+![Fine-tuning Performance Impact](images/performance-chart.jpg)
+
+---
 
 ## Prerequisites
 
-- Python 3.10 (specifically 3.10.18 for best compatibility with llm310 environment)
-- CUDA-capable GPU (recommended for performance)
-- CUDA 11.8+ runtime
-- 8GB+ GPU memory for 4-bit quantization
-- CARLA Simulator (optional, for running generated scenarios)
+- Python 3.7+ (converter tested on 3.7; LLM stack needs 3.10)
+- `xmlschema`, `jsonschema`, `lxml`
+- CARLA 0.9.15 + ScenarioRunner (for execution only)
 
-## Installation
-
-### Using Conda Environment (Recommended)
-
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd Rajiv
+pip install jsonschema xmlschema lxml
 ```
 
-2. Create and activate the conda environment:
+Or use the provided conda environments:
+
 ```bash
-conda env create -f llm310_environment.yml
-conda activate llm310
+conda env create -f environment.yml           # converter
+conda env create -f llm310_environment.yml    # LLM fine-tuning
 ```
 
-This environment includes all necessary dependencies with specific versions for compatibility.
-
-### Manual Installation
-
-If you prefer pip installation:
-```bash
-pip install -r requirements.txt
-```
-
-### Model Setup
-
-Download model files (if using pre-trained models):
-- Place fine-tuned model in: `./llm/exported_models/llama-carla-model-v5-improved/`
-- Base model will be downloaded automatically from HuggingFace
-
-## Project Structure
-
-```
-Rajiv/
-├── carla_scenario_pipeline.py    # Main pipeline orchestrator
-├── llm/
-│   ├── inference_carla_model.py  # LLM inference engine
-│   └── exported_models/          # Fine-tuned model storage
-├── xosc_json.py                  # JSON to XOSC converter
-├── pipeline_output/              # Generated outputs (auto-created)
-│   ├── json/                     # Generated JSON scenarios
-│   ├── xosc/                     # Converted XOSC files
-│   └── logs/                     # Processing logs and results
-└── requirements.txt              # Python dependencies
-```
+---
 
 ## Usage
 
-### 1. Using the Complete Pipeline (carla_scenario_pipeline.py)
+### 1. Prepare a JSON scenario
 
-The pipeline script provides a unified interface for the entire generation process.
+Either write one by hand against the schema, or have the fine-tuned LLM generate it from a natural-language prompt. See any `scenario_*.json` / `scenario_*.txt` pair for matched examples.
 
-#### Interactive Mode (Default)
+### 2. Convert to OpenSCENARIO
+
 ```bash
-python carla_scenario_pipeline.py --model finetuned
+python xosc_json.py scenario_001_basic_following.json -o scenario_001.xosc
 ```
-Enter scenario descriptions interactively. Type 'quit' to exit.
 
-#### Single Scenario Generation
+This validates the JSON against the schema and writes a pretty-printed XOSC file.
+
+### 3. Run in CARLA
+
 ```bash
-python carla_scenario_pipeline.py --mode single \
-    --description "A red car stops suddenly ahead in heavy rain" \
-    --model finetuned
+./scenario_runner.py --openscenario scenario_001.xosc --reloadWorld --output
 ```
 
-#### Batch Processing
-Create a JSON file with multiple scenarios:
-```json
-{
-  "test_scenarios": [
-    {"id": "test1", "description": "A vehicle ahead brakes suddenly"},
-    {"id": "test2", "description": "Pedestrian crossing in foggy conditions"}
-  ]
-}
-```
+Ensure the CARLA server is running on port `2000`.
 
-Process the batch:
-```bash
-python carla_scenario_pipeline.py --mode batch \
-    --batch-file scenarios.json \
-    --model finetuned
-```
+---
 
-#### Test Mode
-Run predefined test scenarios:
-```bash
-python carla_scenario_pipeline.py --mode test --model finetuned
-```
+## Example scenarios
 
-#### Command-line Options
-- `--model`: Choose between 'finetuned' or 'base' model
-- `--mode`: Operation mode (interactive/single/batch/test)
-- `--description`: Scenario description for single mode
-- `--batch-file`: Input file for batch processing
-- `--output-dir`: Directory for outputs (default: pipeline_output)
-- `--no-save`: Skip saving output files
+The fine-tuned model handles both mundane and adversarial cases. Two from the presentation demo:
 
-### 2. Using the JSON to XOSC Converter (xosc_json.py)
+![Generated Scenario Examples](images/scenario-examples.jpg)
 
-The `xosc_json.py` module provides the `JsonToXoscConverter` class for converting JSON scenario definitions to OpenSCENARIO (XOSC) format.
-
-#### Standalone Usage
-
-While typically used through the pipeline, you can use the converter directly in Python:
-
-```python
-from xosc_json import JsonToXoscConverter
-import json
-
-# Initialize converter
-converter = JsonToXoscConverter()
-
-# Load your JSON scenario
-with open('scenario.json', 'r') as f:
-    scenario_data = json.load(f)
-
-# Convert to XOSC
-xosc_output = converter.convert(scenario_data)
-
-# Save XOSC file
-with open('scenario.xosc', 'w') as f:
-    f.write(xosc_output)
-```
-
-#### Converter Features
-
-- **Vehicle Validation**: Validates against CARLA's vehicle catalog
-- **Spawn Point Selection**: Intelligent spawn point selection based on criteria:
-  - Lane type (Driving, Parking, etc.)
-  - Distance to ego vehicle
-  - Relative position (ahead, behind, adjacent)
-  - Road relationship (same road, different road)
-- **Weather Mapping**: Converts weather descriptions to CARLA parameters
-- **Action Translation**: Converts high-level actions to XOSC maneuvers
-- **Safety Checks**: Enforces minimum distances and prevents invalid spawns
-
-#### Supported Spawn Criteria
+### Minimal JSON input
 
 ```json
 {
-  "lane_type": "Driving",           // Lane type constraint
-  "is_intersection": false,          // Intersection requirement
-  "distance_to_ego": {               // Distance constraints
-    "min": 20,
-    "max": 60
-  },
-  "lane_relationship": "adjacent",   // same_lane, adjacent, opposite
-  "relative_position": "ahead",      // ahead, behind, alongside
-  "road_relationship": "same_road"   // same_road, different_road
-}
-```
-
-#### Map Data
-
-The converter uses pre-extracted spawn point data for various CARLA maps stored in JSON files. These include validated spawn points with road and lane information.
-
-### 3. Using Direct LLM Inference (inference_carla_model.py)
-
-For direct model interaction without the full pipeline:
-
-#### Interactive Generation
-```bash
-python llm/inference_carla_model.py --mode interactive
-```
-
-#### Test Cases
-```bash
-python llm/inference_carla_model.py --mode test
-```
-
-#### Performance Benchmark
-```bash
-python llm/inference_carla_model.py --mode benchmark
-```
-
-#### Batch Generation from File
-Create a text file with one scenario description per line:
-```
-A car stops at a red traffic light
-Heavy rain reduces visibility on highway
-Multiple vehicles at roundabout
-```
-
-Run batch generation:
-```bash
-python llm/inference_carla_model.py --mode batch \
-    --input-file descriptions.txt \
-    --output-dir generated_scenarios
-```
-
-#### Advanced Options
-- `--model-path`: Path to fine-tuned model
-- `--base-model`: Base model name (default: meta-llama/Llama-3.2-3B-Instruct)
-- `--temperature`: Generation temperature (0.0-1.0, default: 0.3)
-- `--max-tokens`: Maximum tokens to generate (default: 1500)
-- `--no-4bit`: Disable 4-bit quantization
-- `--merge-lora`: Merge LoRA weights for faster inference
-
-## Example Scenarios
-
-### Simple Scenario
-```
-Description: "A blue car stops 10 meters ahead"
-```
-
-### Weather-Specific Scenario
-```
-Description: "Heavy rain reduces visibility while following a truck on highway"
-```
-
-### Complex Multi-Actor Scenario
-```
-Description: "At a busy intersection, a pedestrian crosses while two cars approach from different directions in foggy conditions"
-```
-
-## Output Formats
-
-### Generated JSON Structure
-```json
-{
-  "scenario_name": "generated_scenario_001",
-  "description": "A vehicle stops ahead",
-  "weather": "clear",
-  "ego_vehicle_model": "vehicle.audi.a2",
-  "ego_spawn": {
-    "criteria": {
-      "lane_type": "Driving",
-      "is_intersection": false
+  "scenario_name": "PedestrianCrossingFront",
+  "map_name": "Town01",
+  "ego_start_position": "150,55,0,180",
+  "actors": [
+    {
+      "id": "adversary",
+      "type": "pedestrian",
+      "model": "walker.pedestrian.0001",
+      "start_position": "110,52,0.3,90"
     }
-  },
-  "actors": [...],
-  "actions": [...],
-  "success_distance": 100,
+  ],
+  "actions": [
+    {
+      "actor_id": "adversary",
+      "action_type": "speed",
+      "trigger_type": "distance_to_ego",
+      "trigger_value": 40,
+      "speed_value": 10.0
+    },
+    {
+      "actor_id": "adversary",
+      "action_type": "stop",
+      "trigger_type": "after_previous"
+    }
+  ],
+  "success_distance": 200,
   "timeout": 60,
   "collision_allowed": false
 }
 ```
 
-### XOSC Output
-The pipeline automatically converts JSON to OpenSCENARIO format compatible with CARLA.
+### Generated XOSC snippet
 
-## Performance Considerations
-
-### GPU Memory Requirements
-- **4-bit Quantization** (default): ~4-6 GB VRAM
-- **Full Precision**: ~12-16 GB VRAM
-
-### Generation Speed
-- **With 4-bit**: ~50-100 tokens/second on RTX 3090
-- **Interactive Mode**: 2-5 seconds per scenario
-- **Batch Mode**: Processes ~20-30 scenarios per minute
-
-### Optimization Tips
-1. Use 4-bit quantization (default) for faster inference
-2. Batch process scenarios when possible
-3. Lower temperature (0.1-0.3) for more consistent outputs
-4. Increase temperature (0.7-0.9) for more creative scenarios
-
-## Troubleshooting
-
-### CUDA Out of Memory
-- Ensure 4-bit quantization is enabled (default)
-- Reduce `--max-tokens` parameter
-- Close other GPU-intensive applications
-
-### Model Loading Issues
-- Verify model path exists: `./llm/exported_models/`
-- Check CUDA availability: `python -c "import torch; print(torch.cuda.is_available())"`
-- Ensure transformers version: `pip install transformers>=4.36.0`
-
-### Invalid JSON Generation
-- Use lower temperature (0.1-0.3) for more reliable outputs
-- Increase `--max-tokens` if scenarios are truncated
-- Check model is properly loaded (should show "✓ Model loaded successfully")
-
-### Missing Dependencies
-```bash
-# Minimal installation
-pip install -r requirements_minimal.txt
-
-# For Python 3.7
-pip install -r requirements_py37.txt
+```xml
+<Story name="MyStory">
+  <Act name="Behavior">
+    <ManeuverGroup maximumExecutionCount="1" name="adversaryManeuverGroup">
+      <Actors selectTriggeringEntities="false">
+        <EntityRef entityRef="adversary"/>
+      </Actors>
+      <Maneuver name="adversaryManeuver">
+        <Event name="adversaryEvent0" priority="overwrite">
+          <Action name="adversaryAction0">
+            <PrivateAction>
+              <LongitudinalAction>
+                <SpeedAction>
+                  <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+                  <SpeedActionTarget>
+                    <AbsoluteTargetSpeed value="10.0"/>
+                  </SpeedActionTarget>
+                </SpeedAction>
+              </LongitudinalAction>
+            </PrivateAction>
+          </Action>
+          <StartTrigger>…</StartTrigger>
+        </Event>
+      </Maneuver>
+    </ManeuverGroup>
+  </Act>
+</Story>
 ```
 
-## Development
+---
 
-### Adding Custom Scenarios
-Edit test cases in `inference_carla_model.py`:
-```python
-test_cases = [
-    "Your custom scenario description here",
-    # Add more test cases
-]
-```
+## Demo
 
-### Modifying Generation Parameters
-Adjust in `CarlaScenarioGenerator.generate_scenario()`:
-- `temperature`: Controls randomness (0.0 = deterministic, 1.0 = creative)
-- `top_p`: Nucleus sampling parameter
-- `repetition_penalty`: Prevents repetitive text
+<!--
+Tutorial video placeholder. Once recorded, either:
+ - embed a thumbnail linked to YouTube:
+     [![Watch the demo](images/demo-thumbnail.jpg)](https://youtu.be/YOUR_VIDEO_ID)
+ - or drop short GIF clips into images/ and inline them per step below.
+-->
 
-### Custom Weather Mappings
-Edit `_extract_weather_from_description()` in `inference_carla_model.py` to add new weather patterns.
+End-to-end flow shown in the demo video:
 
-## License
+[![Watch the demo](images/demo-thumbnail.jpg)](https://youtu.be/I1znubiJYgo)
 
-[Your License Here]
+---
+
+## Limitations and future work
+
+- **Scope**: limited to urban driving scenarios; highway and off-road untested
+- **Complexity**: reliably handles 2–3 entities; many-actor scenes degrade
+- **Partial trigger/action coverage**: extended triggers (e.g. `reach_position`) not yet implemented
+- **No scene-graph validation**: assumes CARLA maps and catalogs exist and are correctly referenced
+- **Next steps**: larger synthetic datasets, adversarial scenario mining, support for Town03/Town05
+
+---
 
 ## Contributing
 
-Contributions are welcome! Please submit pull requests or open issues for bugs and feature requests.
-
-## Acknowledgments
-
-- CARLA Simulator Team
-- Meta Llama Team
-- HuggingFace Transformers Library
-
-## Contact
-
-For questions or support, please open an issue on the GitHub repository.
+Issues and pull requests welcome — particularly for new action types, trigger conditions, and schema extensions.
