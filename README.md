@@ -84,7 +84,7 @@ The fine-tuned model went from producing zero valid scenarios at baseline to 92%
 
 ## Prerequisites
 
-- Python 3.7+ (converter tested on 3.7; LLM stack needs 3.10)
+- Python 3.7+
 - `xmlschema`, `jsonschema`, `lxml`
 - CARLA 0.9.15 + ScenarioRunner (for execution only)
 
